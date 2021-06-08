@@ -1,0 +1,78 @@
+﻿@model CategoryDto
+@{
+    if (Model != null)
+    {
+        ViewData["Title"] = Model.CategoryName + " - " + @Translator.GetByKey("ProjectName");
+        ViewData["Description"] = Model.SeoDescription;
+        ViewData["Keywords"] = Model.SeoKeywords;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@section SectionTop{
+    @if (Model != null)
+    {
+        <!-- General, facebook, whatsapp -->
+        <meta property="og:url" content="@LayoutModel.WebMobileUIUrl@Model.Url" />
+        <meta property="og:type" content="news" />
+        <meta property="og:title" content="@Model.CategoryName" />
+        <meta property="og:description" content="@Model.SeoDescription" />
+        <meta property="og:image" content="@Model.FeaturedImageFile?.FileName" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@LayoutModel.Option.Twitter">
+        <meta name="twitter:url" content="@LayoutModel.WebMobileUIUrl@Model.Url">
+        <meta name="twitter:title" content="@Model.CategoryName">
+        <meta name="twitter:description" content="@Model.SeoDescription">
+        <meta name="twitter:image" content="@Model.FeaturedImageFile?.FileName">
+        <meta name="twitter:domain" content="@LayoutModel.WebMobileUIUrl">
+
+        <style>
+            .large-slide-container {
+                width: 100% !important;
+            }
+        </style>
+    }
+}
+@if (Model != null)
+{
+    <section id="main">
+        <div class="container">
+            @* Reklam Alanı:
+                <div class="top-banner text-center mb14 hidden-xs"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
+            *@
+
+            <div class="row mb14">
+                <div class="col-sm-8">
+
+                    <div class="oda-title" style="color: @Model.StyleCode !important;border-left: 5px solid @Model.StyleCode !important;">
+                        @Model.CategoryName
+                    </div>
+
+                    <div class="row">
+                        @await Component.InvokeAsync("MainHeading", new { url = Model.Url })
+                    </div>
+
+                    <div class="column-news-wrapper-big clearfix">
+
+                        @await Component.InvokeAsync("CategoryPageNews", new { url = Model.Url })
+
+
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <!--right col-->
+
+                    @await Component.InvokeAsync("MostViewedNews")
+
+                    <!--right col end-->
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+}

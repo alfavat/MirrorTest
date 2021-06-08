@@ -1,0 +1,20 @@
+﻿@model AuthorWithDetailsDto
+
+@if (Model != null && Model.ArticleList.HasValue())
+{
+    var i = 0;
+    @foreach (var item in Model.ArticleList)
+    {
+        <a href="@item.Url" class="article-item-link br5">
+            <div class="article-title">@item.Title</div>
+            @if (item.PublishDate.HasValue)
+            {
+                <div class="article-date">
+                    @item.PublishDate.Value.ToString("dd/MM/yyyy")
+                </div>
+            }
+        </a>
+        i++;
+        if (i >= 6) break;
+    }
+}

@@ -1,0 +1,24 @@
+﻿@model List<BreakingNewsDto>
+
+
+    <div class="mob-order-wrapper-3">
+        <div class="rltv sondakika-ticker-wrapper">
+            <div class="sondakika-ticker">
+                <span class="lbl">@Translator.GetByKey("Son Dakika") :</span>
+                <ul class="braking-news-ticker">
+                    @if (Model.HasValue())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <li><a href="@item.Url">@item.Title</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="sondakika-ticker-btns">
+                <button class="btn btn-default btn-sm braking-news-ticker-prev"><i class="fa fa-caret-left" aria-hidden="true"></i></button>
+                <button class="btn btn-default btn-sm braking-news-ticker-next"><i class="fa fa-caret-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+

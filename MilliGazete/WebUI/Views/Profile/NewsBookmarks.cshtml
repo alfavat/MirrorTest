@@ -1,0 +1,101 @@
+﻿@model List<NewsBookmarkDto>
+@{
+    ViewData["Title"] = "" + @Translator.GetByKey("MySavedNews") + " - " + @Translator.GetByKey("ProjectName");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- content start-->
+<section class="block-wrapper">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <!--left col-->
+
+                <ul class="list-group">
+                    <li class="list-group-item text-right"><a href="~/profilim" class="pull-left"><i class="fa fa-user"></i> @Translator.GetByKey("MyProfile")</a></li>
+                    <li class="list-group-item text-right"><a href="~/sifremi-guncelle" class="pull-left"><i class="fa fa-lock"></i> @Translator.GetByKey("UpdatePassword")</a></li>
+                    <li class="list-group-item text-right"><a href="javascript:;" class="pull-left"><strong><i class="fa fa-bookmark"></i> @Translator.GetByKey("MySavedNews")</strong></a></li>
+                    <li class="list-group-item text-right"><a href="~/yorumlarim" class="pull-left"><i class="fa fa-commenting"></i> @Translator.GetByKey("MyComments")</a></li>
+                    <li class="list-group-item text-right"><a href="~/cikis" class="pull-left"><i class="fa fa-sign-out"></i> @Translator.GetByKey("Logout")</a></li>
+                </ul>
+
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-12"><h2> @Translator.GetByKey("MySavedNews")</h2></div>
+                </div>
+
+                <div class="column-news-wrapper-big clearfix" id="divNews">
+                    @if (Model.Count > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <a href="javascript:;" onclick="DeleteBookmark(@item.NewsId);"><i class="fa fa-remove text-danger"></i></a>
+                            <a href="@item.Url" class="news-item-link br5">
+                                <div class="left rltv">
+                                    <img src="@item.ImageUrl" class="img-responsive m0a">
+                                </div>
+                                <div class="right">
+                                    @*<div class="news-cat spor">SPOR</div>*@
+                                    <div class="news-title">@item.Title</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <div class="row">
+                            @Translator.GetByKey("EmptyNewsBookmark")
+                        </div>
+                    }
+                </div>
+
+            </div><!--/col-9-->
+
+        </div>
+
+    </div>
+
+</section>
+<!-- content end-->
+
+@section SectionBottom{
+
+    <script src="~/js/sweetalert.min.js"></script>
+
+    <script>
+        //Bu kısım js dosyasına taşınabilir
+
+        function DeleteBookmark(_id) {
+
+            var param = { 'newsId': _id };
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/delete-bookmark")",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    if (result.success) {
+                        location.reload();
+                    } else {
+                        swal({
+                            title: "@Translator.GetByKey("Deleted")",
+                            text: result.message,
+                            icon: "error",
+                            button: "@Translator.GetByKey("Ok")"
+                        });
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(error);
+                }
+            });
+
+        }
+
+    </script>
+}

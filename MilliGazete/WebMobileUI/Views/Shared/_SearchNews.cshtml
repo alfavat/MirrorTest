@@ -1,0 +1,26 @@
+﻿@model List<MainPageSearchNewsDto>
+<style>
+    #divNews a {
+        padding-left: 15px;
+        padding-right: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+@if (Model.HasValue())
+{
+    @foreach (var item in Model)
+    {
+        <a href="@item.Url" class="col-11 news-card">
+            <img src="@item.ImageUrl" class="img-fluid" alt="@item.Title">
+            <h2>
+                @item.Title
+            </h2>
+        </a>
+    }
+}
+else
+{
+    @Html.Raw(Translator.GetByKey("noResultFound"))
+}

@@ -1,0 +1,246 @@
+﻿@model NewsDetail
+
+@{
+    if (Model != null)
+    {
+        ViewData["Title"] = @Model.Title + " - " + @Model.NewsCategoryList[0].CategoryName + " - " + @Translator.GetByKey("ProjectName");
+        ViewData["Description"] = Model.SeoDescription;
+        ViewData["Keywords"] = Model.SeoKeywords;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@section SectionTop{
+
+    @if (Model != null)
+    {
+        <!-- General, facebook, whatsapp -->
+        <meta property="og:url" content="@LayoutModel.WebUIUrl@Model.Url" />
+        <meta property="og:type" content="news" />
+        <meta property="og:title" content="@Model.SocialTitle" />
+        <meta property="og:description" content="@Model.SocialDescription" />
+        <meta property="og:image" content="@Model.NewsFileList.Where(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.MainImage).Select(s => s.FileName).FirstOrDefault()" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@LayoutModel.Option.Twitter">
+        <meta name="twitter:url" content="@LayoutModel.WebUIUrl@Model.Url">
+        <meta name="twitter:title" content="@Model.SocialTitle">
+        <meta name="twitter:description" content="@Model.SocialDescription">
+        <meta name="twitter:image" content="@Model.NewsFileList.Where(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.MainImage).Select(s => s.FileName).FirstOrDefault()">
+        <meta name="twitter:domain" content="@LayoutModel.WebUIUrl">
+
+        <style>
+            .news-container-text img {
+                max-width: 710px;
+            }
+        </style>
+    }
+}
+@if (Model != null)
+{
+    <section id="main">
+        <div class="container">
+
+            @* Reklam Alanı:
+                <div class="top-banner text-center mb14 hidden-xs"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
+            *@
+
+            <div class="row mb14">
+                <div class="col-sm-8">
+
+                    <div class="row">
+                        @await Html.PartialAsync("_NewsDetail", Model)
+                    </div>
+                    <div class="row" id="divNews"></div>
+                    <!-- news block -->
+
+                </div>
+                <div class="col-sm-4 hidden-xs" style="position:sticky;top:65px;">
+                    <!--right col-->
+                    @* Reklam Alanı:
+                        <div class="mb14"><img src="http://placehold.it/300x600" class="img-responsive m0a"></div>
+                    *@
+
+                    @await Component.InvokeAsync("MostViewedNews")
+
+                    <!--right col end-->
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    @section SectionBottom{
+        <script src="~/js/jquery.cookie.min.js"></script>
+        <script src="~/js/sweetalert.min.js"></script>
+        <script>
+        setAnchor();
+        UserInit();
+          var hostPath = "@LayoutModel.WebUIUrl";
+        var rootPath = "@Url.Content("")";
+
+
+        function UserInit() {
+            var token = $.cookie("Token");
+            if (token == "" || token == null || token == undefined) {
+                $(".divUser").hide();
+                $(".divNotUser").show();
+            } else {
+                $(".divUser").show();
+                $(".divNotUser").hide();
+            }
+        }
+
+
+        // ======================= comments ======================== //
+        var arrIds = [];
+        var totalComments = [];
+        var page = 1;
+        var newsId = @Model.Id;
+        var commentsCount = '@Model.CommentsCount';
+        $(document).ready(() => {
+            $('.btn-load-more').click(function (e) {
+            var totalPages = Math.ceil(parseInt(commentsCount) / 5);
+            if (++page <= totalPages) {
+                $.ajax({
+                    url: '/newsdetails/newscomments?newsId=' + newsId + "&page=" + page,
+                    type: "get",
+                    success: (res) => {
+                        $(res).insertBefore(this);
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    },
+                    complete: ()=> {
+                        if (page >= totalPages) $('.btn-load-more').remove();
+                    }
+                });
+            }
+            else if (page >= totalPages) $('.btn-load-more').remove();
+        });
+        });
+
+        // ======================= load more comments ================= //
+        function loadMoreComments(el) {
+            var id = el.dataset["id"];
+            var totalComment = el.dataset["total"];
+            if (!arrIds[id]) {
+                arrIds[id] = 1;
+            }
+            if (!totalComments[id]) {
+                totalComments[id] = totalComment;
+            }
+            var totalPages = Math.ceil(parseInt(totalComments[id]) / 5);
+                if (++arrIds[id] <= totalPages) {
+                    $.ajax({
+                        url: '/newsdetails/newscomments?newsId=' + id + "&page=" + arrIds[id],
+                        type: "get",
+                        success: (res) => {
+                            console.log(el);
+                            $(res).insertBefore(el);
+                        },
+                        error: (err) => {
+                            console.log(err);
+                        },
+                        complete: () => {
+                            if (arrIds[id] >= totalPages) $(el).remove();
+                        }
+                    });
+                }
+                else if (arrIds[id] >= totalPages) $(el).remove();
+        }
+
+        // ======================= scroll =============================== //
+        var loadMorePage = 0;
+        var relatedNewsCount = '1';
+
+        function loadMoreNews() {
+            var totalPages = Math.ceil(parseInt(relatedNewsCount) / 1);
+            var url = '@Model.Url';
+            if (++loadMorePage <= totalPages) {
+                $.ajax({
+                       url: '/newsdetails/loadmorenews?url='+url+'&page='+loadMorePage,
+                       type: "get",
+                    success: (res) => {
+                        relatedNewsCount = $(res).find('#newsCount').html();
+                           $('#divNews').append(res);
+                       },
+                       error: (err) => {
+                           console.log(err);
+                    },
+                    complete: () => {
+                        process = false;
+                        UserInit();
+                    }
+                   });
+            }
+        }
+        var process = false;
+            var arrHistory = [];
+            var baseUrl = "@Model.Url";
+        arrHistory.push(window.location.pathname);
+        function isElementInViewport(el) {
+            if (typeof jQuery === "function" && el instanceof jQuery) {
+                el = el[0];
+            }
+            var rect = el.getBoundingClientRect();
+            var res = rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */;
+            return res;
+        }
+        function isVisible(el) {
+            var top_of_element = $(el).offset().top+window.innerHeight - 100;
+            var bottom_of_element = $(el).offset().top + $(el).outerHeight();
+            var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+            var top_of_screen = $(window).scrollTop();
+
+            if ((bottom_of_screen > (top_of_element )) && (top_of_screen < bottom_of_element)) {
+                return true
+            }
+            return false;
+        }
+        $(window).scroll(function () {
+            $(".anchor").each(function (idx, el) {
+                if (isVisible(el)) {
+                    if (window.history.pushState) {
+                        var oldUrl = window.location.pathname;
+                        var newUrl = $(el).attr("url");
+
+                        if (oldUrl != newUrl && baseUrl != newUrl) {
+                            if (arrHistory.indexOf(newUrl) === -1 || (arrHistory.length > 1 && arrHistory[arrHistory.length - 1] != newUrl && arrHistory[arrHistory.length - 2] != newUrl)) {
+                                arrHistory.push(newUrl);
+                                window.history.pushState(null, null, newUrl);
+                            }
+                        }
+                    }
+                }
+            });
+
+            if ($(document).height() - $(this).height() - 400 < $(this).scrollTop()) {
+                if (!process) {
+                    process = true;
+                    loadMoreNews();
+                }
+            }
+        });
+
+        function setAnchor() {
+            var currentUrl = window.location.pathname;
+            var parseUrl = currentUrl.split('/');
+            var galleryId = parseUrl[3];
+
+            if (galleryId !== undefined && galleryId !== null && galleryId !== "") {
+                $("html, body").animate({
+                    scrollTop: $('.anchor [url="' + currentUrl + '"]').offset().top - 200
+                }, 1000);
+            }
+        }
+        </script>
+    }
+}

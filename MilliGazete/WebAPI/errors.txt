@@ -1,0 +1,180 @@
+{"statusCode":500,"message":"Object reference not set to an instance of an object."}
+
+{"statusCode":401,"message":"Oturum süreniz dolmuş. Lütfen tekrar giriş yapın"}
+
+{"statusCode":500,"message":"A command is already in progress SELECT n1.active, CASE\r\n    WHEN FALSE = TRUE THEN ''\r\n    ELSE u.user_name\r\nEND, n1.approved, (a.id IS NULL), a.created_at, a.email, (f.id IS NULL), f.created_at, f.id, f.deleted, f.file_name, f.file_size_kb, f.file_type, f.height, f.is_cdn_file, f.user_id, f.video_sound, f.width, a.featured_image_file_id, a.html_biography, a.id, a.instagram, a.name_surename, (f0.id IS NULL), f0.created_at, f0.id, f0.deleted, f0.file_name, f0.file_size_kb, f0.file_type, f0.height, f0.is_cdn_file, f0.user_id, f0.video_sound, f0.width, a.photo_file_id, a.seo_description, a.seo_keywords, a.seo_title, a.twitter, a.url, a.web, n1.author_id, n1.created_at, COALESCE(n1.history_no, 0), n1.html_content, n1.id, n1.inner_title, n1.is_draft, (e.id IS NULL), e.entity_name, n1.news_agency_entity_id, CASE\r\n    WHEN TRUE = TRUE THEN (\r\n        SELECT COUNT(*)INT\r\n        FROM news_hit_detail AS n\r\n        WHERE (n1.id = n.\" news_id\") AND (n.created_at >= (NOW() + INTERVAL '-2 mins')))\r\n    ELSE 0\r\nEND, (e0.id IS NULL), e0.entity_name, n1.news_type_entity_id, n1.publish_date, n1.publish_time, n1.seo_description, n1.seo_keywords, n1.seo_title, n1.short_description, n1.social_description, n1.social_title, EXISTS (\r\n    SELECT 1\r\n    FROM news_file AS n0\r\n    WHERE (n1.id = n0.news_id) AND (n0.news_file_type_entity_id = 30)), t0.id, t0.created_at, t0.deleted, t0.file_name, t0.file_size_kb, t0.file_type, t0.height, t0.is_cdn_file, t0.user_id, t0.video_sound, t0.width, n1.title, n1.updated_at, CASE\r\n    WHEN (u0.id IS NULL) THEN ''\r\n    ELSE u0.user_name\r\nEND, n1.add_user_id, n1.deleted, n1.history_no, n1.is_last_news, n1.update_user_id, n1.url, u.id, n3.category_id, n3.id, t1.c, t1.id, t1.created_at, t1.deleted, t1.file_name, t1.file_size_kb, t1.file_type, t1.height, t1.is_cdn_file, t1.user_id, t1.video_sound, t1.width, t1.description, t1.file_id, t1.c0, t1.id0, t1.created_at0, t1.deleted0, t1.file_name0, t1.file_size_kb0, t1.file_type0, t1.height0, t1.is_cdn_file0, t1.user_id0, t1.video_sound0, t1.width0, t1.news_file_type_entity_id, t1.\"order\", t1.title, t1.video_cover_file_id, t1.id1, t4.c, t4.id, t4.short_description, t4.c0, t4.id0, t4.created_at, t4.deleted, t4.file_name, t4.file_size_kb, t4.file_type, t4.height, t4.is_cdn_file, t4.user_id, t4.video_sound, t4.width, t4.title, t4.news_id, t4.\"order\", t4.position_entity_id, t4.value, t4.id1, n9.property_entity_id, n9.value, n9.id, t7.c, t7.active, t7.c0, t7.approved, t7.created_at, t7.c1, t7.html_content, t7.id, t7.is_draft, t7.c2, t7.entity_name, t7.news_agency_entity_id, t7.c3, t7.entity_name0, t7.news_type_entity_id, t7.publish_date, t7.publish_time, t7.seo_description, t7.seo_keywords, t7.seo_title, t7.short_description, t7.social_description, t7.social_title, t7.c4, t7.id0, t7.created_at0, t7.deleted, t7.file_name, t7.file_size_kb, t7.file_type, t7.height, t7.is_cdn_file, t7.user_id, t7.video_sound, t7.width, t7.title, t7.updated_at, t7.c5, t7.add_user_id, t7.author_id, t7.deleted0, t7.history_no, t7.inner_title, t7.is_last_news, t7.update_user_id, t7.url, t7.related_news_id, t7.id1, t7.id2, t9.tag_id, t9.c, t9.c0, t9.id, t9.id0, t11.id, t11.news_id, t11.tag_id, t11.id0, t11.active, t11.created_at, t11.deleted, t11.tag_name, t11.url, n16.id, n16.created_at, n16.ip_address, n16.news_hit_come_from_entity_id, n16.\" news_id\", n16.user_id, t12.id, t12.category_id, t12.news_id, t12.id0, t12.active, t12.category_name, t12.created_at, t12.deleted, t12.featured_image_file_id, t12.heading_position_entity_id, t12.is_static, t12.parent_category_id, t12.seo_description, t12.seo_keywords, t12.style_code, t12.symbol, t12.url\r\nFROM news AS n1\r\nINNER JOIN \"user\" AS u ON n1.add_user_id = u.id\r\nLEFT JOIN author AS a ON n1.author_id = a.id\r\nLEFT JOIN file AS f ON a.featured_image_file_id = f.id\r\nLEFT JOIN file AS f0 ON a.photo_file_id = f0.id\r\nLEFT JOIN entity AS e ON n1.news_agency_entity_id = e.id\r\nLEFT JOIN entity AS e0 ON n1.news_type_entity_id = e0.id\r\nLEFT JOIN \"user\" AS u0 ON n1.update_user_id = u0.id\r\nLEFT JOIN (\r\n    SELECT t.id, t.created_at, t.deleted, t.file_name, t.file_size_kb, t.file_type, t.height, t.is_cdn_file, t.user_id, t.video_sound, t.width, t.id0, t.news_id\r\n    FROM (\r\n        SELECT f1.id, f1.created_at, f1.deleted, f1.file_name, f1.file_size_kb, f1.file_type, f1.height, f1.is_cdn_file, f1.user_id, f1.video_sound, f1.width, n2.id AS id0, n2.news_id, ROW_NUMBER() OVER(PARTITION BY n2.news_id ORDER BY n2.id, f1.id) AS row\r\n        FROM news_file AS n2\r\n        INNER JOIN file AS f1 ON n2.file_id = f1.id\r\n        WHERE n2.news_file_type_entity_id = 30\r\n    ) AS t\r\n    WHERE t.row <= 1\r\n) AS t0 ON n1.id = t0.news_id\r\nLEFT JOIN news_category AS n3 ON n1.id = n3.news_id\r\nLEFT JOIN (\r\n    SELECT (f2.id IS NULL) AS c, f2.id, f2.created_at, f2.deleted, f2.file_name, f2.file_size_kb, f2.file_type, f2.height, f2.is_cdn_file, f2.user_id, f2.video_sound, f2.width, n4.description, n4.file_id, FALSE AS c0, f3.id AS id0, f3.created_at AS created_at0, f3.deleted AS deleted0, f3.file_name AS file_name0, f3.file_size_kb AS file_size_kb0, f3.file_type AS file_type0, f3.height AS height0, f3.is_cdn_file AS is_cdn_file0, f3.user_id AS user_id0, f3.video_sound AS video_sound0, f3.width AS width0, n4.news_file_type_entity_id, n4.\"order\", n4.title, n4.video_cover_file_id, n4.id AS id1, n4.news_id\r\n    FROM news_file AS n4\r\n    LEFT JOIN file AS f2 ON n4.video_cover_file_id = f2.id\r\n    INNER JOIN file AS f3 ON n4.file_id = f3.id\r\n) AS t1 ON n1.id = t1.news_id\r\nLEFT JOIN (\r\n    SELECT FALSE AS c, n7.id, n7.short_description, EXISTS (\r\n        SELECT 1\r\n        FROM news_file AS n5\r\n        WHERE (n7.id = n5.news_id) AND (n5.news_file_type_entity_id = 30)) AS c0, t3.id AS id0, t3.created_at, t3.deleted, t3.file_name, t3.file_size_kb, t3.file_type, t3.height, t3.is_cdn_file, t3.user_id, t3.video_sound, t3.width, n7.title, n6.news_id, n6.\"order\", n6.position_entity_id, n6.value, n6.id AS id1\r\n    FROM news_position AS n6\r\n    INNER JOIN news AS n7 ON n6.news_id = n7.id\r\n    LEFT JOIN (\r\n        SELECT t2.id, t2.created_at, t2.deleted, t2.file_name, t2.file_size_kb, t2.file_type, t2.height, t2.is_cdn_file, t2.user_id, t2.video_sound, t2.width, t2.id0, t2.news_id\r\n        FROM (\r\n            SELECT f4.id, f4.created_at, f4.deleted, f4.file_name, f4.file_size_kb, f4.file_type, f4.height, f4.is_cdn_file, f4.user_id, f4.video_sound, f4.width, n8.id AS id0, n8.news_id, ROW_NUMBER() OVER(PARTITION BY n8.news_id ORDER BY n8.id, f4.id) AS row\r\n            FROM news_file AS n8\r\n            INNER JOIN file AS f4 ON n8.file_id = f4.id\r\n            WHERE n8.news_file_type_entity_id = 30\r\n        ) AS t2\r\n        WHERE t2.row <= 1\r\n    ) AS t3 ON n7.id = t3.news_id\r\n) AS t4 ON n1.id = t4.news_id\r\nLEFT JOIN news_property AS n9 ON n1.id = n9.news_id\r\nLEFT JOIN (\r\n    SELECT FALSE AS c, n12.active, CASE\r\n        WHEN FALSE = TRUE THEN ''\r\n        ELSE u1.user_name\r\n    END AS c0, n12.approved, n12.created_at, COALESCE(n12.history_no, 0) AS c1, n12.html_content, n12.id, n12.is_draft, (e1.id IS NULL) AS c2, e1.entity_name, n12.news_agency_entity_id, (e2.id IS NULL) AS c3, e2.entity_name AS entity_name0, n12.news_type_entity_id, n12.publish_date, n12.publish_time, n12.seo_description, n12.seo_keywords, n12.seo_title, n12.short_description, n12.social_description, n12.social_title, EXISTS (\r\n        SELECT 1\r\n        FROM news_file AS n10\r\n        WHERE (n12.id = n10.news_id) AND (n10.news_file_type_entity_id = 30)) AS c4, t6.id AS id0, t6.created_at AS created_at0, t6.deleted, t6.file_name, t6.file_size_kb, t6.file_type, t6.height, t6.is_cdn_file, t6.user_id, t6.video_sound, t6.width, n12.title, n12.updated_at, CASE\r\n        WHEN (u2.id IS NULL) THEN ''\r\n        ELSE u2.user_name\r\n    END AS c5, n12.add_user_id, n12.author_id, n12.deleted AS deleted0, n12.history_no, n12.inner_title, n12.is_last_news, n12.update_user_id, n12.url, n11.related_news_id, n11.id AS id1, u1.id AS id2, n11.news_id\r\n    FROM news_related_news AS n11\r\n    INNER JOIN news AS n12 ON n11.related_news_id = n12.id\r\n    INNER JOIN \"user\" AS u1 ON n12.add_user_id = u1.id\r\n    LEFT JOIN entity AS e1 ON n12.news_agency_entity_id = e1.id\r\n    LEFT JOIN entity AS e2 ON n12.news_type_entity_id = e2.id\r\n    LEFT JOIN \"user\" AS u2 ON n12.update_user_id = u2.id\r\n    LEFT JOIN (\r\n        SELECT t5.id, t5.created_at, t5.deleted, t5.file_name, t5.file_size_kb, t5.file_type, t5.height, t5.is_cdn_file, t5.user_id, t5.video_sound, t5.width, t5.id0, t5.news_id\r\n        FROM (\r\n            SELECT f5.id, f5.created_at, f5.deleted, f5.file_name, f5.file_size_kb, f5.file_type, f5.height, f5.is_cdn_file, f5.user_id, f5.video_sound, f5.width, n13.id AS id0, n13.news_id, ROW_NUMBER() OVER(PARTITION BY n13.news_id ORDER BY n13.id, f5.id) AS row\r\n            FROM news_file AS n13\r\n            INNER JOIN file AS f5 ON n13.file_id = f5.id\r\n            WHERE n13.news_file_type_entity_id = 30\r\n        ) AS t5\r\n        WHERE t5.row <= 1\r\n    ) AS t6 ON n12.id = t6.news_id\r\n) AS t7 ON n1.id = t7.news_id\r\nLEFT JOIN (\r\n    SELECT n14.tag_id, CASE\r\n        WHEN FALSE = TRUE THEN ''\r\n        ELSE t8.tag_name\r\n    END AS c, CASE\r\n        WHEN FALSE = TRUE THEN ''\r\n        ELSE t8.url\r\n    END AS c0, n14.id, t8.id AS id0, n14.news_id\r\n    FROM news_tag AS n14\r\n    INNER JOIN tag AS t8 ON n14.tag_id = t8.id\r\n    WHERE NOT (t8.deleted)\r\n) AS t9 ON n1.id = t9.news_id\r\nLEFT JOIN (\r\n    SELECT n15.id, n15.news_id, n15.tag_id, t10.id AS id0, t10.active, t10.created_at, t10.deleted, t10.tag_name, t10.url\r\n    FROM news_tag AS n15\r\n    INNER JOIN tag AS t10 ON n15.tag_id = t10.id\r\n) AS t11 ON n1.id = t11.news_id\r\nLEFT JOIN news_hit_detail AS n16 ON n1.id = n16.\" news_id\"\r\nLEFT JOIN (\r\n    SELECT n17.id, n17.category_id, n17.news_id, c.id AS id0, c.active, c.category_name, c.created_at, c.deleted, c.featured_image_file_id, c.heading_position_entity_id, c.is_static, c.parent_category_id, c.seo_description, c.seo_keywords, c.style_code, c.symbol, c.url\r\n    FROM news_category AS n17\r\n    INNER JOIN category AS c ON n17.category_id = c.id\r\n) AS t12 ON n1.id = t12.news_id\r\nWHERE NOT (n1.deleted) AND n1.is_last_news\r\nORDER BY n1.id, u.id, n3.id, t1.id1, t1.id0, t4.id1, t4.id, n9.id, t7.id1, t7.id, t7.id2, t9.id, t9.id0, t11.id, t11.id0, n16.id, t12.id, t12.id0"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamUnable to read data from the transport connection A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.."}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamUnable to read data from the transport connection A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.."}
+
+{"statusCode":500,"message":"Include has been used on non entity queryable."}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamUnable to read data from the transport connection A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Object reference not set to an instance of an object."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Index was outside the bounds of the array."}
+
+{"statusCode":500,"message":"Missing map from Entity.Models.News to Entity.Dtos.WideHeadingNewsDto. Create using CreateMap<News, WideHeadingNewsDto>."}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while writing to streamAn existing connection was forcibly closed by the remote host."}
+
+{"statusCode":500,"message":"Ambiguous match found."}
+
+{"statusCode":401,"message":"messageAuthenticationDenied"}
+
+{"statusCode":401,"message":"messageAuthenticationDenied"}
+
+{"statusCode":401,"message":"Oturum süreniz dolmuş. Lütfen tekrar giriş yapın"}
+

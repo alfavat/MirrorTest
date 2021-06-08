@@ -1,0 +1,38 @@
+﻿@model CategoryDto
+@{
+    ViewData["Title"] = Model.CategoryName + " - " + @Translator.GetByKey("webMainTitle");
+    ViewData["Description"] = Model.SeoDescription;
+    ViewData["Keywords"] = Model.SeoKeywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section SectionTop{
+    <!-- General, facebook, whatsapp -->
+    <meta property="og:url" content="@LayoutModel.WebMobileUIUrl@Model.Url" />
+    <meta property="og:type" content="news" />
+    <meta property="og:title" content="@Model.CategoryName" />
+    <meta property="og:description" content="@Model.SeoDescription" />
+    <meta property="og:image" content="@Model.FeaturedImageFile?.FileName" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@LayoutModel.Option.Twitter">
+    <meta name="twitter:url" content="@LayoutModel.WebMobileUIUrl@Model.Url">
+    <meta name="twitter:title" content="@Model.CategoryName">
+    <meta name="twitter:description" content="@Model.SeoDescription">
+    <meta name="twitter:image" content="@Model.FeaturedImageFile?.FileName">
+    <meta name="twitter:domain" content="@LayoutModel.WebMobileUIUrl">
+}
+
+<div class="container" style="margin-bottom:10px;">
+    <div class="row">
+        <div class="btn-group btn-breadcrumb breadcrumb-default">
+            <a href="~/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <h1 style="margin-left:20px;font-size: 15px;padding-top:6px;">@Model.CategoryName Haberleri</h1>
+        </div>
+    </div>
+</div>
+
+@await Component.InvokeAsync("MainHeading", new { url = Model.Url })
+
+@await Component.InvokeAsync("CategoryPageNews", new { url = Model.Url })

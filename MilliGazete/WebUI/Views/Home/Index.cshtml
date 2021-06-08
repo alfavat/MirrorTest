@@ -1,0 +1,172 @@
+﻿@{
+    ViewData["Title"] = @Translator.GetByKey("ProjectName") + " - " + LayoutModel.Option.WebsiteTitle;
+    ViewData["Description"] = LayoutModel.Option.SeoDescription;
+    ViewData["Keywords"] = LayoutModel.Option.SeoKeywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (LayoutModel.Option.LiveVideoActive)
+{
+    <div class="live-video-box">
+        <div class="container">
+            <iframe src="@LayoutModel.Option.LiveVideoLink"></iframe><br />
+            @await Component.InvokeAsync("BreakingNews")
+        </div>
+    </div>
+}
+
+<section id="main">
+    <div class="container">
+
+        <div class="mob-order-container">
+            <!-- 1 -->
+            @* Reklam Alanı:
+                <div class="mob-order-wrapper-1">
+                    <div class="top-banner text-center mb14"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
+                </div>*@
+            <!-- 1 -->
+            <!-- 2 -->
+            @await Component.InvokeAsync("MainPageNewsTop")
+            <!-- 2 -->
+            <!-- 3 -->
+            @if (!LayoutModel.Option.LiveVideoActive)
+            {
+                @await Component.InvokeAsync("BreakingNews")
+            }
+            <!-- 3 -->
+            <!-- 4 -->
+            <div class="mob-order-wrapper-4">
+                @await Component.InvokeAsync("MainHeading")
+            </div>
+            <!-- 4 -->
+            <!-- 5 -->
+            <div class="mob-order-wrapper-5">
+
+                <div class="small-slide-container">
+
+                    @await Component.InvokeAsync("SubHeading")
+
+                    @await Component.InvokeAsync("SubHeading2")
+
+                </div>
+
+            </div>
+            <!-- 5 -->
+        </div>
+
+    </div>
+
+</section>
+
+@await Component.InvokeAsync("VideoNews")
+
+<section id="uptodate">
+
+    <div class="container">
+
+        @*
+                Reklam Alanı:
+                <!-- banner -->
+            <div class="text-center mb28"><img src="http://placehold.it/970x90" class="img-responsive m0a"></div>
+            <!-- banner end -->*@
+
+        <div class="row mb14">
+            <div class="col-sm-8">
+
+                <a href="" class="oda-title">
+                    @Translator.GetByKey("Actual")
+                </a>
+
+                <div class="column-news-wrapper-big clearfix">
+
+                    @await Component.InvokeAsync("MainPageNewsMiddle")
+
+                </div>
+
+
+            </div>
+            <div class="col-sm-4">
+                @await Component.InvokeAsync("MostViewedNews")
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+@await Component.InvokeAsync("PhotoNews")
+
+<section id="uptodate-2">
+    <div class="container">
+
+        @* Reklam Alanı:
+                <!-- banner -->
+            <div class="text-center mb28"><img src="http://placehold.it/970x90" class="img-responsive m0a"></div>
+            <!-- banner end -->
+        *@
+
+        <div class="row">
+            <div class="col-sm-8">
+
+                <!-- dont load this content on mobile ( < 768px ) -->
+                <div class="hidden-xs">
+
+                    @* Reklam alanı:
+                        <!-- single slide -->
+                        <div class="text-center mb14"><a href=""><img src="http://placehold.it/1000x560" class="img-responsive m0a br5"></a></div>
+                        <!-- single slide end -->
+                    *@
+
+                    <div class="column-news-wrapper-big clearfix">
+
+                        <!-- continue news -->
+
+                        @await Component.InvokeAsync("MainPageNewsBottom")
+
+                    </div>
+
+                </div>
+                <!-- dont load this content on mobile ( < 768px )END  -->
+
+            </div>
+            <div class="col-sm-4">
+
+                @* Reklam Alanı:
+                    <div class="hidden-xs">
+                        <!-- dont load this content on mobile ( < 768px ) -->
+                        <!-- banner -->
+                        <div class="banner-box"><img src="http://placehold.it/300x300" class="img-responsive m0a"></div>
+                        <!-- banner end -->
+                    </div>
+                *@
+
+                @await Component.InvokeAsync("MostSharedNews")
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+@section SectionBottom{
+
+    <script src="~/js/acmeticker.min.js"></script>
+
+    <script>
+        jQuery(document).ready(function ($) {
+            $('.braking-news-ticker').AcmeTicker({
+                type: 'vertical',/*vertical/horizontal/Marquee/type*/
+                direction: 'down',/*up/down/left/right*/
+                speed: 600,/*true/false/number*/ /*For vertical/horizontal 600*//*For marquee 0.05*//*For typewriter 50*/
+                autoplay: 4000, /*sn*/
+                controls: {
+                    prev: $('.braking-news-ticker-prev'),/*Can be used for vertical/horizontal/typewriter*//*not work for marquee*/
+                    next: $('.braking-news-ticker-next')/*Can be used for vertical/horizontal/typewriter*//*not work for marquee*/
+                    //toggle: $('.acme-news-ticker-pause')/*Can be used for vertical/horizontal/marquee/typewriter*/
+                }
+            });
+        })
+    </script>
+}

@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutAuthor" xml:space="preserve">
+    <value>Yazar Hakkında</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>MilliGazete Aktüel</value>
+  </data>
+  <data name="Advertisement" xml:space="preserve">
+    <value>Reklam</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>TÜMÜ</value>
+  </data>
+  <data name="AllArticles" xml:space="preserve">
+    <value>Tüm Yazıları</value>
+  </data>
+  <data name="AnErrorOccurred" xml:space="preserve">
+    <value>Hata Oluştu</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Onaylandı</value>
+  </data>
+  <data name="Authors" xml:space="preserve">
+    <value>Yazarlar</value>
+  </data>
+  <data name="BreakingNews" xml:space="preserve">
+    <value>Son Dakika</value>
+  </data>
+  <data name="CommentLikeSuccess" xml:space="preserve">
+    <value>Yorum Beğenildi</value>
+  </data>
+  <data name="CommentSaveSuccess" xml:space="preserve">
+    <value>Yorumun gönderildi. Editör onayından sonra yayınlanacaktır.</value>
+  </data>
+  <data name="CommentUnlikeSuccess" xml:space="preserve">
+    <value>Yorum Beğeni Kaldırıldı</value>
+  </data>
+  <data name="ConfidentialityAgreementConditions" xml:space="preserve">
+    <value>Gizlilik Sözleşmesi ve Koşullar</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>İletişim</value>
+  </data>
+  <data name="CopyRights" xml:space="preserve">
+    <value>&amp;copy; 2021, Milli Gazete. Tüm haklar saklıdır.</value>
+  </data>
+  <data name="DeleteBookmarkSuccess" xml:space="preserve">
+    <value>Kayıtlı Haberlerden Kaldırıldı</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Silindi</value>
+  </data>
+  <data name="Discover" xml:space="preserve">
+    <value>Keşfedin</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="EmptyCommentList" xml:space="preserve">
+    <value>Henüz yorum yok</value>
+  </data>
+  <data name="EmptyNewsBookmark" xml:space="preserve">
+    <value>Henüz kayıtlı haberin yok</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Faks</value>
+  </data>
+  <data name="FillAllFields" xml:space="preserve">
+    <value>Tüm alanları doldurun!</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Şifremi Unuttum</value>
+  </data>
+  <data name="ForgotPasswordFailed" xml:space="preserve">
+    <value>Mail adresi sistemde kayıtlı değil!</value>
+  </data>
+  <data name="ForgotPasswordSuccess" xml:space="preserve">
+    <value>Mail adresinize doğrulama maili gönderildi</value>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>GALERİ</value>
+  </data>
+  <data name="GeneratePassword" xml:space="preserve">
+    <value>Şifre Oluştur</value>
+  </data>
+  <data name="HotLine" xml:space="preserve">
+    <value>&lt;strong&gt;WhatsApp&lt;/strong&gt; ihbar hattı</value>
+  </data>
+  <data name="Imprint" xml:space="preserve">
+    <value>Künye</value>
+  </data>
+  <data name="InformationNotValid" xml:space="preserve">
+    <value>Bilgiler Geçerli Değil</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>Beğen</value>
+  </data>
+  <data name="LiveBroadcast" xml:space="preserve">
+    <value>Canlı Yayın</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>Devamını gör</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Kullanıcı Bilgiler Hatalı!</value>
+  </data>
+  <data name="LoginNeeded" xml:space="preserve">
+    <value>Bu işlemi yapmak için giriş yapmanız gerekmektedir.</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Giriş Başarılı</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Çıkış Yap</value>
+  </data>
+  <data name="MobileApplications" xml:space="preserve">
+    <value>Mobil Uygulamalar</value>
+  </data>
+  <data name="MostSharedOfTheWeek" xml:space="preserve">
+    <value>Haftanın En Çok Paylaşılanları</value>
+  </data>
+  <data name="MostViewedNews" xml:space="preserve">
+    <value>Haftanın En Çok Okunanları</value>
+  </data>
+  <data name="MyAccount" xml:space="preserve">
+    <value>Hesabım</value>
+  </data>
+  <data name="MyComments" xml:space="preserve">
+    <value>Yorumlarım</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Profilim</value>
+  </data>
+  <data name="MySavedNews" xml:space="preserve">
+    <value>Kayıtlı Haberlerim</value>
+  </data>
+  <data name="NewsCenter" xml:space="preserve">
+    <value>Haber Merkezi</value>
+  </data>
+  <data name="NoResultFound" xml:space="preserve">
+    <value>Sonuç yok</value>
+  </data>
+  <data name="NotApproved" xml:space="preserve">
+    <value>Onaylanmadı</value>
+  </data>
+  <data name="NotYetAMember" xml:space="preserve">
+    <value>Henüz üye değilseniz</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Eski Şifre</value>
+  </data>
+  <data name="OtherArticles" xml:space="preserve">
+    <value>Diğer Yazıları</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="PasswordLengthValid" xml:space="preserve">
+    <value>Şifreniz en az 6 karakterden oluşmalıdır!</value>
+  </data>
+  <data name="PasswordsAreNotTheSame" xml:space="preserve">
+    <value>Şifreler Aynı Değil</value>
+  </data>
+  <data name="PasswordsAreNotTheSameDetail" xml:space="preserve">
+    <value>Şifre ve şifre tekrar alanları aynı olmalıdır!</value>
+  </data>
+  <data name="PasswordsUpdated" xml:space="preserve">
+    <value>Şifre Güncellendi</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>MilliGazete Foto Galeri</value>
+  </data>
+  <data name="PhotoGallery" xml:space="preserve">
+    <value>Fotoğraf Galerisi</value>
+  </data>
+  <data name="PhotoGalleryKeywords" xml:space="preserve">
+    <value>fotoğraf galerisi, fotoğraf albümleri, haber fotoğrafları</value>
+  </data>
+  <data name="PopularArticles" xml:space="preserve">
+    <value>Popüler Yazılar</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Önceki</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>MilliGazete</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Kayıt Olun</value>
+  </data>
+  <data name="RegisterSuccess" xml:space="preserve">
+    <value>Kayıt Başarılı</value>
+  </data>
+  <data name="RelatedNews" xml:space="preserve">
+    <value>İlgili Haberler</value>
+  </data>
+  <data name="RepeatPassword" xml:space="preserve">
+    <value>Şifre Tekrar</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="SaveBookmarkSuccess" xml:space="preserve">
+    <value>Kayıtlı Haberlere Eklendi</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Kaydedildi</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="SearchAuthor" xml:space="preserve">
+    <value>Yazar Arayın</value>
+  </data>
+  <data name="SearchDetail" xml:space="preserve">
+    <value>Haberlerde arayın…</value>
+  </data>
+  <data name="SearchResultText" xml:space="preserve">
+    <value>araması için {0} sonuç bulundu.</value>
+  </data>
+  <data name="SelectAuthorFromTheArchive" xml:space="preserve">
+    <value>Arşivden Yazar Seçin</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="SpecialNews" xml:space="preserve">
+    <value>Özel Haber</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Özet</value>
+  </data>
+  <data name="TagResultText" xml:space="preserve">
+    <value>etiketi için {0} sonuç bulundu.</value>
+  </data>
+  <data name="Unlike" xml:space="preserve">
+    <value>Beğeniyi Kaldır</value>
+  </data>
+  <data name="UpdatePassword" xml:space="preserve">
+    <value>Şifre Güncelle</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>MilliGazete Video</value>
+  </data>
+  <data name="VideoGallery" xml:space="preserve">
+    <value>Video Galeri</value>
+  </data>
+  <data name="VideoGalleryKeywords" xml:space="preserve">
+    <value>video galerisi, video albümleri, haber videoları</value>
+  </data>
+  <data name="Wrote" xml:space="preserve">
+    <value>yazdı</value>
+  </data>
+</root>

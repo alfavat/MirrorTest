@@ -1,0 +1,921 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="authorizationAdmin" xml:space="preserve">
+    <value>Admin Yetkisi</value>
+  </data>
+  <data name="authorizationCategoryAdd" xml:space="preserve">
+    <value>Kategori Ekle</value>
+  </data>
+  <data name="authorizationCategoryDelete" xml:space="preserve">
+    <value>Kategori Sil</value>
+  </data>
+  <data name="authorizationCategoryGet" xml:space="preserve">
+    <value>Kategori Listele</value>
+  </data>
+  <data name="authorizationCategoryUpdate" xml:space="preserve">
+    <value>Kategori Güncelle</value>
+  </data>
+  <data name="authorizationCurrencyGet" xml:space="preserve">
+    <value>Döviz Listele</value>
+  </data>
+  <data name="authorizationDashboardGet" xml:space="preserve">
+    <value>Gösterge Paneline Erişim (Dashboard)</value>
+  </data>
+  <data name="authorizationNewsAdd" xml:space="preserve">
+    <value>Haber Ekle</value>
+  </data>
+  <data name="authorizationNewsDelete" xml:space="preserve">
+    <value>Haber Sil</value>
+  </data>
+  <data name="authorizationNewsGet" xml:space="preserve">
+    <value>Haber Listele</value>
+  </data>
+  <data name="authorizationOptionGet" xml:space="preserve">
+    <value>Ayarları Listele</value>
+  </data>
+  <data name="authorizationOptionUpdate" xml:space="preserve">
+    <value>Ayarları Güncelle</value>
+  </data>
+  <data name="authorizationTagAdd" xml:space="preserve">
+    <value>Etiket Ekle</value>
+  </data>
+  <data name="authorizationTagDelete" xml:space="preserve">
+    <value>Etiket Sil</value>
+  </data>
+  <data name="authorizationTagGet" xml:space="preserve">
+    <value>Etiket Listele</value>
+  </data>
+  <data name="authorizationTagUpdate" xml:space="preserve">
+    <value>Etiket Güncelle</value>
+  </data>
+  <data name="authorizationUserAdd" xml:space="preserve">
+    <value>Kullanıcı Ekle</value>
+  </data>
+  <data name="authorizationUserCategoryRelationGet" xml:space="preserve">
+    <value>Kullanıcı Kategorilerini Listele</value>
+  </data>
+  <data name="authorizationUserCategoryRelationUpdate" xml:space="preserve">
+    <value>Kullanıcı Kategorilerini Güncelle</value>
+  </data>
+  <data name="authorizationUserDelete" xml:space="preserve">
+    <value>Kullanıcı Sil</value>
+  </data>
+  <data name="authorizationUserGet" xml:space="preserve">
+    <value>Kullanıcı Listele</value>
+  </data>
+  <data name="authorizationUserOperationClaimGet" xml:space="preserve">
+    <value>Kullanıcı Yetkisi Listele</value>
+  </data>
+  <data name="authorizationUserOperationClaimUpdate" xml:space="preserve">
+    <value>Kullanıcı Yetkisi Güncelle</value>
+  </data>
+  <data name="authorizationUserUpdate" xml:space="preserve">
+    <value>Kullanıcı Güncelle</value>
+  </data>
+  <data name="entityAa" xml:space="preserve">
+    <value>Anadolu Ajansı</value>
+  </data>
+  <data name="entityAdsActive" xml:space="preserve">
+    <value>Reklamlar Aktif</value>
+  </data>
+  <data name="entityBreakingNews" xml:space="preserve">
+    <value>Son Dakika Haberi</value>
+  </data>
+  <data name="entityCommentsActive" xml:space="preserve">
+    <value>Yorumlar Aktif</value>
+  </data>
+  <data name="entityDha" xml:space="preserve">
+    <value>Demirören Haber Ajansı</value>
+  </data>
+  <data name="entityFeaturedImage" xml:space="preserve">
+    <value>Öne Çıkan Görsel</value>
+  </data>
+  <data name="entityMainPageNews" xml:space="preserve">
+    <value>Ana Sayfa Haberi</value>
+  </data>
+  <data name="entityGalleryPhoto" xml:space="preserve">
+    <value>Galeri Görseli</value>
+  </data>
+  <data name="entityGalleryVideo" xml:space="preserve">
+    <value>Galeri Videosu</value>
+  </data>
+  <data name="entityMainHeadingImage" xml:space="preserve">
+    <value>Manşet Resmi</value>
+  </data>
+  <data name="entityIha" xml:space="preserve">
+    <value>İhlas Haber Ajansı</value>
+  </data>
+  <data name="entityImageGallery" xml:space="preserve">
+    <value>Resim Galerisi</value>
+  </data>
+  <data name="entityMainHeadingNews" xml:space="preserve">
+    <value>Ana Manşet Haberi</value>
+  </data>
+  <data name="entitySubHeadingNews" xml:space="preserve">
+    <value>Sür Manşet Haberi 1</value>
+  </data>
+  <data name="entitySubHeadingNews2" xml:space="preserve">
+    <value>Sür Manşet Haberi 2</value>
+  </data>
+  <data name="entityNews" xml:space="preserve">
+    <value>Haber</value>
+  </data>
+  <data name="entityTotalComment" xml:space="preserve">
+    <value>Toplam Yorum Sayısı</value>
+  </data>
+  <data name="entityTotalLike" xml:space="preserve">
+    <value>Toplam Beğenme Sayısı</value>
+  </data>
+  <data name="entityTotalViewCount" xml:space="preserve">
+    <value>Toplam Görüntülenme Sayısı</value>
+  </data>
+  <data name="entityVideoGallery" xml:space="preserve">
+    <value>Video Galeri</value>
+  </data>
+  <data name="messageAcccessTokenCreated" xml:space="preserve">
+    <value>Access token oluşturuldu</value>
+  </data>
+  <data name="messageAdded" xml:space="preserve">
+    <value>Eklendi</value>
+  </data>
+  <data name="messageAuthenticationDenied" xml:space="preserve">
+    <value>Oturum süreniz dolmuş. Lütfen tekrar giriş yapın</value>
+  </data>
+  <data name="messageAuthorizationDenied" xml:space="preserve">
+    <value>Bu işlem için yetkiniz yok</value>
+  </data>
+  <data name="messageDeleted" xml:space="preserve">
+    <value>Silindi</value>
+  </data>
+  <data name="messageEmailAlreadyExists" xml:space="preserve">
+    <value>Bu email zaten kullanılıyor</value>
+  </data>
+  <data name="messageEmailError" xml:space="preserve">
+    <value>Mail hatası</value>
+  </data>
+  <data name="messageEmailNotFound" xml:space="preserve">
+    <value>Email bulunamadı</value>
+  </data>
+  <data name="messageEmptyParameter" xml:space="preserve">
+    <value>Parametre boş</value>
+  </data>
+  <data name="messageEmptyToken" xml:space="preserve">
+    <value>Token bilgisi boş</value>
+  </data>
+  <data name="messageExpirationDatePassed" xml:space="preserve">
+    <value>Kullanım süreniz sona erdi</value>
+  </data>
+  <data name="messageFileSizeLimitError" xml:space="preserve">
+    <value>Dosya limit aşımı hatası</value>
+  </data>
+  <data name="messageFileTypeError" xml:space="preserve">
+    <value>Bu dosya türü desteklenmiyor</value>
+  </data>
+  <data name="messageFileUploadError" xml:space="preserve">
+    <value>Dosya yükleme hatası</value>
+  </data>
+  <data name="messageFileUploadSuccess" xml:space="preserve">
+    <value>Dosya başarıyla yüklendi</value>
+  </data>
+  <data name="messageMailSent" xml:space="preserve">
+    <value>Mail gönderildi</value>
+  </data>
+  <data name="messageNoRecordFound" xml:space="preserve">
+    <value>Kayıt bulunamadı</value>
+  </data>
+  <data name="messagePasswordError" xml:space="preserve">
+    <value>Şifre hatalı</value>
+  </data>
+  <data name="messageRecordNotFound" xml:space="preserve">
+    <value>Kayıt bulunamadı</value>
+  </data>
+  <data name="messageSuccessForLogin" xml:space="preserve">
+    <value>Giriş işlemi başarılı</value>
+  </data>
+  <data name="messageUpdated" xml:space="preserve">
+    <value>Güncellendi</value>
+  </data>
+  <data name="messageUserAlreadyExists" xml:space="preserve">
+    <value>Bu kullanıcı zaten mevcut</value>
+  </data>
+  <data name="messageUserIsNotActive" xml:space="preserve">
+    <value>Kullanıcı aktif değil</value>
+  </data>
+  <data name="messageUserNameAlreadyExists" xml:space="preserve">
+    <value>Bu kullanıcı adı zaten kullanılıyor</value>
+  </data>
+  <data name="messageUserNotFound" xml:space="preserve">
+    <value>Kullanıcı bulunamadı</value>
+  </data>
+  <data name="messageUserRegistered" xml:space="preserve">
+    <value>Kullanıcı kaydedildi</value>
+  </data>
+  <data name="validationAddressCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin </value>
+  </data>
+  <data name="validationCategoryAndParentCategoryMustBeDifferent" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationCategoryNameCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationConfirmPasswordCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmailCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmailValidation" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyCategoryName" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyClaimId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyConfirmPassword" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyFileSize" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyNewPassword" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyNewsAgencyEntityId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyNewsTitle" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyNewsTypeEntityId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyParameter" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyPassword" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyStyleCode" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptySymbol" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyTagName" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyUrl" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyUserId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyUserName" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyWebsiteTitle" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationFaxMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationFileNameCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationFirstNameCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationHistoryCodeMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationLastNameCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationNewPasswordCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationNewsTitleCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationPasswordCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationPasswordConflict" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationPhoneMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationSamePassword" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationSeoDescriptionMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationSeoKeywordsMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationSeoTitleMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationShortDescriptionMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationSocialDescriptionMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationSocialTitleMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationStyleCodeMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationSymbolMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationTagNameCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationUrlMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationUserNameCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationWebsiteSloganMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationWebsiteTitleCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="entityMainImage" xml:space="preserve">
+    <value>Haber Detay Görseli</value>
+  </data>
+  <data name="entityNormalImage" xml:space="preserve">
+    <value>Liste Görseli</value>
+  </data>
+  <data name="entityCategoryHeadingAgenda" xml:space="preserve">
+    <value>Gündem Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingEconomy" xml:space="preserve">
+    <value>Ekonomi Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingMedia" xml:space="preserve">
+    <value>Medya Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingMagazine" xml:space="preserve">
+    <value>Magazin Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingSport" xml:space="preserve">
+    <value>Spor Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingTechnology" xml:space="preserve">
+    <value>Teknoloji Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingPolitics" xml:space="preserve">
+    <value>Siyaset Kategori Manşeti</value>
+  </data>
+  <data name="messageRecordAlreadyExists" xml:space="preserve">
+    <value>Kayıt Zaten Var</value>
+  </data>
+  <data name="validationEmptyNewsCommentTitle" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyNewsId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationNewsCommentTitleCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyNewsCommentId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationAuthorNameCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="entityMilliGazete" xml:space="preserve">
+    <value>MilliGazete</value>
+  </data>
+  <data name="validationEmptyAuthorId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationTitleCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="authorizationArticleAdd" xml:space="preserve">
+    <value>Makale Ekle</value>
+  </data>
+  <data name="authorizationArticleDelete" xml:space="preserve">
+    <value>Makale Sil</value>
+  </data>
+  <data name="authorizationArticleGet" xml:space="preserve">
+    <value>Makale Listele</value>
+  </data>
+  <data name="authorizationArticleUpdate" xml:space="preserve">
+    <value>Makale Düzenle</value>
+  </data>
+  <data name="authorizationAuthorAdd" xml:space="preserve">
+    <value>Yazar Ekle</value>
+  </data>
+  <data name="authorizationAuthorDelete" xml:space="preserve">
+    <value>Yazar Sil</value>
+  </data>
+  <data name="authorizationAuthorGet" xml:space="preserve">
+    <value>Yazar Listele</value>
+  </data>
+  <data name="authorizationAuthorUpdate" xml:space="preserve">
+    <value>Yazar Düzenle</value>
+  </data>
+  <data name="authorizationNewsCommenGet" xml:space="preserve">
+    <value>Haber Yorum Listele</value>
+  </data>
+  <data name="authorizationNewsCommentAdd" xml:space="preserve">
+    <value>Haber Yorum Ekle</value>
+  </data>
+  <data name="authorizationNewsCommentDelete" xml:space="preserve">
+    <value>Haber Yorum Sil</value>
+  </data>
+  <data name="authorizationNewsCommentUpdate" xml:space="preserve">
+    <value>Haber Yorum Düzenle</value>
+  </data>
+  <data name="authorizationPageAdd" xml:space="preserve">
+    <value>Sayfa Ekle</value>
+  </data>
+  <data name="authorizationPageDelete" xml:space="preserve">
+    <value>Sayfa Sil</value>
+  </data>
+  <data name="authorizationPageGet" xml:space="preserve">
+    <value>Sayfa Listele</value>
+  </data>
+  <data name="authorizationPageUpdate" xml:space="preserve">
+    <value>Sayfa Düzenle</value>
+  </data>
+  <data name="entityStoryBigImage" xml:space="preserve">
+    <value>Story Büyük Görseli</value>
+  </data>
+  <data name="entityStoryThumbnailImage" xml:space="preserve">
+    <value>Story Öne Çıkan Görseli</value>
+  </data>
+  <data name="authorizationNewsAgencyAdd" xml:space="preserve">
+    <value>Haber Ajansı Ekle</value>
+  </data>
+  <data name="authorizationNewsAgencyGet" xml:space="preserve">
+    <value>Haber Ajansı Listele</value>
+  </data>
+  <data name="authorizationNewsCommentGet" xml:space="preserve">
+    <value>Haber Yorumu Listele</value>
+  </data>
+  <data name="authorizationNewsPositionGet" xml:space="preserve">
+    <value>Haber Pozisyonu Listele</value>
+  </data>
+  <data name="authorizationNewsPositionUpdate" xml:space="preserve">
+    <value>Haber Pozisyonu Düzenle</value>
+  </data>
+  <data name="entityMobileStory" xml:space="preserve">
+    <value>Mobil Story</value>
+  </data>
+  <data name="messageNameSurenameAlreadyExists" xml:space="preserve">
+    <value>Ad SoyAd Zaten Var</value>
+  </data>
+  <data name="messageUrlAlreadyExists" xml:space="preserve">
+    <value>Url Zaten Var</value>
+  </data>
+  <data name="authorizationLogGet" xml:space="preserve">
+    <value>Log Listele</value>
+  </data>
+  <data name="authorizationNewsOrdersGet" xml:space="preserve">
+    <value>Haber Siralama Listele</value>
+  </data>
+  <data name="authorizationNewsOrdersUpdate" xml:space="preserve">
+    <value>Haber Siralama Düzenle</value>
+  </data>
+  <data name="authorizationUserProfileUpdate" xml:space="preserve">
+    <value>Kullanıcı Profili Düzenle</value>
+  </data>
+  <data name="authorizationNewsUpdate" xml:space="preserve">
+    <value>Haber Güncelle</value>
+  </data>
+  <data name="authorizationCurrencyAdd" xml:space="preserve">
+    <value>Döviz Ekle</value>
+  </data>
+  <data name="validationEmptyTitle" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationMenuAndParentMenuMustBeDifferent" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="authorizationMenuAdd" xml:space="preserve">
+    <value>Menu Ekle</value>
+  </data>
+  <data name="authorizationMenuDelete" xml:space="preserve">
+    <value>Menu Sil</value>
+  </data>
+  <data name="authorizationMenuGet" xml:space="preserve">
+    <value>Menu Listele</value>
+  </data>
+  <data name="authorizationMenuUpdate" xml:space="preserve">
+    <value>Menu Güncelle</value>
+  </data>
+  <data name="authorizationAdvertisementAdd" xml:space="preserve">
+    <value>Reklam Ekle</value>
+  </data>
+  <data name="authorizationAdvertisementDelete" xml:space="preserve">
+    <value>Reklam Sil</value>
+  </data>
+  <data name="authorizationAdvertisementGet" xml:space="preserve">
+    <value>Reklam Listele</value>
+  </data>
+  <data name="authorizationAdvertisementUpdate" xml:space="preserve">
+    <value>Reklam Güncelle</value>
+  </data>
+  <data name="entityMainPageFourHill" xml:space="preserve">
+    <value>Ana Sayfa Tepe Dörtlü</value>
+  </data>
+  <data name="entityMainPageHeadlineSide" xml:space="preserve">
+    <value>Ana Sayfa Manşet Yanı</value>
+  </data>
+  <data name="validationEmptyNewsHitComeFromEntityId" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="liveBroadcast" xml:space="preserve">
+    <value>Canlı Yayın</value>
+  </data>
+  <data name="agenda" xml:space="preserve">
+    <value>Gündem</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>TÜMÜ</value>
+  </data>
+  <data name="article" xml:space="preserve">
+    <value>Makale</value>
+  </data>
+  <data name="authors" xml:space="preserve">
+    <value>Yazarlar</value>
+  </data>
+  <data name="cookiePolicy" xml:space="preserve">
+    <value>Çerez Politikası</value>
+  </data>
+  <data name="copyRightsText" xml:space="preserve">
+    <value>&amp;copy; 2021, Milli Gazete. Tüm haklar saklıdır.</value>
+  </data>
+  <data name="economy" xml:space="preserve">
+    <value>Ekonomi</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="finance" xml:space="preserve">
+    <value>Finans</value>
+  </data>
+  <data name="firstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="fixture" xml:space="preserve">
+    <value>FİKSTÜR</value>
+  </data>
+  <data name="forgotPassword" xml:space="preserve">
+    <value>Şifremi unuttum?</value>
+  </data>
+  <data name="health" xml:space="preserve">
+    <value>Sağlık</value>
+  </data>
+  <data name="info" xml:space="preserve">
+    <value>BİLGİ</value>
+  </data>
+  <data name="lastMinute" xml:space="preserve">
+    <value>Son Dakika</value>
+  </data>
+  <data name="lastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>Kullanıcı Girişi</value>
+  </data>
+  <data name="magazine" xml:space="preserve">
+    <value>Magazin</value>
+  </data>
+  <data name="mobileApp" xml:space="preserve">
+    <value>MOBİL UYGULAMA</value>
+  </data>
+  <data name="mostPopular" xml:space="preserve">
+    <value>En Popüler</value>
+  </data>
+  <data name="mostViewedNews" xml:space="preserve">
+    <value>En Çok Okunan Haberler</value>
+  </data>
+  <data name="myComments" xml:space="preserve">
+    <value>Yorumlarım</value>
+  </data>
+  <data name="myNewsList" xml:space="preserve">
+    <value>Kayıtlı Haberlerim</value>
+  </data>
+  <data name="myProfile" xml:space="preserve">
+    <value>Profilim</value>
+  </data>
+  <data name="newsList" xml:space="preserve">
+    <value>Haberler</value>
+  </data>
+  <data name="noResultFound" xml:space="preserve">
+    <value>Aranan kriterlerde haber bulunamadı!</value>
+  </data>
+  <data name="notAMember" xml:space="preserve">
+    <value>Henüz üye değilseniz,</value>
+  </data>
+  <data name="milliGazeteShortText" xml:space="preserve">
+    <value>Milli Gazete hakında bir slogan veya yazı</value>
+  </data>
+  <data name="page" xml:space="preserve">
+    <value>Sayfa</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="photoGallery" xml:space="preserve">
+    <value>Foto Galeri</value>
+  </data>
+  <data name="privacyAgreement" xml:space="preserve">
+    <value>Gizlilik Sözleşmesi</value>
+  </data>
+  <data name="readCount" xml:space="preserve">
+    <value>Okunma </value>
+  </data>
+  <data name="register" xml:space="preserve">
+    <value>Kayıt Olun</value>
+  </data>
+  <data name="relatedNews" xml:space="preserve">
+    <value>İlgili Haberler</value>
+  </data>
+  <data name="repeatPassword" xml:space="preserve">
+    <value>Şifre(Tekrar)</value>
+  </data>
+  <data name="scoreStatus" xml:space="preserve">
+    <value>PUAN DURUMU</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Arama</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="signIn" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="socialMedia" xml:space="preserve">
+    <value>SOSYAL MEDYA</value>
+  </data>
+  <data name="superLeague" xml:space="preserve">
+    <value>Süper Lig</value>
+  </data>
+  <data name="tag" xml:space="preserve">
+    <value>Etiket</value>
+  </data>
+  <data name="tagText" xml:space="preserve">
+    <value>Künye</value>
+  </data>
+  <data name="technology" xml:space="preserve">
+    <value>Teknoloji</value>
+  </data>
+  <data name="termsOfUse" xml:space="preserve">
+    <value>Kullanım Koşulları</value>
+  </data>
+  <data name="videoGallery" xml:space="preserve">
+    <value>Video Galeri</value>
+  </data>
+  <data name="woman" xml:space="preserve">
+    <value>Kadın</value>
+  </data>
+  <data name="world" xml:space="preserve">
+    <value>Dünya</value>
+  </data>
+  <data name="video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="webMainTitle" xml:space="preserve">
+    <value>MilliGazete</value>
+  </data>
+  <data name="sport" xml:space="preserve">
+    <value>Spor</value>
+  </data>
+  <data name="loginFailed" xml:space="preserve">
+    <value>Giriş Başarısız</value>
+  </data>
+  <data name="loginFailedDetail" xml:space="preserve">
+    <value>Kullanıcı bilgileri hatalı!</value>
+  </data>
+  <data name="loginSuccess" xml:space="preserve">
+    <value>Giriş Başarılı</value>
+  </data>
+  <data name="loginSuccessDetail" xml:space="preserve">
+    <value>Yönlendiriliyorsunuz...</value>
+  </data>
+  <data name="loginValidForm" xml:space="preserve">
+    <value>Tüm Alanları Doldurun!</value>
+  </data>
+  <data name="loginValidFormDetail" xml:space="preserve">
+    <value>Giriş yapmak için alanları doldurun</value>
+  </data>
+  <data name="okButton" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="registerFailed" xml:space="preserve">
+    <value>Kayıt Başarısız!</value>
+  </data>
+  <data name="registerFailedDetail" xml:space="preserve">
+    <value>Bilgilerinizi kontrol edin!</value>
+  </data>
+  <data name="registerPasswordValid" xml:space="preserve">
+    <value>Şifreler uyuşmuyor!</value>
+  </data>
+  <data name="registerPasswordValidDetail" xml:space="preserve">
+    <value>Şifre ve şifre tekrar alanları aynı olmalıdır</value>
+  </data>
+  <data name="registerSuccess" xml:space="preserve">
+    <value>Kayıt Başarılı</value>
+  </data>
+  <data name="registerSuccessDetail" xml:space="preserve">
+    <value>Kullanıcınız oluşturuldu. Giriş yapılıyor...</value>
+  </data>
+  <data name="registerValid" xml:space="preserve">
+    <value>Tüm Alanları Doldurun!</value>
+  </data>
+  <data name="registerValidDetail" xml:space="preserve">
+    <value>Kayıt olmak için tüm alanları doldurun</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>Çıkış Yap</value>
+  </data>
+  <data name="updatePassword" xml:space="preserve">
+    <value>Şifre Değiştir</value>
+  </data>
+  <data name="oldPassword" xml:space="preserve">
+    <value>Eski Şifre</value>
+  </data>
+  <data name="emptyNewsBookmark" xml:space="preserve">
+    <value>Henüz kayıtlı haberiniz yok</value>
+  </data>
+  <data name="deleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="newsBookmarkSave" xml:space="preserve">
+    <value>Haber Kaydedildi</value>
+  </data>
+  <data name="emptyCommentList" xml:space="preserve">
+    <value>Henüz yorum yapılmamış</value>
+  </data>
+  <data name="noLoginComment" xml:space="preserve">
+    <value>Yorum yapmak için kullanıcı girişi yapmanız gerekmektedir.</value>
+  </data>
+  <data name="successCommentSave" xml:space="preserve">
+    <value>Yorumunuz gönderildi. Onaydan sonra yayınlanacaktır.</value>
+  </data>
+  <data name="writeComment" xml:space="preserve">
+    <value>Yorum Yazın</value>
+  </data>
+  <data name="approvedStatus" xml:space="preserve">
+    <value>Yayınlandı</value>
+  </data>
+  <data name="notApprovedStatus" xml:space="preserve">
+    <value>Henüz Yayınlanmadı</value>
+  </data>
+  <data name="loadMore" xml:space="preserve">
+    <value>Daha fazla göster</value>
+  </data>
+  <data name="totalLikeCount" xml:space="preserve">
+    <value>Beğeni Sayısı</value>
+  </data>
+  <data name="loginNeeded" xml:space="preserve">
+    <value>Bu işlem için kullanıcı girişi yapmanız gerekmektedir</value>
+  </data>
+  <data name="like" xml:space="preserve">
+    <value>Beğendim</value>
+  </data>
+  <data name="forgotPasswordSuccess" xml:space="preserve">
+    <value>Şifre sıfırlama maili gönderildi</value>
+  </data>
+  <data name="registerPasswordLengthValid" xml:space="preserve">
+    <value>Şifre en az 6 karakter olmalı!</value>
+  </data>
+</root>

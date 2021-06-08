@@ -1,0 +1,23 @@
+﻿@model List<CustomHeading>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="swiper-container swiper-container-main">
+                <div class="swiper-wrapper">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <a href="@item.Url" class="swiper-slide"><img src="@item.ImageUrl" class="" style="width:100%;height:230px;" alt="@item.Title" /></a>
+                        }
+                    }
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination swiper-pagination-main"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

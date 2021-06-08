@@ -1,0 +1,109 @@
+﻿@model AuthorWithDetailsDto
+@{
+    ViewData["Title"] = Model?.NameSurename + " - " + @Translator.GetByKey("ProjectName");
+    ViewData["Description"] = Model?.Url;
+    ViewData["Keywords"] = Model?.SeoKeywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model != null)
+{
+    <section id="main">
+        <div class="container">
+
+            @* Reklam Alanı:
+                <div class="top-banner text-center mb14 hidden-xs"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
+            *@
+
+            <div class="row mb14">
+                <div class="col-sm-4 col-md-3">
+
+                    <div class="author-profile">
+                        <img src="@Model.PhotoFile?.FileName" class="author-picture" alt="@Model.NameSurename">
+                        <div class="author-name">@Model.NameSurename</div>
+                        <div class="author-social">
+                            <a href="@Model.Twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="@Model.Instagram" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="@Model.Web" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                            <a href="mailto:@Model.Email" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="clearfix mb14"></div>
+
+
+                    <div class="hidden-xs">
+
+                        <a href="#" class="oda-title">
+                            @Translator.GetByKey("AboutAuthor")
+                        </a>
+
+                        <div class="column-author-list" style="padding:10px;">
+                            @Html.Raw(Model.HtmlBiography)
+
+                            @*<a href="#" class="author-item-link">
+                                    <div class="author-pic-wrapper"><img src="https://placehold.it/60x60" class="author-sm-picture"></div>
+                                    <div class="author-sm-name">İsim Soyisim</div>
+                                    <div class="clearfix"></div>
+                                </a>*@
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-sm-8 col-md-9">
+                    <!--right col-->
+
+                    <h1 class="oda-title">
+                        @Translator.GetByKey("AllArticles")
+                    </h1>
+
+                    <div class="clearfix"></div>
+
+                    <div class="column-big-articles-wrapper">
+
+                        @if (Model.ArticleList.HasValue())
+                        {
+                            @foreach (var item in Model.ArticleList)
+                            {
+                                <a href='@(item.Url)' class="article-item-link br5">
+                                    <div class="article-title">@item.Title</div>
+                                    @if (item.PublishDate.HasValue)
+                                    {
+                                        <div class="article-date">
+                                            @item.PublishDate.Value.ToString("dd/MM/yyyy")
+                                        </div>
+                                    }
+                                </a>
+                            }
+                        }
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    @*
+                        <!-- page nav -->
+                        <nav aria-label="Page navigation" class="text-center">
+                            <ul class="pagination">
+                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- page nav end -->
+                        <!--right col end-->
+                    *@
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+}

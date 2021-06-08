@@ -1,0 +1,126 @@
+﻿@model List<UserNewsCommentDto>
+<style>
+    .comment-box {
+        background: #FBFBFB;
+        padding: 10px 10px;
+    }
+
+        .comment-box:not(:first-child) {
+            margin-top: 10px;
+        }
+
+        .comment-box b {
+            color: #808080;
+            font-size: 14px;
+        }
+
+        .comment-box span {
+            color: #acacac;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        .comment-box .comment-content {
+            padding: 5px;
+        }
+
+        .comment-box i {
+            margin-left: 25px;
+            cursor: pointer;
+        }
+
+            .comment-box i.fa-thumbs-o-up {
+                margin-left: 5px;
+            }
+
+    i.fa-heart {
+        cursor: default;
+    }
+
+    .like-count {
+        font-size: 12px;
+    }
+</style>
+@if (Model.HasValue())
+{
+    @foreach (var comment in Model)
+    {
+        <div class="comment-wrapper mb14">
+            <div class="mb14"><span class="comment-name">@comment.User.FirstName @comment.User.LastName</span> <span class="comment-date">@comment.CreatedAt.GetPrettyDate()</span></div>
+            <div class="comment-text">
+                @comment.Content
+                <br />
+                <i class="fa fa-heart text-danger"></i> <span class="like-count" id="divCommentLikeCount_@comment.Id">@comment.TotalLikeCount</span>
+                <div id="divCommentLikeButtons_@comment.Id">
+                    @if (!comment.LikeStatus.HasValue || !comment.LikeStatus.Value)
+                    {
+                        <a href="javascript:;" onclick="likeComment('@comment.Id' , this , true)"><i class="fa fa-thumbs-o-up"></i> @Translator.GetByKey("Like")</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" onclick="likeComment('@comment.Id' , this, false)" class=" text-info"><i class="fa fa-thumbs-o-up"></i> @Translator.GetByKey("Unlike")</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+<script>
+        function likeComment(id , el, likeStatus) {
+             var token = $.cookie("Token");
+            if (token === "" || token === null || token === undefined) {
+                swal({
+                        title:'@Translator.GetByKey("LoginNeeded")',
+                        text: '',
+                        icon: "warning",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                    timer: 6500,
+                     buttons: ['@Translator.GetByKey("Ok")', '@Translator.GetByKey("Login")'],
+                }).then((value) => {
+                    if (value === true) {
+                        window.location.href = '/login';
+                    }
+                });
+                return;
+            }
+
+            $.ajax({
+                url: '/newsdetails/addordeletecommentlike?newsCommentId=' + id,
+                type: 'post',
+                success: function (res) {
+                    if (res) {
+                        var msg = "";
+                        if (likeStatus) {
+                            msg = "@Translator.GetByKey("CommentLikeSuccess")";
+                        } else {
+                            msg = "@Translator.GetByKey("Yorum Beğeni Kaldırıldı")";
+                        }
+
+                        swal({
+                            title: msg,
+                            text: "",
+                            icon: res.success ?"success" : "error",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                    if (res.success) {
+                        var likeCount = $('#divCommentLikeCount_' + id).html();
+                        if (likeStatus) {
+                            $('#divCommentLikeCount_' + id).html(parseInt(likeCount) + 1);
+                            $('#divCommentLikeButtons_' + id).html('<a href="javascript:;" onclick="likeComment(\'' + id+ '\' , this, false)" class=" text-info"><i class="fa fa-thumbs-o-up"></i> @Translator.GetByKey("Unlike")</a>');
+                        }
+                        else {
+                            $('#divCommentLikeCount_' + id).html(parseInt(likeCount) - 1);
+                            $('#divCommentLikeButtons_' + id).html('<a href="javascript:;" onclick="likeComment(\'' + id+ '\' , this , true)"><i class="fa fa-thumbs-o-up"></i> @Translator.GetByKey("Like")</a>');
+                        }
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+</script>
+}

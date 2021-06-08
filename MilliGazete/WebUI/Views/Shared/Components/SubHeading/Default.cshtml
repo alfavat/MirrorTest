@@ -1,0 +1,12 @@
+﻿@model List<SubHeadingDto>
+
+<div class="small-slide left">
+
+    @if (Model.HasValue())
+    {
+        @foreach (var item in Model)
+        {
+            <div><a href="@item.Url"><img src="@item.ImageUrl" class="img-responsive m0a" alt="@item.Title" style="height:208px;"></a></div>
+        }
+    }
+</div>

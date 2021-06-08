@@ -1,0 +1,39 @@
+﻿@model List<MainPageVideoNewsDto>
+@{
+    ViewData["Title"] = @Translator.GetByKey("videoGallery") + " - " + @Translator.GetByKey("webMainTitle");
+    ViewData["Description"] = @Translator.GetByKey("videoGallery");
+    ViewData["Keywords"] = "video galerisi, video albümleri, haber videoları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="margin-bottom:10px;">
+    <div class="row">
+        <div class="btn-group btn-breadcrumb breadcrumb-default">
+            <a href="~/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <h1 style="margin-left:20px;font-size: 15px;padding-top:6px;">@Translator.GetByKey("videoGallery")</h1>
+        </div>
+    </div>
+</div>
+
+<!-- content start-->
+<div class="container">
+    <div class="row">
+
+        @foreach (var image in Model)
+        {
+            <div class="col-12" style="margin-bottom:10px;">
+                <a href="@image.Url" class="gallery-container">
+                    <img src="@image.VideoCoverImageUrl" class="image" style="width:100%" alt="@image.Title">
+                    <div class="middle">
+                        <div class="video-icon"></div>
+                    </div>
+                    <div class="post-title">
+                        @image.Title
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>
+<!-- content end-->

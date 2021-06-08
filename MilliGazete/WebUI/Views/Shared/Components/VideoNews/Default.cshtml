@@ -1,0 +1,43 @@
+﻿@model List<MainPageVideoNewsDto>
+
+@if (Model.HasValue())
+{
+    <section id="video-sect">
+
+        <div class="container">
+
+            <a class="oda-title blacktitle">
+                @Translator.GetByKey("Video")
+            </a>
+
+            <div class="row">
+                <div class="col-sm-7 col-md-8">
+
+                    <a href="@Model[0].Url" class="video-big-wrapper-link rltv">
+                        <img src="@Model[0].VideoCoverImageUrl" class="img-responsive m0a br5" alt="@Model[0].Title">
+                        <div class="play-button"></div>
+                        <div class="video-big-title">@Model[0].Title</div>
+                    </a>
+
+                </div>
+                <div class="col-sm-5 col-md-4">
+                    <div class="video-item-wrapper">
+                        @foreach (var item in Model)
+                        {
+                            <a href="@item.Url" class="video-item-link clearfix">
+                                <div class="left rltv">
+                                    <img src="@item.VideoCoverImageUrl" class="img-responsive m0a br5" alt="@item.Title">
+                                    <div class="play-button small"></div>
+                                </div>
+                                <div class="right"><div class="video-title-small">@item.Title</div></div>
+                            </a>
+                        }
+                    <a href="~/video-galeri" class="btn btn-primary btn-block">@Translator.GetByKey("All")</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+}

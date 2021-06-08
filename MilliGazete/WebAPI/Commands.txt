@@ -1,0 +1,3 @@
+﻿Get Last Models From Database
+dotnet ef dbcontext scaffold "Host=51.254.57.74;Database=db_milligazete;Username=user_milligazete;Password=milligazete343600!" Npgsql.EntityFrameworkCore.PostgreSQL -o Models --force  --project ..\Entity -c MilliGazeteDbContext
+dotnet ef dbcontext scaffold "Host=localhost;Database=db_milligazete;Username=user_milligazete;Password=milligazete343600!" Npgsql.EntityFrameworkCore.PostgreSQL -o Models --force  --project ..\Entity -c MilliGazeteDbContext

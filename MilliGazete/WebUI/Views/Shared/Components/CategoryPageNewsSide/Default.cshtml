@@ -1,0 +1,35 @@
+﻿@model List<MainPageCategoryNewsDto>
+
+
+@if (Model.HasValue() && Model.Count > 2 && Model[1] != null && Model[2] != null)
+{
+    <div class="ts-overlay-style" style="margin-top: 0px;">
+        <a href="@Model[0].Url" class="item">
+            <div class="ts-post-thumb">
+                <img class="img-fluid" src="@Model[0].ImageUrl" alt="@Model[0].Title">
+            </div>
+            <div class="overlay-post-content">
+                <div class="post-content">
+                    <h2 class="post-title">
+                        @Model[0].Title
+                    </h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="ts-overlay-style" style="margin-top: 35px;">
+        <a href="@Model[1].Url" class="item">
+            <div class="ts-post-thumb">
+                <img class="img-fluid" src="@Model[1].ImageUrl" alt="@Model[1].Title">
+            </div>
+            <div class="overlay-post-content">
+                <div class="post-content">
+                    <h2 class="post-title">
+                        @Model[1].Title
+                    </h2>
+                </div>
+            </div>
+        </a>
+    </div>
+}

@@ -1,0 +1,77 @@
+﻿@model List<MainPageStoryNewsDto>
+@{
+    ViewData["Title"] = @Translator.GetByKey("webMainTitle") + " - " + LayoutModel.Option.WebsiteTitle;
+    ViewData["Description"] = LayoutModel.Option.SeoDescription;
+    ViewData["Keywords"] = LayoutModel.Option.SeoKeywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="stories" class="storiesWrapper"></div>
+
+@* Storyi view component yapınca çalışmadı. Sonradan bakılacak*@
+@section SectionBottom{
+
+    <script>
+        var storiesData = @Html.Raw(Json.Serialize(@Model));
+
+        var storiesBuildData = [];
+        if (storiesData != null && storiesData.length > 0) {
+            $.each(storiesData, function (index, value) {
+                var itemDetails = [];
+                $.each(value.data, function (i, v) {
+                    var item = ["haber-" + v.newsId, "photo", 0, v.mainImage, v.mainImage, v.url, false, false, timestamp()];
+                    itemDetails.push(item);
+                });
+                var item = Zuck.buildTimelineItem(
+                    value.categoryName,
+                    value.thumbnail,
+                    value.categoryName,
+                    "",
+                    timestamp(),
+                    itemDetails
+                );
+                storiesBuildData.push(item);
+            });
+        }
+
+        var currentSkin = getCurrentSkin();
+        var stories = new Zuck('stories', {
+            backNative: true,
+            previousTap: true,
+            skin: currentSkin['name'],
+            autoFullScreen: currentSkin['params']['autoFullScreen'],
+            avatars: currentSkin['params']['avatars'],
+            paginationArrows: currentSkin['params']['paginationArrows'],
+            list: currentSkin['params']['list'],
+            cubeEffect: currentSkin['params']['cubeEffect'],
+            localStorage: true,
+            stories: storiesBuildData
+        });
+
+    </script>
+}
+
+@await Component.InvokeAsync("MainHeading")
+
+@{ var financialInfo = LayoutModel.CurrencyItems; }
+@if (financialInfo != null && financialInfo.Count >= 4)
+{
+    <div class="row finance-bar">
+        <div class="col-3">
+            <img src="~/images/icon/icon_@(financialInfo[2].ShortKey).png" /> <b>@financialInfo[2].CurrencyName</b><br /><span class="@(financialInfo[2].DailyChangeStatus ? "text-success": "text-danger")"> <i class="fa fa-caret-@(financialInfo[2].DailyChangeStatus ? "up": "down")"></i> @financialInfo[2].CurrencyValue<br />%@financialInfo[2].DailyChangePercent </span>
+        </div>
+        <div class="col-3">
+            <img src="~/images/icon/icon_@(financialInfo[0].ShortKey).png" /> <b>@financialInfo[0].CurrencyName</b><br /><span class="@(financialInfo[0].DailyChangeStatus ? "text-success": "text-danger")"> <i class="fa fa-caret-@(financialInfo[0].DailyChangeStatus ? "up": "down")"></i> @financialInfo[0].CurrencyValue<br />%@financialInfo[0].DailyChangePercent </span>
+        </div>
+        <div class="col-3">
+            <img src="~/images/icon/icon_@(financialInfo[1].ShortKey).png" /> <b>@financialInfo[1].CurrencyName</b><br /><span class="@(financialInfo[1].DailyChangeStatus ? "text-success": "text-danger")"> <i class="fa fa-caret-@(financialInfo[1].DailyChangeStatus ? "up": "down")"></i> @financialInfo[1].CurrencyValue<br />%@financialInfo[1].DailyChangePercent </span>
+        </div>
+        <div class="col-3">
+            <img src="~/images/icon/icon_@(financialInfo[3].ShortKey).png" /> <b>@financialInfo[3].CurrencyName</b><br /><span class="@(financialInfo[3].DailyChangeStatus ? "text-success": "text-danger")"> <i class="fa fa-caret-@(financialInfo[3].DailyChangeStatus ? "up": "down")"></i> @financialInfo[3].CurrencyValue<br />%@financialInfo[3].DailyChangePercent </span>
+        </div>
+    </div>
+}
+
+@await Component.InvokeAsync("BreakingNews")
+
+@await Component.InvokeAsync("MainPageNews")

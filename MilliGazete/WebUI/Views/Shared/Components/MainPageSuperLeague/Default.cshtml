@@ -1,0 +1,60 @@
+﻿@model List<SuperLeagueStandingsDto>
+
+@if (Model.HasValue())
+{
+    <div class="widgets post-list-item">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" style="background-color: #a40007;">
+                <a href="javascript:;" class="written-title" style="color: #fff !important;">@Translator.GetByKey("scoreStatus")</a>
+            </li>
+            <li>
+                <a href="javascript:;" class="">@Translator.GetByKey("fixture")</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active ts-grid-box post-tab-list">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        @Translator.GetByKey("superLeague")
+                        <hr style="margin:5px;">
+                    </div>
+                </div>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <div class="row">
+                        <div class="col-md-2">
+                            @i
+                        </div>
+                        <div class="col-md-6">
+                            @Model[i].TeamName
+                        </div>
+                        <div class="col-md-2">
+                            @Model[i].PlayedMatchCount
+                        </div>
+                        <div class="col-md-2">
+                            @Model[i].Point
+                        </div>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-md-6 text-right" style="background-color: #fafafa;color:#dddddd;font-size: 30px;">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </div>
+                    <div class="col-md-6 text-right" style="background-color: #fafafa;font-weight: bold;">
+                        <a href="#" style="color:#a9a8a8;">@Translator.GetByKey("all")</a>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--ts-grid-box end -->
+        </div>
+        <!-- tab content end-->
+    </div>
+    <!-- widgets end-->
+}

@@ -1,0 +1,289 @@
+﻿@{
+    ViewData["Title"] = @Translator.GetByKey("Login") + " - " + @Translator.GetByKey("ProjectName");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- content start-->
+<section class="block-wrapper">
+    <div class="container">
+        <div class="row">
+            <div style="max-width: 500px; display: block;margin-left: auto;margin-right: auto;">
+                <div class="">
+                    <div class="login-page">
+                        <h3 class="log-sign-title text-center mb-25">
+                            @Translator.GetByKey("NotYetAMember")
+                            <a href="javascript:;" class="text-info" onclick="$('#mdlRegister').modal('show');">@Translator.GetByKey("Register")</a>
+                        </h3>
+
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="inputUsernameEmail">@Translator.GetByKey("Email")</label>
+                                <input type="text" class="form-control" id="txtMail">
+                            </div>
+                            <div class="form-group">
+                                <a class="pull-right" href="javascript:;" onclick="$('#mdlForgot').modal();">@Translator.GetByKey("ForgotPassword")</a>
+                                <label for="inputPassword">@Translator.GetByKey("Password")</label>
+                                <input type="password" class="form-control" id="txtPassword">
+                            </div>
+                            <button type="button" class="btn btn btn-primary" onclick="Login();">
+                                @Translator.GetByKey("Login")
+                            </button>
+                        </form>
+                    </div>
+                </div><!-- grid box end -->
+            </div>
+            <!-- col end-->
+
+        </div>
+        <!-- row end-->
+    </div>
+    <!-- container end-->
+</section>
+<!-- content end-->
+
+<div class="modal" tabindex="-1" role="dialog" id="mdlRegister">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Translator.GetByKey("Register")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="txtRegister_Name">@Translator.GetByKey("FirstName")</label>
+                        <input type="text" class="form-control" id="txtRegister_Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegister_Surname">@Translator.GetByKey("LastName")</label>
+                        <input type="text" class="form-control" id="txtRegister_Surname">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegister_Mail">@Translator.GetByKey("Email")</label>
+                        <input type="text" class="form-control" id="txtRegister_Mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegister_Password">@Translator.GetByKey("Password")</label>
+                        <input type="password" class="form-control" id="txtRegister_Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegister_Password2">@Translator.GetByKey("RepeatPassword")</label>
+                        <input type="password" class="form-control" id="txtRegister_Password2">
+                    </div>
+                </form>
+                <div class="alert alert-warning" role="alert" style="display:none;">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="Register();">@Translator.GetByKey("Register")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="mdlForgot">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Translator.GetByKey("ForgotPassword")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="txtForgot_Mail">@Translator.GetByKey("Email")</label>
+                        <input type="text" class="form-control" id="txtForgot_Mail">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="ForgotPassword();">@Translator.GetByKey("Send")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section SectionBottom{
+
+    <script src="~/js/sweetalert.min.js"></script>
+    <script src="~/js/jquery.cookie.min.js"></script>
+
+    <script>
+        //Bu kısım js dosyasına taşınabilir
+        function Login() {
+            var _mail = $('#txtMail').val();
+            var _password = $('#txtPassword').val();
+
+            LoginRequest(_mail, _password);
+        }
+
+        function LoginRequest(_mail, _password) {
+
+            if (_mail === "" || _password === "") {
+                swal({
+                    title: "@Translator.GetByKey("InformationNotValid")",
+                    text: "@Translator.GetByKey("FillAllFields")",
+                    icon: "error",
+                    button: "Tamam"
+                });
+                return;
+            }
+
+            var param = { 'mail': _mail, 'password': _password };
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/form-login")",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    if (result.success) {
+                       $.cookie("Token", result.data.token, { expires: 365 });
+                         swal({
+                            title: "@Translator.GetByKey("LoginSuccess")",
+                            text: result.message,
+                            icon: "success",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then((value) => {
+                            location.href = "@Url.Content("~/profilim")";
+                        });
+                    } else {
+                        swal({
+                            title: "@Translator.GetByKey("LoginFailed")",
+                            text: result.message,
+                            icon: "error",
+                            button: "@Translator.GetByKey("Ok")"
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+        }
+
+        function Register() {
+            var _name = $('#txtRegister_Name').val();
+            var _surname = $('#txtRegister_Surname').val();
+            var _mail = $('#txtRegister_Mail').val();
+            var _password = $('#txtRegister_Password').val();
+            var _password2 = $('#txtRegister_Password2').val();
+
+            if (_name == "" || _surname == "" || _mail == "" || _password == "" || _password2 == "") {
+                swal({
+                    title: "@Translator.GetByKey("InformationNotValid")",
+                    text: "@Translator.GetByKey("FillAllFields")",
+                    icon: "error",
+                    button: "@Translator.GetByKey("Ok")"
+                });
+                return;
+            }
+
+            if (_password.length<6) {
+                swal({
+                    title: "@Translator.GetByKey("InformationNotValid")!",
+                    text: "@Translator.GetByKey("PasswordLengthValid")",
+                    icon: "error",
+                    button: "@Translator.GetByKey("Ok")"
+                });
+                return;
+            }
+
+            if (_password != _password2) {
+                swal({
+                    title: "@Translator.GetByKey("PasswordsAreNotTheSame")",
+                    text: "@Translator.GetByKey("PasswordsAreNotTheSameDetail")",
+                    icon: "error",
+                    button: "@Translator.GetByKey("okButton")"
+                });
+                return;
+            }
+
+            var param = { 'name': _name, 'surname': _surname, 'mail': _mail, 'password': _password };
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/form-register")",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    console.log(result);
+                    if (result.success) {
+                        swal({
+                            title: "@Translator.GetByKey("RegisterSuccess")",
+                            text: result.message,
+                            icon: "success",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then((value) => {
+                            LoginRequest(_mail, _password);
+                        });
+                    } else {
+                        swal({
+                            title: "@Translator.GetByKey("AnErrorOccurred")",
+                            text: result.message,
+                            icon: "error",
+                            button: "@Translator.GetByKey("Ok")"
+                        });
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(error);
+                }
+            });
+
+        }
+
+        function ForgotPassword() {
+            var _mail = $('#txtForgot_Mail').val();
+
+            if (_mail == "") {
+                return;
+            }
+
+            var param = { 'mail': _mail };
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/form-reset-password")",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    console.log(result);
+                    if (result.success) {
+                        swal({
+                            title: "@Translator.GetByKey("ForgotPasswordSuccess")",
+                            text: result.message,
+                            icon: "success",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then((value) => {
+                            //
+                        });
+                    } else {
+                        swal({
+                            title: "@Translator.GetByKey("ForgotPasswordFailed")",
+                            text: result.message,
+                            icon: "error",
+                            button: "@Translator.GetByKey("Ok")"
+                        });
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+
+    </script>
+}

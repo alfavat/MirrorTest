@@ -1,0 +1,72 @@
+﻿@model SearchNews
+@{
+    ViewData["Title"] = Html.Raw(Model.Query) + " - " + @Translator.GetByKey("ProjectName");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="main">
+    <div class="container">
+
+        <div class="row mb14">
+            <div class="col-sm-8">
+
+                <div class="oda-title search-result-text">
+                    "<strong>@Html.Raw(Model.Query)</strong>" @String.Format(Translator.GetByKey("SearchResultText"), @Model.TotalCount)
+                </div>
+
+
+                <div class="column-news-wrapper-big clearfix" id="divNews">
+
+                    @await Html.PartialAsync("_SearchNews", Model.Data)
+
+                </div>
+
+
+            </div>
+            <div class="col-sm-4">
+                <!--right col-->
+                @* Reklam Alanları:
+                    <div class="mb14"><img src="http://placehold.it/300x600" class="img-responsive m0a"></div>
+
+                    <div class="mb14"><img src="http://placehold.it/300x600" class="img-responsive m0a"></div>
+                *@
+                <!--right col end-->
+            </div>
+        </div>
+
+
+    </div>
+
+</section>
+
+@section SectionBottom{
+    <script>
+    var query = "@Model.Query";
+    var currentPage = 2;
+    var limit = parseInt("@Model.Limit");
+    var totalCount = "@Model.TotalCount";
+    var totalPage = Math.ceil(parseInt(totalCount) / parseInt(limit));
+    var process = false;
+
+    $(window).scroll(function () {
+        if (($(window).scrollTop() + 200 >= $(document).height() - $(window).height()) &&
+            !process && (currentPage <= totalPage)) {
+            process = true;
+            $.ajax({
+                type: "GET",
+                url: "haber-sayfa?query=" + query + "&page=" + currentPage,
+                success: function (result) {
+                    currentPage++;
+                    $('#divNews').append(result);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+                , complete: () => {
+                    process = false;
+                }
+            });
+        }
+    });
+    </script>
+}

@@ -1,0 +1,71 @@
+﻿@model List<MainPageVideoNewsDto>
+@{
+    ViewData["Title"] = @Translator.GetByKey("VideoGallery")+" - "+ @Translator.GetByKey("ProjectName");
+    ViewData["Description"] = @Translator.GetByKey("VideoGallery");
+    ViewData["Keywords"] = @Translator.GetByKey("VideoGalleryKeywords");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section id="main">
+    <div class="container">
+
+        @* Reklam Alanı:
+        <div class="top-banner text-center mb14 hidden-xs"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
+        *@
+
+        <!-- galeri top -->
+
+        <h1 class="oda-title">
+            @Translator.GetByKey("VideoGallery")
+        </h1>
+
+        @if (Model.HasValue())
+        {
+
+           
+
+            <div class="row">
+                <div class="col-md-9">
+
+                    <a href="@Model[0].Url" class="video-big-wrapper-link rltv">
+                        <img src="@Model[0].VideoCoverImageUrl" class="img-responsive m0a br5" style="width:100%;height:auto;">
+                        <div class="play-button"></div>
+                        <div class="video-big-title">@Model[0].Title</div>
+                    </a>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    
+
+                </div>
+
+            </div>
+
+            <div class="row doublerow-slide">
+
+                @if (Model.Count > 1)
+                {
+                    for (int i = 1; i < Model.Count; i++)
+                    {
+                        <div class="doublerow-slide-item">
+                            <a href="@Model[i].Url">
+                                <div class="rltv">
+                                    <img src="@Model[i].VideoCoverImageUrl" class="img-responsive m0a" alt="@Model[i].Title">
+                                    <div class="play-button"></div>
+                                    <div class="lbl">@Translator.GetByKey("Video")</div>
+                                </div>
+                                <div class="headline"><span>@Model[i].Title</span></div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        }
+        <!-- galeri lists end -->
+
+    </div>
+
+</section>

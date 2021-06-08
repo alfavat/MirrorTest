@@ -1,0 +1,16 @@
+﻿@model PageDto
+@{
+    ViewData["Title"] = @Translator.GetByKey("LiveBroadcast") + " - " + @Translator.GetByKey("ProjectName");
+    ViewData["Description"] = @Translator.GetByKey("LiveBroadcast");
+    ViewData["Keywords"] = @Translator.GetByKey("LiveBroadcast");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- content start-->
+<section class="block-wrapper">
+    <div class="container" style="background-color:#fff;padding:20px;">
+        <h1 style="font-size:18px;color:#595959;">@Translator.GetByKey("LiveBroadcast")</h1>
+        <iframe width="100%" height="500" src="@LayoutModel.Option.LiveVideoLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</section>
+<!-- content end-->

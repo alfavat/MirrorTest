@@ -1,0 +1,94 @@
+﻿@model AuthorWithDetailsDto
+@{
+    ViewData["Title"] = Model?.NameSurename + " - " + @Translator.GetByKey("webMainTitle");
+    ViewData["Description"] = Model?.Url;
+    ViewData["Keywords"] = Model?.SeoKeywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/box-style.css">
+<style>
+    .articles .ts-grid-box {
+        max-height: 350px;
+        overflow: hidden;
+    }
+
+    .article-short-description {
+        min-height: 35px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="ts-grid-box">
+                <div class="author-box author-box-item">
+                    <img class="author-img" src="@Model?.PhotoFile?.FileName" alt="@Model?.NameSurename">
+                    <div class="author-info">
+                        <div class="author-name">
+                            <h4>@Model?.NameSurename</h4>
+                            <a href="#">@Model?.Email</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <p> @Html.Raw(Model?.HtmlBiography) </p>
+
+                    </div>
+                    <ul class="post-meta-info">
+                        <li>
+                            <a href="">
+                                <i class="fa fa-file-text"></i>
+                                @Model.ArticleList.Count @Translator.GetByKey("article")
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-eye"></i>
+                                @Model.ArticleList.Sum(f => f.ReadCount) @Translator.GetByKey("readCount")
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row articles">
+
+                @if (Model.ArticleList.HasValue())
+                {
+
+                    @foreach (var item in Model.ArticleList)
+                    {
+                        <div class="col-md-6">
+                            <div class="ts-grid-box ts-grid-content mb-30">
+                                <a class="post-cat ts-yellow-bg" href="#">
+                                    <i class="fa fa-eye"></i>
+                                    @item.ReadCount
+                                </a>
+                                <div class="ts-post-thumb">
+
+                                </div>
+                                <div class="post-content">
+                                    <h3 class="post-title md">
+                                        <a href="@item.Url.ToUrlFormat()">@item.Title</a>
+                                    </h3>
+                                    <p class="article-short-description">
+                                        @Html.Raw(item.ShortDescription)
+                                    </p>
+                                    <span class="post-date-info">
+                                        <i class="fa fa-clock-o"></i>
+                                        @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

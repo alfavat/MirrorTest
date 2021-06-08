@@ -1,0 +1,23 @@
+﻿@model PageDto
+@{
+    ViewData["Title"] = Model.Title + " - " + @Translator.GetByKey("webMainTitle");
+    ViewData["Description"] = Model.SeoDescription;
+    ViewData["Keywords"] = Model.SeoKeywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="margin-bottom:10px;">
+    <div class="row">
+        <div class="btn-group btn-breadcrumb breadcrumb-default">
+            <a href="~/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <h1 style="margin-left:20px;font-size: 15px;padding-top:6px;">@Model.Title</h1>
+        </div>
+    </div>
+</div>
+
+<!-- content start-->
+<div class="container" style="background-color:#fff;padding:10px;font-weight:bold;">
+    <h1 style="font-size:18px;color:#595959;">@Model.Title</h1>
+    @Html.Raw(Model.HtmlContent)
+</div>
+<!-- content end-->

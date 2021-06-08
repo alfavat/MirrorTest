@@ -1,0 +1,105 @@
+﻿@model List<AuthorDto>
+@{
+    if (Model.HasValue())
+    {
+        ViewData["Title"] = @Translator.GetByKey("Authors") + " - " + @Translator.GetByKey("ProjectName");
+        ViewData["Description"] = @Translator.GetByKey("Authors");
+        ViewData["Keywords"] = @Translator.GetByKey("Authors");
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@section SectionTop{
+    <link rel="stylesheet" href="~/content/css/select2.css">
+    <link rel="stylesheet" href="~/content/css/select2-bootstrap.css">
+}
+@if (Model.HasValue())
+{
+    <section id="main">
+        <div class="container">
+
+            <!-- author list  -->
+
+            <h1 class="oda-title">
+                @Translator.GetByKey("Authors")
+
+                <div class="oda-title-search-form-wrapper">
+                    <select class="searchforauthor form-control" name="authors" placeholder="@Translator.GetByKey("SelectAuthorFromTheArchive")">
+
+                        <option value="">@Translator.GetByKey("SelectAuthorFromTheArchive")</option>
+                        @if (Model.HasValue())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <option value="yazar/@item.NameSurename.ToUrlFormat()">@item.NameSurename</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </h1>
+
+
+            <div class="author-list">
+
+                <div class="row">
+                    @if (Model.HasValue())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                <a href="/yazar/@item.NameSurename.ToUrlFormat()" class="author-profile">
+                                    <img src="@item.PhotoFile?.FileName" alt="@item.NameSurename" class="author-picture">
+                                    <div class="author-name">@item.NameSurename</div>
+                                    <div href="@item.LastArticleUrl" class="article-item-link">
+                                        <div class="article-title">@item.LastArticleTitle</div>
+                                        @{
+                                            if (item.LastArticleDate.HasValue)
+                                            {
+                                                <div class="article-date">
+                                                    @item.LastArticleDate.Value.ToString("dd/MM/yyyy")
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+
+                </div>
+
+            </div>
+            <!-- author list end -->
+
+
+        </div>
+
+    </section>
+
+    @section SectionBottom{
+        <script src="~/scripts/lib/select2.js"></script>
+        <script src="~/scripts/lib/select2-tr.js"></script>
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.searchforauthor').select2({
+                allowClear: true,
+                placeholder: "@Translator.GetByKey("SearchAuthor")",
+                theme: 'bootstrap',
+                width: '100%'
+            });
+
+            $('.searchforauthor').on('change', function () {
+                var url = $('.searchforauthor').val();
+                if (url != null && url != undefined && url!="") {
+                    window.location.href = "@Url.Content("")"+url;
+                }
+
+            });
+
+        });
+
+        </script>
+    }
+}

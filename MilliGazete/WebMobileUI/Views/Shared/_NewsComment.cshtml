@@ -1,0 +1,117 @@
+﻿@model List<UserNewsCommentDto>
+<style>
+    .comment-box {
+        background: #FBFBFB;
+        padding: 10px 10px;
+    }
+
+        .comment-box:not(:first-child) {
+            margin-top: 10px;
+        }
+
+        .comment-box b {
+            color: #808080;
+            font-size: 14px;
+        }
+
+        .comment-box span {
+            color: #acacac;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        .comment-box .comment-content {
+            padding: 5px;
+        }
+
+        .comment-box i {
+            margin-left: 25px;
+            cursor: pointer;
+        }
+
+            .comment-box i.fa-thumbs-o-up {
+                margin-left: 5px;
+            }
+
+    i.fa-heart {
+        cursor: default;
+    }
+    .like-count{
+        font-size:12px;
+    }
+</style>
+@if (Model.HasValue())
+{
+    @foreach (var comment in Model)
+    {
+        <div class="comment-box">
+            <b>@comment.User.FirstName @comment.User.LastName</b>
+            <span> @comment.CreatedAt.GetPrettyDate() </span>
+            <br />
+            <div class="comment-content">
+                @comment.Content
+            </div>
+            <hr />
+            @if (!comment.LikeStatus.HasValue || !comment.LikeStatus.Value)
+            {
+                <i class="fa fa-thumbs-o-up" onclick="likeComment('@comment.Id' , this )"></i>
+            }
+            else
+            {
+                <i class="fa fa-thumbs-o-up text-info" onclick="likeComment('@comment.Id' , this)"></i>
+            }
+            <i class="fa fa-heart"></i> <span class="like-count">@comment.TotalLikeCount</span>
+        </div>
+    }
+    <script>
+        function likeComment(id , el) {
+             var token = $.cookie("Token");
+            if (token === "" || token === null || token === undefined) {
+                swal({
+                        title:'@Translator.GetByKey("loginNeeded")',
+                        text: '',
+                        icon: "warning",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                    timer: 6500,
+                     buttons: ['@Translator.GetByKey("okButton")', '@Translator.GetByKey("login")'],
+                }).then((value) => {
+                    if (value === true) {
+                        window.location.href = '/login';
+                    }
+                });
+                return;
+            }
+
+            $.ajax({
+                url: '/newsdetails/addordeletecommentlike?newsCommentId=' + id,
+                type: 'post',
+                success: function (res) {
+                    if (res) {
+                        swal({
+                            title: '',
+                            text: "",
+                            icon: res.success ?"success" : "error",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                    if (res.success) {
+                        $(el).toggleClass('text-info');
+                        var likeCount = $(el).siblings('.like-count').html();
+                        if (!$(el).hasClass('text-info')) {
+                            $(el).siblings('.like-count').html(parseInt(likeCount) - 1);
+                        }
+                        else {
+                            $(el).siblings('.like-count').html(parseInt(likeCount) + 1);
+                        }
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
+}

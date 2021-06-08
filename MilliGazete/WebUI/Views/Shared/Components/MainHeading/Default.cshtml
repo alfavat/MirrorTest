@@ -1,0 +1,27 @@
+﻿@model List<MainHeadingDto>
+
+<div class="large-slide-container">
+
+    <div class="large-slide">
+        @if (Model.HasValue())
+        {
+            @foreach (var item in Model)
+            {
+                <div style="position:relative;">
+
+                    <a href="@item.Url">
+                        @if (!@item.AuthorNameSurename.StringIsNullOrEmpty())
+                        {
+                            <div style="position:absolute;top:0;left:0;padding:10px;background-color:#ff0000;color:#fff;">
+                                <b><i class="fa fa-pencil"></i> @item.AuthorNameSurename @Translator.GetByKey("Wrote")</b>
+                            </div>
+                        }
+                        <img src="@item.ImageUrl" class="img-responsive m0a" alt="@item.Title" style="width:100%;">
+                    </a>
+                </div>
+            }
+        }
+
+    </div>
+
+</div>

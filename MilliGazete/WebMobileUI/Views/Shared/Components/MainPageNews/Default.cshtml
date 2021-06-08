@@ -1,0 +1,18 @@
+﻿@model List<MainPageNewsDto>
+    <div class="container">
+        <div class="row">
+
+            @if (Model != null && Model.Count >= 4)
+            {
+                @foreach (var item in Model)
+                {
+                    <a href="@item.Url" class="col-11 news-card">
+                        <img src="@item.FileList.Where(x=>x.NewsFileTypeEntityId==(int)Entity.Enums.NewsFileTypeEntities.NormalImage).Select(s=>s.FileName).FirstOrDefault()" class="img-fluid" alt="@item.Title">
+                        <h2>
+                            @item.Title
+                        </h2>
+                    </a>
+                }
+            }
+        </div>
+    </div>

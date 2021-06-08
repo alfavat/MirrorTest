@@ -1,0 +1,18 @@
+﻿@model List<ArticleDto>
+
+@if (Model.HasValue())
+{
+    foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+            <a href="~/yazar/@item?.Author?.NameSurename.ToUrlFormat()" class="author-profile">
+                <img src="@item?.Author?.PhotoFile?.FileName" class="author-picture" alt="@item.Title">
+                <div class="author-name">@item?.Author?.NameSurename</div>
+                <div href="@item.Url.ToUrlFormat()" class="article-item-link">
+                    <div class="article-title">@item.Title</div>
+                    <div class="article-date">@item?.CreatedAt.ToString("dd/MM/yyyy")</div>
+                </div>
+            </a>
+        </div>
+    }
+}

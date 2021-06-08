@@ -1,0 +1,129 @@
+﻿@model List<AuthorDto>
+@{
+    ViewData["Title"] = @Translator.GetByKey("authors") + " - " + @Translator.GetByKey("webMainTitle");
+    ViewData["Description"] = @Translator.GetByKey("authors");
+    ViewData["Keywords"] = @Translator.GetByKey("authors");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/box-style.css">
+<style>
+    .author-image {
+        height: 225px;
+    }
+
+    .author-img {
+        left: 15px !important;
+    }
+
+    .author-box-item {
+        max-height: 300px;
+        overflow: hidden;
+    }
+
+    .author-name > h4 {
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    .author-box.author-box-item {
+        height: 110px;
+        margin: 10px auto;
+    }
+
+    .post-title {
+        height: 65px;
+        overflow: hidden;
+    }
+
+    .post-date-info {
+        height: 15px;
+        overflow: hidden;
+    }
+
+    .post-title a {
+        -webkit-line-clamp: 3 !important;
+    }
+</style>
+<section class="body-color">
+    <section class="block-wrapper mt-15 category-layout-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+
+                        @{
+                            if (Model.HasValue())
+                            {
+                                foreach (var item in Model)
+                                {
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="ts-grid-box ts-grid-content">
+                                            <div class="author-box author-box-item">
+                                                <a href="yazar/@item?.NameSurename.ToUrlFormat()">
+                                                    <img class="author-img" src="@item?.PhotoFile?.FileName" alt="@item?.NameSurename">
+                                                </a>
+                                                <div class="author-info">
+                                                    <div class="author-name">
+                                                        <h4 class="ts-orange-bg text-white">@item?.NameSurename</h4>
+                                                        <a href="#">@item?.Email</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="post-content">
+                                                <h3 class="post-title">
+                                                    <a href="@item?.LastArticleUrl.ToUrlFormat()">
+                                                        @Html.Raw(item?.LastArticleTitle)
+                                                    </a>
+                                                </h3>
+                                                <span class="post-date-info">
+
+                                                    @if (item.LastArticleDate.HasValue)
+                                                    {
+                                                        <i class="fa fa-clock-o"></i>
+                                                        @item.LastArticleDate.Value.ToString("dd/MM/yyyy HH:mm")
+                                                    }
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-lg-4 col-md-6">
+                                            <div class="ts-grid-box ts-grid-content">
+                                                <a class="post-cat ts-orange-bg" href="yazar/@item?.NameSurename.ToUrlFormat()">
+                                                    @item?.NameSurename.ToUrlFormat()
+                                                </a>
+                                                <div class="ts-post-thumb">
+                                                    <a href="yazar/@item?.NameSurename.ToUrlFormat()">
+                                                        <img class="img-fluid author-image" src="@item.PhotoFile.FileName" alt="yazar/@item?.NameSurename.ToUrlFormat()">
+                                                    </a>
+                                                </div>
+                                                <div class="post-content">
+                                                    <h3 class="post-title">
+                                                        <a href="/makale/@item?.LastArticleUrl.ToUrlFormat()">
+                                                            @Html.Raw(item?.LastArticleTitle)
+                                                        </a>
+                                                    </h3>
+                                                    <span class="post-date-info">
+
+                                                        @{
+                                                            if (item.LastArticleDate.HasValue)
+                                                            {
+                                                                <i class="fa fa-clock-o"></i>
+                                                                @item.LastArticleDate.Value.ToString("dd/MM/yyyy HH:mm:ss")
+                                                            }
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

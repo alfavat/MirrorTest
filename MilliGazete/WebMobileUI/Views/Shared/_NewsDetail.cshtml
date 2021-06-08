@@ -1,0 +1,242 @@
+﻿@model NewsDetail
+@if (Model != null)
+{
+    <style>
+        .bg-silver {
+            color: #808080 !important;
+        }
+    </style>
+<section class="anchor">
+    @if (Model.NewsTypeEntityId == (int)Entity.Enums.NewsTypeEntities.VideoGallery && Model.NewsFileList.HasValue() &&
+                                    Model.NewsFileList.Any(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo))
+    {
+        <video id="main-video"
+               class="video-js"
+               controls
+               preload="auto"
+               width="350"
+               height="200"
+               poster="@Model.NewsFileList.Where(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo).Select(s => s.CoverFileName).FirstOrDefault()"
+               data-setup="{}">
+            <source src="@Model.NewsFileList.Where(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo).Select(s => s.FileName).FirstOrDefault()" type="video/mp4" />
+            <p class="vjs-no-js">Tarayıcınız güncel değil</p>
+        </video>
+        <br />
+    }
+    else
+    {
+        <div class="row">
+            <img src="@Model.NewsFileList.Where(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.MainImage).Select(s => s.FileName).FirstOrDefault()" class="img-fluid">
+        </div>
+    }
+
+    <div class="row">
+        <div style="padding-top:10px;padding-left:10px;">
+            <i class="fa fa-clock-o"></i> @Model.PublishDate.Value.ToString("dd.MM.yyyy") @Model.PublishTime.Value.ToString().Substring(0, 5)
+        </div>
+        <div class="pull-right">
+            <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebMobileUIUrl@Model.Url&text=@Model.Title" target="_blank" style="margin-left:20px;font-size:26px;">
+                <i class="fa fa-twitter" style="color: #55acee;"></i>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebMobileUIUrl@Model.Url&t=@Model.Title" target="_blank" style="margin-left:10px;font-size:26px;">
+                <i class="fa fa-facebook" style="color: #3b5999;"></i>
+            </a>
+            <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebMobileUIUrl@Model.Url" target="_blank" style="margin-left:10px;font-size:26px;">
+                <i class="fa fa-whatsapp" style="color: #25d366;"></i>
+            </a>
+            <a href="https://telegram.me/share/url?url=@LayoutModel.WebMobileUIUrl@Model.Url&text=@Model.Title" target="_blank" style="margin-left:10px;font-size:26px;">
+                <i class="fa fa-telegram" style="color: #2da5e1;"></i>
+            </a>
+            <a href="javascript:;" style="margin-left:10px;font-size:26px;" class="ts-linkedin divUser" onclick="AddOrDeleteBookmark(@Model.Id , this);" id="btnNewsBookmark_@Model.Id">
+                @if (!Model.BookMarkStatus)
+                {
+                    <i class="fa fa-bookmark bg-silver"></i>
+                }
+                else
+                {
+                    <i class="fa fa-bookmark text-danger"></i>
+                }
+            </a>
+        </div>
+    </div>
+
+    <div class="row news-detail">
+        <div class="col-12">
+            <h1>@Model.InnerTitle</h1>
+            <h2>@Model.ShortDescription</h2>
+            <hr>
+        </div>
+        <div class="col-12 news-detail">
+
+
+            @Html.Raw(Model.HtmlContent)
+
+            @{ int galleryIndex = 1; }
+            @if (Model.NewsTypeEntityId == (int)Entity.Enums.NewsTypeEntities.ImageGallery && Model.NewsFileList.HasValue())
+            {
+                @foreach (var image in Model.NewsFileList)
+                {
+                    @if (image.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryPhoto)
+                    {
+                        <div style="margin-top:20px;margin-bottom:20px;">
+                            <div class="post-photo-gallery-number">
+                                @galleryIndex
+                            </div>
+                            <img class="img-fluid" src="@image.FileName" alt="">
+                            <h4>@image.Title</h4>
+                            <span>@image.Description</span>
+                            <hr>
+                        </div>
+
+                        { galleryIndex++; }
+                    }
+                }
+            }
+            else if (Model.NewsTypeEntityId == (int)Entity.Enums.NewsTypeEntities.VideoGallery && Model.NewsFileList.HasValue())
+            {
+                foreach (var video in Model.NewsFileList)
+                {
+                    @if (video.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo)
+                    {
+                        <video id="my-video-@galleryIndex"
+                               class="video-js"
+                               controls
+                               preload="auto"
+                               width="350"
+                               height="200"
+                               poster="@video.CoverFileName"
+                               data-setup="{}">
+                            <source src="@video.FileName" type="video/mp4" />
+                            <p class="vjs-no-js">Tarayıcınız güncel değil</p>
+                        </video>
+                        <br />
+
+                        { galleryIndex++; }
+                    }
+                }
+            }
+
+            @if (Model.NewsTagList.HasValue())
+            {
+                <div style="margin:10px;">
+                    <i class="fa fa-tags"></i>
+                    @foreach (var tag in Model.NewsTagList)
+                    {
+                        <a href="~/etiket/@tag.Url">@tag.TagName</a>
+                    }
+                </div>
+            }
+
+            <div class="col-12" style="margin-top:15px;">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-default bg-light">
+                            <div class="card-heading" style="padding-top: 20px; padding-left:20px;">
+                                <b>@Translator.GetByKey("writeComment")</b>
+                            </div>
+                            <div class="card-body divUser" style="display:none;">
+                                <textarea style="width: 100%;" id="txtComment_@Model.Id" maxlength="200"></textarea><br>
+                                <button type="button" onclick="SaveComment(@Model.Id);" class="btn btn-primary">@Translator.GetByKey("send")</button>
+                            </div>
+                            <div class="card-body divNotUser">
+                                @Translator.GetByKey("noLoginComment") <a href="~/login">@Translator.GetByKey("login")</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-12">
+                        <div class="card card-default">
+                            <div class="card-body">
+                                @if (Model.CommentList.HasValue())
+                                {
+                                    @await Html.PartialAsync("_NewsComment", Model.CommentList)
+
+                                    @if (Model.CommentsCount > 5)
+                                    {
+                                        <button class="btn btn-info btn-load-more-comment" data-id="@Model.Id" data-total="@Model.CommentsCount" onclick="loadMoreComments(this)">@Translator.GetByKey("loadMore")</button>
+                                    }
+                                }
+                                else
+                                {
+                                    <div>
+                                        @Translator.GetByKey("emptyCommentList")
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newsCount" style="display:none;">
+        @Model.RelatedNewsCount
+    </div>
+</section>
+    <script>
+        var rootPath = "@Url.Content("")";
+
+        function AddOrDeleteBookmark(_newsId, el) {
+             var isAdd = $(el).find('>i').hasClass('bg-silver');
+            var param = { 'newsId': _newsId };
+            $.ajax({
+                type: "POST",
+                url: rootPath + (isAdd ? "/add-bookmark" : "/delete-bookmark"),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    if (isAdd) {
+                        $(el).find('.fa-bookmark').removeClass('bg-silver').addClass('text-danger');
+                    }
+                    else {
+                        $(el).find('.fa-bookmark').removeClass('text-danger').addClass('bg-silver');
+                    }
+                    swal({
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+         function SaveComment(_newsId) {
+            var content = $('#txtComment_' + _newsId).val();
+            if (content=="") {
+                return;
+            }
+
+            var param = { 'newsId': _newsId, 'content': content };
+            $.ajax({
+                type: "POST",
+                url: rootPath + "/add-comment",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    $('#txtComment_' + _newsId).val('')
+                    swal({
+                        title: "@Translator.GetByKey("successCommentSave")",
+                        text: "",
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+}
+

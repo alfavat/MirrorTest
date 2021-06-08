@@ -1,0 +1,43 @@
+﻿@model List<MostViewedNewsDto>
+
+
+@if (Model.HasValue())
+{
+
+        <div class="oda-title">
+            @Translator.GetByKey("MostViewedNews")
+        </div>
+
+        <a href="@Model[0].Url" class="news-special-wrapper-link rltv">
+            <img src="@Model[0].ImageUrl" class="img-responsive m0a br5" alt="@Model[0].Title">
+            <div class="news-special-title">@Model[0].Title</div>
+        </a>
+        <div class="clearfix"></div>
+
+        <div class="column-news-wrapper">
+            @if (Model.Count > 1)
+            {
+                @for (int i = 1; i < Model.Count; i++)
+                {
+                    <a href="@Model[i].Url" class="news-item-link br5">
+                        <div class="left rltv">
+                            <img src="@Model[i].ImageUrl" class="img-responsive m0a" alt="@Model[i].Title">
+                        </div>
+                        <div class="right">
+                            @*<div class="news-cat gundem">GÜNDEM</div>*@
+                            <div class="news-title">@Model[i].Title</div>
+                            <div class="news-sub">@Model[i].ShortDescription</div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                }
+            }
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="ihbar-hatti">
+            <div class="top"><i class="fa fa-whatsapp" aria-hidden="true"></i> @Html.Raw(Translator.GetByKey("HotLine"))</div>
+            <div class="bottom">@LayoutModel.Option.Whatsapp</div>
+        </div>
+}

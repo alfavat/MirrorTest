@@ -1,0 +1,23 @@
+﻿@model List<MainPageSearchNewsDto>
+
+@if (Model.HasValue())
+{
+
+    foreach (var item in Model)
+    {
+        <a href="@item.Url" class="news-item-link br5">
+            <div class="left rltv">
+                <img src="@item.ImageUrl" class="img-responsive m0a">
+            </div>
+            <div class="right">
+                @*<div class="news-cat spor">SPOR</div>*@
+                <div class="news-title">@item.Title</div>
+            </div>
+            <div class="clearfix"></div>
+        </a>
+    }
+}
+else
+{
+    @Html.Raw(Translator.GetByKey("NoResultFound"))
+}

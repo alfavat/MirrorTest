@@ -1,0 +1,109 @@
+﻿@model List<NewsBookmarkDto>
+@{
+    ViewData["Title"] = "" + @Translator.GetByKey("myNewsList") + " - " + @Translator.GetByKey("webMainTitle");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcump start-->
+<div class="container" style="margin-bottom:10px;">
+    <div class="row">
+        <div class="btn-group btn-breadcrumb breadcrumb-default">
+            <a href="~/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <h1 style="margin-left:20px;font-size: 15px;padding-top:6px;">@Translator.GetByKey("myNewsList")</h1>
+        </div>
+    </div>
+</div>
+<!-- breadcump end-->
+<!-- content start-->
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+
+            <ul class="list-group">
+                <li class="list-group-item text-right"><a href="~/profilim" class="pull-left"><i class="fa fa-user"></i> @Translator.GetByKey("myProfile")</a></li>
+                <li class="list-group-item text-right"><a href="~/sifremi-guncelle" class="pull-left"><i class="fa fa-lock"></i> @Translator.GetByKey("updatePassword")</a></li>
+                <li class="list-group-item text-right"><a href="javascript:;" class="pull-left"><strong><i class="fa fa-bookmark"></i> @Translator.GetByKey("myNewsList")</strong></a></li>
+                <li class="list-group-item text-right"><a href="~/yorumlarim" class="pull-left"><i class="fa fa-commenting"></i> @Translator.GetByKey("myComments")</a></li>
+                <li class="list-group-item text-right"><a href="~/cikis" class="pull-left"><i class="fa fa-sign-out"></i> @Translator.GetByKey("logout")</a></li>
+            </ul>
+
+        </div><!--/col-3-->
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-12"><h2> </h2></div>
+            </div>
+
+            @if (Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="card" style="margin-bottom:10px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <a href="javascript:;" onclick="DeleteBookmark(@item.NewsId);"><i class="fa fa-remove text-danger"></i></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="@item.Url" target="_blank"><img src="@item.ImageUrl" class="img-fluid" /></a>
+                                </div>
+                                <div class="col-md-8">
+                                    <a href="@item.Url" target="_blank">@item.Title</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    @Translator.GetByKey("emptyNewsBookmark")
+                </div>
+            }
+
+        </div><!--/col-9-->
+
+    </div>
+
+</div>
+<!-- content end-->
+
+@section SectionBottom{
+
+    <script src="~/js/sweetalert.min.js"></script>
+
+    <script>
+        //Bu kısım js dosyasına taşınabilir
+
+        function DeleteBookmark(_id) {
+
+            var param = { 'newsId': _id };
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/delete-bookmark")",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    if (result.success) {
+                        location.reload();
+                    } else {
+                        swal({
+                            title: "@Translator.GetByKey("registerFailed")",
+                            text: "@Translator.GetByKey("registerFailedDetail")",
+                            icon: "error",
+                            button: "@Translator.GetByKey("okButton")"
+                        });
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(error);
+                }
+            });
+
+        }
+
+    </script>
+}

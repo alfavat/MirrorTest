@@ -1,0 +1,133 @@
+﻿@model UserViewDto
+@{
+    ViewData["Title"] = "" + @Translator.GetByKey("myProfile") + " - " + @Translator.GetByKey("webMainTitle");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcump start-->
+<div class="container" style="margin-bottom:10px;">
+    <div class="row">
+        <div class="btn-group btn-breadcrumb breadcrumb-default">
+            <a href="~/" class="btn btn-default"><i class="fa fa-home"></i></a>
+            <h1 style="margin-left:20px;font-size: 15px;padding-top:6px;">@Translator.GetByKey("myProfile")</h1>
+        </div>
+    </div>
+</div>
+<!-- breadcump end-->
+<!-- content start-->
+<section class="block-wrapper">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <!--left col-->
+
+                <ul class="list-group">
+                    <li class="list-group-item text-right"><a href="javascript:;" class="pull-left"><strong><i class="fa fa-user"></i> @Translator.GetByKey("myProfile")</strong></a></li>
+                    <li class="list-group-item text-right"><a href="~/sifremi-guncelle" class="pull-left"><i class="fa fa-lock"></i> @Translator.GetByKey("updatePassword")</a></li>
+                    <li class="list-group-item text-right"><a href="~/kayitli-haberlerim" class="pull-left"><i class="fa fa-bookmark"></i> @Translator.GetByKey("myNewsList")</a></li>
+                    <li class="list-group-item text-right"><a href="~/yorumlarim" class="pull-left"><i class="fa fa-commenting"></i> @Translator.GetByKey("myComments")</a></li>
+                    <li class="list-group-item text-right"><a href="~/cikis" class="pull-left"><i class="fa fa-sign-out"></i> @Translator.GetByKey("logout")</a></li>
+                </ul>
+
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-12"><h2> @Translator.GetByKey("myProfile")</h2></div>
+                </div>
+                <form class="form" id="registrationForm">
+                    <div class="form-group">
+
+                        <div class="col-xs-6">
+                            <label for="first_name"> @Translator.GetByKey("firstName")</label>
+                            <input type="text" class="form-control" name="txtName" id="txtName" value="@Model.FirstName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-xs-6">
+                            <label for="last_name"> @Translator.GetByKey("lastName")</label>
+                            <input type="text" class="form-control" name="txtSurname" id="txtSurname" value="@Model.LastName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-xs-6">
+                            <label for="email"> @Translator.GetByKey("email")</label>
+                            <input type="email" class="form-control" name="txtMail" id="txtMail" value="@Model.Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <br>
+                            <button class="btn btn-lg btn-primary" type="button" onclick="Save();"><i class="fa fa-save"></i>  @Translator.GetByKey("send")</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div><!--/col-9-->
+
+        </div>
+
+    </div>
+
+</section>
+<!-- content end-->
+
+@section SectionBottom{
+
+    <script src="~/js/sweetalert.min.js"></script>
+
+    <script>
+        //Bu kısım js dosyasına taşınabilir
+
+        function Save() {
+            var _name = $('#txtName').val();
+            var _surname = $('#txtSurname').val();
+            var _mail = $('#txtMail').val();
+
+            if (_name == "" || _surname == "" || _mail == "") {
+                swal({
+                    title: "@Translator.GetByKey("registerValid")",
+                    text: "@Translator.GetByKey("registerValidDetail")",
+                    icon: "error",
+                    button: "@Translator.GetByKey("okButton")"
+                });
+                return;
+            }
+
+            var param = { 'name': _name, 'surname': _surname, 'mail': _mail };
+            $.ajax({
+                type: "POST",
+                url: "@Url.Content("~/form-profile")",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    if (result.success) {
+                        swal({
+                            title: "@Translator.GetByKey("registerSuccess")",
+                            text: "",
+                            icon: "success",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                    } else {
+                        swal({
+                            title: "@Translator.GetByKey("registerFailed")",
+                            text: "@Translator.GetByKey("registerFailedDetail")",
+                            icon: "error",
+                            button: "@Translator.GetByKey("okButton")"
+                        });
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log(error);
+                }
+            });
+
+        }
+
+    </script>
+}

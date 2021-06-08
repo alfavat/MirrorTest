@@ -1,0 +1,22 @@
+﻿@model PageDto
+@{
+    if (Model != null)
+    {
+        ViewData["Title"] = Model.Title + " - " + @Translator.GetByKey("ProjectName");
+        ViewData["Description"] = Model.SeoDescription;
+        ViewData["Keywords"] = Model.SeoKeywords;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@if (Model != null)
+{
+    <!-- content start-->
+    <section class="block-wrapper">
+        <div class="container" style="background-color:#fff;padding:20px;">
+            <h1 style="font-size:18px;color:#595959;">@Model.Title</h1>
+            @Html.Raw(Model.HtmlContent)
+        </div>
+    </section>
+    <!-- content end-->
+}

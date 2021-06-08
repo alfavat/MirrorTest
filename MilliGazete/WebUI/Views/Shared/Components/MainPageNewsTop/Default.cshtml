@@ -1,0 +1,20 @@
+﻿@model List<MainPageFourHillNewsDto>
+
+    <div class="mob-order-wrapper-2">
+        <div class="row surmanset-slide">
+
+            @if (Model.HasValue())
+            {
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="surmanset-slide-item">
+                        <a href="@Model[i].Url">
+                            <img src="@Model[i].ImageUrl" class="img-responsive m0a" alt="@Model[i].Title">
+                            <div class="headline"><span>@Model[i].Title</span></div>
+                            @*<div class="lbl">SON DAKİKA</div>*@
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>

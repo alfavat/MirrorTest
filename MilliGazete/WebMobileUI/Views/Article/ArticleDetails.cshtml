@@ -1,0 +1,74 @@
+﻿@model ArticleDto
+@{
+    ViewData["Title"] = Model?.Title + " - " + @Translator.GetByKey("article ") + " - " + @Translator.GetByKey("webMainTitle");
+    ViewData["Description"] = Model?.SeoDescription;
+    ViewData["Keywords"] = Model?.SeoKeywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}  
+<style>
+    .post-title.lg {
+        font-size: 23px !important;
+    }
+</style> 
+<link rel="stylesheet" href="~/css/box-style.css">
+
+<section class="single-post-wrapper post-layout-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="ts-grid-box content-wrapper single-post">
+                    <div class="entry-header">
+                        <h2 class="post-title lg">@Model?.Title</h2>
+                        <ul class="post-meta-info">
+                            <li class="author">
+                                <a href="/yazar/@Model?.Author?.NameSurename.ToUrlFormat()">
+                                    <img src="@Model?.Author?.PhotoFile?.FileName" alt="@Model?.Author?.NameSurename"> @Model?.Author?.NameSurename
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-clock-o"></i>
+                                    @Model?.CreatedAt.ToString("dd/MM/yyyy")
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-clock-o"></i>
+                                    @Model?.CreatedAt.ToString("HH:mm")
+                                </a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-eye"></i>
+                                @Model?.ReadCount
+                            </li>
+                            <li class="share-post pull-right">
+                                <div class="authors-social">
+                                    <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebUIUrl@Model.Url&text=@Model.Title" class="ts-twitter" target="_blank">
+                                        <i class="fa fa-twitter" style="background-color: #55acee;"></i>
+                                    </a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebUIUrl@Model.Url&t=@Model.Title" class="ts-facebook" target="_blank">
+                                        <i class="fa fa-facebook" style="background-color: #3b5999;"></i>
+                                    </a>
+                                    <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebUIUrl@Model.Url" class="ts-linkedin" target="_blank">
+                                        <i class="fa fa-whatsapp" style="background-color: #25d366;"></i>
+                                    </a>
+                                    <a href="https://telegram.me/share/url?url=@LayoutModel.WebUIUrl@Model.Url&text=@Model.Title" class="ts-linkedin" target="_blank">
+                                        <i class="fa fa-telegram" style="background-color: #2da5e1;"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="post-content-area">
+                        <div class="entry-content">
+                            @Html.Raw(Model?.HtmlContent)
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
