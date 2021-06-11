@@ -25,9 +25,9 @@ namespace Business.Managers.Concrete
         public List<NewsViewDto> GetListByPaging(NewsPagingDto pagingDto, out int total)
         {
             var query = _newsDal.GetList(f => !f.Deleted && f.IsLastNews)
-                .Include(f => f.NewsTag).ThenInclude(f => f.Tag)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsHitDetail)
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsHitDetails)
                 .AsQueryable();
 
             if (pagingDto.Query.StringNotNullOrEmpty())
@@ -104,7 +104,7 @@ namespace Business.Managers.Concrete
 
         public async Task<List<NewsViewDto>> GetList()
         {
-            var list = _newsDal.GetList(f => !f.Deleted).Include(f => f.NewsTag).ThenInclude(f => f.Tag).AsQueryable();
+            var list = _newsDal.GetList(f => !f.Deleted).Include(f => f.NewsTags).ThenInclude(f => f.Tag).AsQueryable();
             return await _mapper.ProjectTo<NewsViewDto>(list).ToListAsync();
         }
 
@@ -119,7 +119,7 @@ namespace Business.Managers.Concrete
         public async Task<List<NewsSiteMapDto>> GetListForSiteMap()
         {
             var list = _newsDal.GetActiveList()
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsAgencyEntity)
                 .AsQueryable()
                 .OrderByDescending(f => f.PublishDate).ThenBy(f => f.PublishTime);
@@ -150,9 +150,9 @@ namespace Business.Managers.Concrete
         {
             var query = _newsDal.GetActiveList()
                 .Include(f => f.Author).ThenInclude(f => f.PhotoFile)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsCounter)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsCounters)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Where(p => p.NewsTypeEntityId == (int)NewsTypeEntities.Article)
                 .AsQueryable();
 
@@ -162,15 +162,15 @@ namespace Business.Managers.Concrete
         public async Task<List<NewsViewDto>> GetListByAuthorId(int authorId)
         {
             var list = _newsDal.GetActiveList().Where(f => f.AuthorId == authorId)
-                .Include(f => f.NewsTag).ThenInclude(f => f.Tag)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsAgencyEntity)
                 .Include(f => f.Author).ThenInclude(f => f.PhotoFile)
                 .Include(f => f.NewsTypeEntity)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsFile).ThenInclude(f => f.VideoCoverFile)
-                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsPosition).Include(f => f.NewsProperty)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.VideoCoverFile)
+                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsPositions).Include(f => f.NewsProperties)
                 .AsQueryable();
             return await _mapper.ProjectTo<NewsViewDto>(list).ToListAsync();
 

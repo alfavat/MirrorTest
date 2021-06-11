@@ -53,7 +53,7 @@ namespace Business.Managers.Concrete
                 foreach (var item in authors)
                 {
                     var article = await _newsDal.GetActiveList().Where(f => f.AuthorId == item.Id)
-                        .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                        .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                         .Select(f => new { f.AuthorId, f.Title, Url = f.GetUrl(), f.PublishDate })
                         .OrderByDescending(f => f.PublishDate).FirstOrDefaultAsync();
                     if (article != null)
@@ -74,7 +74,7 @@ namespace Business.Managers.Concrete
                 .Include(f => f.PhotoFile).FirstOrDefaultAsync();
             var item = _mapper.Map<AuthorDto>(data);
             var article = await _newsDal.GetActiveList().Where(f => f.AuthorId == item.Id)
-                        .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                        .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                         .Select(f => new { f.AuthorId, f.Title, Url = f.GetUrl(), f.PublishDate })
                         .OrderByDescending(f => f.PublishDate).FirstOrDefaultAsync();
             if (article != null)
@@ -94,7 +94,7 @@ namespace Business.Managers.Concrete
                 .FirstOrDefaultAsync();
             var item = _mapper.Map<AuthorWithDetailsDto>(data);
             var articles = _newsDal.GetActiveList().Where(f => f.AuthorId == item.Id)
-                        .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                        .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                         .OrderByDescending(f => f.PublishDate);
             if (articles != null)
             {

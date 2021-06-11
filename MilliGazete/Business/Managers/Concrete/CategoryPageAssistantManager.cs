@@ -26,9 +26,9 @@ namespace Business.Managers.Concrete
             var query = _newsDal.GetNewsListByCategoryUrl(url, out int headingPositionEntityId);
             query = query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
             query = query
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.Author).AsQueryable();
 
             return await _mapper.ProjectTo<MainPageCategoryNewsDto>(query).ToListAsync();
@@ -38,11 +38,11 @@ namespace Business.Managers.Concrete
         {
             var query = _newsDal.GetNewsListByCategoryUrl(url, out int headingPositionEntityId);
 
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == headingPositionEntityId && u.Order > 0));
-            query = query.OrderBy(u => u.NewsPosition.First(u => u.PositionEntityId == headingPositionEntityId).Order).Take(limit.CheckLimit())
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsPosition)
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == headingPositionEntityId && u.Order > 0));
+            query = query.OrderBy(u => u.NewsPositions.First(u => u.PositionEntityId == headingPositionEntityId).Order).Take(limit.CheckLimit())
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsPositions)
                 .Include(f => f.Author).AsQueryable();
             return await _mapper.ProjectTo<MainHeadingDto>(query).ToListAsync();
         }
@@ -52,9 +52,9 @@ namespace Business.Managers.Concrete
             var query = _newsDal.GetNewsListByCategoryId(id, out int headingPositionEntityId);
             query = query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
             query = query
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.Author).AsQueryable();
 
             return await _mapper.ProjectTo<MainPageCategoryNewsDto>(query).ToListAsync();
@@ -64,11 +64,11 @@ namespace Business.Managers.Concrete
         {
             var query = _newsDal.GetNewsListByCategoryId(id, out int headingPositionEntityId);
 
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == headingPositionEntityId && u.Order > 0));
-            query = query.OrderBy(u => u.NewsPosition.First(u => u.PositionEntityId == headingPositionEntityId).Order).Take(limit.CheckLimit())
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == headingPositionEntityId && u.Order > 0));
+            query = query.OrderBy(u => u.NewsPositions.First(u => u.PositionEntityId == headingPositionEntityId).Order).Take(limit.CheckLimit())
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.Author).AsQueryable();
             return await _mapper.ProjectTo<MainHeadingDto>(query).ToListAsync();
         }

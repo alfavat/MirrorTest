@@ -20,13 +20,13 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 try
                 {
-                    Db.NewsHit.Add(new NewsHit
+                    Db.NewsHits.Add(new NewsHit
                     {
                         CreatedAt = DateTime.Now,
                         NewsHitComeFromEntityId = dto.NewsHitComeFromEntityId,
                         NewsId = dto.NewsId
                     });
-                    Db.NewsHitDetail.Add(new NewsHitDetail
+                    Db.NewsHitDetails.Add(new NewsHitDetail
                     {
                         CreatedAt = DateTime.Now,
                         NewsHitComeFromEntityId = dto.NewsHitComeFromEntityId,

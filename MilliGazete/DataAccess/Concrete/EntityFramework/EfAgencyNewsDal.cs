@@ -24,7 +24,7 @@ namespace DataAccess.Concrete.EntityFramework
                     Db.AgencyNews.Add(agencyNews);
                     Db.SaveChanges();
                     files.ForEach(f => f.AgencyNewsId = agencyNews.Id);
-                    Db.AgencyNewsFile.AddRange(files);
+                    Db.AgencyNewsFiles.AddRange(files);
                     Db.SaveChanges();
                     await transaction.CommitAsync();
                 }
@@ -42,12 +42,12 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 try
                 {
-                    var data = Db.AgencyNews.Where(f => f.NewsAgencyEntityId == newsAgencyEntityId).Include(f => f.AgencyNewsFile).ToList();
+                    var data = Db.AgencyNews.Where(f => f.NewsAgencyEntityId == newsAgencyEntityId).Include(f => f.AgencyNewsFiles).ToList();
                     data.ForEach(news =>
                     {
-                        if (news.AgencyNewsFile != null && news.AgencyNewsFile.Any())
+                        if (news.AgencyNewsFiles != null && news.AgencyNewsFiles.Any())
                         {
-                            Db.AgencyNewsFile.RemoveRange(news.AgencyNewsFile.ToList());
+                            Db.AgencyNewsFiles.RemoveRange(news.AgencyNewsFiles.ToList());
                         }
                     });
                     Db.AgencyNews.RemoveRange(data);
@@ -66,7 +66,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         public async Task<AgencyNewsFile> GetAgencyNewsFileById(int id)
         {
-            return await Db.AgencyNewsFile.FirstOrDefaultAsync(f => f.Id == id);
+            return await Db.AgencyNewsFiles.FirstOrDefaultAsync(f => f.Id == id);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         public IQueryable<NewsBookmark> GetNewsBookmarks(Expression<Func<NewsBookmark, bool>> filter)
         {
-            return Db.NewsBookmark.Where(filter);
+            return Db.NewsBookmarks.Where(filter);
         }
     }
 }

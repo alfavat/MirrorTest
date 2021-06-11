@@ -28,8 +28,8 @@ namespace Business.Managers.Concrete
         public async Task<NewsBookmarkDto> GetByNewsUrl(string url, int requestUserId)
         {
             var data = await _newsBookmarkDal.GetList(f => f.News.Url.ToLower() == url.ToLower() && f.UserId == requestUserId && !f.News.Deleted)
-                .Include(f => f.News).ThenInclude(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.News).ThenInclude(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.News).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.News).ThenInclude(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.User).FirstOrDefaultAsync();
 
             return _mapper.Map<NewsBookmarkDto>(data);
@@ -38,8 +38,8 @@ namespace Business.Managers.Concrete
         public async Task<NewsBookmarkDto> GetByNewsId(int newsId, int requestUserId)
         {
             var data = await _newsBookmarkDal.GetList(f => f.NewsId == newsId && !f.News.Deleted && f.UserId == requestUserId)
-                .Include(f => f.News).ThenInclude(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.News).ThenInclude(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.News).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.News).ThenInclude(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.User).FirstOrDefaultAsync();
 
             return _mapper.Map<NewsBookmarkDto>(data);
@@ -64,8 +64,8 @@ namespace Business.Managers.Concrete
         public async Task<List<NewsBookmarkDto>> GetList(int requestUserId)
         {
             var list = _newsBookmarkDal.GetList(f => !f.News.Deleted && f.UserId == requestUserId)
-                .Include(f => f.News).ThenInclude(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.News).ThenInclude(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.News).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.News).ThenInclude(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.User);
 
             return await _mapper.ProjectTo<NewsBookmarkDto>(list).ToListAsync();

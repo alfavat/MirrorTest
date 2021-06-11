@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class Tag
     {
         public Tag()
         {
-            ArticleTag = new HashSet<ArticleTag>();
-            NewsTag = new HashSet<NewsTag>();
+            ArticleTags = new HashSet<ArticleTag>();
+            NewsTags = new HashSet<NewsTag>();
         }
 
         public int Id { get; set; }
@@ -18,7 +20,7 @@ namespace Entity.Models
         public DateTime CreatedAt { get; set; }
         public bool Deleted { get; set; }
 
-        public virtual ICollection<ArticleTag> ArticleTag { get; set; }
-        public virtual ICollection<NewsTag> NewsTag { get; set; }
+        public virtual ICollection<ArticleTag> ArticleTags { get; set; }
+        public virtual ICollection<NewsTag> NewsTags { get; set; }
     }
 }

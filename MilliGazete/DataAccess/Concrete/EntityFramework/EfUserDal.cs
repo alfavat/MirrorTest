@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
         }
         public async Task AddUserClaim(UserOperationClaim claim)
         {
-            Db.UserOperationClaim.Add(claim);
+            Db.UserOperationClaims.Add(claim);
             await Db.SaveChangesAsync();
         }
     }

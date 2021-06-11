@@ -57,5 +57,13 @@ namespace WebAPI.Controllers
         {
             return GetResponse(await _fileService.DeleteFilesById(ids));
         }
+        // =================== just for milli gazete we can delete this method later
+        [HttpPost("uploadbase64")]
+        [RequestFormLimits(MultipartBodyLengthLimit = 524288000)]
+        [RequestSizeLimit(524288000)]
+        public async Task<IActionResult> UploadBase64(TempUploadDto file)
+        {
+            return GetResponse(await _fileService.UploadBase64(file));
+        }
     }
 }

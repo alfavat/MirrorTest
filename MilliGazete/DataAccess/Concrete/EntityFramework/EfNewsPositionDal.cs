@@ -20,7 +20,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         public IQueryable<NewsPosition> GetListWithDetails(Expression<Func<NewsPosition, bool>> filter)
         {
-            return Db.NewsPosition.Where(filter).OrderBy(f => f.Order).Include(f => f.News).ThenInclude(f => f.NewsFile).ThenInclude(f => f.File).Take(30).AsNoTracking().AsQueryable();
+            return Db.NewsPositions.Where(filter).OrderBy(f => f.Order).Include(f => f.News).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File).Take(30).AsNoTracking().AsQueryable();
         }
 
         public async Task UpdateNewsPositions(List<NewsPositionUpdateDto> newsPositions)
@@ -34,7 +34,7 @@ namespace DataAccess.Concrete.EntityFramework
 
                     newsPositions.ForEach(item =>
                     {
-                        var position = Db.NewsPosition.FirstOrDefault(f => f.NewsId == item.NewsId && f.PositionEntityId == item.PositionEntityId);
+                        var position = Db.NewsPositions.FirstOrDefault(f => f.NewsId == item.NewsId && f.PositionEntityId == item.PositionEntityId);
                         if (position != null)
                         {
                             position.Order = item.Order;
@@ -55,7 +55,7 @@ namespace DataAccess.Concrete.EntityFramework
         public async Task IncreaseNewsPositionOrdersByEntityId(int newsPositionEntityId)
         {
             var newsIds = await Db.News.AsNoTracking().Where(u => u.Active && !u.Deleted && u.Approved.Value && !u.IsDraft && u.IsLastNews).Select(u => u.Id).ToListAsync();
-            var list = await Db.NewsPosition.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == newsPositionEntityId && f.Order > 0).OrderBy(f => f.Order).ToListAsync();
+            var list = await Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == newsPositionEntityId && f.Order > 0).OrderBy(f => f.Order).ToListAsync();
             if (list.HasValue())
             {
                 list.ForEach(g => g.Order++);
@@ -66,7 +66,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         public async Task ReOrderNewsPositionOrdersByNewsId(int newsId)
         {
-            var news = await Db.News.AsNoTracking().Where(u => u.Id == newsId).Include(f => f.NewsPosition).FirstOrDefaultAsync();
+            var news = await Db.News.AsNoTracking().Where(u => u.Id == newsId).Include(f => f.NewsPositions).FirstOrDefaultAsync();
             //if (news.NewsPosition == null || !news.NewsPosition.Any())
             //{
             //    return;
@@ -75,7 +75,7 @@ namespace DataAccess.Concrete.EntityFramework
             //var newsIds = Db.News.AsNoTracking().Where(u => u.Active && !u.Deleted && u.Id != newsId && u.Approved.Value && !u.IsDraft && u.IsLastNews).Select(u => u.Id);
             //foreach (var positionEntityId in positionEntityIds)
             //{
-            //    var list = Db.NewsPosition.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == positionEntityId && f.Order > 0).OrderBy(f => f.Order).ToList();
+            //    var list = Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == positionEntityId && f.Order > 0).OrderBy(f => f.Order).ToList();
             //    if (list.HasValue())
             //    {
             //        for (int i = 0; i < list.Count; i++)
@@ -90,12 +90,12 @@ namespace DataAccess.Concrete.EntityFramework
 
         public async Task MoveSixteenthNewsToMainPageNewsPosition()
         {
-            var newsIds = await Db .News.AsNoTracking().Where(u => u.Active && !u.Deleted && u.Approved.Value && !u.IsDraft && u.IsLastNews).Select(u => u.Id).ToListAsync();
-            var mainHeadingNewsPositions = await Db.NewsPosition.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainHeadingNews && f.Order > 0)
+            var newsIds = await Db.News.AsNoTracking().Where(u => u.Active && !u.Deleted && u.Approved.Value && !u.IsDraft && u.IsLastNews).Select(u => u.Id).ToListAsync();
+            var mainHeadingNewsPositions = await Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainHeadingNews && f.Order > 0)
                 .OrderBy(f => f.Order).Take(16).ToListAsync();
             if (mainHeadingNewsPositions.HasValue() && mainHeadingNewsPositions.Count >= 16)
             {
-                var mainPagePositions = await Db.NewsPosition.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainPageNews && f.Order > 0) .OrderBy(f => f.Order).ToListAsync();
+                var mainPagePositions = await Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainPageNews && f.Order > 0) .OrderBy(f => f.Order).ToListAsync();
                 mainPagePositions.ForEach(g => g.Order++);
 
                 var sixteenthNews = mainHeadingNewsPositions.Last();

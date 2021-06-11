@@ -20,7 +20,7 @@ namespace Business.AutoMapper
 
             CreateMap<NewsComment, UserNewsCommentDto>()
                 .ForMember(f => f.User, u => u.MapFrom(g => g.User == null ? null : g.User))
-                .ForMember(f => f.NewsCommentLikeList, g => g.MapFrom(t => t.NewsCommentLike));
+                .ForMember(f => f.NewsCommentLikeList, g => g.MapFrom(t => t.NewsCommentLikes));
 
             CreateMap<NewsCommentDto, UserNewsCommentDto>()
                 .ForMember(f => f.User, u => u.MapFrom(g => g.User == null ? null : g.User));

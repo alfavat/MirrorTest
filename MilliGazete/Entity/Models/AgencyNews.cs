@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class AgencyNews
     {
         public AgencyNews()
         {
-            AgencyNewsFile = new HashSet<AgencyNewsFile>();
+            AgencyNewsFiles = new HashSet<AgencyNewsFile>();
         }
 
         public long Id { get; set; }
@@ -26,6 +28,6 @@ namespace Entity.Models
         public string Code { get; set; }
         public int NewsAgencyEntityId { get; set; }
 
-        public virtual ICollection<AgencyNewsFile> AgencyNewsFile { get; set; }
+        public virtual ICollection<AgencyNewsFile> AgencyNewsFiles { get; set; }
     }
 }

@@ -51,7 +51,7 @@ namespace Business.Managers.Concrete
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
-            var claims = user.UserOperationClaim.Select(f => f.OperationClaim).ToList();
+            var claims = user.UserOperationClaims.Select(f => f.OperationClaim).ToList();
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AcccessTokenCreated);
         }
@@ -98,7 +98,7 @@ namespace Business.Managers.Concrete
             var data = await _userOperationClaimAssistantService.GetClaimsByUserId(_baseService.RequestUserId);
             if (data.HasValue())
             {
-                userToCheck.UserOperationClaim = data;
+                userToCheck.UserOperationClaims = data;
             }
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessForLogin);
         }

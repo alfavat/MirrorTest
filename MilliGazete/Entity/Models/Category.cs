@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class Category
@@ -8,8 +10,8 @@ namespace Entity.Models
         public Category()
         {
             InverseParentCategory = new HashSet<Category>();
-            NewsCategory = new HashSet<NewsCategory>();
-            UserCategoryRelation = new HashSet<UserCategoryRelation>();
+            NewsCategories = new HashSet<NewsCategory>();
+            UserCategoryRelations = new HashSet<UserCategoryRelation>();
         }
 
         public int Id { get; set; }
@@ -31,7 +33,7 @@ namespace Entity.Models
         public virtual Entity HeadingPositionEntity { get; set; }
         public virtual Category ParentCategory { get; set; }
         public virtual ICollection<Category> InverseParentCategory { get; set; }
-        public virtual ICollection<NewsCategory> NewsCategory { get; set; }
-        public virtual ICollection<UserCategoryRelation> UserCategoryRelation { get; set; }
+        public virtual ICollection<NewsCategory> NewsCategories { get; set; }
+        public virtual ICollection<UserCategoryRelation> UserCategoryRelations { get; set; }
     }
 }

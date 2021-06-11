@@ -12,7 +12,7 @@ namespace Entity.Models
             {
                 return "/makale/" + Url;
             }
-            return "/" + NewsCategory.FirstOrDefault()?.Category?.Url + "/" + Url + "-" + HistoryNo.ToString();
+            return "/" + NewsCategories.FirstOrDefault()?.Category?.Url + "/" + Url + "-" + HistoryNo.ToString();
         }
     }
 }

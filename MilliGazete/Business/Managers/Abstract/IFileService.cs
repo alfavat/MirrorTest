@@ -14,5 +14,6 @@ namespace Business.Managers.Abstract
         Task<IResult> Delete(int fileId);
         Task<IResult> DeleteFilesById(List<int> ids);
         Task<IDataResult<List<FileUploadResponseDto>>> UploadWithFileTypeEntityIds(FileUploadWithEntityIdsDto dto);
+        Task<IDataResult<File>> UploadBase64(TempUploadDto file);
     }
 }

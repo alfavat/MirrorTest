@@ -20,14 +20,14 @@ namespace DataAccess.Concrete.EntityFramework
                 try
                 {
                     var userId = userOperationClaims.Select(f => f.UserId).FirstOrDefault();
-                    var userClaims = Db.UserOperationClaim.Where(f => f.UserId == userId).ToList();
+                    var userClaims = Db.UserOperationClaims.Where(f => f.UserId == userId).ToList();
                     if (userClaims != null)
                     {
-                        Db.UserOperationClaim.RemoveRange(userClaims);
+                        Db.UserOperationClaims.RemoveRange(userClaims);
                         Db.SaveChanges();
                     }
 
-                    Db.UserOperationClaim.AddRange(userOperationClaims);
+                    Db.UserOperationClaims.AddRange(userOperationClaims);
                     Db.SaveChanges();
                     await transaction.CommitAsync();
                 }

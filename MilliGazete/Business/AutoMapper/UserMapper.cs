@@ -14,7 +14,7 @@ namespace Business.AutoMapper
 
             CreateMap<UserAddDto, User>().ReverseMap();
             CreateMap<User, UserViewDto>()
-            .ForMember(f => f.FirstClaim, u => u.MapFrom(g => !g.UserOperationClaim.Any() ? "" : g.UserOperationClaim.First().OperationClaim.ClaimName));
+            .ForMember(f => f.FirstClaim, u => u.MapFrom(g => !g.UserOperationClaims.Any() ? "" : g.UserOperationClaims.First().OperationClaim.ClaimName));
             CreateMap<UserViewDto, User>();
             CreateMap<CurrentUserUpdateDto, User>().ReverseMap();
         }

@@ -141,5 +141,32 @@ namespace Business.Managers.Concrete
             }
             return new SuccessDataResult<List<FileUploadResponseDto>>(list, Messages.FileUploadSuccess);
         }
+
+        // ==================================== //
+        [SecuredOperation()]
+        [LogAspect()]
+        [CacheRemoveAspect("IFileService.Get")]
+        public async Task<IDataResult<File>> UploadBase64(TempUploadDto temp)
+        {
+            var filePath = _uploadHelper.UploadFileBase64(_baseService.RequestUserId.ToString() + "_", temp.Base64Str, temp.FileType);
+            if (filePath.StringIsNullOrEmpty())
+            {
+                return new ErrorDataResult<File>(Messages.FileUploadError);
+            }
+            if (new UploadHelper().IsVideo(temp.FileType) && !_fileHelper.OptimizeVideo(filePath))
+            {
+                new UploadHelper().DeleteFile(filePath);
+                return new ErrorDataResult<File>(Messages.FileUploadError);
+            }
+            File file = new File()
+            {
+                UserId = _baseService.RequestUserId,
+                FileName = filePath,
+                FileType = temp.FileType,
+                FileSizeKb = temp.FileLength / 1024,
+            };
+            await _fileAssistantService.Add(file);
+            return new SuccessDataResult<File>(file, Messages.FileUploadSuccess);
+        }
     }
 }
