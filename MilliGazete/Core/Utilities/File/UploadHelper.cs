@@ -248,5 +248,29 @@ namespace Core.Utilities.File
         {
             GC.SuppressFinalize(this);
         }
+
+
+        public string UploadFileBase64(string fileNamePreWord, string base64, string fileType)
+        {
+            var folderName = Path.Combine("Resources", "Downloads");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            if (!Directory.Exists(pathToSave))
+            {
+                Directory.CreateDirectory(pathToSave);
+            }
+            if (base64.StringNotNullOrEmpty())
+            {
+                var guid = Guid.NewGuid().ToString().Substring(0, 4);
+                var extension = fileType.StartsWith(".") ? fileType : "." + fileType;
+                var dateTime = $@"{DateTime.Now.Year}_{DateTime.Now.Month}_{DateTime.Now.Day}_{DateTime.Now.Hour}_{DateTime.Now.Minute}_{DateTime.Now.Second}_{DateTime.Now.Millisecond}";
+                var fileName = $@"odatv_{fileType.Replace(".", "")}_{fileNamePreWord}_{dateTime}_{guid}{extension}";
+                var fullPath = Path.Combine(pathToSave, fileName);
+
+                var bytes = Convert.FromBase64String(base64);
+                System.IO.File.WriteAllBytes(fullPath, bytes);
+                return folderName.Replace(@"\", "/") + @"/" + fileName; ;
+            }
+            return null;
+        }
     }
 }

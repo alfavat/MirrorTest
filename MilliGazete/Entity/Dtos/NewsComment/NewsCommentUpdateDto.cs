@@ -9,5 +9,6 @@
         public string Content { get; set; }
         public int? TotalLikeCount { get; set; }
         public bool Approved { get; set; }
+        public string AnonymousUsername { get; set; }
     }
 }

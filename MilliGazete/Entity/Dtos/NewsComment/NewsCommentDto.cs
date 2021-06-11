@@ -12,6 +12,8 @@ namespace Entity.Dtos
         public DateTime CreatedAt { get; set; }
         public int? TotalLikeCount { get; set; }
         public bool Approved { get; set; }
+        public string IpAddress { get; set; }
+        public string AnonymousUsername { get; set; }
         public UserViewDto User { get; set; }
         public CommentNewsDetailsDto News { get; set; }
     }
