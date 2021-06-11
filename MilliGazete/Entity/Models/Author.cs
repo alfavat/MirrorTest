@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class Author
     {
         public Author()
         {
-            Article = new HashSet<Article>();
+            Articles = new HashSet<Article>();
             News = new HashSet<News>();
         }
 
@@ -29,7 +31,7 @@ namespace Entity.Models
 
         public virtual File FeaturedImageFile { get; set; }
         public virtual File PhotoFile { get; set; }
-        public virtual ICollection<Article> Article { get; set; }
+        public virtual ICollection<Article> Articles { get; set; }
         public virtual ICollection<News> News { get; set; }
     }
 }

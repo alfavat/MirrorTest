@@ -20,14 +20,14 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 try
                 {
-                    var like = Db.NewsCommentLike.FirstOrDefault(f => f.NewsCommentId == newsCommentId && f.UserId == userId);
+                    var like = Db.NewsCommentLikes.FirstOrDefault(f => f.NewsCommentId == newsCommentId && f.UserId == userId);
                     if (like != null)
                     {
-                        Db.NewsCommentLike.Remove(like);
+                        Db.NewsCommentLikes.Remove(like);
                     }
                     else
                     {
-                        Db.NewsCommentLike.Add(new NewsCommentLike
+                        Db.NewsCommentLikes.Add(new NewsCommentLike
                         {
                             UserId = userId,
                             NewsCommentId = newsCommentId,
@@ -36,10 +36,10 @@ namespace DataAccess.Concrete.EntityFramework
                         });
                     }
                     Db.SaveChanges();
-                    var comment = Db.NewsComment.FirstOrDefault(f => f.Id == newsCommentId && !f.Deleted);
+                    var comment = Db.NewsComments.FirstOrDefault(f => f.Id == newsCommentId && !f.Deleted);
                     if (comment != null)
                     {
-                        comment.TotalLikeCount = Db.NewsCommentLike.Count(f => f.NewsCommentId == newsCommentId);
+                        comment.TotalLikeCount = Db.NewsCommentLikes.Count(f => f.NewsCommentId == newsCommentId);
                         Db.SaveChanges();
                     }
                     await transaction.CommitAsync();

@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class File
     {
         public File()
         {
-            AgencyNewsFile = new HashSet<AgencyNewsFile>();
-            AuthorFeaturedImageFile = new HashSet<Author>();
-            AuthorPhotoFile = new HashSet<Author>();
-            Category = new HashSet<Category>();
-            NewsFileFile = new HashSet<NewsFile>();
-            NewsFileVideoCoverFile = new HashSet<NewsFile>();
-            Page = new HashSet<Page>();
+            AgencyNewsFiles = new HashSet<AgencyNewsFile>();
+            AuthorFeaturedImageFiles = new HashSet<Author>();
+            AuthorPhotoFiles = new HashSet<Author>();
+            Categories = new HashSet<Category>();
+            NewsFileFiles = new HashSet<NewsFile>();
+            NewsFileVideoCoverFiles = new HashSet<NewsFile>();
+            Pages = new HashSet<Page>();
         }
 
         public int Id { get; set; }
@@ -29,12 +31,12 @@ namespace Entity.Models
         public bool Deleted { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<AgencyNewsFile> AgencyNewsFile { get; set; }
-        public virtual ICollection<Author> AuthorFeaturedImageFile { get; set; }
-        public virtual ICollection<Author> AuthorPhotoFile { get; set; }
-        public virtual ICollection<Category> Category { get; set; }
-        public virtual ICollection<NewsFile> NewsFileFile { get; set; }
-        public virtual ICollection<NewsFile> NewsFileVideoCoverFile { get; set; }
-        public virtual ICollection<Page> Page { get; set; }
+        public virtual ICollection<AgencyNewsFile> AgencyNewsFiles { get; set; }
+        public virtual ICollection<Author> AuthorFeaturedImageFiles { get; set; }
+        public virtual ICollection<Author> AuthorPhotoFiles { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<NewsFile> NewsFileFiles { get; set; }
+        public virtual ICollection<NewsFile> NewsFileVideoCoverFiles { get; set; }
+        public virtual ICollection<Page> Pages { get; set; }
     }
 }

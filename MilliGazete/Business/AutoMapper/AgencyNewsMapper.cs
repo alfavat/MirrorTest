@@ -10,8 +10,8 @@ namespace Business.AutoMapper
     {
         public AgencyNewsMapper()
         {
-            CreateMap<NewsAgencyAddDto, AgencyNews>().ForMember(f => f.AgencyNewsFile, g => g.Ignore()).ForMember(f => f.NewsAgencyEntityId, g => g.MapFrom(u => (int)u.NewsAgencyEntityId));
-            CreateMap<AgencyNews, AgencyNewsViewDto>().ForMember(f => f.AgencyNewsFileList, g => g.MapFrom(u => u.AgencyNewsFile));
+            CreateMap<NewsAgencyAddDto, AgencyNews>().ForMember(f => f.AgencyNewsFiles, g => g.Ignore()).ForMember(f => f.NewsAgencyEntityId, g => g.MapFrom(u => (int)u.NewsAgencyEntityId));
+            CreateMap<AgencyNews, AgencyNewsViewDto>().ForMember(f => f.AgencyNewsFileList, g => g.MapFrom(u => u.AgencyNewsFiles));
 
             CreateMap<AgencyNews, NewsAddDto>()
                 .BeforeMap((copyDto, addDto) =>

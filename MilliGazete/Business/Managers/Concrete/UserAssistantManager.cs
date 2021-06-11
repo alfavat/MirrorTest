@@ -49,7 +49,7 @@ namespace Business.Managers.Concrete
         public async Task<User> GetByMailOrUserName(string mailOrUserName)
         {
             return await _userDal.GetList(u => (u.Email == mailOrUserName || u.UserName == mailOrUserName) && !u.Deleted)
-            .Include(f => f.UserOperationClaim).ThenInclude(f => f.OperationClaim)
+            .Include(f => f.UserOperationClaims).ThenInclude(f => f.OperationClaim)
             .FirstOrDefaultAsync();
         }
 

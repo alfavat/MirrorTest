@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class Entity
     {
         public Entity()
         {
-            Category = new HashSet<Category>();
-            NewsCounter = new HashSet<NewsCounter>();
-            NewsFile = new HashSet<NewsFile>();
-            NewsNewsAgencyEntity = new HashSet<News>();
-            NewsNewsTypeEntity = new HashSet<News>();
-            NewsPosition = new HashSet<NewsPosition>();
-            NewsProperty = new HashSet<NewsProperty>();
+            Categories = new HashSet<Category>();
+            NewsCounters = new HashSet<NewsCounter>();
+            NewsFiles = new HashSet<NewsFile>();
+            NewsNewsAgencyEntities = new HashSet<News>();
+            NewsNewsTypeEntities = new HashSet<News>();
+            NewsPositions = new HashSet<NewsPosition>();
+            NewsProperties = new HashSet<NewsProperty>();
         }
 
         public int Id { get; set; }
@@ -21,12 +23,12 @@ namespace Entity.Models
         public string EntityName { get; set; }
 
         public virtual EntityGroup EntityGroup { get; set; }
-        public virtual ICollection<Category> Category { get; set; }
-        public virtual ICollection<NewsCounter> NewsCounter { get; set; }
-        public virtual ICollection<NewsFile> NewsFile { get; set; }
-        public virtual ICollection<News> NewsNewsAgencyEntity { get; set; }
-        public virtual ICollection<News> NewsNewsTypeEntity { get; set; }
-        public virtual ICollection<NewsPosition> NewsPosition { get; set; }
-        public virtual ICollection<NewsProperty> NewsProperty { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<NewsCounter> NewsCounters { get; set; }
+        public virtual ICollection<NewsFile> NewsFiles { get; set; }
+        public virtual ICollection<News> NewsNewsAgencyEntities { get; set; }
+        public virtual ICollection<News> NewsNewsTypeEntities { get; set; }
+        public virtual ICollection<NewsPosition> NewsPositions { get; set; }
+        public virtual ICollection<NewsProperty> NewsProperties { get; set; }
     }
 }

@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class News
     {
         public News()
         {
-            NewsBookmark = new HashSet<NewsBookmark>();
-            NewsCategory = new HashSet<NewsCategory>();
-            NewsComment = new HashSet<NewsComment>();
-            NewsCounter = new HashSet<NewsCounter>();
-            NewsFile = new HashSet<NewsFile>();
-            NewsHit = new HashSet<NewsHit>();
-            NewsHitDetail = new HashSet<NewsHitDetail>();
-            NewsPosition = new HashSet<NewsPosition>();
-            NewsProperty = new HashSet<NewsProperty>();
+            NewsBookmarks = new HashSet<NewsBookmark>();
+            NewsCategories = new HashSet<NewsCategory>();
+            NewsComments = new HashSet<NewsComment>();
+            NewsCounters = new HashSet<NewsCounter>();
+            NewsFiles = new HashSet<NewsFile>();
+            NewsHitDetails = new HashSet<NewsHitDetail>();
+            NewsHits = new HashSet<NewsHit>();
+            NewsPositions = new HashSet<NewsPosition>();
+            NewsProperties = new HashSet<NewsProperty>();
             NewsRelatedNewsNews = new HashSet<NewsRelatedNews>();
             NewsRelatedNewsRelatedNews = new HashSet<NewsRelatedNews>();
-            NewsTag = new HashSet<NewsTag>();
+            NewsTags = new HashSet<NewsTag>();
         }
 
         public int Id { get; set; }
@@ -53,17 +55,17 @@ namespace Entity.Models
         public virtual Entity NewsAgencyEntity { get; set; }
         public virtual Entity NewsTypeEntity { get; set; }
         public virtual User UpdateUser { get; set; }
-        public virtual ICollection<NewsBookmark> NewsBookmark { get; set; }
-        public virtual ICollection<NewsCategory> NewsCategory { get; set; }
-        public virtual ICollection<NewsComment> NewsComment { get; set; }
-        public virtual ICollection<NewsCounter> NewsCounter { get; set; }
-        public virtual ICollection<NewsFile> NewsFile { get; set; }
-        public virtual ICollection<NewsHit> NewsHit { get; set; }
-        public virtual ICollection<NewsHitDetail> NewsHitDetail { get; set; }
-        public virtual ICollection<NewsPosition> NewsPosition { get; set; }
-        public virtual ICollection<NewsProperty> NewsProperty { get; set; }
+        public virtual ICollection<NewsBookmark> NewsBookmarks { get; set; }
+        public virtual ICollection<NewsCategory> NewsCategories { get; set; }
+        public virtual ICollection<NewsComment> NewsComments { get; set; }
+        public virtual ICollection<NewsCounter> NewsCounters { get; set; }
+        public virtual ICollection<NewsFile> NewsFiles { get; set; }
+        public virtual ICollection<NewsHitDetail> NewsHitDetails { get; set; }
+        public virtual ICollection<NewsHit> NewsHits { get; set; }
+        public virtual ICollection<NewsPosition> NewsPositions { get; set; }
+        public virtual ICollection<NewsProperty> NewsProperties { get; set; }
         public virtual ICollection<NewsRelatedNews> NewsRelatedNewsNews { get; set; }
         public virtual ICollection<NewsRelatedNews> NewsRelatedNewsRelatedNews { get; set; }
-        public virtual ICollection<NewsTag> NewsTag { get; set; }
+        public virtual ICollection<NewsTag> NewsTags { get; set; }
     }
 }

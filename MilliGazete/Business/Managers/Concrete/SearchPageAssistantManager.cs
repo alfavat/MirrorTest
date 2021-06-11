@@ -25,22 +25,22 @@ namespace Business.Managers.Concrete
         {
             var query = _newsDal.GetNewsListByTagUrl(url);
             query = query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
                 .Include(f => f.Author)
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsTag).ThenInclude(f => f.Tag);
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag);
             return await _mapper.ProjectTo<MainPageTagNewsDto>(query).ToListAsync();
         }
 
         public List<MainPageSearchNewsDto> GetNewsListByPaging(NewsPagingDto pagingDto, out int total)
         {
             var query = _newsDal.GetActiveList()
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsTag).ThenInclude(f => f.Tag)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
                 .Include(f=>f.Author)
-                .Include(f => f.NewsPosition)
+                .Include(f => f.NewsPositions)
                 .AsQueryable();
 
             if (pagingDto.Query.StringNotNullOrEmpty())

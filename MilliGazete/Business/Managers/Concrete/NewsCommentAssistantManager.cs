@@ -23,7 +23,7 @@ namespace Business.Managers.Concrete
         public List<NewsCommentDto> GetListByPaging(NewsCommentPagingDto pagingDto, out int total)
         {
             var query = _newsCommentDal.GetList(f => !f.Deleted)
-                .Include(f => f.News).ThenInclude(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.News).ThenInclude(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.User).AsQueryable();
 
             if (pagingDto.Query.StringNotNullOrEmpty())
@@ -76,7 +76,7 @@ namespace Business.Managers.Concrete
         public List<UserNewsCommentDto> GetByNewsId(int newsId, int limit, int page, out int total)
         {
             var query = _newsCommentDal.GetList(p => !p.Deleted && p.NewsId == newsId && p.Approved)
-                .Include(f => f.NewsCommentLike)
+                .Include(f => f.NewsCommentLikes)
                 .Include(f => f.User);
 
             total = query.Count();

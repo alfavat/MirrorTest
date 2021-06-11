@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class Article
     {
         public Article()
         {
-            ArticleTag = new HashSet<ArticleTag>();
+            ArticleTags = new HashSet<ArticleTag>();
         }
 
         public int Id { get; set; }
@@ -25,6 +27,6 @@ namespace Entity.Models
         public string ShortDescription { get; set; }
 
         public virtual Author Author { get; set; }
-        public virtual ICollection<ArticleTag> ArticleTag { get; set; }
+        public virtual ICollection<ArticleTag> ArticleTags { get; set; }
     }
 }

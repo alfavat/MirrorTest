@@ -19,15 +19,15 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 try
                 {
-                    var list = Db.UserCategoryRelation.Where(f => f.UserId == userCategoryRelations.FirstOrDefault().UserId);
+                    var list = Db.UserCategoryRelations.Where(f => f.UserId == userCategoryRelations.FirstOrDefault().UserId);
 
                     if (list != null && list.Any())
                     {
-                        Db.UserCategoryRelation.RemoveRange(list);
+                        Db.UserCategoryRelations.RemoveRange(list);
                         Db.SaveChanges();
                     }
 
-                    Db.UserCategoryRelation.AddRange(userCategoryRelations);
+                    Db.UserCategoryRelations.AddRange(userCategoryRelations);
                     Db.SaveChanges();
                     await transaction.CommitAsync();
                 }

@@ -2,7 +2,6 @@
 using Business.Managers.Abstract;
 using DataAccess.Abstract;
 using Entity.Dtos;
-using Entity.Enums;
 using Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,10 +31,10 @@ namespace Business.Managers.Concrete
         {
             //DateTime from = DateTime.Now.AddDays(-7), to = DateTime.Now;
             var query = _newsDal.GetActiveList()//.Where(f => f.PublishDate >= from && f.PublishDate <= to)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsCounter)
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsCounters)
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .AsQueryable();//.OrderByDescending(f => f.NewsCounter.OrderByDescending(g => g.Value).First(f => f.CounterEntityId == (int)NewsCounterEntities.TotalViewCount).Value).Take(limit.CheckLimit());
             var res = await _mapper.ProjectTo<MostViewedNewsDto>(query).ToListAsync();
             return res.OrderByDescending(f => f.ViewCount).Take(limit.CheckLimit()).ToList();
@@ -44,10 +43,10 @@ namespace Business.Managers.Concrete
         public async Task<List<MostSharedNewsDto>> GetMostShareNewsList(int limit)
         {
             var query = _newsDal.GetActiveList()
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsCounter)
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsCounters)
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .AsQueryable();//.OrderByDescending(f => f.NewsCounter.OrderByDescending(g => g.Value).First(f => f.CounterEntityId == (int)NewsCounterEntities.TotalShareCount).Value).Take(limit.CheckLimit());
             var res = await _mapper.ProjectTo<MostSharedNewsDto>(query).ToListAsync();
             return res.OrderByDescending(f => f.ShareCount).Take(limit.CheckLimit()).ToList();
@@ -58,20 +57,20 @@ namespace Business.Managers.Concrete
         {
             var newList = preview ? _newsDal.GetList(f => !f.Deleted) : _newsDal.GetActiveList();
             var activeList = newList
-            .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFile).ThenInclude(f => f.File)
-            .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsCategory).ThenInclude(f => f.Category)
-            .Include(f => f.NewsTag).ThenInclude(f => f.Tag)
-            .Include(f => f.NewsProperty)
-            .Include(f => f.NewsBookmark)
-            .Include(f => f.NewsPosition)
-            .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-            .Include(f => f.NewsFile).ThenInclude(f => f.File)
-            .Include(f => f.NewsFile).ThenInclude(f => f.VideoCoverFile);
+            .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+            .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsCategories).ThenInclude(f => f.Category)
+            .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+            .Include(f => f.NewsProperties)
+            .Include(f => f.NewsBookmarks)
+            .Include(f => f.NewsPositions)
+            .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+            .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+            .Include(f => f.NewsFiles).ThenInclude(f => f.VideoCoverFile);
 
             News item = null;
             if (id.HasValue)
             {
-                item = await  activeList.FirstOrDefaultAsync(f => f.Id == id.Value);
+                item = await activeList.FirstOrDefaultAsync(f => f.Id == id.Value);
             }
             else
             {
@@ -81,22 +80,22 @@ namespace Business.Managers.Concrete
 
             var data = _mapper.Map<NewsDetailPageDto>(item);
             if (data != null)
-                data.BookMarkStatus = requestedUserId.HasValue && item.NewsBookmark.Any(f => f.UserId == requestedUserId);
+                data.BookMarkStatus = requestedUserId.HasValue && item.NewsBookmarks.Any(f => f.UserId == requestedUserId);
             return data;
         }
 
         public List<NewsDetailPageDto> GetNewsWithDetailsByPaging(MainPageNewsPagingDto pagingDto, out int total, int? requestedUserId = null)
         {
             var query = _newsDal.GetActiveList()
-                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsTag).ThenInclude(f => f.Tag)
-                .Include(f => f.NewsProperty)
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsBookmark)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsFile).ThenInclude(f => f.VideoCoverFile).AsQueryable();
+                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+                .Include(f => f.NewsProperties)
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsBookmarks)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.VideoCoverFile).AsQueryable();
 
             if (pagingDto.Query.StringNotNullOrEmpty())
                 query = query.Where(f => f.Title.Contains(pagingDto.Query));
@@ -115,10 +114,10 @@ namespace Business.Managers.Concrete
 
             if (item != null)
             {
-                var tagIds = item.NewsTag.Select(y => y.TagId);
+                var tagIds = item.NewsTags.Select(y => y.TagId);
                 var tagNewsIds = _newsTagDal.GetList(f => tagIds.Contains(f.TagId)).Select(f => f.NewsId);
 
-                var categoryIds = item.NewsCategory.Select(y => y.CategoryId);
+                var categoryIds = item.NewsCategories.Select(y => y.CategoryId);
                 var categoryNewsIds = _newsCategoryDal.GetList(f => categoryIds.Contains(f.CategoryId)).Select(f => f.NewsId);
 
                 var relatedNewsIds = item.NewsRelatedNewsNews.Select(u => u.NewsId);
@@ -129,7 +128,7 @@ namespace Business.Managers.Concrete
             var data = _mapper.Map<List<NewsDetailPageDto>>(list);
             data.ForEach(f =>
             {
-                f.BookMarkStatus = requestedUserId.HasValue && requestedUserId > 0 && list.FirstOrDefault(u => u.Id == f.Id).NewsBookmark.Any(t => t.UserId == requestedUserId);
+                f.BookMarkStatus = requestedUserId.HasValue && requestedUserId > 0 && list.FirstOrDefault(u => u.Id == f.Id).NewsBookmarks.Any(t => t.UserId == requestedUserId);
             });
             return data;
         }

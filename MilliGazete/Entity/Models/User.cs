@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class User
     {
         public User()
         {
-            File = new HashSet<File>();
-            Log = new HashSet<Log>();
-            NewsAddUser = new HashSet<News>();
-            NewsBookmark = new HashSet<NewsBookmark>();
-            NewsComment = new HashSet<NewsComment>();
-            NewsCommentLike = new HashSet<NewsCommentLike>();
-            NewsHitDetail = new HashSet<NewsHitDetail>();
-            NewsUpdateUser = new HashSet<News>();
-            UserCategoryRelation = new HashSet<UserCategoryRelation>();
-            UserOperationClaim = new HashSet<UserOperationClaim>();
-            UserPasswordRequest = new HashSet<UserPasswordRequest>();
+            Files = new HashSet<File>();
+            Logs = new HashSet<Log>();
+            NewsAddUsers = new HashSet<News>();
+            NewsBookmarks = new HashSet<NewsBookmark>();
+            NewsCommentLikes = new HashSet<NewsCommentLike>();
+            NewsComments = new HashSet<NewsComment>();
+            NewsHitDetails = new HashSet<NewsHitDetail>();
+            NewsUpdateUsers = new HashSet<News>();
+            UserCategoryRelations = new HashSet<UserCategoryRelation>();
+            UserOperationClaims = new HashSet<UserOperationClaim>();
+            UserPasswordRequests = new HashSet<UserPasswordRequest>();
         }
 
         public int Id { get; set; }
@@ -34,16 +36,16 @@ namespace Entity.Models
         public byte[] PasswordHash { get; set; }
         public bool IsEmployee { get; set; }
 
-        public virtual ICollection<File> File { get; set; }
-        public virtual ICollection<Log> Log { get; set; }
-        public virtual ICollection<News> NewsAddUser { get; set; }
-        public virtual ICollection<NewsBookmark> NewsBookmark { get; set; }
-        public virtual ICollection<NewsComment> NewsComment { get; set; }
-        public virtual ICollection<NewsCommentLike> NewsCommentLike { get; set; }
-        public virtual ICollection<NewsHitDetail> NewsHitDetail { get; set; }
-        public virtual ICollection<News> NewsUpdateUser { get; set; }
-        public virtual ICollection<UserCategoryRelation> UserCategoryRelation { get; set; }
-        public virtual ICollection<UserOperationClaim> UserOperationClaim { get; set; }
-        public virtual ICollection<UserPasswordRequest> UserPasswordRequest { get; set; }
+        public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<Log> Logs { get; set; }
+        public virtual ICollection<News> NewsAddUsers { get; set; }
+        public virtual ICollection<NewsBookmark> NewsBookmarks { get; set; }
+        public virtual ICollection<NewsCommentLike> NewsCommentLikes { get; set; }
+        public virtual ICollection<NewsComment> NewsComments { get; set; }
+        public virtual ICollection<NewsHitDetail> NewsHitDetails { get; set; }
+        public virtual ICollection<News> NewsUpdateUsers { get; set; }
+        public virtual ICollection<UserCategoryRelation> UserCategoryRelations { get; set; }
+        public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; }
+        public virtual ICollection<UserPasswordRequest> UserPasswordRequests { get; set; }
     }
 }

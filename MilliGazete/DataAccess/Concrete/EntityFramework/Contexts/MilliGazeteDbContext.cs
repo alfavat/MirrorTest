@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework.Contexts
 {
-     
+
     public partial class MilliGazeteDbContext : DbContext
     {
         public MilliGazeteDbContext(DbContextOptions<MilliGazeteDbContext> options)
@@ -11,43 +11,45 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         {
         }
 
-        public virtual DbSet<Advertisement> Advertisement { get; set; }
+        public virtual DbSet<Advertisement> Advertisements { get; set; }
         public virtual DbSet<AgencyNews> AgencyNews { get; set; }
-        public virtual DbSet<AgencyNewsFile> AgencyNewsFile { get; set; }
-        public virtual DbSet<Article> Article { get; set; }
-        public virtual DbSet<ArticleTag> ArticleTag { get; set; }
-        public virtual DbSet<Author> Author { get; set; }
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Currency> Currency { get; set; }
-        public virtual DbSet<Entity.Models.Entity> Entity { get; set; }
-        public virtual DbSet<EntityGroup> EntityGroup { get; set; }
-        public virtual DbSet<File> File { get; set; }
-        public virtual DbSet<Log> Log { get; set; }
-        public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<AgencyNewsFile> AgencyNewsFiles { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<ArticleTag> ArticleTags { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<Entity.Models.Entity> Entities { get; set; }
+        public virtual DbSet<EntityGroup> EntityGroups { get; set; }
+        public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<Log> Logs { get; set; }
+        public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<News> News { get; set; }
-        public virtual DbSet<NewsBookmark> NewsBookmark { get; set; }
-        public virtual DbSet<NewsCategory> NewsCategory { get; set; }
-        public virtual DbSet<NewsComment> NewsComment { get; set; }
-        public virtual DbSet<NewsCommentLike> NewsCommentLike { get; set; }
-        public virtual DbSet<NewsCounter> NewsCounter { get; set; }
-        public virtual DbSet<NewsFile> NewsFile { get; set; }
-        public virtual DbSet<NewsHit> NewsHit { get; set; }
-        public virtual DbSet<NewsHitDetail> NewsHitDetail { get; set; }
-        public virtual DbSet<NewsPosition> NewsPosition { get; set; }
-        public virtual DbSet<NewsProperty> NewsProperty { get; set; }
+        public virtual DbSet<NewsBookmark> NewsBookmarks { get; set; }
+        public virtual DbSet<NewsCategory> NewsCategories { get; set; }
+        public virtual DbSet<NewsComment> NewsComments { get; set; }
+        public virtual DbSet<NewsCommentLike> NewsCommentLikes { get; set; }
+        public virtual DbSet<NewsCounter> NewsCounters { get; set; }
+        public virtual DbSet<NewsFile> NewsFiles { get; set; }
+        public virtual DbSet<NewsHit> NewsHits { get; set; }
+        public virtual DbSet<NewsHitDetail> NewsHitDetails { get; set; }
+        public virtual DbSet<NewsPosition> NewsPositions { get; set; }
+        public virtual DbSet<NewsProperty> NewsProperties { get; set; }
         public virtual DbSet<NewsRelatedNews> NewsRelatedNews { get; set; }
-        public virtual DbSet<NewsTag> NewsTag { get; set; }
-        public virtual DbSet<OperationClaim> OperationClaim { get; set; }
-        public virtual DbSet<Option> Option { get; set; }
-        public virtual DbSet<Page> Page { get; set; }
-        public virtual DbSet<Tag> Tag { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserCategoryRelation> UserCategoryRelation { get; set; }
-        public virtual DbSet<UserOperationClaim> UserOperationClaim { get; set; }
-        public virtual DbSet<UserPasswordRequest> UserPasswordRequest { get; set; }
+        public virtual DbSet<NewsTag> NewsTags { get; set; }
+        public virtual DbSet<OperationClaim> OperationClaims { get; set; }
+        public virtual DbSet<Option> Options { get; set; }
+        public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserCategoryRelation> UserCategoryRelations { get; set; }
+        public virtual DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public virtual DbSet<UserPasswordRequest> UserPasswordRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
+
             modelBuilder.Entity<Advertisement>(entity =>
             {
                 entity.ToTable("advertisement");
@@ -65,18 +67,18 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.Deleted).HasColumnName("deleted");
 
                 entity.Property(e => e.Description)
-                    .HasColumnName("description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("description");
 
                 entity.Property(e => e.GoogleId)
-                    .HasColumnName("google_id")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("google_id");
 
                 entity.Property(e => e.Height).HasColumnName("height");
 
                 entity.Property(e => e.Key)
-                    .HasColumnName("key")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("key");
 
                 entity.Property(e => e.Width).HasColumnName("width");
             });
@@ -90,52 +92,52 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Category)
-                    .HasColumnName("category")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("category");
 
                 entity.Property(e => e.City)
-                    .HasColumnName("city")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("city");
 
                 entity.Property(e => e.Code)
-                    .HasColumnName("code")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("code");
 
                 entity.Property(e => e.Country)
-                    .HasColumnName("country")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("country");
 
                 entity.Property(e => e.Description)
-                    .HasColumnName("description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("description");
 
                 entity.Property(e => e.ImageUpdateDate)
-                    .HasColumnName("image_update_date")
-                    .HasColumnType("date");
+                    .HasColumnType("date")
+                    .HasColumnName("image_update_date");
 
                 entity.Property(e => e.LastMinute)
-                    .HasColumnName("last_minute")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("last_minute");
 
                 entity.Property(e => e.NewsAgencyEntityId).HasColumnName("news_agency_entity_id");
 
                 entity.Property(e => e.NewsId).HasColumnName("news_id");
 
                 entity.Property(e => e.ParentCategory)
-                    .HasColumnName("parent_category")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("parent_category");
 
                 entity.Property(e => e.PublishDate).HasColumnName("publish_date");
 
                 entity.Property(e => e.Title)
-                    .HasColumnName("title")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("title");
 
                 entity.Property(e => e.UpdateDate).HasColumnName("update_date");
 
                 entity.Property(e => e.VideoUpdateDate)
-                    .HasColumnName("video_update_date")
-                    .HasColumnType("date");
+                    .HasColumnType("date")
+                    .HasColumnName("video_update_date");
             });
 
             modelBuilder.Entity<AgencyNewsFile>(entity =>
@@ -149,27 +151,27 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.AgencyNewsId).HasColumnName("agency_news_id");
 
                 entity.Property(e => e.Description)
-                    .HasColumnName("description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("description");
 
                 entity.Property(e => e.FileId).HasColumnName("file_id");
 
                 entity.Property(e => e.FileType)
-                    .HasColumnName("file_type")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("file_type");
 
                 entity.Property(e => e.Link)
-                    .HasColumnName("link")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("link");
 
                 entity.HasOne(d => d.AgencyNews)
-                    .WithMany(p => p.AgencyNewsFile)
+                    .WithMany(p => p.AgencyNewsFiles)
                     .HasForeignKey(d => d.AgencyNewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("agency_news_relation");
 
                 entity.HasOne(d => d.File)
-                    .WithMany(p => p.AgencyNewsFile)
+                    .WithMany(p => p.AgencyNewsFiles)
                     .HasForeignKey(d => d.FileId)
                     .HasConstraintName("agency_news_file_relation");
             });
@@ -193,37 +195,37 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.Deleted).HasColumnName("deleted");
 
                 entity.Property(e => e.HtmlContent)
-                    .HasColumnName("html_content")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("html_content");
 
                 entity.Property(e => e.ReadCount).HasColumnName("read_count");
 
                 entity.Property(e => e.SeoDescription)
-                    .HasColumnName("seo_description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_description");
 
                 entity.Property(e => e.SeoKeywords)
-                    .HasColumnName("seo_keywords")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_keywords");
 
                 entity.Property(e => e.SeoTitle)
-                    .HasColumnName("seo_title")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("seo_title");
 
                 entity.Property(e => e.ShortDescription)
-                    .HasColumnName("short_description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("short_description");
 
                 entity.Property(e => e.Title)
-                    .HasColumnName("title")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("title");
 
                 entity.Property(e => e.Url)
-                    .HasColumnName("url")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("url");
 
                 entity.HasOne(d => d.Author)
-                    .WithMany(p => p.Article)
+                    .WithMany(p => p.Articles)
                     .HasForeignKey(d => d.AuthorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("article_auhtor_id_fkey");
@@ -242,13 +244,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.TagId).HasColumnName("tag_id");
 
                 entity.HasOne(d => d.Article)
-                    .WithMany(p => p.ArticleTag)
+                    .WithMany(p => p.ArticleTags)
                     .HasForeignKey(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("article_id_fkey");
 
                 entity.HasOne(d => d.Tag)
-                    .WithMany(p => p.ArticleTag)
+                    .WithMany(p => p.ArticleTags)
                     .HasForeignKey(d => d.TagId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("tag_id_fkey");
@@ -263,63 +265,63 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.CreatedAt)
-                    .HasColumnName("created_at")
                     .HasColumnType("date")
+                    .HasColumnName("created_at")
                     .HasDefaultValueSql("now()");
 
                 entity.Property(e => e.Deleted).HasColumnName("deleted");
 
                 entity.Property(e => e.Email)
-                    .HasColumnName("email")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("email");
 
                 entity.Property(e => e.FeaturedImageFileId).HasColumnName("featured_image_file_id");
 
                 entity.Property(e => e.HtmlBiography)
-                    .HasColumnName("html_biography")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("html_biography");
 
                 entity.Property(e => e.Instagram)
-                    .HasColumnName("instagram")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("instagram");
 
                 entity.Property(e => e.NameSurename)
-                    .HasColumnName("name_surename")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("name_surename");
 
                 entity.Property(e => e.PhotoFileId).HasColumnName("photo_file_id");
 
                 entity.Property(e => e.SeoDescription)
-                    .HasColumnName("seo_description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_description");
 
                 entity.Property(e => e.SeoKeywords)
-                    .HasColumnName("seo_keywords")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_keywords");
 
                 entity.Property(e => e.SeoTitle)
-                    .HasColumnName("seo_title")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_title");
 
                 entity.Property(e => e.Twitter)
-                    .HasColumnName("twitter")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("twitter");
 
                 entity.Property(e => e.Url)
-                    .HasColumnName("url")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("url");
 
                 entity.Property(e => e.Web)
-                    .HasColumnName("web")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("web");
 
                 entity.HasOne(d => d.FeaturedImageFile)
-                    .WithMany(p => p.AuthorFeaturedImageFile)
+                    .WithMany(p => p.AuthorFeaturedImageFiles)
                     .HasForeignKey(d => d.FeaturedImageFileId)
                     .HasConstraintName("featured_image_file_id_fkey");
 
                 entity.HasOne(d => d.PhotoFile)
-                    .WithMany(p => p.AuthorPhotoFile)
+                    .WithMany(p => p.AuthorPhotoFiles)
                     .HasForeignKey(d => d.PhotoFileId)
                     .HasConstraintName("photo_file_id_fkey");
             });
@@ -330,15 +332,15 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasIdentityOptions(15L, null, null, null, null, null)
-                    .UseIdentityAlwaysColumn();
+                    .UseIdentityAlwaysColumn()
+                    .HasIdentityOptions(15L, null, null, null, null, null);
 
                 entity.Property(e => e.Active).HasColumnName("active");
 
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
-                    .HasColumnName("category_name")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("category_name");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
@@ -357,35 +359,35 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.ParentCategoryId).HasColumnName("parent_category_id");
 
                 entity.Property(e => e.SeoDescription)
-                    .HasColumnName("seo_description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_description");
 
                 entity.Property(e => e.SeoKeywords)
-                    .HasColumnName("seo_keywords")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_keywords");
 
                 entity.Property(e => e.StyleCode)
                     .IsRequired()
-                    .HasColumnName("style_code")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("style_code");
 
                 entity.Property(e => e.Symbol)
                     .IsRequired()
-                    .HasColumnName("symbol")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("symbol");
 
                 entity.Property(e => e.Url)
                     .IsRequired()
-                    .HasColumnName("url")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("url");
 
                 entity.HasOne(d => d.FeaturedImageFile)
-                    .WithMany(p => p.Category)
+                    .WithMany(p => p.Categories)
                     .HasForeignKey(d => d.FeaturedImageFileId)
                     .HasConstraintName("featured_image_file_id_fkey");
 
                 entity.HasOne(d => d.HeadingPositionEntity)
-                    .WithMany(p => p.Category)
+                    .WithMany(p => p.Categories)
                     .HasForeignKey(d => d.HeadingPositionEntityId)
                     .HasConstraintName("category__entity_id_fkey");
 
@@ -405,8 +407,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.CurrencyName)
                     .IsRequired()
-                    .HasColumnName("currency_name")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("currency_name");
 
                 entity.Property(e => e.CurrencyValue).HasColumnName("currency_value");
 
@@ -417,12 +419,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.LastUpdateDate).HasColumnName("last_update_date");
 
                 entity.Property(e => e.ShortKey)
-                    .HasColumnName("short_key")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("short_key");
 
                 entity.Property(e => e.Symbol)
-                    .HasColumnName("symbol")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("symbol");
             });
 
             modelBuilder.Entity<Entity.Models.Entity>(entity =>
@@ -431,17 +433,17 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasIdentityOptions(24L, null, null, null, null, null)
-                    .UseIdentityAlwaysColumn();
+                    .UseIdentityAlwaysColumn()
+                    .HasIdentityOptions(24L, null, null, null, null, null);
 
                 entity.Property(e => e.EntityGroupId).HasColumnName("entity_group_id");
 
                 entity.Property(e => e.EntityName)
-                    .HasColumnName("entity_name")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("entity_name");
 
                 entity.HasOne(d => d.EntityGroup)
-                    .WithMany(p => p.Entity)
+                    .WithMany(p => p.Entities)
                     .HasForeignKey(d => d.EntityGroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("entity_entity_group_id_fkey");
@@ -453,12 +455,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasIdentityOptions(7L, null, null, null, null, null)
-                    .UseIdentityAlwaysColumn();
+                    .UseIdentityAlwaysColumn()
+                    .HasIdentityOptions(7L, null, null, null, null, null);
 
                 entity.Property(e => e.EntityGroupName)
-                    .HasColumnName("entity_group_name")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("entity_group_name");
             });
 
             modelBuilder.Entity<File>(entity =>
@@ -476,16 +478,16 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.Deleted).HasColumnName("deleted");
 
                 entity.Property(e => e.FileName)
-                    .HasColumnName("file_name")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("file_name");
 
                 entity.Property(e => e.FileSizeKb)
                     .HasColumnName("file_size_kb")
                     .HasDefaultValueSql("0");
 
                 entity.Property(e => e.FileType)
-                    .HasColumnName("file_type")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("file_type");
 
                 entity.Property(e => e.Height)
                     .HasColumnName("height")
@@ -507,7 +509,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasDefaultValueSql("0");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.File)
+                    .WithMany(p => p.Files)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("file_user_id_fkey");
@@ -522,29 +524,29 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Audit)
-                    .HasColumnName("audit")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("audit");
 
                 entity.Property(e => e.ClassName)
-                    .HasColumnName("class_name")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("class_name");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
                     .HasDefaultValueSql("now()");
 
                 entity.Property(e => e.Detail)
-                    .HasColumnName("detail")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("detail");
 
                 entity.Property(e => e.MethodName)
-                    .HasColumnName("method_name")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("method_name");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Log)
+                    .WithMany(p => p.Logs)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("log_user_id_fkey");
             });
@@ -569,12 +571,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Title)
                     .IsRequired()
-                    .HasColumnName("title")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("title");
 
                 entity.Property(e => e.Url)
-                    .HasColumnName("url")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("url");
 
                 entity.HasOne(d => d.ParentMenu)
                     .WithMany(p => p.InverseParentMenu)
@@ -610,12 +612,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.HistoryNo).HasColumnName("history_no");
 
                 entity.Property(e => e.HtmlContent)
-                    .HasColumnName("html_content")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("html_content");
 
                 entity.Property(e => e.InnerTitle)
-                    .HasColumnName("inner_title")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("inner_title");
 
                 entity.Property(e => e.IsDraft).HasColumnName("is_draft");
 
@@ -626,53 +628,53 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.NewsTypeEntityId).HasColumnName("news_type_entity_id");
 
                 entity.Property(e => e.PublishDate)
-                    .HasColumnName("publish_date")
                     .HasColumnType("date")
+                    .HasColumnName("publish_date")
                     .HasDefaultValueSql("now()");
 
                 entity.Property(e => e.PublishTime)
-                    .HasColumnName("publish_time")
                     .HasColumnType("time without time zone")
+                    .HasColumnName("publish_time")
                     .HasDefaultValueSql("now()");
 
                 entity.Property(e => e.SeoDescription)
-                    .HasColumnName("seo_description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_description");
 
                 entity.Property(e => e.SeoKeywords)
-                    .HasColumnName("seo_keywords")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_keywords");
 
                 entity.Property(e => e.SeoTitle)
-                    .HasColumnName("seo_title")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("seo_title");
 
                 entity.Property(e => e.ShortDescription)
-                    .HasColumnName("short_description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("short_description");
 
                 entity.Property(e => e.SocialDescription)
-                    .HasColumnName("social_description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("social_description");
 
                 entity.Property(e => e.SocialTitle)
-                    .HasColumnName("social_title")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("social_title");
 
                 entity.Property(e => e.Title)
-                    .HasColumnName("title")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("title");
 
                 entity.Property(e => e.UpdateUserId).HasColumnName("update_user_id");
 
                 entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
                 entity.Property(e => e.Url)
-                    .HasColumnName("url")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("url");
 
                 entity.HasOne(d => d.AddUser)
-                    .WithMany(p => p.NewsAddUser)
+                    .WithMany(p => p.NewsAddUsers)
                     .HasForeignKey(d => d.AddUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_add_user_id_fkey");
@@ -683,17 +685,17 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasConstraintName("author_id_fkey");
 
                 entity.HasOne(d => d.NewsAgencyEntity)
-                    .WithMany(p => p.NewsNewsAgencyEntity)
+                    .WithMany(p => p.NewsNewsAgencyEntities)
                     .HasForeignKey(d => d.NewsAgencyEntityId)
                     .HasConstraintName("news_news_agency_entity_id_fkey");
 
                 entity.HasOne(d => d.NewsTypeEntity)
-                    .WithMany(p => p.NewsNewsTypeEntity)
+                    .WithMany(p => p.NewsNewsTypeEntities)
                     .HasForeignKey(d => d.NewsTypeEntityId)
                     .HasConstraintName("news_news_type_entity_id_fkey");
 
                 entity.HasOne(d => d.UpdateUser)
-                    .WithMany(p => p.NewsUpdateUser)
+                    .WithMany(p => p.NewsUpdateUsers)
                     .HasForeignKey(d => d.UpdateUserId)
                     .HasConstraintName("news_update_user_id_fkey");
             });
@@ -711,13 +713,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsBookmark)
+                    .WithMany(p => p.NewsBookmarks)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("bookmark_news_id_fkey");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.NewsBookmark)
+                    .WithMany(p => p.NewsBookmarks)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("bookmark_user_id_fkey");
@@ -736,13 +738,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.NewsId).HasColumnName("news_id");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.NewsCategory)
+                    .WithMany(p => p.NewsCategories)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_category_category_id_fkey");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsCategory)
+                    .WithMany(p => p.NewsCategories)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_category_news_id_fkey");
@@ -756,11 +758,15 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnName("id")
                     .UseIdentityAlwaysColumn();
 
+                entity.Property(e => e.AnonymousUsername)
+                    .HasMaxLength(50)
+                    .HasColumnName("anonymous_username");
+
                 entity.Property(e => e.Approved).HasColumnName("approved");
 
                 entity.Property(e => e.Content)
-                    .HasColumnName("content")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("content");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
@@ -768,24 +774,30 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Deleted).HasColumnName("deleted");
 
+                entity.Property(e => e.InitialLikeCount).HasColumnName("initial_like_count");
+
+                entity.Property(e => e.IpAddress)
+                    .HasMaxLength(50)
+                    .HasColumnName("ip_address");
+
                 entity.Property(e => e.NewsId).HasColumnName("news_id");
 
                 entity.Property(e => e.Title)
-                    .HasColumnName("title")
-                    .HasMaxLength(200);
+                    .HasMaxLength(200)
+                    .HasColumnName("title");
 
                 entity.Property(e => e.TotalLikeCount).HasColumnName("total_like_count");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsComment)
+                    .WithMany(p => p.NewsComments)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_comment_id_fkey");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.NewsComment)
+                    .WithMany(p => p.NewsComments)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_comment_id_fkey");
@@ -800,8 +812,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.CreatedAt)
-                    .HasColumnName("created_at")
                     .HasColumnType("date")
+                    .HasColumnName("created_at")
                     .HasDefaultValueSql("now()");
 
                 entity.Property(e => e.IsLike)
@@ -814,13 +826,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.NewsComment)
-                    .WithMany(p => p.NewsCommentLike)
+                    .WithMany(p => p.NewsCommentLikes)
                     .HasForeignKey(d => d.NewsCommentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_comment_like_id_fkey");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.NewsCommentLike)
+                    .WithMany(p => p.NewsCommentLikes)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_comment_like_id_fkey");
@@ -843,13 +855,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasDefaultValueSql("0");
 
                 entity.HasOne(d => d.CounterEntity)
-                    .WithMany(p => p.NewsCounter)
+                    .WithMany(p => p.NewsCounters)
                     .HasForeignKey(d => d.CounterEntityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_counter_counter_entity_id_fkey");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsCounter)
+                    .WithMany(p => p.NewsCounters)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_counter_news_id_fkey");
@@ -864,8 +876,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Description)
-                    .HasColumnName("description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("description");
 
                 entity.Property(e => e.FileId).HasColumnName("file_id");
 
@@ -878,31 +890,31 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasDefaultValueSql("0");
 
                 entity.Property(e => e.Title)
-                    .HasColumnName("title")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("title");
 
                 entity.Property(e => e.VideoCoverFileId).HasColumnName("video_cover_file_id");
 
                 entity.HasOne(d => d.File)
-                    .WithMany(p => p.NewsFileFile)
+                    .WithMany(p => p.NewsFileFiles)
                     .HasForeignKey(d => d.FileId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_file_file_id_fkey");
 
                 entity.HasOne(d => d.NewsFileTypeEntity)
-                    .WithMany(p => p.NewsFile)
+                    .WithMany(p => p.NewsFiles)
                     .HasForeignKey(d => d.NewsFileTypeEntityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_file_news_file_type_entity_id_fkey");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsFile)
+                    .WithMany(p => p.NewsFiles)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_file_news_id_fkey");
 
                 entity.HasOne(d => d.VideoCoverFile)
-                    .WithMany(p => p.NewsFileVideoCoverFile)
+                    .WithMany(p => p.NewsFileVideoCoverFiles)
                     .HasForeignKey(d => d.VideoCoverFileId)
                     .HasConstraintName("news_file_video_cover_file_id_fkey");
             });
@@ -924,7 +936,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.NewsId).HasColumnName("news_id");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsHit)
+                    .WithMany(p => p.NewsHits)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_id_fkey");
@@ -945,8 +957,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasDefaultValueSql("now()");
 
                 entity.Property(e => e.IpAddress)
-                    .HasColumnName("ip_address")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("ip_address");
 
                 entity.Property(e => e.NewsHitComeFromEntityId).HasColumnName("news_hit_come_from_entity_id");
 
@@ -955,13 +967,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsHitDetail)
+                    .WithMany(p => p.NewsHitDetails)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_id_fkey");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.NewsHitDetail)
+                    .WithMany(p => p.NewsHitDetails)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("user_id_fkey");
             });
@@ -987,13 +999,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasDefaultValueSql("false");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsPosition)
+                    .WithMany(p => p.NewsPositions)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_position_news_id_fkey");
 
                 entity.HasOne(d => d.PositionEntity)
-                    .WithMany(p => p.NewsPosition)
+                    .WithMany(p => p.NewsPositions)
                     .HasForeignKey(d => d.PositionEntityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_position_position_entity_id_fkey");
@@ -1017,13 +1029,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasDefaultValueSql("true");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsProperty)
+                    .WithMany(p => p.NewsProperties)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_properties_news_id_fkey");
 
                 entity.HasOne(d => d.PropertyEntity)
-                    .WithMany(p => p.NewsProperty)
+                    .WithMany(p => p.NewsProperties)
                     .HasForeignKey(d => d.PropertyEntityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_properties_property_entity_id_fkey");
@@ -1067,13 +1079,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.TagId).HasColumnName("tag_id");
 
                 entity.HasOne(d => d.News)
-                    .WithMany(p => p.NewsTag)
+                    .WithMany(p => p.NewsTags)
                     .HasForeignKey(d => d.NewsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_tag_news_id_fkey");
 
                 entity.HasOne(d => d.Tag)
-                    .WithMany(p => p.NewsTag)
+                    .WithMany(p => p.NewsTags)
                     .HasForeignKey(d => d.TagId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("news_tag_tag_id_fkey");
@@ -1085,12 +1097,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasIdentityOptions(6L, null, null, null, null, null)
-                    .UseIdentityAlwaysColumn();
+                    .UseIdentityAlwaysColumn()
+                    .HasIdentityOptions(6L, null, null, null, null, null);
 
                 entity.Property(e => e.ClaimName)
-                    .HasColumnName("claim_name")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("claim_name");
             });
 
             modelBuilder.Entity<Option>(entity =>
@@ -1098,73 +1110,73 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.ToTable("option");
 
                 entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
 
                 entity.Property(e => e.AdEmail).HasColumnType("character varying");
 
                 entity.Property(e => e.AdPhone).HasColumnType("character varying");
 
                 entity.Property(e => e.Address)
-                    .HasColumnName("address")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("address");
 
                 entity.Property(e => e.Email)
-                    .HasColumnName("email")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("email");
 
                 entity.Property(e => e.Facebook)
-                    .HasColumnName("facebook")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("facebook");
 
                 entity.Property(e => e.Fax)
-                    .HasColumnName("fax")
-                    .HasMaxLength(20);
+                    .HasMaxLength(20)
+                    .HasColumnName("fax");
 
                 entity.Property(e => e.Instagram)
-                    .HasColumnName("instagram")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("instagram");
 
                 entity.Property(e => e.LiveVideoActive).HasColumnName("live_video_active");
 
                 entity.Property(e => e.LiveVideoLink)
-                    .HasColumnName("live_video_link")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("live_video_link");
 
                 entity.Property(e => e.PageRefreshPeriod).HasColumnName("page_refresh_period");
 
                 entity.Property(e => e.SeoDescription)
-                    .HasColumnName("seo_description")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("seo_description");
 
                 entity.Property(e => e.SeoKeywords)
-                    .HasColumnName("seo_keywords")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("seo_keywords");
 
                 entity.Property(e => e.Telephone)
-                    .HasColumnName("telephone")
-                    .HasMaxLength(20);
+                    .HasMaxLength(20)
+                    .HasColumnName("telephone");
 
                 entity.Property(e => e.Twitter)
-                    .HasColumnName("twitter")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("twitter");
 
                 entity.Property(e => e.WebsiteSlogan)
-                    .HasColumnName("website_slogan")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("website_slogan");
 
                 entity.Property(e => e.WebsiteTitle)
                     .IsRequired()
-                    .HasColumnName("website_title")
-                    .HasMaxLength(100);
+                    .HasMaxLength(100)
+                    .HasColumnName("website_title");
 
                 entity.Property(e => e.Whatsapp)
-                    .HasColumnName("whatsapp")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("whatsapp");
 
                 entity.Property(e => e.Youtube)
-                    .HasColumnName("youtube")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("youtube");
             });
 
             modelBuilder.Entity<Page>(entity =>
@@ -1184,31 +1196,31 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.FeaturedImageFileId).HasColumnName("featured_image_file_id");
 
                 entity.Property(e => e.HtmlContent)
-                    .HasColumnName("html_content")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("html_content");
 
                 entity.Property(e => e.SeoDescription)
-                    .HasColumnName("seo_description")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_description");
 
                 entity.Property(e => e.SeoKeywords)
-                    .HasColumnName("seo_keywords")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_keywords");
 
                 entity.Property(e => e.SeoTitle)
-                    .HasColumnName("seo_title")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("seo_title");
 
                 entity.Property(e => e.Title)
-                    .HasColumnName("title")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("title");
 
                 entity.Property(e => e.Url)
-                    .HasColumnName("url")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("url");
 
                 entity.HasOne(d => d.FeaturedImageFile)
-                    .WithMany(p => p.Page)
+                    .WithMany(p => p.Pages)
                     .HasForeignKey(d => d.FeaturedImageFileId)
                     .HasConstraintName("featured_image_file_id_fkey");
             });
@@ -1219,8 +1231,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasIdentityOptions(19L, null, null, null, null, null)
-                    .UseIdentityAlwaysColumn();
+                    .UseIdentityAlwaysColumn()
+                    .HasIdentityOptions(19L, null, null, null, null, null);
 
                 entity.Property(e => e.Active).HasColumnName("active");
 
@@ -1232,12 +1244,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.TagName)
                     .IsRequired()
-                    .HasColumnName("tag_name")
-                    .HasMaxLength(100);
+                    .HasMaxLength(100)
+                    .HasColumnName("tag_name");
 
                 entity.Property(e => e.Url)
-                    .HasColumnName("url")
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasColumnName("url");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -1246,8 +1258,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasIdentityOptions(44L, null, null, null, null, null)
-                    .UseIdentityAlwaysColumn();
+                    .UseIdentityAlwaysColumn()
+                    .HasIdentityOptions(44L, null, null, null, null, null);
 
                 entity.Property(e => e.Active).HasColumnName("active");
 
@@ -1259,24 +1271,24 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasColumnName("email")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("email");
 
                 entity.Property(e => e.FirstName)
-                    .HasColumnName("first_name")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("first_name");
 
                 entity.Property(e => e.IsEmployee).HasColumnName("is_employee");
 
                 entity.Property(e => e.LastLoginDate).HasColumnName("last_login_date");
 
                 entity.Property(e => e.LastLoginIpAddress)
-                    .HasColumnName("last_login_ip_address")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("last_login_ip_address");
 
                 entity.Property(e => e.LastName)
-                    .HasColumnName("last_name")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("last_name");
 
                 entity.Property(e => e.PasswordHash).HasColumnName("password_hash");
 
@@ -1284,8 +1296,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.UserName)
                     .IsRequired()
-                    .HasColumnName("user_name")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasColumnName("user_name");
             });
 
             modelBuilder.Entity<UserCategoryRelation>(entity =>
@@ -1294,21 +1306,21 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasIdentityOptions(10L, null, null, null, null, null)
-                    .UseIdentityAlwaysColumn();
+                    .UseIdentityAlwaysColumn()
+                    .HasIdentityOptions(10L, null, null, null, null, null);
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.UserCategoryRelation)
+                    .WithMany(p => p.UserCategoryRelations)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_category_relation_category_id_fkey");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserCategoryRelation)
+                    .WithMany(p => p.UserCategoryRelations)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("user_category_relation_user_id_fkey");
@@ -1327,12 +1339,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.OperationClaim)
-                    .WithMany(p => p.UserOperationClaim)
+                    .WithMany(p => p.UserOperationClaims)
                     .HasForeignKey(d => d.OperationClaimId)
                     .HasConstraintName("user_operation_claim_operation_claim_id_fkey");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserOperationClaim)
+                    .WithMany(p => p.UserOperationClaims)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("user_operation_claim_user_id_fkey");
             });
@@ -1343,8 +1355,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasIdentityOptions(5L, null, null, null, null, null)
-                    .UseIdentityAlwaysColumn();
+                    .UseIdentityAlwaysColumn()
+                    .HasIdentityOptions(5L, null, null, null, null, null);
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
@@ -1353,13 +1365,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.ExpirationDate).HasColumnName("expiration_date");
 
                 entity.Property(e => e.Token)
-                    .HasColumnName("token")
-                    .HasColumnType("character varying");
+                    .HasColumnType("character varying")
+                    .HasColumnName("token");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserPasswordRequest)
+                    .WithMany(p => p.UserPasswordRequests)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("user_password_request_user_id_fkey");
             });

@@ -18,9 +18,9 @@ namespace Business.AutoMapper
                 .ForMember(f => f.FullName, g => g.MapFrom(t => t.User == null ? "" : t.User.FirstName + " " + t.User.LastName))
                 .ForMember(f => f.Url, g => g.MapFrom(t => t.News == null ? "" : t.News.GetUrl()))
                 .ForMember(f => f.ImageUrl, u => u.MapFrom(g => g.News == null ? "" :
-                                g.News.NewsFile != null &&
-                                g.News.NewsFile.Any(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage) ?
-                                g.News.NewsFile.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.GetFullFilePath() : null));
+                                g.News.NewsFiles != null &&
+                                g.News.NewsFiles.Any(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage) ?
+                                g.News.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.GetFullFilePath() : null));
         }
     }
 }

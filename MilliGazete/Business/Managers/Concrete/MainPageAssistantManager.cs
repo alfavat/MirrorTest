@@ -34,14 +34,14 @@ namespace Business.Managers.Concrete
 
             var item = await _newsDal.GetActiveList()
                 .Include(f => f.Author)
-                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsTag).ThenInclude(f => f.Tag)
-                .Include(f => f.NewsProperty)
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsFile).ThenInclude(f => f.VideoCoverFile)
+                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+                .Include(f => f.NewsProperties)
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.VideoCoverFile)
                 .FirstOrDefaultAsync(f => f.HistoryNo == historyNo);
 
             return _mapper.Map<NewsDetailPageDto>(item);
@@ -51,13 +51,13 @@ namespace Business.Managers.Concrete
         {
             var query = _newsDal.GetActiveList()
                 .Include(f => f.Author)
-                .Include(f => f.NewsPosition)
+                .Include(f => f.NewsPositions)
                 .Include(f => f.NewsRelatedNewsNews)
-                .Include(f => f.NewsTag).ThenInclude(f => f.Tag)
-                .Include(f => f.NewsProperty)
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsFile).ThenInclude(f => f.VideoCoverFile).AsQueryable();
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+                .Include(f => f.NewsProperties)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.VideoCoverFile).AsQueryable();
 
             if (pagingDto.Query.StringNotNullOrEmpty())
                 query = query.Where(f => f.Title.Contains(pagingDto.Query));
@@ -76,10 +76,10 @@ namespace Business.Managers.Concrete
 
             if (item != null)
             {
-                var tagIds = item.NewsTag.Select(y => y.TagId);
+                var tagIds = item.NewsTags.Select(y => y.TagId);
                 var tagNewsIds = _newsTagDal.GetList(f => tagIds.Contains(f.TagId)).Select(f => f.NewsId);
 
-                var categoryIds = item.NewsCategory.Select(y => y.CategoryId);
+                var categoryIds = item.NewsCategories.Select(y => y.CategoryId);
                 var categoryNewsIds = _newsCategoryDal.GetList(f => categoryIds.Contains(f.CategoryId)).Select(f => f.NewsId);
 
                 var relatedNewsIds = item.NewsRelatedNewsNews.Select(u => u.NewsId);
@@ -95,8 +95,8 @@ namespace Business.Managers.Concrete
         public async Task<List<BreakingNewsDto>> GetTopBreakingNews(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition);
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == (int)NewsPositionEntities.BreakingNews));
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions);
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.BreakingNews));
             query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<BreakingNewsDto>(query).ToListAsync();
         }
@@ -104,8 +104,8 @@ namespace Business.Managers.Concrete
         public async Task<List<WideHeadingNewsDto>> GetTopWideHeadingNews(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition);
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageWideHeadingNews));
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions);
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageWideHeadingNews));
             query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<WideHeadingNewsDto>(query).ToListAsync();
         }
@@ -113,45 +113,45 @@ namespace Business.Managers.Concrete
         public async Task<List<SubHeadingDto>> GetTopSubHeadingNews(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition);
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == (int)NewsPositionEntities.SubHeadingNews && u.Order > 0));
-            query = query.OrderBy(u => u.NewsPosition.First(u => u.PositionEntityId == (int)NewsPositionEntities.SubHeadingNews).Order).Take(limit.CheckLimit());
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions);
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.SubHeadingNews && u.Order > 0));
+            query = query.OrderBy(u => u.NewsPositions.First(u => u.PositionEntityId == (int)NewsPositionEntities.SubHeadingNews).Order).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<SubHeadingDto>(query).ToListAsync();
         }
 
         public async Task<List<SubHeadingDto>> GetTopSubHeadingNews2(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition);
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == (int)NewsPositionEntities.SubHeadingNews2 && u.Order > 0));
-            query = query.OrderBy(u => u.NewsPosition.First(u => u.PositionEntityId == (int)NewsPositionEntities.SubHeadingNews2).Order).Take(limit.CheckLimit());
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions);
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.SubHeadingNews2 && u.Order > 0));
+            query = query.OrderBy(u => u.NewsPositions.First(u => u.PositionEntityId == (int)NewsPositionEntities.SubHeadingNews2).Order).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<SubHeadingDto>(query).ToListAsync();
         }
 
         public async Task<List<MainHeadingDto>> GetTopMainHeadingNews(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition);
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MainHeadingNews && u.Order > 0));
-            query = query.OrderBy(u => u.NewsPosition.First(u => u.PositionEntityId == (int)NewsPositionEntities.MainHeadingNews).Order).Take(limit.CheckLimit());
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions);
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MainHeadingNews && u.Order > 0));
+            query = query.OrderBy(u => u.NewsPositions.First(u => u.PositionEntityId == (int)NewsPositionEntities.MainHeadingNews).Order).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<MainHeadingDto>(query).ToListAsync();
         }
 
         public async Task<List<MainPageNewsDto>> GetTopMainPageNews(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition);
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageNews && u.Order > 0));
-            query = query.OrderBy(u => u.NewsPosition.First(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageNews).Order).Take(limit.CheckLimit());
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions);
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageNews && u.Order > 0));
+            query = query.OrderBy(u => u.NewsPositions.First(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageNews).Order).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<MainPageNewsDto>(query).ToListAsync();
         }
 
         public async Task<List<MainPageVideoNewsDto>> GetLastVideoNews(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
-                .Include(f => f.NewsFile).ThenInclude(f => f.VideoCoverFile);
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.VideoCoverFile);
             query = query.Where(u => u.NewsTypeEntityId == (int)NewsTypeEntities.VideoGallery);
             query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
             var res = _mapper.ProjectTo<MainPageVideoNewsDto>(query);
@@ -161,7 +161,7 @@ namespace Business.Managers.Concrete
         public async Task<List<MainPageImageNewsDto>> GetLastImageNews(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition);
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions);
             query = query.Where(u => u.NewsTypeEntityId == (int)NewsTypeEntities.ImageGallery);
             query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<MainPageImageNewsDto>(query).ToListAsync();
@@ -170,32 +170,32 @@ namespace Business.Managers.Concrete
         public async Task<List<MainPageStoryNewsDto>> GetStoryNews(int limit)
         {
             var query = _newsDal.GetActiveList()
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category)
-                .Include(f => f.NewsPosition)
-                .Include(f => f.NewsFile).ThenInclude(f => f.File)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsPositions)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
                 .Include(f => f.Author).AsQueryable();
 
             query = query.Where(u => //u.PublishDate.Value.Date >= DateTime.Now.AddDays(-7).Date && 
-            u.NewsPosition.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MobileStory && u.Order > 0));
-            query = query.Where(f => f.NewsFile.Any(g => g.NewsFileTypeEntityId == (int)NewsFileTypeEntities.StoryThumbnailImage));
-            query = query.Where(f => f.NewsFile.Any(g => g.NewsFileTypeEntityId == (int)NewsFileTypeEntities.StoryBigImage));
-            query = query.OrderBy(u => u.NewsPosition.First(u => u.PositionEntityId == (int)NewsPositionEntities.MobileStory).Order);
+            u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MobileStory && u.Order > 0));
+            query = query.Where(f => f.NewsFiles.Any(g => g.NewsFileTypeEntityId == (int)NewsFileTypeEntities.StoryThumbnailImage));
+            query = query.Where(f => f.NewsFiles.Any(g => g.NewsFileTypeEntityId == (int)NewsFileTypeEntities.StoryBigImage));
+            query = query.OrderBy(u => u.NewsPositions.First(u => u.PositionEntityId == (int)NewsPositionEntities.MobileStory).Order);
 
             var res = await query.ToListAsync();
-            var cateoryList = res.GroupBy(f => f.NewsCategory.First().Category.CategoryName);
+            var cateoryList = res.GroupBy(f => f.NewsCategories.First().Category.CategoryName);
             var list = new List<MainPageStoryNewsDto>();
             foreach (var item in cateoryList.AsEnumerable())
             {
                 list.Add(new MainPageStoryNewsDto
                 {
                     CategoryName = item.Key,
-                    Thumbnail = item.OrderByDescending(f => f.PublishDate).ThenByDescending(f => f.PublishTime).First().NewsFile.First(g => g.NewsFileTypeEntityId == (int)NewsFileTypeEntities.StoryThumbnailImage).File.GetFullFilePath(),
+                    Thumbnail = item.OrderByDescending(f => f.PublishDate).ThenByDescending(f => f.PublishTime).First().NewsFiles.First(g => g.NewsFileTypeEntityId == (int)NewsFileTypeEntities.StoryThumbnailImage).File.GetFullFilePath(),
                     Data = item.Select(f => new StoryNewsDetail
                     {
                         NewsId = f.Id,
                         StoryDate = f.PublishDate.Value,
                         StoryTime = f.PublishTime.Value,
-                        MainImage = f.NewsFile.First(g => g.NewsFileTypeEntityId == (int)NewsFileTypeEntities.StoryBigImage).File.GetFullFilePath(),
+                        MainImage = f.NewsFiles.First(g => g.NewsFileTypeEntityId == (int)NewsFileTypeEntities.StoryBigImage).File.GetFullFilePath(),
                         Title = f.Title,
                         Url = f.GetUrl()
                     }).Take(limit).ToList()
@@ -208,16 +208,16 @@ namespace Business.Managers.Concrete
         public async Task<List<MainPageFourHillNewsDto>> GetTopMainPageFourHillNews(int limit)
         {
             var query = _newsDal.GetActiveList().Include(f => f.Author).AsQueryable();
-            query = query.Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition);
-            query = query.Where(u => u.NewsPosition.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageFourHill && u.Order > 0));
-            query = query.OrderBy(u => u.NewsPosition.First(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageFourHill).Order).Take(limit.CheckLimit());
+            query = query.Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions);
+            query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageFourHill && u.Order > 0));
+            query = query.OrderBy(u => u.NewsPositions.First(u => u.PositionEntityId == (int)NewsPositionEntities.MainPageFourHill).Order).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<MainPageFourHillNewsDto>(query).ToListAsync();
         }
 
         public async Task<List<MainPageArticleDto>> GetLastArticles(int limit)
         {
             var query = _newsDal.GetActiveList()
-                .Include(f => f.NewsCategory).ThenInclude(f => f.Category).Include(f => f.NewsPosition)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category).Include(f => f.NewsPositions)
                 .Include(f => f.Author).ThenInclude(f => f.PhotoFile).AsQueryable();
             query = query.Where(u => u.NewsTypeEntityId == (int)NewsTypeEntities.Article);
             query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());

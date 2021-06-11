@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace Entity.Models
 {
     public partial class EntityGroup
     {
         public EntityGroup()
         {
-            Entity = new HashSet<Entity>();
+            Entities = new HashSet<Entity>();
         }
 
         public int Id { get; set; }
         public string EntityGroupName { get; set; }
 
-        public virtual ICollection<Entity> Entity { get; set; }
+        public virtual ICollection<Entity> Entities { get; set; }
     }
 }
