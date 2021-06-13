@@ -62,5 +62,15 @@
         public static string EmptyTitle { get => Translator.GetByKey("validationEmptyTitle"); }
         public static string MenuAndParentMenuMustBeDifferent { get => Translator.GetByKey("validationMenuAndParentMenuMustBeDifferent"); }
         public static string EmptyNewsHitComeFromEntityId { get => Translator.GetByKey("validationEmptyNewsHitComeFromEntityId"); }
+        public static string EmptyFullName { get => Translator.GetByKey("validationEmptyFullName"); }
+        public static string EmptyCityId { get => Translator.GetByKey("validationEmptyCityId"); }
+        public static string EmptyDistrictId { get => Translator.GetByKey("validationEmptyDistrictId"); }
+        public static string FullNameCharacterLimit { get => Translator.GetByKey("validatioFullNameCharacterLimit"); }
+        public static string EmailMaxCharacterLimit { get => Translator.GetByKey("validatioEmailCharacterLimit"); }
+        public static string AddressMaxCharacterLimit { get => Translator.GetByKey("validationAddressCharacterLimit"); }
+        public static string EmptyEmail { get => Translator.GetByKey("validationEmptyEmail"); }
+        public static string EmptyPhone { get => Translator.GetByKey("validationEmptyPhone"); }
+        public static string EmptyAddress { get => Translator.GetByKey("validationEmptyAddress"); }
+        public static string EmptyDescription { get => Translator.GetByKey("validationEmptyDescription"); }
     }
 }

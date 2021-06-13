@@ -891,4 +891,43 @@
   <data name="entityCategoryHeadingAnalyze" xml:space="preserve">
     <value>Analiz Kategori Manşeti</value>
   </data>
+  <data name="validationEmptyFullName" xml:space="preserve">
+    <value>Ad Soyad boş olamaz</value>
+  </data>
+  <data name="validationEmptyCityId" xml:space="preserve">
+    <value>Şehir boş olamaz</value>
+  </data>
+  <data name="validationEmptyDistrictId" xml:space="preserve">
+    <value>İlçe boş olamaz.</value>
+  </data>
+  <data name="validatioFullNameCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validatioEmailCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyAddress" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyDescription" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyEmail" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyPhone" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="contactEmailSubject" xml:space="preserve">
+    <value>Abonelik başarılı</value>
+  </data>
+  <data name="contactEmailBody" xml:space="preserve">
+    <value>Abone listesine başarıyla eklendiniz.</value>
+  </data>
+  <data name="subscriptionEmailSubject" xml:space="preserve">
+    <value>Abone başarıli.</value>
+  </data>
+  <data name="subscriptionEmailBody" xml:space="preserve">
+    <value>Abone listesine başarıyla eklendiniz.</value>
+  </data>
 </root>

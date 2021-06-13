@@ -234,4 +234,43 @@
   <data name="entityMilliGazete" xml:space="preserve">
     <value>MilliGazete</value>
   </data>
+  <data name="validationEmptyFullName" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="validationEmptyCityId" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="validationEmptyDistrictId" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="validatioFullNameCharacterLimit" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="validatioEmailCharacterLimit" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="validationEmptyEmail" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="validationEmptyPhone" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="validationEmptyAddress" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="validationEmptyDescription" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="contactEmailSubject" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="contactEmailBody" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="subscriptionEmailSubject" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="subscriptionEmailBody" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

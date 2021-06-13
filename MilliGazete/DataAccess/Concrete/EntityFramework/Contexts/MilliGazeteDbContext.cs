@@ -18,7 +18,10 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public virtual DbSet<ArticleTag> ArticleTags { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Entity.Models.Entity> Entities { get; set; }
         public virtual DbSet<EntityGroup> EntityGroups { get; set; }
         public virtual DbSet<File> Files { get; set; }
@@ -40,6 +43,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public virtual DbSet<OperationClaim> OperationClaims { get; set; }
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserCategoryRelation> UserCategoryRelations { get; set; }
@@ -48,7 +52,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "Turkish_Turkey.1254");
 
             modelBuilder.Entity<Advertisement>(entity =>
             {
@@ -397,6 +401,52 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasConstraintName("category_parent_category_id_fkey");
             });
 
+            modelBuilder.Entity<City>(entity =>
+            {
+                entity.ToTable("city");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Deleted).HasColumnName("deleted");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Contact>(entity =>
+            {
+                entity.ToTable("contact");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasColumnType("character varying")
+                    .HasColumnName("email");
+
+                entity.Property(e => e.FullName)
+                    .IsRequired()
+                    .HasColumnType("character varying")
+                    .HasColumnName("full_name");
+
+                entity.Property(e => e.Message)
+                    .IsRequired()
+                    .HasColumnType("character varying")
+                    .HasColumnName("message");
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(20)
+                    .HasColumnName("phone");
+            });
+
             modelBuilder.Entity<Currency>(entity =>
             {
                 entity.ToTable("currency");
@@ -425,6 +475,28 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.Symbol)
                     .HasColumnType("character varying")
                     .HasColumnName("symbol");
+            });
+
+            modelBuilder.Entity<District>(entity =>
+            {
+                entity.ToTable("district");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.CityId).HasColumnName("city_id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
+
+                entity.HasOne(d => d.City)
+                    .WithMany(p => p.Districts)
+                    .HasForeignKey(d => d.CityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("district_city_id_fkey");
             });
 
             modelBuilder.Entity<Entity.Models.Entity>(entity =>
@@ -759,7 +831,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.AnonymousUsername)
-                    .HasMaxLength(50)
+                    .HasColumnType("character varying")
                     .HasColumnName("anonymous_username");
 
                 entity.Property(e => e.Approved).HasColumnName("approved");
@@ -777,7 +849,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.InitialLikeCount).HasColumnName("initial_like_count");
 
                 entity.Property(e => e.IpAddress)
-                    .HasMaxLength(50)
+                    .HasColumnType("character varying")
                     .HasColumnName("ip_address");
 
                 entity.Property(e => e.NewsId).HasColumnName("news_id");
@@ -1223,6 +1295,57 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .WithMany(p => p.Pages)
                     .HasForeignKey(d => d.FeaturedImageFileId)
                     .HasConstraintName("featured_image_file_id_fkey");
+            });
+
+            modelBuilder.Entity<Subscription>(entity =>
+            {
+                entity.ToTable("subscription");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .HasColumnName("address");
+
+                entity.Property(e => e.CityId).HasColumnName("city_id");
+
+                entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasColumnType("character varying")
+                    .HasColumnName("description");
+
+                entity.Property(e => e.DistrictId).HasColumnName("district_id");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.FullName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("full_name");
+
+                entity.Property(e => e.Phone)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnName("phone");
+
+                entity.HasOne(d => d.City)
+                    .WithMany(p => p.Subscriptions)
+                    .HasForeignKey(d => d.CityId)
+                    .HasConstraintName("subscription_city_id_fkey");
+
+                entity.HasOne(d => d.District)
+                    .WithMany(p => p.Subscriptions)
+                    .HasForeignKey(d => d.DistrictId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("subscription_district_id_fkey");
             });
 
             modelBuilder.Entity<Tag>(entity =>

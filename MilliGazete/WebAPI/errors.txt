@@ -178,3 +178,55 @@
 
 {"statusCode":401,"message":"Oturum süreniz dolmuş. Lütfen tekrar giriş yapın"}
 
+{"statusCode":401,"message":"messageAuthenticationDenied"}
+
+{"statusCode":500,"message":"Exception has been thrown by the target of an invocation.A message must be specified when calling WithMessage. (Parameter 'errorMessage')"}
+
+{"statusCode":500,"message":"Exception has been thrown by the target of an invocation.A message must be specified when calling WithMessage. (Parameter 'errorMessage')"}
+
+{"statusCode":500,"message":"Exception has been thrown by the target of an invocation.A message must be specified when calling WithMessage. (Parameter 'errorMessage')"}
+
+{"statusCode":500,"message":"Exception has been thrown by the target of an invocation.A message must be specified when calling WithMessage. (Parameter 'errorMessage')"}
+
+{"statusCode":500,"message":"Exception has been thrown by the target of an invocation.A message must be specified when calling WithMessage. (Parameter 'errorMessage')"}
+
+{"statusCode":422,"message":" \r\n  Email Lütfen tüm alanları kontrol edin\r\n  Phone Lütfen tüm alanları kontrol edin"}
+
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.42703 \"CreatedAt\" kolonu \"contact\" tablosunda mevcut değil"}
+
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23505 tekrar eden kayıt, \"contact_pkey\" tekil kısıtlamasını ihlal etmektedir"}
+
+{"statusCode":401,"message":"Oturum süreniz dolmuş. Lütfen tekrar giriş yapın"}
+
+{"statusCode":403,"message":"Bu işlem için yetkiniz yok"}
+
+{"statusCode":500,"message":"A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles."}
+
+{"statusCode":500,"message":"A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles."}
+
+{"statusCode":500,"message":"A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles."}
+
+{"statusCode":500,"message":"A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles."}
+
+{"statusCode":500,"message":"A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles."}
+
+{"statusCode":500,"message":"A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles."}
+
+{"statusCode":500,"message":"A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles."}
+
+{"statusCode":401,"message":"Oturum süreniz dolmuş. Lütfen tekrar giriş yapın"}
+
+{"statusCode":500,"message":"A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles."}
+
+{"statusCode":500,"message":"The binary operator Equal is not defined for the types 'System.Nullable`1[System.Int32]' and 'System.Int32'."}
+
+{"statusCode":500,"message":"The binary operator Equal is not defined for the types 'System.Nullable`1[System.Int32]' and 'System.Int32'."}
+
+{"statusCode":401,"message":"Oturum süreniz dolmuş. Lütfen tekrar giriş yapın"}
+
+{"statusCode":403,"message":"Bu işlem için yetkiniz yok"}
+
+{"statusCode":403,"message":"Bu işlem için yetkiniz yok"}
+
+{"statusCode":422,"message":" \r\n  Email Lütfen tüm alanları kontrol edin"}
+

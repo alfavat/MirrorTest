@@ -158,6 +158,22 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CurrencyAssistantManager>().As<ICurrencyAssistantService>();
             builder.RegisterType<EfCurrencyDal>().As<ICurrencyDal>();
 
+            builder.RegisterType<CityManager>().As<ICityService>();
+            builder.RegisterType<CityAssistantManager>().As<ICityAssistantService>();
+            builder.RegisterType<EfCityDal>().As<ICityDal>();
+
+            builder.RegisterType<DistrictManager>().As<IDistrictService>();
+            builder.RegisterType<DistrictAssistantManager>().As<IDistrictAssistantService>();
+            builder.RegisterType<EfDistrictDal>().As<IDistrictDal>();
+
+            builder.RegisterType<SubscriptionManager>().As<ISubscriptionService>();
+            builder.RegisterType<SubscriptionAssistantManager>().As<ISubscriptionAssistantService>();
+            builder.RegisterType<EfSubscriptionDal>().As<ISubscriptionDal>();
+
+            builder.RegisterType<ContactManager>().As<IContactService>();
+            builder.RegisterType<ContactAssistantManager>().As<IContactAssistantService>();
+            builder.RegisterType<EfContactDal>().As<IContactDal>();
+
             builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
             builder.RegisterType<UserOperationClaimAssistantManager>().As<IUserOperationClaimAssistantService>();
             builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
