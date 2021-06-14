@@ -16,11 +16,12 @@ namespace UnitTest.BLL
 
         #region setup
         private readonly ISubscriptionService _subscriptionService;
+        private readonly IOptionAssistantService _optionAssistantService;
         private readonly IMailHelper _mailHelper;
         public TestSubscriptionService()
         {
             var _mapper = new TestAutoMapper()._mapper;
-            _subscriptionService = new SubscriptionManager(new SubscriptionAssistantManager(subscriptionDal, _mailHelper, _mapper), _mapper);
+            _subscriptionService = new SubscriptionManager(new SubscriptionAssistantManager(subscriptionDal, _mailHelper, _optionAssistantService, _mapper), _mapper);
         }
         #endregion
 

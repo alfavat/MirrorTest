@@ -16,12 +16,14 @@ namespace Business.Managers.Concrete
     {
         private readonly ISubscriptionDal _subscriptionDal;
         private readonly IMailHelper _mailHelper;
+        private readonly IOptionAssistantService _optionAssistantService;
         private readonly IMapper _mapper;
-        public SubscriptionAssistantManager(ISubscriptionDal subscriptionDal, IMailHelper mailHelper, IMapper mapper)
+        public SubscriptionAssistantManager(ISubscriptionDal subscriptionDal, IMailHelper mailHelper, IOptionAssistantService optionAssistantService, IMapper mapper)
         {
             _subscriptionDal = subscriptionDal;
             _mailHelper = mailHelper;
             _mapper = mapper;
+            _optionAssistantService = optionAssistantService;
         }
 
         public List<SubscriptionDto> GetListByPaging(SubscriptionPagingDto pagingDto, out int total)
@@ -56,12 +58,13 @@ namespace Business.Managers.Concrete
         public async Task Add(Subscription subscription)
         {
             await _subscriptionDal.Add(subscription);
-            Task.Run(() => SendEmail(subscription));
+            OptionDto option = await _optionAssistantService.GetView();
+            Task.Run(() => SendEmail(subscription, option.Email));
         }
 
-        private bool SendEmail(Subscription subscription)
+        private bool SendEmail(Subscription subscription, string toEmail)
         {
-            return _mailHelper.SendEmail(Translator.GetByKey("subscriptionEmailSubject"), Translator.GetByKey("subscriptionEmailBody"), new string[] { subscription.Email });
+            return _mailHelper.SendEmail(Translator.GetByKey("subscriptionEmailSubject"),subscription.Email + "<br/>" + subscription.Description, new string[] { toEmail });
         }
 
         public async Task<List<SubscriptionDto>> GetList()
