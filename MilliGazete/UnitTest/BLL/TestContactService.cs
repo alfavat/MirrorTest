@@ -16,11 +16,12 @@ namespace UnitTest.BLL
 
         #region setup
         private readonly IContactService _contactService;
+        private readonly IOptionAssistantService _optionAssistantService;
         private readonly IMailHelper _mailHelper;
         public TestContactService()
         {
             var _mapper = new TestAutoMapper()._mapper;
-            _contactService = new ContactManager(new ContactAssistantManager(contactDal,_mailHelper, _mapper), _mapper);
+            _contactService = new ContactManager(new ContactAssistantManager(contactDal,_mailHelper, _optionAssistantService, _mapper), _mapper);
         }
         #endregion
 

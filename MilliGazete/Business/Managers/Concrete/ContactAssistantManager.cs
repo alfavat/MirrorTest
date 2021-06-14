@@ -16,12 +16,14 @@ namespace Business.Managers.Concrete
     {
         private readonly IContactDal _contactDal;
         private readonly IMailHelper _mailHelper;
+        private readonly IOptionAssistantService _optionAssistantService;
         private readonly IMapper _mapper;
-        public ContactAssistantManager(IContactDal contactDal, IMailHelper mailHelper, IMapper mapper)
+        public ContactAssistantManager(IContactDal contactDal, IMailHelper mailHelper, IOptionAssistantService optionAssistantService, IMapper mapper)
         {
             _contactDal = contactDal;
             _mailHelper = mailHelper;
             _mapper = mapper;
+            _optionAssistantService = optionAssistantService;
         }
 
         public List<ContactDto> GetListByPaging(ContactPagingDto pagingDto, out int total)
@@ -49,12 +51,13 @@ namespace Business.Managers.Concrete
         public async Task Add(Contact contact)
         {
             await _contactDal.Add(contact);
-            Task.Run(() => SendEmail(contact));
+            OptionDto option = await _optionAssistantService.GetView();
+            Task.Run(() => SendEmail(contact,option.Email));
         }
 
-        private bool SendEmail(Contact contact)
+        private bool SendEmail(Contact contact, string toEmail)
         {
-            return _mailHelper.SendEmail(Translator.GetByKey("contactEmailSubject"), Translator.GetByKey("contactEmailBody"), new string[] { contact.Email });
+            return _mailHelper.SendEmail(Translator.GetByKey("contactEmailSubject"), contact.Email + "<br/>" + contact.Message, new string[] { toEmail });
         }
 
         public async Task<List<ContactDto>> GetList()
