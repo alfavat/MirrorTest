@@ -230,3 +230,13 @@
 
 {"statusCode":422,"message":" \r\n  Email Lütfen tüm alanları kontrol edin"}
 
+{"statusCode":403,"message":"Bu işlem için yetkiniz yok"}
+
+{"statusCode":500,"message":"Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":403,"message":"Bu işlem için yetkiniz yok"}
+
+{"statusCode":403,"message":"Bu işlem için yetkiniz yok"}
+
+{"statusCode":500,"message":"Missing type map configuration or unsupported mapping.\r\n\r\nMapping types\r\nObject -> UserQuestionAnswer\r\nSystem.Object -> Entity.Models.UserQuestionAnswer"}
+

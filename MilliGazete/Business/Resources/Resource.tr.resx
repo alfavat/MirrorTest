@@ -930,4 +930,10 @@
   <data name="subscriptionEmailBody" xml:space="preserve">
     <value>Abone listesine başarıyla eklendiniz.</value>
   </data>
+  <data name="validationEmptyQuestionText" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
+  <data name="validationEmptyAnswer" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
 </root>

@@ -43,12 +43,15 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public virtual DbSet<OperationClaim> OperationClaims { get; set; }
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserCategoryRelation> UserCategoryRelations { get; set; }
         public virtual DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public virtual DbSet<UserPasswordRequest> UserPasswordRequests { get; set; }
+        public virtual DbSet<UserQuestionAnswer> UserQuestionAnswers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -429,12 +432,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasColumnType("character varying")
+                    .HasMaxLength(200)
                     .HasColumnName("email");
 
                 entity.Property(e => e.FullName)
                     .IsRequired()
-                    .HasColumnType("character varying")
+                    .HasMaxLength(100)
                     .HasColumnName("full_name");
 
                 entity.Property(e => e.Message)
@@ -1297,6 +1300,46 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasConstraintName("featured_image_file_id_fkey");
             });
 
+            modelBuilder.Entity<Question>(entity =>
+            {
+                entity.ToTable("question");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Active).HasColumnName("active");
+
+                entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+
+                entity.Property(e => e.QuestionText)
+                    .IsRequired()
+                    .HasColumnType("character varying")
+                    .HasColumnName("question_text");
+            });
+
+            modelBuilder.Entity<QuestionAnswer>(entity =>
+            {
+                entity.ToTable("question_answer");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Answer)
+                    .IsRequired()
+                    .HasColumnType("character varying")
+                    .HasColumnName("answer");
+
+                entity.Property(e => e.QuestionId).HasColumnName("question_id");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.QuestionAnswers)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("question_answer_question_id_fkey");
+            });
+
             modelBuilder.Entity<Subscription>(entity =>
             {
                 entity.ToTable("subscription");
@@ -1497,6 +1540,40 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .WithMany(p => p.UserPasswordRequests)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("user_password_request_user_id_fkey");
+            });
+
+            modelBuilder.Entity<UserQuestionAnswer>(entity =>
+            {
+                entity.ToTable("user_question_answer");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.AnswerId).HasColumnName("answer_id");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.IpAddress)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("ip_address");
+
+                entity.Property(e => e.QuestionId).HasColumnName("question_id");
+
+                entity.HasOne(d => d.Answer)
+                    .WithMany(p => p.UserQuestionAnswers)
+                    .HasForeignKey(d => d.AnswerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("question_answer_id_fkey");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.UserQuestionAnswers)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("question_id_fkey");
             });
 
             OnModelCreatingPartial(modelBuilder);

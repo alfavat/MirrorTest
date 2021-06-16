@@ -72,5 +72,7 @@
         public static string EmptyPhone { get => Translator.GetByKey("validationEmptyPhone"); }
         public static string EmptyAddress { get => Translator.GetByKey("validationEmptyAddress"); }
         public static string EmptyDescription { get => Translator.GetByKey("validationEmptyDescription"); }
+        public static string EmptyQuestionText { get => Translator.GetByKey("validationEmptyQuestionText"); }
+        public static string EmptyAnswer { get => Translator.GetByKey("validationEmptyAnswer"); }
     }
 }

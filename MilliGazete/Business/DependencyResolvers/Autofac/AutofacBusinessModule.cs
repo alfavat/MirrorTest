@@ -174,6 +174,18 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ContactAssistantManager>().As<IContactAssistantService>();
             builder.RegisterType<EfContactDal>().As<IContactDal>();
 
+            builder.RegisterType<QuestionManager>().As<IQuestionService>();
+            builder.RegisterType<QuestionAssistantManager>().As<IQuestionAssistantService>();
+            builder.RegisterType<EfQuestionDal>().As<IQuestionDal>();
+
+            builder.RegisterType<QuestionAnswerManager>().As<IQuestionAnswerService>();
+            builder.RegisterType<QuestionAnswerAssistantManager>().As<IQuestionAnswerAssistantService>();
+            builder.RegisterType<EfQuestionAnswerDal>().As<IQuestionAnswerDal>();
+
+            builder.RegisterType<UserQuestionAnswerManager>().As<IUserQuestionAnswerService>();
+            builder.RegisterType<UserQuestionAnswerAssistantManager>().As<IUserQuestionAnswerAssistantService>();
+            builder.RegisterType<EfUserQuestionAnswerDal>().As<IUserQuestionAnswerDal>();
+
             builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
             builder.RegisterType<UserOperationClaimAssistantManager>().As<IUserOperationClaimAssistantService>();
             builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
