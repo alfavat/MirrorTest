@@ -17,6 +17,7 @@ namespace Entity.Models
         public string QuestionText { get; set; }
         public bool Active { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
         public virtual ICollection<UserQuestionAnswer> UserQuestionAnswers { get; set; }

@@ -23,12 +23,12 @@ namespace Business.Managers.Concrete
 
         public async Task<Question> GetById(int questionId)
         {
-            return await _questionDal.Get(p => p.Id == questionId);
+            return await _questionDal.Get(p => p.Id == questionId && !p.Deleted);
         }
 
         public async Task<QuestionDto> GetViewById(int questionId)
         {
-            var data = _questionDal.GetList(p => p.Id == questionId).Include(f => f.QuestionAnswers);
+            var data = _questionDal.GetList(p => p.Id == questionId && !p.Deleted).Include(f => f.QuestionAnswers);
             return await _mapper.ProjectTo<QuestionDto>(data).FirstOrDefaultAsync();
         }
 
@@ -39,17 +39,19 @@ namespace Business.Managers.Concrete
 
         public async Task Delete(Question question)
         {
-            await _questionDal.Delete(question);
+            question.Deleted = true;
+            await _questionDal.Update(question);
         }
 
-        public async Task Add(Question question)
+        public async Task<Question> Add(Question question)
         {
             await _questionDal.Add(question);
+            return question;
         }
 
         public async Task<List<QuestionDto>> GetList()
         {
-            var list = _questionDal.GetList().Include(f => f.QuestionAnswers);
+            var list = _questionDal.GetList(p=> !p.Deleted).Include(f => f.QuestionAnswers);
             return await _mapper.ProjectTo<QuestionDto>(list).ToListAsync();
         }
     }

@@ -13,5 +13,6 @@ namespace Business.Managers.Abstract
         Task<List<QuestionAnswerDto>> GetList();
         Task Add(QuestionAnswer questionAnswer);
         Task<QuestionAnswerDto> GetViewById(int questionAnswerId);
+        Task<List<QuestionAnswerDto>> GetListByQuestionId(int questionId);
     }
 }

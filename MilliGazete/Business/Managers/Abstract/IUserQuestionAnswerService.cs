@@ -10,5 +10,6 @@ namespace Business.Managers.Abstract
         Task<IDataResult<UserQuestionAnswerDto>> GetById(int userQuestionAnswerId);
         Task<IResult> Add(UserQuestionAnswerAddDto userQuestionAnswerAddDto);
         Task<IDataResult<List<UserQuestionAnswerDto>>> GetList();
+        Task<IDataResult<bool>> GetIsAnswered(int questionId);
     }
 }

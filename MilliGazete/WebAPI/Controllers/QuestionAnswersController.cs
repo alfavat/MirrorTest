@@ -8,10 +8,10 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionAnswerAnswersController : MainController
+    public class QuestionAnswersController : MainController
     {
         private IQuestionAnswerService _questionAnswerService;
-        public QuestionAnswerAnswersController(IQuestionAnswerService QuestionAnswerService)
+        public QuestionAnswersController(IQuestionAnswerService QuestionAnswerService)
         {
             _questionAnswerService = QuestionAnswerService;
         }
@@ -20,6 +20,12 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetList()
         {
             return GetResponse(await _questionAnswerService.GetList());
+        }
+
+        [HttpGet("getlistbyquestionid")]
+        public async Task<IActionResult> GetListByQuestionId(int questionId)
+        {
+            return GetResponse(await _questionAnswerService.GetListByQuestionId(questionId));
         }
 
         [HttpGet("getbyid")]

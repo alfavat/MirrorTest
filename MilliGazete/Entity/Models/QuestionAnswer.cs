@@ -15,6 +15,7 @@ namespace Entity.Models
         public int Id { get; set; }
         public int QuestionId { get; set; }
         public string Answer { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual Question Question { get; set; }
         public virtual ICollection<UserQuestionAnswer> UserQuestionAnswers { get; set; }

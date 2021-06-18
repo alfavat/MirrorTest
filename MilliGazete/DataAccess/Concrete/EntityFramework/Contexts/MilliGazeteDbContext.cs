@@ -1312,6 +1312,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.CreatedAt).HasColumnName("created_at");
 
+                entity.Property(e => e.Deleted).HasColumnName("deleted");
+
                 entity.Property(e => e.QuestionText)
                     .IsRequired()
                     .HasColumnType("character varying")
@@ -1330,6 +1332,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .IsRequired()
                     .HasColumnType("character varying")
                     .HasColumnName("answer");
+
+                entity.Property(e => e.Deleted).HasColumnName("deleted");
 
                 entity.Property(e => e.QuestionId).HasColumnName("question_id");
 
@@ -1552,9 +1556,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.AnswerId).HasColumnName("answer_id");
 
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnName("created_at")
-                    .HasDefaultValueSql("now()");
+                entity.Property(e => e.CreatedAt).HasColumnName("created_at");
 
                 entity.Property(e => e.IpAddress)
                     .IsRequired()

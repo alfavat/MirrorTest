@@ -41,6 +41,13 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<List<UserQuestionAnswerDto>>(await _userQuestionAnswerAssistantService.GetList());
         }
 
+        [PerformanceAspect()]
+        public async Task<IDataResult<bool>> GetIsAnswered(int questionId)
+        {
+            string ipAddress = _httpContext.HttpContext.Connection.RemoteIpAddress.ToString();
+            return new SuccessDataResult<bool>(await _userQuestionAnswerAssistantService.GetIsAnswered(questionId,ipAddress) != null);
+        }
+
         [SecuredOperation("UserQuestionAnswerGet")]
         [CacheAspect()]
         [PerformanceAspect()]
@@ -62,10 +69,14 @@ namespace Business.Managers.Concrete
             var checkAnswerRecord = await _questionAnswerService.GetById(dto.AnswerId);
             if (!checkAnswerRecord.Success)
                 return new ErrorResult(Messages.RecordNotFound);
+            string userIpAddress = _httpContext.HttpContext.Connection.RemoteIpAddress.ToString();
+            var checkDuplicateAnswer = await _userQuestionAnswerAssistantService.GetIsAnswered(checkAnswerRecord.Data.QuestionId, userIpAddress);
+            if (checkAnswerRecord.Data != null)
+                return new ErrorResult(Messages.RecordAlreadyExists);
 
             var data = _mapper.Map<UserQuestionAnswer>(dto);
             data.QuestionId = checkAnswerRecord.Data.QuestionId;
-            data.IpAddress = _httpContext.HttpContext.Connection.RemoteIpAddress.ToString();
+            data.IpAddress = userIpAddress;
 
             await _userQuestionAnswerAssistantService.Add(data);
             return new SuccessResult(Messages.Added);

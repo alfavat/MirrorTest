@@ -22,6 +22,12 @@ namespace WebAPI.Controllers
             return GetResponse(await _userQuestionAnswerService.GetList());
         }
 
+        [HttpGet("getisanswered")]
+        public async Task<IActionResult> GetIsAnswered(int questionId)
+        {
+            return GetResponse(await _userQuestionAnswerService.GetIsAnswered(questionId));
+        }
+
         [HttpGet("getbyid")]
         public async Task<IActionResult> GetById(int userQuestionAnswerId)
         {

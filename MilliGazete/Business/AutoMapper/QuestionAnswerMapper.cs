@@ -9,7 +9,8 @@ namespace Business.AutoMapper
     {
         public QuestionAnswerMapper()
         {
-            CreateMap<QuestionAnswerAddDto, QuestionAnswer>();
+            CreateMap<QuestionAnswerAddDto, QuestionAnswer>().
+                BeforeMap((dto, entity) => { entity.Deleted = false; });
 
             CreateMap<QuestionAnswerUpdateDto, QuestionAnswer>();
 

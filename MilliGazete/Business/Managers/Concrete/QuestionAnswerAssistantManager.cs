@@ -23,12 +23,12 @@ namespace Business.Managers.Concrete
 
         public async Task<QuestionAnswer> GetById(int questionAnswerId)
         {
-            return await _questionAnswerDal.Get(p => p.Id == questionAnswerId);
+            return await _questionAnswerDal.Get(p => p.Id == questionAnswerId && !p.Deleted);
         }
 
         public async Task<QuestionAnswerDto> GetViewById(int questionAnswerId)
         {
-            var data = _questionAnswerDal.GetList(p => p.Id == questionAnswerId);
+            var data = _questionAnswerDal.GetList(p => p.Id == questionAnswerId && !p.Deleted);
             return await _mapper.ProjectTo<QuestionAnswerDto>(data).FirstOrDefaultAsync();
         }
 
@@ -39,7 +39,8 @@ namespace Business.Managers.Concrete
 
         public async Task Delete(QuestionAnswer questionAnswer)
         {
-            await _questionAnswerDal.Delete(questionAnswer);
+            questionAnswer.Deleted = true;
+            await _questionAnswerDal.Update(questionAnswer);
         }
 
         public async Task Add(QuestionAnswer questionAnswer)
@@ -49,7 +50,13 @@ namespace Business.Managers.Concrete
 
         public async Task<List<QuestionAnswerDto>> GetList()
         {
-            var list = _questionAnswerDal.GetList();
+            var list = _questionAnswerDal.GetList(p=> !p.Deleted);
+            return await _mapper.ProjectTo<QuestionAnswerDto>(list).ToListAsync();
+        }
+
+        public async Task<List<QuestionAnswerDto>> GetListByQuestionId(int questionId)
+        {
+            var list = _questionAnswerDal.GetList(prop=>prop.QuestionId == questionId && !prop.Deleted);
             return await _mapper.ProjectTo<QuestionAnswerDto>(list).ToListAsync();
         }
     }

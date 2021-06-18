@@ -11,7 +11,7 @@ namespace Business.Managers.Abstract
         Task Update(Question question);
         Task Delete(Question question);
         Task<List<QuestionDto>> GetList();
-        Task Add(Question question);
+        Task<Question> Add(Question question);
         Task<QuestionDto> GetViewById(int questionId);
     }
 }

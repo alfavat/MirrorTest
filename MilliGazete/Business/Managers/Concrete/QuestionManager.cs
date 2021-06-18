@@ -66,11 +66,11 @@ namespace Business.Managers.Concrete
         [ValidationAspect(typeof(QuestionAddDtoValidator))]
         [LogAspect()]
         [CacheRemoveAspect("IQuestionService.Get")]
-        public async Task<IResult> Add(QuestionAddDto dto)
+        public async Task<IDataResult<int>> Add(QuestionAddDto dto)
         {
             var data = _mapper.Map<Question>(dto);
-            await _questionAssistantService.Add(data);
-            return new SuccessResult(Messages.Added);
+            var result = await _questionAssistantService.Add(data);
+            return new SuccessDataResult<int>(result.Id,Messages.Added);
         }
 
         [SecuredOperation("QuestionDelete")]

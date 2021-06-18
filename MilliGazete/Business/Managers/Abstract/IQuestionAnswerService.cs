@@ -12,5 +12,6 @@ namespace Business.Managers.Abstract
         Task<IResult> Add(QuestionAnswerAddDto questionAnswerAddDto);
         Task<IResult> Delete(int questionAnswerId);
         Task<IDataResult<List<QuestionAnswerDto>>> GetList();
+        Task<IDataResult<List<QuestionAnswerDto>>> GetListByQuestionId(int questionId);
     }
 }

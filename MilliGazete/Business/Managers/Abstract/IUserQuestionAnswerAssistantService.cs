@@ -11,5 +11,6 @@ namespace Business.Managers.Abstract
         Task<List<UserQuestionAnswerDto>> GetList();
         Task Add(UserQuestionAnswer userQuestionAnswer);
         Task<UserQuestionAnswerDto> GetViewById(int userQuestionAnswerId);
+        Task<UserQuestionAnswer> GetIsAnswered(int questionId, string ipAddress);
     }
 }

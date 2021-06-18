@@ -33,6 +33,13 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<List<QuestionAnswerDto>>(await _questionAnswerAssistantService.GetList());
         }
 
+        [CacheAspect()]
+        [PerformanceAspect()]
+        public async Task<IDataResult<List<QuestionAnswerDto>>> GetListByQuestionId(int questionId)
+        {
+            return new SuccessDataResult<List<QuestionAnswerDto>>(await _questionAnswerAssistantService.GetListByQuestionId(questionId));
+        }
+
         [SecuredOperation("QuestionAnswerGet")]
         [CacheAspect()]
         [PerformanceAspect()]

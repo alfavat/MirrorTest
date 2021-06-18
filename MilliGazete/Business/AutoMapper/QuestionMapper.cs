@@ -10,7 +10,7 @@ namespace Business.AutoMapper
         public QuestionMapper()
         {
             CreateMap<QuestionAddDto, Question>().
-                BeforeMap((dto, entity) => { entity.CreatedAt = DateTime.Now; });
+                BeforeMap((dto, entity) => { entity.CreatedAt = DateTime.Now;entity.Deleted = false; });
 
             CreateMap<QuestionUpdateDto, Question>();
 

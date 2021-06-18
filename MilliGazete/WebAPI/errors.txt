@@ -240,3 +240,11 @@
 
 {"statusCode":500,"message":"Missing type map configuration or unsupported mapping.\r\n\r\nMapping types\r\nObject -> UserQuestionAnswer\r\nSystem.Object -> Entity.Models.UserQuestionAnswer"}
 
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23503 \"question_answer\" tablosu üzerindeki ekleme veya güncelleme işlemi \"question_answer_question_id_fkey\" foreign key kısıtlamasını ihlal ediyor"}
+
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23503 \"question\" tablosu üzerinde yapılan update veya delete işlemi \"question_answer\" tablosunun \"question_answer_question_id_fkey\" bütünlük kısıtlamasını ihlal ediyor"}
+
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23503 \"question_answer\" tablosu üzerindeki ekleme veya güncelleme işlemi \"question_answer_question_id_fkey\" foreign key kısıtlamasını ihlal ediyor"}
+
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23503 \"question_answer\" tablosu üzerindeki ekleme veya güncelleme işlemi \"question_answer_question_id_fkey\" foreign key kısıtlamasını ihlal ediyor"}
+

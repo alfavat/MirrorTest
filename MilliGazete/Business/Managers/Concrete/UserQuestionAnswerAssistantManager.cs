@@ -42,5 +42,10 @@ namespace Business.Managers.Concrete
             var list = _userQuestionAnswerDal.GetList().Include(f => f.Question).Include(f => f.Answer);
             return await _mapper.ProjectTo<UserQuestionAnswerDto>(list).ToListAsync();
         }
+
+        public async Task<UserQuestionAnswer> GetIsAnswered(int questionId, string ipAddress)
+        {
+            return await _userQuestionAnswerDal.Get(prop => prop.IpAddress == ipAddress && prop.QuestionId == questionId);
+        }
     }
 }

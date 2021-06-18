@@ -9,7 +9,7 @@ namespace Business.Managers.Abstract
     {
         Task<IDataResult<QuestionDto>> GetById(int questionId);
         Task<IResult> Update(QuestionUpdateDto questionUpdateDto);
-        Task<IResult> Add(QuestionAddDto questionAddDto);
+        Task<IDataResult<int>> Add(QuestionAddDto dto);
         Task<IResult> Delete(int questionId);
         Task<IDataResult<List<QuestionDto>>> GetList();
     }
