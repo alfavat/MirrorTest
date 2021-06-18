@@ -14,11 +14,13 @@ namespace Business.Managers.Concrete
     public class NewsHitDetailAssistantManager : INewsHitDetailAssistantService
     {
         private readonly INewsHitDetailDal _newsHitDetailDal;
+        private readonly IEntityDal _entityDal;
         private readonly IMapper _mapper;
-        public NewsHitDetailAssistantManager(INewsHitDetailDal newsHitDetailDal, IMapper mapper)
+        public NewsHitDetailAssistantManager(INewsHitDetailDal newsHitDetailDal, IEntityDal entityDal,IMapper mapper)
         {
             _newsHitDetailDal = newsHitDetailDal;
             _mapper = mapper;
+            _entityDal = entityDal;
         }
 
         public async Task Add(NewsHitDetail data)
@@ -44,6 +46,30 @@ namespace Business.Managers.Concrete
         public async Task<List<NewsHitDetailDto>> GetListByNewsId(int newsId)
         {
             return await _mapper.ProjectTo<NewsHitDetailDto>(_newsHitDetailDal.GetList(f => f.NewsId == newsId)).ToListAsync();
+        }
+
+        public async Task<List<NewsHitCountGroupDto>> GetListHitGroupByNewsId(int newsId)
+        {
+            var result = from newsHitDetailTable in _newsHitDetailDal.GetList()
+                         where newsHitDetailTable.NewsId == newsId
+                         group newsHitDetailTable by newsHitDetailTable.NewsHitComeFromEntityId into hitGroup
+                         select new NewsHitCountGroupDto()
+                         {
+                             NewsHitComeFromEntityId = hitGroup.Key,
+                             Count = hitGroup.Count(),
+                             NewsHitEntityName = ""
+                         };
+            result = from resultRecords in result
+                     join entityTable in _entityDal.GetList()
+                     on resultRecords.NewsHitComeFromEntityId equals entityTable.Id
+                     select new NewsHitCountGroupDto()
+                     {
+                         NewsHitComeFromEntityId = resultRecords.NewsHitComeFromEntityId,
+                         Count = resultRecords.Count,
+                         NewsHitEntityName = entityTable.EntityName
+                     };
+
+            return await result.ToListAsync();
         }
     }
 }

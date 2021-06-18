@@ -29,7 +29,6 @@ namespace Business.Managers.Concrete
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsHitDetails)
                 .AsQueryable();
-
             if (pagingDto.Query.StringNotNullOrEmpty())
                 query = query.Where(f => f.Url.ToLower().Contains(pagingDto.Query.ToLower()) ||
                 f.SeoDescription.ToLower().Contains(pagingDto.Query.ToLower()) || f.SeoKeywords.ToLower().Contains(pagingDto.Query.ToLower()) ||
@@ -60,7 +59,6 @@ namespace Business.Managers.Concrete
 
             if (pagingDto.AuthorId.HasValue)
                 query = query.Where(f => f.AuthorId == pagingDto.AuthorId);
-
             total = query.Count();
             var mapped = _mapper.ProjectTo<NewsViewDto>(query);
             return mapped.OrderBy(pagingDto.OrderBy).Skip((pagingDto.PageNumber - 1) * pagingDto.Limit.CheckLimit()).Take(pagingDto.Limit.CheckLimit()).ToList();

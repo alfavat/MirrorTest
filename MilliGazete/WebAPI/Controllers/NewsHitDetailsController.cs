@@ -27,6 +27,12 @@ namespace WebAPI.Controllers
             return GetResponse(await _newsHitDetailService.GetListByNewsId(newsId));
         }
 
+        [HttpGet("getlisthitgroupbynewsId")]
+        public async Task<IActionResult> GetListHitGroupByNewsId(int newsId)
+        {
+            return GetResponse(await _newsHitDetailService.GetListHitGroupByNewsId(newsId));
+        }
+
         [HttpGet("getlastnewshitdetails")]
         public async Task<IActionResult> GetLastNewHitDetail(int minutes = 5)
         {

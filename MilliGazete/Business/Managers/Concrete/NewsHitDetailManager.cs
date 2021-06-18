@@ -44,6 +44,13 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<List<NewsHitDetailDto>>(await _newsHitDetailAssistantService.GetListByNewsId(newsId));
         }
 
+        [SecuredOperation("")]
+        [PerformanceAspect()]
+        public async Task<IDataResult<List<NewsHitCountGroupDto>>> GetListHitGroupByNewsId(int newsId)
+        {
+            return new SuccessDataResult<List<NewsHitCountGroupDto>>(await _newsHitDetailAssistantService.GetListHitGroupByNewsId(newsId));
+        }
+
         [PerformanceAspect()]
         public async Task<IDataResult<List<NewsHitDetailDto>>> GetLastNewHitDetails(int minutes)
         {

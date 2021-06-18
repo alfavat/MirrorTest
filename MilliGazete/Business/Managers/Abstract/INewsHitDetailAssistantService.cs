@@ -11,5 +11,6 @@ namespace Business.Managers.Abstract
         Task Add(NewsHitDetail data);
         Task<List<NewsHitDetailDto>> GetLastNewHitDetails(int minutes);
         Task<List<NewsHitDetailDto>> GetListByNewsId(int newsId);
+        Task<List<NewsHitCountGroupDto>> GetListHitGroupByNewsId(int newsId);
     }
 }

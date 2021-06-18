@@ -248,3 +248,27 @@
 
 {"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23503 \"question_answer\" tablosu üzerindeki ekleme veya güncelleme işlemi \"question_answer_question_id_fkey\" foreign key kısıtlamasını ihlal ediyor"}
 
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"The LINQ expression 'GroupByShaperExpression\r\nKeySelector n.news_hit_come_from_entity_id, \r\nElementSelectorEntityShaperExpression \r\n    EntityType NewsHitDetail\r\n    ValueBufferExpression \r\n        ProjectionBindingExpression EmptyProjectionMember\r\n    IsNullable False\r\n\r\n    .Select(s => (Nullable<int>)s.NewsHitComeFromEntityId)\r\n    .FirstOrDefault()' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https//go.microsoft.com/fwlink/?linkid=2101038 for more information."}
+
+{"statusCode":500,"message":"The LINQ expression 'GroupByShaperExpression\r\nKeySelector n.news_hit_come_from_entity_id, \r\nElementSelectorEntityShaperExpression \r\n    EntityType NewsHitDetail\r\n    ValueBufferExpression \r\n        ProjectionBindingExpression EmptyProjectionMember\r\n    IsNullable False\r\n\r\n    .Select(s => s.NewsHitComeFromEntityId)\r\n    .First()' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https//go.microsoft.com/fwlink/?linkid=2101038 for more information."}
+
+{"statusCode":500,"message":"The LINQ expression 'GroupByShaperExpression\r\nKeySelector n.news_hit_come_from_entity_id, \r\nElementSelectorEntityShaperExpression \r\n    EntityType NewsHitDetail\r\n    ValueBufferExpression \r\n        ProjectionBindingExpression EmptyProjectionMember\r\n    IsNullable False\r\n\r\n    .Select(s => (Nullable<int>)s.NewsHitComeFromEntityId)\r\n    .SingleOrDefault()' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https//go.microsoft.com/fwlink/?linkid=2101038 for more information."}
+
