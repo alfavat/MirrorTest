@@ -279,4 +279,7 @@
   <data name="validationEmptyAnswer" xml:space="preserve">
     <value></value>
   </data>
+  <data name="entityReportage" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

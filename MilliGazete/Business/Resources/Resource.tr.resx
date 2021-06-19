@@ -936,4 +936,7 @@
   <data name="validationEmptyAnswer" xml:space="preserve">
     <value>Lütfen tüm alanları kontrol edin</value>
   </data>
+  <data name="entityReportage" xml:space="preserve">
+    <value>Röportaj</value>
+  </data>
 </root>

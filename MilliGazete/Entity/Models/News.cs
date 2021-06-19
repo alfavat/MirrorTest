@@ -49,9 +49,11 @@ namespace Entity.Models
         public int? HistoryNo { get; set; }
         public string InnerTitle { get; set; }
         public int? AuthorId { get; set; }
+        public int? ReporterId { get; set; }
 
         public virtual User AddUser { get; set; }
         public virtual Author Author { get; set; }
+        public virtual Reporter Reporter { get; set; }
         public virtual Entity NewsAgencyEntity { get; set; }
         public virtual Entity NewsTypeEntity { get; set; }
         public virtual User UpdateUser { get; set; }

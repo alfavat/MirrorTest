@@ -16,6 +16,7 @@ namespace Entity.Models
             NewsFileFiles = new HashSet<NewsFile>();
             NewsFileVideoCoverFiles = new HashSet<NewsFile>();
             Pages = new HashSet<Page>();
+            Reporters = new HashSet<Reporter>();
         }
 
         public int Id { get; set; }
@@ -38,5 +39,6 @@ namespace Entity.Models
         public virtual ICollection<NewsFile> NewsFileFiles { get; set; }
         public virtual ICollection<NewsFile> NewsFileVideoCoverFiles { get; set; }
         public virtual ICollection<Page> Pages { get; set; }
+        public virtual ICollection<Reporter> Reporters { get; set; }
     }
 }

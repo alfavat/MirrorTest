@@ -35,9 +35,11 @@ namespace Entity.Dtos
         public int? NewsTypeEntityId { get; set; }
         public int? NewsAgencyEntityId { get; set; }
         public int? AuthorId { get; set; }
+        public int? ReporterId { get; set; }
         public int? NewsHitCount { get; set; }
 
         public AuthorDto Author { get; set; }
+        public ReporterDto Reporter { get; set; }
         public List<NewsCategoryDto> NewsCategoryList { get; set; }
         public List<NewsFileDto> NewsFileList { get; set; }
         public List<NewsPositionDto> NewsPositionList { get; set; }

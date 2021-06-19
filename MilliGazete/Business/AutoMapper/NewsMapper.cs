@@ -37,6 +37,7 @@ namespace Business.AutoMapper
             CreateMap<News, NewsViewDto>()
               .ForMember(f => f.Url, g => g.MapFrom(t => t.GetUrl()))
               .ForMember(f => f.Author, u => u.MapFrom(g => g.Author))
+              .ForMember(f => f.Reporter, u => u.MapFrom(g => g.Reporter))
               .ForMember(f => f.AddUser, u => u.MapFrom(g => g.AddUser == null ? "" : g.AddUser.UserName))
               .ForMember(f => f.UpdateUser, u => u.MapFrom(g => g.UpdateUser == null ? "" : g.UpdateUser.UserName))
               .ForMember(f => f.NewsAgencyEntity, u => u.MapFrom(g => g.NewsAgencyEntity == null ? "" : Translator.GetByKey(g.NewsAgencyEntity.EntityName)))

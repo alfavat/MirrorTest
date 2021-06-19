@@ -178,6 +178,10 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<QuestionAssistantManager>().As<IQuestionAssistantService>();
             builder.RegisterType<EfQuestionDal>().As<IQuestionDal>();
 
+            builder.RegisterType<ReporterManager>().As<IReporterService>();
+            builder.RegisterType<ReporterAssistantManager>().As<IReporterAssistantService>();
+            builder.RegisterType<EfReporterDal>().As<IReporterDal>();
+
             builder.RegisterType<QuestionAnswerManager>().As<IQuestionAnswerService>();
             builder.RegisterType<QuestionAnswerAssistantManager>().As<IQuestionAnswerAssistantService>();
             builder.RegisterType<EfQuestionAnswerDal>().As<IQuestionAnswerDal>();

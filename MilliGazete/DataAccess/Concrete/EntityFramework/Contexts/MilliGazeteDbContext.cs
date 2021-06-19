@@ -45,6 +45,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+        public virtual DbSet<Reporter> Reporters { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -677,6 +678,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasDefaultValueSql("true");
 
                 entity.Property(e => e.AuthorId).HasColumnName("author_id");
+                entity.Property(e => e.ReporterId).HasColumnName("reporter_id");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
@@ -758,6 +760,11 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .WithMany(p => p.News)
                     .HasForeignKey(d => d.AuthorId)
                     .HasConstraintName("author_id_fkey");
+
+                entity.HasOne(d => d.Reporter)
+                    .WithMany(p => p.News)
+                    .HasForeignKey(d => d.ReporterId)
+                    .HasConstraintName("reporter_id_fkey");
 
                 entity.HasOne(d => d.NewsAgencyEntity)
                     .WithMany(p => p.NewsNewsAgencyEntities)
@@ -1342,6 +1349,27 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasForeignKey(d => d.QuestionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("question_answer_question_id_fkey");
+            });
+
+            modelBuilder.Entity<Reporter>(entity =>
+            {
+                entity.ToTable("reporter");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.FullName)
+                    .IsRequired()
+                    .HasColumnType("character varying")
+                    .HasColumnName("full_name");
+
+                entity.Property(e => e.ProfileImageId).HasColumnName("profile_image_id");
+                entity.Property(e => e.Deleted).HasColumnName("deleted");
+                entity.HasOne(d => d.ProfileImage)
+                    .WithMany(p => p.Reporters)
+                    .HasForeignKey(d => d.ProfileImageId)
+                    .HasConstraintName("reporter_file_profile_image_id_fkey");
             });
 
             modelBuilder.Entity<Subscription>(entity =>
