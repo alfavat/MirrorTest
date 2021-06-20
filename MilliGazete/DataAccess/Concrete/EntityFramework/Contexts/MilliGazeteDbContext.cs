@@ -678,7 +678,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasDefaultValueSql("true");
 
                 entity.Property(e => e.AuthorId).HasColumnName("author_id");
-                entity.Property(e => e.ReporterId).HasColumnName("reporter_id");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
@@ -713,6 +712,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnType("time without time zone")
                     .HasColumnName("publish_time")
                     .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.ReporterId).HasColumnName("reporter_id");
 
                 entity.Property(e => e.SeoDescription)
                     .HasColumnType("character varying")
@@ -761,11 +762,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasForeignKey(d => d.AuthorId)
                     .HasConstraintName("author_id_fkey");
 
-                entity.HasOne(d => d.Reporter)
-                    .WithMany(p => p.News)
-                    .HasForeignKey(d => d.ReporterId)
-                    .HasConstraintName("reporter_id_fkey");
-
                 entity.HasOne(d => d.NewsAgencyEntity)
                     .WithMany(p => p.NewsNewsAgencyEntities)
                     .HasForeignKey(d => d.NewsAgencyEntityId)
@@ -775,6 +771,11 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .WithMany(p => p.NewsNewsTypeEntities)
                     .HasForeignKey(d => d.NewsTypeEntityId)
                     .HasConstraintName("news_news_type_entity_id_fkey");
+
+                entity.HasOne(d => d.Reporter)
+                    .WithMany(p => p.News)
+                    .HasForeignKey(d => d.ReporterId)
+                    .HasConstraintName("reporter_id_fkey");
 
                 entity.HasOne(d => d.UpdateUser)
                     .WithMany(p => p.NewsUpdateUsers)
@@ -956,6 +957,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.CameFromPool).HasColumnName("came_from_pool");
 
                 entity.Property(e => e.Description)
                     .HasColumnType("character varying")
@@ -1359,13 +1362,15 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnName("id")
                     .UseIdentityAlwaysColumn();
 
+                entity.Property(e => e.Deleted).HasColumnName("deleted");
+
                 entity.Property(e => e.FullName)
                     .IsRequired()
                     .HasColumnType("character varying")
                     .HasColumnName("full_name");
 
                 entity.Property(e => e.ProfileImageId).HasColumnName("profile_image_id");
-                entity.Property(e => e.Deleted).HasColumnName("deleted");
+
                 entity.HasOne(d => d.ProfileImage)
                     .WithMany(p => p.Reporters)
                     .HasForeignKey(d => d.ProfileImageId)

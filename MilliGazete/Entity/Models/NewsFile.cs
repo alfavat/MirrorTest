@@ -15,6 +15,7 @@ namespace Entity.Models
         public int? Order { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public bool CameFromPool { get; set; }
 
         public virtual File File { get; set; }
         public virtual News News { get; set; }

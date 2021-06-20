@@ -280,3 +280,41 @@
 
 {"statusCode":500,"message":"42703 n1.ReporterId sütunu mevcut değil"}
 
+{"statusCode":401,"message":"Oturum süreniz dolmuş. Lütfen tekrar giriş yapın"}
+
+{"statusCode":500,"message":"The LINQ expression 'DbSet<NewsFile>()\r\n    .LeftJoin(\r\n        inner DbSet<File>(), \r\n        outerKeySelector n => EF.Property<Nullable<int>>(n, \"VideoCoverFileId\"), \r\n        innerKeySelector f => EF.Property<Nullable<int>>(f, \"Id\"), \r\n        resultSelector (o, i) => new TransparentIdentifier<NewsFile, File>(\r\n            Outer = o, \r\n            Inner = i\r\n        ))\r\n    .Where(n => n.Inner == null ? \"\"  n.Inner.GetFullFilePath().Contains(__pagingDto_Query_0) || n.Outer.Description.Contains(__pagingDto_Query_0) || n.Outer.Title.Contains(__pagingDto_Query_0))' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https//go.microsoft.com/fwlink/?linkid=2101038 for more information."}
+
+{"statusCode":500,"message":"No property or field 'Id' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"The LINQ expression 'DbSet<NewsFile>()\r\n    .LeftJoin(\r\n        inner DbSet<File>(), \r\n        outerKeySelector n => EF.Property<Nullable<int>>(n, \"VideoCoverFileId\"), \r\n        innerKeySelector f => EF.Property<Nullable<int>>(f, \"Id\"), \r\n        resultSelector (o, i) => new TransparentIdentifier<NewsFile, File>(\r\n            Outer = o, \r\n            Inner = i\r\n        ))\r\n    .Where(n => n.Inner == null ? \"\"  n.Inner.GetFullFilePath().Contains(__pagingDto_Query_0) || n.Outer.Description.Contains(__pagingDto_Query_0) || n.Outer.Title.Contains(__pagingDto_Query_0))' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https//go.microsoft.com/fwlink/?linkid=2101038 for more information."}
+
+{"statusCode":500,"message":"The LINQ expression 'DbSet<NewsFile>()\r\n    .LeftJoin(\r\n        inner DbSet<File>(), \r\n        outerKeySelector n => EF.Property<Nullable<int>>(n, \"VideoCoverFileId\"), \r\n        innerKeySelector f => EF.Property<Nullable<int>>(f, \"Id\"), \r\n        resultSelector (o, i) => new TransparentIdentifier<NewsFile, File>(\r\n            Outer = o, \r\n            Inner = i\r\n        ))\r\n    .Where(n => StringExtensions.StringIsNullOrEmpty(n.Inner == null ? \"\"  n.Inner.GetFullFilePath()) || n.Inner == null ? \"\"  n.Inner.GetFullFilePath().Contains(__pagingDto_Query_0) || StringExtensions.StringIsNullOrEmpty(n.Outer.Description) || n.Outer.Description.Contains(__pagingDto_Query_0) || StringExtensions.StringIsNullOrEmpty(n.Outer.Title) || n.Outer.Title.Contains(__pagingDto_Query_0))' could not be translated. Additional information Translation of method 'StringExtensions.StringIsNullOrEmpty' failed. If this method can be mapped to your custom function, see https//go.microsoft.com/fwlink/?linkid=2132413 for more information.\r\nTranslation of method 'StringExtensions.StringIsNullOrEmpty' failed. If this method can be mapped to your custom function, see https//go.microsoft.com/fwlink/?linkid=2132413 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https//go.microsoft.com/fwlink/?linkid=2101038 for more information."}
+
+{"statusCode":500,"message":"The LINQ expression 'DbSet<NewsFile>()\r\n    .LeftJoin(\r\n        inner DbSet<File>(), \r\n        outerKeySelector n => EF.Property<Nullable<int>>(n, \"VideoCoverFileId\"), \r\n        innerKeySelector f => EF.Property<Nullable<int>>(f, \"Id\"), \r\n        resultSelector (o, i) => new TransparentIdentifier<NewsFile, File>(\r\n            Outer = o, \r\n            Inner = i\r\n        ))\r\n    .Where(n => StringExtensions.StringNotNullOrEmpty(n.Inner == null ? \"\"  n.Inner.GetFullFilePath()) || n.Inner == null ? \"\"  n.Inner.GetFullFilePath().Contains(__pagingDto_Query_0) || StringExtensions.StringNotNullOrEmpty(n.Outer.Description) || n.Outer.Description.Contains(__pagingDto_Query_0) || StringExtensions.StringNotNullOrEmpty(n.Outer.Title) || n.Outer.Title.Contains(__pagingDto_Query_0))' could not be translated. Additional information Translation of method 'StringExtensions.StringNotNullOrEmpty' failed. If this method can be mapped to your custom function, see https//go.microsoft.com/fwlink/?linkid=2132413 for more information.\r\nTranslation of method 'StringExtensions.StringNotNullOrEmpty' failed. If this method can be mapped to your custom function, see https//go.microsoft.com/fwlink/?linkid=2132413 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https//go.microsoft.com/fwlink/?linkid=2101038 for more information."}
+
+{"statusCode":500,"message":"The LINQ expression 'DbSet<NewsFile>()\r\n    .Where(n => StringExtensions.StringNotNullOrEmpty(n.Title) || n.Title.Contains(__pagingDto_Query_0))' could not be translated. Additional information Translation of method 'StringExtensions.StringNotNullOrEmpty' failed. If this method can be mapped to your custom function, see https//go.microsoft.com/fwlink/?linkid=2132413 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https//go.microsoft.com/fwlink/?linkid=2101038 for more information."}
+
+{"statusCode":403,"message":"Bu işlem için yetkiniz yok"}
+
+{"statusCode":401,"message":"messageAuthenticationDenied"}
+
+{"statusCode":401,"message":"messageAuthenticationDenied"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+
+{"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
+

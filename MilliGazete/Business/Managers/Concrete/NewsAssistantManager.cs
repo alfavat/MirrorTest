@@ -15,11 +15,13 @@ namespace Business.Managers.Concrete
     public class NewsAssistantManager : INewsAssistantService
     {
         private readonly INewsDal _newsDal;
+        private readonly IFileAssistantService _fileAssistantService;
         private readonly IMapper _mapper;
-        public NewsAssistantManager(INewsDal newsDal, IMapper mapper)
+        public NewsAssistantManager(INewsDal newsDal, IFileAssistantService fileAssistantService, IMapper mapper)
         {
             _newsDal = newsDal;
             _mapper = mapper;
+            _fileAssistantService = fileAssistantService;
         }
 
         public List<NewsViewDto> GetListByPaging(NewsPagingDto pagingDto, out int total)
@@ -91,6 +93,7 @@ namespace Business.Managers.Concrete
             }
             var categories = _mapper.Map<List<NewsCategory>>(newsAddDto.NewsCategoryList);
             var files = _mapper.Map<List<NewsFile>>(newsAddDto.NewsFileList);
+            files = await CopyPoolImages(files);
             var positions = _mapper.Map<List<NewsPosition>>(newsAddDto.NewsPositionList);
             var properties = _mapper.Map<List<NewsProperty>>(newsAddDto.NewsPropertyList);
             var relatedNews = _mapper.Map<List<NewsRelatedNews>>(newsAddDto.NewsRelatedNewsList);
@@ -98,6 +101,22 @@ namespace Business.Managers.Concrete
             await _newsDal.AddNewsWithDetails(news, categories, files, positions, properties,
                 relatedNews, tags);
             return news.Id;
+        }
+
+        public async Task<List<NewsFile>> CopyPoolImages(List<NewsFile> newsFiles)
+        {
+            var poolImages = newsFiles.Where(prop => prop.CameFromPool).ToList();
+            newsFiles.RemoveAll(prop => poolImages.Any(p=>p.FileId == prop.FileId));
+            if (poolImages.Any())
+            {
+                foreach (var image in poolImages)
+                {
+                    var newFileId = await _fileAssistantService.CopyFile(image.FileId);
+                    image.FileId = newFileId;
+                    newsFiles.Add(image);
+                }
+            }
+            return newsFiles;
         }
 
         public async Task<List<NewsViewDto>> GetList()

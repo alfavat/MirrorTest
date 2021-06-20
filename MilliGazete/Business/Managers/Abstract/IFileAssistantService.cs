@@ -8,5 +8,6 @@ namespace Business.Managers.Abstract
         Task<File> GetById(int fileId);
         Task Update(File file);
         Task Add(File file);
+        Task<int> CopyFile(int fileId);
     }
 }
