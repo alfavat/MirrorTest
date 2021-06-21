@@ -18,5 +18,6 @@
         public string Twitter { get; set; }
         public string Whatsapp { get; set; }
         public bool LiveVideoActive { get; set; }
+        public bool LastMinutesActive { get; set; }
     }
 }

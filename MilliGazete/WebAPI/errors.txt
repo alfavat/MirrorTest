@@ -318,3 +318,21 @@
 
 {"statusCode":500,"message":"No property or field 'createdAt' exists in type 'NewsFileDto'"}
 
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An exception has been raised that is likely due to a transient failure.Exception while reading from streamTimeout during reading attempt"}
+
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23503 \"category\" tablosu üzerindeki ekleme veya güncelleme işlemi \"category_language_id\" foreign key kısıtlamasını ihlal ediyor"}
+
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23503 \"category\" tablosu üzerindeki ekleme veya güncelleme işlemi \"category_language_id\" foreign key kısıtlamasını ihlal ediyor"}
+
+{"statusCode":500,"message":"An error occurred while updating the entries. See the inner exception for details.23503 \"category\" tablosu üzerindeki ekleme veya güncelleme işlemi \"category_language_id\" foreign key kısıtlamasını ihlal ediyor"}
+
+{"statusCode":500,"message":"42703 o.LastMinutesActive sütunu mevcut değil"}
+

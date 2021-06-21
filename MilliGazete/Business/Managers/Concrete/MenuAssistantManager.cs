@@ -14,14 +14,16 @@ namespace Business.Managers.Concrete
     {
         private readonly IMenuDal _menuDal;
         private readonly IMapper _mapper;
-        public MenuAssistantManager(IMenuDal menuDal, IMapper mapper)
+        private readonly IBaseService _baseService;
+        public MenuAssistantManager(IMenuDal menuDal, IMapper mapper, IBaseService baseService)
         {
             _menuDal = menuDal;
             _mapper = mapper;
+            _baseService = baseService;
         }
         public async Task<List<MenuViewDto>> GetActiveList()
         {
-            var data = await _mapper.ProjectTo<MenuViewDto>(_menuDal.GetList(f => !f.Deleted && f.Active)).ToListAsync();
+            var data = await _mapper.ProjectTo<MenuViewDto>(_menuDal.GetList(f => !f.Deleted && f.Active && f.LanguageId == (int)_baseService.UserLanguage)).ToListAsync();
             if (data.HasValue())
             {
                 var mainMenus = data.Where(f => !f.ParentMenuId.HasValue).ToList();
@@ -52,7 +54,7 @@ namespace Business.Managers.Concrete
 
         public async Task<Menu> GetById(int id)
         {
-            return await _menuDal.Get(p => p.Id == id && !p.Deleted);
+            return await _menuDal.Get(p => p.Id == id && !p.Deleted && p.LanguageId == (int)_baseService.UserLanguage);
         }
 
         public async Task Update(Menu menu)
@@ -72,7 +74,7 @@ namespace Business.Managers.Concrete
 
         public async Task<List<MenuViewDto>> GetList()
         {
-            var list = _menuDal.GetList(p => !p.Deleted);
+            var list = _menuDal.GetList(p => !p.Deleted && p.LanguageId == (int)_baseService.UserLanguage);
             return await _mapper.ProjectTo<MenuViewDto>(list).ToListAsync();
         }
     }

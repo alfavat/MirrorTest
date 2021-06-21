@@ -1,8 +1,10 @@
 ﻿using Business.Managers.Abstract;
 using Core.Extensions;
 using Core.Utilities.IoC;
+using Entity.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -20,6 +22,21 @@ namespace Business.Managers.Concrete
                 return _httpContextAccessor.HttpContext.User.GetClaimValue("isemployee").ToBool();
             }
         }
+
+        public Languages UserLanguage
+        {
+            get
+            {
+                _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
+                string language = _httpContextAccessor.HttpContext.Request.Headers["accept-language"].ToString();
+                object? languageEnum;
+                if (Enum.TryParse(typeof(Languages), language, out languageEnum))
+                    return (Languages)languageEnum;
+                else
+                    return Languages.Turkish;
+            }
+        }
+
         public int RequestUserId
         {
             get

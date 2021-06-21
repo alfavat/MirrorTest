@@ -17,6 +17,7 @@ namespace Entity.Dtos
         public bool Active { get; set; }
         public DateTime CreatedAt { get; set; }
         public int? HeadingPositionEntityId { get; set; }
+        public int LanguageId { get; set; }
 
         public FileDto FeaturedImageFile { get; set; }
     }

@@ -28,9 +28,11 @@ namespace Entity.Models
         public bool Deleted { get; set; }
         public int? HeadingPositionEntityId { get; set; }
         public int? FeaturedImageFileId { get; set; }
+        public int LanguageId { get; set; }
 
         public virtual File FeaturedImageFile { get; set; }
         public virtual Entity HeadingPositionEntity { get; set; }
+        public virtual Language Language { get; set; }
         public virtual Category ParentCategory { get; set; }
         public virtual ICollection<Category> InverseParentCategory { get; set; }
         public virtual ICollection<NewsCategory> NewsCategories { get; set; }

@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Entity.Enums;
+using System.Collections.Generic;
 
 namespace Business.Managers.Abstract
 {
     public interface IBaseService
     {
         bool IsEmployee
+        { get; }
+        Languages UserLanguage
         { get; }
         int RequestUserId
         { get; }

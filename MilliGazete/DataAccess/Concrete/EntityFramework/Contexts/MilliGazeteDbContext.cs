@@ -25,6 +25,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public virtual DbSet<Entity.Models.Entity> Entities { get; set; }
         public virtual DbSet<EntityGroup> EntityGroups { get; set; }
         public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<News> News { get; set; }
@@ -364,6 +365,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnName("is_static")
                     .HasDefaultValueSql("false");
 
+                entity.Property(e => e.LanguageId).HasColumnName("language_id");
+
                 entity.Property(e => e.ParentCategoryId).HasColumnName("parent_category_id");
 
                 entity.Property(e => e.SeoDescription)
@@ -398,6 +401,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .WithMany(p => p.Categories)
                     .HasForeignKey(d => d.HeadingPositionEntityId)
                     .HasConstraintName("category__entity_id_fkey");
+
+                entity.HasOne(d => d.Language)
+                    .WithMany(p => p.Categories)
+                    .HasForeignKey(d => d.LanguageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("category_language_id");
 
                 entity.HasOne(d => d.ParentCategory)
                     .WithMany(p => p.InverseParentCategory)
@@ -591,6 +600,20 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasConstraintName("file_user_id_fkey");
             });
 
+            modelBuilder.Entity<Language>(entity =>
+            {
+                entity.ToTable("language");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnName("name");
+            });
+
             modelBuilder.Entity<Log>(entity =>
             {
                 entity.ToTable("log");
@@ -643,6 +666,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Deleted).HasColumnName("deleted");
 
+                entity.Property(e => e.LanguageId).HasColumnName("language_id");
+
                 entity.Property(e => e.ParentMenuId).HasColumnName("parent_menu_id");
 
                 entity.Property(e => e.Title)
@@ -653,6 +678,12 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.Url)
                     .HasColumnType("character varying")
                     .HasColumnName("url");
+
+                entity.HasOne(d => d.Language)
+                    .WithMany(p => p.Menus)
+                    .HasForeignKey(d => d.LanguageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("menu_language_id");
 
                 entity.HasOne(d => d.ParentMenu)
                     .WithMany(p => p.InverseParentMenu)
@@ -1199,6 +1230,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnName("id");
 
                 entity.Property(e => e.AdEmail).HasColumnType("character varying");
+                entity.Property(e => e.LastMinutesActive).HasColumnType("boolean");
 
                 entity.Property(e => e.AdPhone).HasColumnType("character varying");
 
@@ -1223,6 +1255,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnName("instagram");
 
                 entity.Property(e => e.LiveVideoActive).HasColumnName("live_video_active");
+                entity.Property(e => e.LastMinutesActive).HasColumnName("last_minutes_active");
 
                 entity.Property(e => e.LiveVideoLink)
                     .HasColumnType("character varying")

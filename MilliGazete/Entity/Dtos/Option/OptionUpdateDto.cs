@@ -21,5 +21,6 @@
         public bool LiveVideoActive { get; set; }
         public string AdPhone { get; set; }
         public string AdEmail { get; set; }
+        public bool LastMinutesActive { get; set; }
     }
 }

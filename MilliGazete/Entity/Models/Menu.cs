@@ -19,7 +19,9 @@ namespace Entity.Models
         public bool Active { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool Deleted { get; set; }
+        public int LanguageId { get; set; }
 
+        public virtual Language Language { get; set; }
         public virtual Menu ParentMenu { get; set; }
         public virtual ICollection<Menu> InverseParentMenu { get; set; }
     }

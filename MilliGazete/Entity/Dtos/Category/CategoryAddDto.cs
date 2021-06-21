@@ -11,6 +11,7 @@
         public string SeoDescription { get; set; }
         public bool? IsStatic { get; set; }
         public bool Active { get; set; }
+        public int LanguageId { get; set; }
 
         public int? HeadingPositionEntityId { get; set; }
         public int? FeaturedImageFileId { get; set; }

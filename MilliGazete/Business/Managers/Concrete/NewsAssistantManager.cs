@@ -17,20 +17,25 @@ namespace Business.Managers.Concrete
         private readonly INewsDal _newsDal;
         private readonly IFileAssistantService _fileAssistantService;
         private readonly IMapper _mapper;
-        public NewsAssistantManager(INewsDal newsDal, IFileAssistantService fileAssistantService, IMapper mapper)
+        private readonly IBaseService _baseService;
+        public NewsAssistantManager(INewsDal newsDal, IFileAssistantService fileAssistantService, IMapper mapper, IBaseService baseService)
         {
             _newsDal = newsDal;
             _mapper = mapper;
             _fileAssistantService = fileAssistantService;
+            _baseService = baseService;
         }
 
         public List<NewsViewDto> GetListByPaging(NewsPagingDto pagingDto, out int total)
         {
+            int languageId = (int)_baseService.UserLanguage;
             var query = _newsDal.GetList(f => !f.Deleted && f.IsLastNews)
                 .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsHitDetails)
                 .AsQueryable();
+            query = query.Where(prop => prop.NewsCategories.Any(prop => prop.Category.LanguageId == languageId));
+
             if (pagingDto.Query.StringNotNullOrEmpty())
                 query = query.Where(f => f.Url.ToLower().Contains(pagingDto.Query.ToLower()) ||
                 f.SeoDescription.ToLower().Contains(pagingDto.Query.ToLower()) || f.SeoKeywords.ToLower().Contains(pagingDto.Query.ToLower()) ||
@@ -70,13 +75,13 @@ namespace Business.Managers.Concrete
 
         public async Task<NewsViewDto> GetViewById(int newsId)
         {
-            var data = await _newsDal.GetView(p => p.Id == newsId && !p.Deleted);
+            var data = await _newsDal.GetView(p => p.Id == newsId && !p.Deleted && p.NewsCategories.Any(f => f.Category.LanguageId == (int)_baseService.UserLanguage));
             return _mapper.Map<NewsViewDto>(data);
         }
 
         public async Task<NewsViewDto> GetViewByUrl(string url)
         {
-            var data = await _newsDal.GetView(p => p.Url == url && !p.Deleted);
+            var data = await _newsDal.GetView(p => p.Url == url && !p.Deleted && p.NewsCategories.Any(f => f.Category.LanguageId == (int)_baseService.UserLanguage));
             return _mapper.Map<NewsViewDto>(data);
         }
 
@@ -121,13 +126,18 @@ namespace Business.Managers.Concrete
 
         public async Task<List<NewsViewDto>> GetList()
         {
-            var list = _newsDal.GetList(f => !f.Deleted).Include(f => f.NewsTags).ThenInclude(f => f.Tag).AsQueryable();
+            var list = _newsDal.GetList(p => !p.Deleted && p.NewsCategories.Any(f => f.Category.LanguageId == (int)_baseService.UserLanguage))
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+                .Include(f=>f.NewsCategories).ThenInclude(f=>f.Category)
+                .AsQueryable();
             return await _mapper.ProjectTo<NewsViewDto>(list).ToListAsync();
         }
 
         public async Task<List<NewsHistoryDto>> GetListByHistoryNo(int historyNo)
         {
-            var list = _newsDal.GetList(f => !f.Deleted && f.HistoryNo == historyNo).OrderByDescending(f => f.CreatedAt);
+            var list = _newsDal.GetList(p => !p.Deleted && p.HistoryNo == historyNo && p.NewsCategories.Any(f => f.Category.LanguageId == (int)_baseService.UserLanguage))
+                .Include(p=>p.NewsCategories).ThenInclude(p=>p.Category)
+                .OrderByDescending(f => f.CreatedAt);
             return await _mapper.ProjectTo<NewsHistoryDto>(list).ToListAsync();
         }
 
@@ -178,7 +188,7 @@ namespace Business.Managers.Concrete
 
         public async Task<List<NewsViewDto>> GetListByAuthorId(int authorId)
         {
-            var list = _newsDal.GetActiveList().Where(f => f.AuthorId == authorId)
+            var list = _newsDal.GetActiveList().Where(p => p.AuthorId == authorId && p.NewsCategories.Any(f => f.Category.LanguageId == (int)_baseService.UserLanguage))
                 .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsAgencyEntity)
