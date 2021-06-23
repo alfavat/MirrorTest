@@ -235,51 +235,111 @@
     <value>MilliGazete</value>
   </data>
   <data name="validationEmptyFullName" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationEmptyCityId" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationEmptyDistrictId" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validatioFullNameCharacterLimit" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validatioEmailCharacterLimit" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationEmptyEmail" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationEmptyPhone" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationEmptyAddress" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationEmptyDescription" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="contactEmailSubject" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="contactEmailBody" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="subscriptionEmailSubject" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="subscriptionEmailBody" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationEmptyQuestionText" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationEmptyAnswer" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="entityReportage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="authorizationContactGet" xml:space="preserve">
+    <value>Get contacts</value>
+  </data>
+  <data name="authorizationNewsFileGet" xml:space="preserve">
+    <value>Get news file</value>
+  </data>
+  <data name="authorizationQuestionAdd" xml:space="preserve">
+    <value>Add question</value>
+  </data>
+  <data name="authorizationQuestionAnswerAdd" xml:space="preserve">
+    <value>Add question answers</value>
+  </data>
+  <data name="authorizationQuestionAnswerDelete" xml:space="preserve">
+    <value>Delete question answers</value>
+  </data>
+  <data name="authorizationQuestionAnswerGet" xml:space="preserve">
+    <value>Get question answers</value>
+  </data>
+  <data name="authorizationQuestionAnswerUpdate" xml:space="preserve">
+    <value>Update question answers</value>
+  </data>
+  <data name="authorizationQuestionDelete" xml:space="preserve">
+    <value>Delete question</value>
+  </data>
+  <data name="authorizationQuestionGet" xml:space="preserve">
+    <value>Get questions</value>
+  </data>
+  <data name="authorizationQuestionUpdate" xml:space="preserve">
+    <value>Update question</value>
+  </data>
+  <data name="authorizationReporterAdd" xml:space="preserve">
+    <value>Add reporter</value>
+  </data>
+  <data name="authorizationReporterDelete" xml:space="preserve">
+    <value>Delete reporter</value>
+  </data>
+  <data name="authorizationReporterGet" xml:space="preserve">
+    <value>Get reporter</value>
+  </data>
+  <data name="authorizationReporterUpdate" xml:space="preserve">
+    <value>Update reporter</value>
+  </data>
+  <data name="authorizationSubscriptionGet" xml:space="preserve">
+    <value>Get subscriptions</value>
+  </data>
+  <data name="authorizationUserQuestionAnswerGet" xml:space="preserve">
+    <value>Get User question answers</value>
+  </data>
+  <data name="entityMobileHit" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="entitySocialMediaRedirect" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="entitySearchEngineRedirc" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="entityMainPageRedirect" xml:space="preserve">
     <value></value>
   </data>
 </root>

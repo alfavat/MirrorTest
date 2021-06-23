@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Models;
+using System;
 
 namespace Entity.Dtos
 {
@@ -18,7 +19,7 @@ namespace Entity.Dtos
         public DateTime CreatedAt { get; set; }
         public int? HeadingPositionEntityId { get; set; }
         public int LanguageId { get; set; }
-
+        public Language Language { get; set; }
         public FileDto FeaturedImageFile { get; set; }
     }
 }

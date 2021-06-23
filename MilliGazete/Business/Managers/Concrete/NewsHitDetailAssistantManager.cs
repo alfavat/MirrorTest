@@ -66,7 +66,7 @@ namespace Business.Managers.Concrete
                      {
                          NewsHitComeFromEntityId = resultRecords.NewsHitComeFromEntityId,
                          Count = resultRecords.Count,
-                         NewsHitEntityName = entityTable.EntityName
+                         NewsHitEntityName = Translator.GetByKey(entityTable.EntityName)
                      };
 
             return await result.ToListAsync();

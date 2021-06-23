@@ -939,4 +939,64 @@
   <data name="entityReportage" xml:space="preserve">
     <value>Röportaj</value>
   </data>
+  <data name="authorizationReporterUpdate" xml:space="preserve">
+    <value>Muhabir Güncelle</value>
+  </data>
+  <data name="authorizationQuestionAnswerUpdate" xml:space="preserve">
+    <value>Soru cevaplarını güncelle</value>
+  </data>
+  <data name="authorizationQuestionUpdate" xml:space="preserve">
+    <value>Soruyu güncelle</value>
+  </data>
+  <data name="authorizationUserQuestionAnswerGet" xml:space="preserve">
+    <value>Kullanıcı soru cevaplarını alın</value>
+  </data>
+  <data name="authorizationSubscriptionGet" xml:space="preserve">
+    <value>Abonelik al</value>
+  </data>
+  <data name="authorizationReporterGet" xml:space="preserve">
+    <value>Muhabir al</value>
+  </data>
+  <data name="authorizationQuestionGet" xml:space="preserve">
+    <value>Soruları al</value>
+  </data>
+  <data name="authorizationQuestionAnswerGet" xml:space="preserve">
+    <value>Soru cevaplarını al</value>
+  </data>
+  <data name="authorizationNewsFileGet" xml:space="preserve">
+    <value>Haber dosyasını al</value>
+  </data>
+  <data name="authorizationContactGet" xml:space="preserve">
+    <value>Kişileri al</value>
+  </data>
+  <data name="authorizationReporterDelete" xml:space="preserve">
+    <value>Muhabiri sil</value>
+  </data>
+  <data name="authorizationQuestionAnswerDelete" xml:space="preserve">
+    <value>Soru cevaplarını sil</value>
+  </data>
+  <data name="authorizationQuestionDelete" xml:space="preserve">
+    <value>Soruyu sil</value>
+  </data>
+  <data name="authorizationReporterAdd" xml:space="preserve">
+    <value>Muhabir ekle</value>
+  </data>
+  <data name="authorizationQuestionAnswerAdd" xml:space="preserve">
+    <value>Soru cevapları ekle</value>
+  </data>
+  <data name="authorizationQuestionAdd" xml:space="preserve">
+    <value>Soru ekle</value>
+  </data>
+  <data name="entityMobileHit" xml:space="preserve">
+    <value>Mobilden Hit</value>
+  </data>
+  <data name="entitySocialMediaRedirect" xml:space="preserve">
+    <value>Sosyal medyadan hit</value>
+  </data>
+  <data name="entitySearchEngineRedirc" xml:space="preserve">
+    <value>Arama Motorundan Hit</value>
+  </data>
+  <data name="entityMainPageRedirect" xml:space="preserve">
+    <value>Ana Sayfadan Hit</value>
+  </data>
 </root>

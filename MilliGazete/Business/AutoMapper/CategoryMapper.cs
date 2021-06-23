@@ -17,6 +17,7 @@ namespace Business.AutoMapper
                 .ForMember(f => f.Url, g => g.MapFrom(u => u.Url.ReplaceSpecialCharacters()));
 
             CreateMap<Category, CategoryDto>()
+                .ForMember(f => f.Language, g => g.MapFrom(t => t.Language == null ? null : t.Language))
                 .ForMember(f => f.FeaturedImageFile, g => g.MapFrom(t => t.FeaturedImageFile == null ? null : t.FeaturedImageFile))
                 .ForMember(f => f.ParentCategoryName,
                 u => u.MapFrom(g => g.ParentCategory == null ? "" : g.ParentCategory.CategoryName));

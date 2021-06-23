@@ -22,7 +22,7 @@ namespace Business.Managers.Concrete
         }
         public List<CategoryDto> GetListByPaging(CategoryPagingDto pagingDto, out int total)
         {
-            var list = _categoryDal.GetList(f => !f.Deleted).Include(f => f.FeaturedImageFile);
+            var list = _categoryDal.GetList(f => !f.Deleted).Include(f => f.FeaturedImageFile).Include(prop=>prop.Language);
             var query = _mapper.ProjectTo<CategoryDto>(list);
 
             if (pagingDto.Query.StringNotNullOrEmpty())
@@ -77,7 +77,7 @@ namespace Business.Managers.Concrete
 
         public async Task<List<CategoryDto>> GetList()
         {
-            var list = _categoryDal.GetList(p => !p.Deleted).Include(f => f.FeaturedImageFile);
+            var list = _categoryDal.GetList(p => !p.Deleted).Include(f => f.FeaturedImageFile).Include(prop => prop.Language);
             return await _mapper.ProjectTo<CategoryDto>(list).ToListAsync();
         }
         public async Task<List<CategoryDto>> GetActiveList()

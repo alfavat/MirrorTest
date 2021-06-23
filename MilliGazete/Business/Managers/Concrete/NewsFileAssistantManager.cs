@@ -22,10 +22,15 @@ namespace Business.Managers.Concrete
         }
         public List<NewsFileDto> GetListByPaging(NewsFilePagingDto pagingDto, out int total)
         {
-            var list = _newsFileDal.GetList(prop=>!prop.CameFromPool).Include(f => f.File).AsQueryable();
+            var list = _newsFileDal.GetList(prop=>!prop.CameFromPool && 
+                                                    prop.News.Active && 
+                                                    !prop.News.Deleted && 
+                                                    prop.News.Approved == true && 
+                                                    prop.News.IsLastNews &&
+                                                    !prop.News.IsDraft).Include(f => f.File).Include(prop=>prop.News).AsQueryable();
 
             if (pagingDto.Query.StringNotNullOrEmpty())
-                list = list.Where(f => f.Title.Contains(pagingDto.Query) || f.Description.Contains(pagingDto.Query));
+                list = list.Where(f => f.Title.Contains(pagingDto.Query) || f.Description.Contains(pagingDto.Query) || f.News.Title.Contains(pagingDto.Query));
 
             var query = _mapper.ProjectTo<NewsFileDto>(list);
             total = query.Count();

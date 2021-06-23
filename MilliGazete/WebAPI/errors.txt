@@ -336,3 +336,9 @@
 
 {"statusCode":500,"message":"42703 o.LastMinutesActive sütunu mevcut değil"}
 
+{"statusCode":500,"message":"Can't write CLR type Entity.Enums.Languages with handler type Int32Handler"}
+
+{"statusCode":500,"message":"Can't write CLR type Entity.Enums.Languages with handler type Int32Handler"}
+
+{"statusCode":500,"message":"Can't write CLR type Entity.Enums.Languages with handler type Int32Handler"}
+
