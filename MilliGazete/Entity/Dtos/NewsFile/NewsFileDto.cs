@@ -12,6 +12,6 @@
         public string FileName { get; set; }
         public string CoverFileName { get; set; }
         public bool CameFromPool { get; set; }
-
+        public string NewsTitle { get; set; }
     }
 }
