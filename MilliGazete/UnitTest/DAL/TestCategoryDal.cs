@@ -17,11 +17,11 @@ namespace UnitTest.DAL
 
         ICategoryDal MockCategoryDal()
         {
-            var list = db.Category.ToList();
-            db.Category.RemoveRange(list);
+            var list = db.Categories.ToList();
+            db.Categories.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.Category.Add(new Category()
+                db.Categories.Add(new Category()
                 {
                     Active = i < 8,
                     Id = i,

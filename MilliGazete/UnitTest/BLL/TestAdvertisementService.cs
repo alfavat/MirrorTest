@@ -45,7 +45,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.True(result.Data.Count <= db.Advertisement.Count(f => f.Active && !f.Deleted));
+            Assert.True(result.Data.Count <= db.Advertisements.Count(f => f.Active && !f.Deleted));
         }
 
         [Fact(DisplayName = "GetList")]
@@ -58,7 +58,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.Advertisement.Count(f => !f.Deleted));
+            Assert.Equal(result.Data.Count, db.Advertisements.Count(f => !f.Deleted));
         }
 
         [Theory(DisplayName = "GetById")]
@@ -74,7 +74,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Key, db.Advertisement.FirstOrDefault(f => f.Id == id & !f.Deleted).Key);
+            Assert.Equal(result.Data.Key, db.Advertisements.FirstOrDefault(f => f.Id == id & !f.Deleted).Key);
         }
         [Theory(DisplayName = "GetByIdError")]
         [Trait("Advertisement", "Get")]
@@ -111,7 +111,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            var newAdvertisement = db.Advertisement.FirstOrDefault(f => f.Key == Advertisement.Key);
+            var newAdvertisement = db.Advertisements.FirstOrDefault(f => f.Key == Advertisement.Key);
             Assert.NotNull(newAdvertisement);
             Assert.Equal(newAdvertisement.CreatedAt.Date, DateTime.Now.Date);
             Assert.Equal(result.Message, Messages.Added);
@@ -123,7 +123,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldChangeAdvertisementStatusAsync()
         {
             // arrange
-            var Advertisement = db.Advertisement.FirstOrDefault();
+            var Advertisement = db.Advertisements.FirstOrDefault();
             var status = new ChangeActiveStatusDto()
             {
                 Active = !Advertisement.Active,
@@ -135,7 +135,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            Assert.Equal(status.Active, db.Advertisement.FirstOrDefault(f => f.Id == Advertisement.Id).Active);
+            Assert.Equal(status.Active, db.Advertisements.FirstOrDefault(f => f.Id == Advertisement.Id).Active);
         }
         [Fact(DisplayName = "ChangeStatusError")]
         [Trait("Advertisement", "Edit")]
@@ -160,7 +160,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldUpdateAdvertisementAsync()
         {
             // arrange
-            var Advertisement = db.Advertisement.FirstOrDefault(f => !f.Deleted);
+            var Advertisement = db.Advertisements.FirstOrDefault(f => !f.Deleted);
             var dto = new AdvertisementUpdateDto
             {
                 Description = "Edited desc",
@@ -177,7 +177,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            var updatedAdvertisement = db.Advertisement.FirstOrDefault(f => f.Id == Advertisement.Id);
+            var updatedAdvertisement = db.Advertisements.FirstOrDefault(f => f.Id == Advertisement.Id);
             Assert.Equal(updatedAdvertisement.Active, dto.Active);
             Assert.Equal(updatedAdvertisement.Key, dto.Key);
             Assert.Equal(updatedAdvertisement.GoogleId, dto.GoogleId);

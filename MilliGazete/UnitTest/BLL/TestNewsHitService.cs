@@ -39,7 +39,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.NewsHit.Count());
+            Assert.Equal(result.Data.Count, db.NewsHits.Count());
         }
 
         [Fact(DisplayName = "Add")]

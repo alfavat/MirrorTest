@@ -32,7 +32,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.Entity.Count(f => f.EntityGroupId == (int)EntityGroupType.NewsTypeEntities));
+            Assert.Equal(result.Data.Count, db.Entities.Count(f => f.EntityGroupId == (int)EntityGroupType.NewsTypeEntities));
         }
 
         [Fact(DisplayName = "GetCounterEntities")]
@@ -45,7 +45,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.Entity.Count(f => f.EntityGroupId == (int)EntityGroupType.CounterEntities));
+            Assert.Equal(result.Data.Count, db.Entities.Count(f => f.EntityGroupId == (int)EntityGroupType.CounterEntities));
         }
 
         [Fact(DisplayName = "GetPositionEntities")]
@@ -58,7 +58,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.Entity.Count(f => f.EntityGroupId == (int)EntityGroupType.PositionEntities));
+            Assert.Equal(result.Data.Count, db.Entities.Count(f => f.EntityGroupId == (int)EntityGroupType.PositionEntities));
         }
         #endregion
     }

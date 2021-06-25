@@ -40,7 +40,7 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<List<QuestionAnswerDto>>(await _questionAnswerAssistantService.GetListByQuestionId(questionId));
         }
 
-        [SecuredOperation("QuestionAnswerGet")]
+        [SecuredOperation("QuestionGet")]
         [CacheAspect()]
         [PerformanceAspect()]
         public async Task<IDataResult<QuestionAnswerDto>> GetById(int id)
@@ -53,7 +53,7 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<QuestionAnswerDto>(data);
         }
 
-        [SecuredOperation("QuestionAnswerUpdate")]
+        [SecuredOperation("QuestionUpdate")]
         [ValidationAspect(typeof(QuestionAnswerUpdateDtoValidator))]
         [LogAspect()]
         [CacheRemoveAspect("IQuestionAnswerService.Get")]
@@ -69,7 +69,7 @@ namespace Business.Managers.Concrete
             return new SuccessResult(Messages.Updated);
         }
 
-        [SecuredOperation("QuestionAnswerAdd")]
+        [SecuredOperation("QuestionAdd")]
         [ValidationAspect(typeof(QuestionAnswerAddDtoValidator))]
         [LogAspect()]
         [CacheRemoveAspect("IQuestionAnswerService.Get")]
@@ -80,7 +80,7 @@ namespace Business.Managers.Concrete
             return new SuccessResult(Messages.Added);
         }
 
-        [SecuredOperation("QuestionAnswerDelete")]
+        [SecuredOperation("QuestionDelete")]
         [LogAspect()]
         [CacheRemoveAspect("IQuestionAnswerService.Get")]
         public async Task<IResult> Delete(int id)

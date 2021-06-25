@@ -36,7 +36,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.Tag.Count(f => !f.Deleted && f.TagName.StartsWith(tagName)));
+            Assert.Equal(result.Data.Count, db.Tags.Count(f => !f.Deleted && f.TagName.StartsWith(tagName)));
         }
 
         [Fact(DisplayName = "SearchByTagNameEmptyTagName")]
@@ -122,7 +122,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.TagName, db.Tag.FirstOrDefault(f => f.Id == id & !f.Deleted).TagName);
+            Assert.Equal(result.Data.TagName, db.Tags.FirstOrDefault(f => f.Id == id & !f.Deleted).TagName);
         }
         [Theory(DisplayName = "GetByIdError")]
         [Trait("Tag", "Get")]
@@ -157,7 +157,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Contains(db.Tag, f => f.TagName == tag.TagName);
+            Assert.Contains(db.Tags, f => f.TagName == tag.TagName);
             Assert.Equal(result.Message, Messages.Added);
         }
 
@@ -167,7 +167,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldChangeTagStatus()
         {
             // arrange
-            var tag = db.Tag.FirstOrDefault();
+            var tag = db.Tags.FirstOrDefault();
             var status = new ChangeActiveStatusDto()
             {
                 Active = true,
@@ -179,7 +179,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            Assert.Equal(status.Active, db.Tag.FirstOrDefault(f => f.Id == tag.Id).Active);
+            Assert.Equal(status.Active, db.Tags.FirstOrDefault(f => f.Id == tag.Id).Active);
         }
         [Fact(DisplayName = "ChangeStatusError")]
         [Trait("Tag", "Edit")]
@@ -204,7 +204,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldUpdateTagDetails()
         {
             // arrange
-            var tag = db.Tag.FirstOrDefault(f => !f.Deleted);
+            var tag = db.Tags.FirstOrDefault(f => !f.Deleted);
 
             TagUpdateDto data = new TagUpdateDto
             {
@@ -226,7 +226,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldReturnNotFoundErrorForInValidIds()
         {
             // arrange
-            var tag = db.Tag.FirstOrDefault(f => !f.Deleted);
+            var tag = db.Tags.FirstOrDefault(f => !f.Deleted);
 
             TagUpdateDto data = new TagUpdateDto
             {

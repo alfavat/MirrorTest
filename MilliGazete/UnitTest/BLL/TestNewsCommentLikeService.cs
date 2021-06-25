@@ -27,15 +27,15 @@ namespace UnitTest.BLL
         public async Task ServiceShouldAddNewLikeAndUpdateTotalLikeCount()
         {
             // arrange
-            var newsComment = db.NewsCommentLike.FirstOrDefault(f => f.UserId != 1);
+            var newsComment = db.NewsCommentLikes.FirstOrDefault(f => f.UserId != 1);
             // act
             var result = await _newsCommentLikeService.AddOrDelete(newsComment.NewsCommentId);
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            var newComment = db.NewsComment.FirstOrDefault(f => f.Id == newsComment.NewsCommentId);
+            var newComment = db.NewsComments.FirstOrDefault(f => f.Id == newsComment.NewsCommentId);
             Assert.NotNull(newComment);
-            Assert.Equal(newComment.TotalLikeCount, db.NewsCommentLike.Count(f => f.NewsCommentId == newsComment.NewsCommentId));
+            Assert.Equal(newComment.TotalLikeCount, db.NewsCommentLikes.Count(f => f.NewsCommentId == newsComment.NewsCommentId));
             Assert.Equal(result.Message, Messages.Updated);
 
         }
@@ -46,15 +46,15 @@ namespace UnitTest.BLL
         public async Task ServiceShouldDeleteLikeAndUpdateTotalLikeCount()
         {
             // arrange
-            var newsComment = db.NewsComment.FirstOrDefault(f => f.UserId == 1 && f.TotalLikeCount > 2);
+            var newsComment = db.NewsComments.FirstOrDefault(f => f.UserId == 1 && f.TotalLikeCount > 2);
             // act
             var result = await _newsCommentLikeService.AddOrDelete(newsComment.Id);
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            var newComment = db.NewsComment.FirstOrDefault(f => f.Id == newsComment.Id);
+            var newComment = db.NewsComments.FirstOrDefault(f => f.Id == newsComment.Id);
             Assert.NotNull(newComment);
-            Assert.Equal(newComment.TotalLikeCount, db.NewsCommentLike.Count(f => f.NewsCommentId == newsComment.Id));
+            Assert.Equal(newComment.TotalLikeCount, db.NewsCommentLikes.Count(f => f.NewsCommentId == newsComment.Id));
             Assert.Equal(result.Message, Messages.Updated);
         }
 

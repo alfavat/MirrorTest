@@ -11,6 +11,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(p => p.Id).NotEmpty().GreaterThan(-1).WithMessage(ValidationMessages.EmptyId);
 
             RuleFor(p => p.QuestionText).NotEmpty().WithMessage(ValidationMessages.EmptyQuestionText);
+            RuleFor(p => p.QuestionText).MaximumLength(250).WithMessage(ValidationMessages.QuestionTextMaxCharacterLimit);
 
         }
     }
@@ -20,8 +21,8 @@ namespace Business.ValidationRules.FluentValidation
         public QuestionAddDtoValidator()
         {
             RuleFor(p => p).NotNull().WithMessage(ValidationMessages.EmptyParameter); ;
-
-            RuleFor(p => p.QuestionText).MaximumLength(250).WithMessage(ValidationMessages.EmptyQuestionText);
+            RuleFor(p => p.QuestionText).NotEmpty().WithMessage(ValidationMessages.EmptyQuestionText);
+            RuleFor(p => p.QuestionText).MaximumLength(250).WithMessage(ValidationMessages.QuestionTextMaxCharacterLimit);
 
         }
     }

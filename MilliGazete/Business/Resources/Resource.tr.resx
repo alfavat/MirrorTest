@@ -999,4 +999,7 @@
   <data name="entityMainPageRedirect" xml:space="preserve">
     <value>Ana Sayfadan Hit</value>
   </data>
+  <data name="validationQuestionTextMaxCharacterLimit" xml:space="preserve">
+    <value>Lütfen tüm alanları kontrol edin</value>
+  </data>
 </root>

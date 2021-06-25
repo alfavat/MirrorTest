@@ -442,7 +442,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(200)
+                    .HasMaxLength(50)
                     .HasColumnName("email");
 
                 entity.Property(e => e.FullName)
@@ -1230,7 +1230,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnName("id");
 
                 entity.Property(e => e.AdEmail).HasColumnType("character varying");
-                entity.Property(e => e.LastMinutesActive).HasColumnType("boolean");
 
                 entity.Property(e => e.AdPhone).HasColumnType("character varying");
 
@@ -1254,8 +1253,9 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnType("character varying")
                     .HasColumnName("instagram");
 
-                entity.Property(e => e.LiveVideoActive).HasColumnName("live_video_active");
                 entity.Property(e => e.LastMinutesActive).HasColumnName("last_minutes_active");
+
+                entity.Property(e => e.LiveVideoActive).HasColumnName("live_video_active");
 
                 entity.Property(e => e.LiveVideoLink)
                     .HasColumnType("character varying")
@@ -1436,7 +1436,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(200)
+                    .HasMaxLength(50)
                     .HasColumnName("email");
 
                 entity.Property(e => e.FullName)

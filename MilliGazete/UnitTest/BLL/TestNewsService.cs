@@ -17,10 +17,12 @@ namespace UnitTest.BLL
 
         #region setup
         private readonly INewsService _newsService;
+        private readonly IFileAssistantService _fileAssistantService;
+        private readonly IBaseService _baseService;
         public TestNewsService()
         {
             var _mapper = new TestAutoMapper()._mapper;
-            _newsService = new NewsManager(new NewsAssistantManager(newsDal, _mapper),
+            _newsService = new NewsManager(new NewsAssistantManager(newsDal,_fileAssistantService, _mapper, _baseService),
                 new NewsPositionAssistantManager(new TestNewsPositionService().newsPositionDal, _mapper),
                 new TestNewsHelper().newsHelper, _mapper);
         }
@@ -170,10 +172,10 @@ namespace UnitTest.BLL
 
             Assert.True(newNews.IsLastNews);
             Assert.True(!db.News.Any(f => !f.Deleted && f.Id != newNews.Id && f.IsLastNews));
-            var counterEntities = db.Entity.Where(f => f.EntityGroupId == (int)EntityGroupType.CounterEntities).Select(g => g.Id).ToList();
+            var counterEntities = db.Entities.Where(f => f.EntityGroupId == (int)EntityGroupType.CounterEntities).Select(g => g.Id).ToList();
             counterEntities.ForEach(entityId =>
             {
-                Assert.True(db.NewsCounter.Any(f => f.CounterEntityId == entityId && f.NewsId == newNews.Id && f.Value == 0));
+                Assert.True(db.NewsCounters.Any(f => f.CounterEntityId == entityId && f.NewsId == newNews.Id && f.Value == 0));
             });
         }
 
@@ -274,11 +276,11 @@ namespace UnitTest.BLL
             Assert.True(updatedNews.IsLastNews);
             Assert.True(!db.News.Any(f => !f.Deleted && f.Id != updatedNews.Id && f.IsLastNews));
 
-            var counterEntities = db.Entity.Where(f => f.EntityGroupId == (int)EntityGroupType.CounterEntities).Select(g => g.Id).ToList();
+            var counterEntities = db.Entities.Where(f => f.EntityGroupId == (int)EntityGroupType.CounterEntities).Select(g => g.Id).ToList();
             counterEntities.ForEach(entityId =>
             {
 
-                Assert.True(db.NewsCounter.Any(f => f.CounterEntityId == entityId && f.NewsId == updatedNews.Id));
+                Assert.True(db.NewsCounters.Any(f => f.CounterEntityId == entityId && f.NewsId == updatedNews.Id));
             });
         }
 

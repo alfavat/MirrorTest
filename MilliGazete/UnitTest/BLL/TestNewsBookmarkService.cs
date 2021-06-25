@@ -16,11 +16,13 @@ namespace UnitTest.BLL
 
         #region setup
         private readonly INewsBookmarkService _newsBookmarkService;
+        private readonly IFileAssistantService _fileAssistantService;
+        private readonly IBaseService _baseService;
         public TestNewsBookmarkService()
         {
             _mapper = new TestAutoMapper()._mapper;
             _newsBookmarkService = new NewsBookmarkManager(new NewsBookmarkAssistantManager(newsBookmarkDal, _mapper), _mapper,
-                new NewsAssistantManager(new TestNewsDal().newsDal, _mapper), new TestBaseService()._baseService);
+                new NewsAssistantManager(new TestNewsDal().newsDal, _fileAssistantService , _mapper,_baseService), new TestBaseService()._baseService);
         }
 
         #endregion
@@ -39,7 +41,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.NotNull(result.Data);
-            Assert.Equal(result.Data.NewsId, db.NewsBookmark.FirstOrDefault(f => !f.News.Deleted && f.News.Url.ToLower() == url.ToLower()).NewsId);
+            Assert.Equal(result.Data.NewsId, db.NewsBookmarks.FirstOrDefault(f => !f.News.Deleted && f.News.Url.ToLower() == url.ToLower()).NewsId);
         }
 
         [Fact(DisplayName = "GetByNewsUrl")]
@@ -80,7 +82,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Contains(db.NewsBookmark, f => f.NewsId == newsId && f.UserId == 1);
+            Assert.Contains(db.NewsBookmarks, f => f.NewsId == newsId && f.UserId == 1);
             Assert.Equal(result.Message, Messages.Added);
         }
 
@@ -95,7 +97,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.DoesNotContain(db.NewsBookmark, f => f.NewsId == newsId && f.UserId == 1);
+            Assert.DoesNotContain(db.NewsBookmarks, f => f.NewsId == newsId && f.UserId == 1);
             Assert.Equal(result.Message, Messages.Deleted);
         }
 

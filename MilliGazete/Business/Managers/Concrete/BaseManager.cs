@@ -29,11 +29,12 @@ namespace Business.Managers.Concrete
             {
                 _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
                 string language = _httpContextAccessor.HttpContext.Request.Headers["accept-language"].ToString();
-                object? languageEnum;
-                if (Enum.TryParse(typeof(Languages), language, out languageEnum))
-                    return (Languages)languageEnum;
-                else
+                if (language == "tr-TR")
+                {
                     return Languages.Turkish;
+                }
+                else
+                    return Languages.English;
             }
         }
 

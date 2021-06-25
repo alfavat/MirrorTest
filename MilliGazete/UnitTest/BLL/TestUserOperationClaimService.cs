@@ -39,7 +39,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.UserOperationClaim.Count(f => f.UserId == userId));
+            Assert.Equal(result.Data.Count, db.UserOperationClaims.Count(f => f.UserId == userId));
         }
 
         [Theory(DisplayName = "GetByUserIdError")]
@@ -73,8 +73,8 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Contains(db.UserOperationClaim, f => f.OperationClaimId == 15);
-            Assert.Equal(db.UserOperationClaim.Count(f => f.UserId == data.UserId), data.OperationClaimIds.Count());
+            Assert.Contains(db.UserOperationClaims, f => f.OperationClaimId == 15);
+            Assert.Equal(db.UserOperationClaims.Count(f => f.UserId == data.UserId), data.OperationClaimIds.Count());
             Assert.Equal(result.Message, Messages.Updated);
         }
 

@@ -17,11 +17,11 @@ namespace UnitTest.DAL
 
         ITagDal MockTagDal()
         {
-            var list = db.Tag.ToList();
-            db.Tag.RemoveRange(list);
+            var list = db.Tags.ToList();
+            db.Tags.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.Tag.Add(new Tag()
+                db.Tags.Add(new Tag()
                 {
                     Active = i < 8,
                     Id = i,

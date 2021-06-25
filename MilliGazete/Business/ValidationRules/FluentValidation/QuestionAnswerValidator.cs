@@ -21,7 +21,7 @@ namespace Business.ValidationRules.FluentValidation
         {
             RuleFor(p => p).NotNull().WithMessage(ValidationMessages.EmptyParameter); ;
 
-            RuleFor(p => p.Answer).MaximumLength(250).WithMessage(ValidationMessages.EmptyAnswer);
+            RuleFor(p => p.Answer).NotEmpty().WithMessage(ValidationMessages.EmptyAnswer);
 
         }
     }

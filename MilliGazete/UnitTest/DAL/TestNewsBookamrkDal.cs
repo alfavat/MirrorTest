@@ -23,11 +23,11 @@ namespace UnitTest.DAL
             var data = db.News.ToList();
             db.News.RemoveRange(data);
 
-            var list = db.NewsBookmark.ToList();
-            db.NewsBookmark.RemoveRange(list);
+            var list = db.NewsBookmarks.ToList();
+            db.NewsBookmarks.RemoveRange(list);
 
-            var users = db.User.ToList();
-            db.User.RemoveRange(users);
+            var users = db.Users.ToList();
+            db.Users.RemoveRange(users);
 
 
             for (int i = 1; i <= dataCount; i++)
@@ -49,7 +49,7 @@ namespace UnitTest.DAL
                     LastLoginDate = DateTime.Now.AddDays(-i),
                     LastLoginIpAddress = "192.168.1." + i
                 };
-                db.User.Add(user);
+                db.Users.Add(user);
 
 
                 var news = new News()
@@ -100,7 +100,7 @@ namespace UnitTest.DAL
                 };
                 db.News.Add(news);
 
-                db.NewsBookmark.Add(new NewsBookmark()
+                db.NewsBookmarks.Add(new NewsBookmark()
                 {
                     Id = i,
                     NewsId = i,

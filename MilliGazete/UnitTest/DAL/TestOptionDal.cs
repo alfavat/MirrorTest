@@ -16,11 +16,11 @@ namespace UnitTest.DAL
 
         IOptionDal MockOptionDal()
         {
-            var list = db.Option.ToList();
-            db.Option.RemoveRange(list);
+            var list = db.Options.ToList();
+            db.Options.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.Option.Add(new Option()
+                db.Options.Add(new Option()
                 {
                     Id = i,
                     Address = "Address " + i,

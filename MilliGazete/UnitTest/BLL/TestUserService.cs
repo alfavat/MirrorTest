@@ -35,7 +35,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.User.Count(f => !f.Deleted));
+            Assert.Equal(result.Data.Count, db.Users.Count(f => !f.Deleted));
         }
 
 
@@ -52,7 +52,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.UserName, db.User.FirstOrDefault(f => f.Id == id & !f.Deleted).UserName);
+            Assert.Equal(result.Data.UserName, db.Users.FirstOrDefault(f => f.Id == id & !f.Deleted).UserName);
         }
 
         [Theory(DisplayName = "GetByIdError")]
@@ -91,7 +91,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.True(result.Data.Count <= dto.Limit);
-            Assert.Equal(total, db.User.Count(f => !f.Deleted));
+            Assert.Equal(total, db.Users.Count(f => !f.Deleted));
         }
 
         [Fact(DisplayName = "Add")]
@@ -115,7 +115,7 @@ namespace UnitTest.BLL
             Assert.True(result.Success);
             Assert.True(result.Data > 0);
             Assert.Equal(result.Message, Messages.UserRegistered);
-            Assert.Contains(db.User, f => f.Id == result.Data && f.Email == user.Email);
+            Assert.Contains(db.Users, f => f.Id == result.Data && f.Email == user.Email);
         }
 
         [Fact(DisplayName = "AddError")]
@@ -123,7 +123,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldReturnErrorForExistEmail()
         {
             // arrange
-            var email = db.User.FirstOrDefault(f => !f.Deleted).Email;
+            var email = db.Users.FirstOrDefault(f => !f.Deleted).Email;
             var user = new UserAddDto()
             {
                 Email = email,
@@ -159,9 +159,9 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Contains(db.User, f => f.UserName == User.UserName);
+            Assert.Contains(db.Users, f => f.UserName == User.UserName);
             Assert.Equal(result.Message, Messages.UserRegistered);
-            Assert.False(db.User.FirstOrDefault(f => f.UserName == User.UserName).IsEmployee);
+            Assert.False(db.Users.FirstOrDefault(f => f.UserName == User.UserName).IsEmployee);
         }
 
 
@@ -170,7 +170,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldChangeUserStatus()
         {
             // arrange
-            var User = db.User.FirstOrDefault(f => !f.Deleted);
+            var User = db.Users.FirstOrDefault(f => !f.Deleted);
             var status = new ChangeActiveStatusDto()
             {
                 Active = !User.Active,
@@ -182,7 +182,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            Assert.Equal(status.Active, db.User.FirstOrDefault(f => f.Id == User.Id).Active);
+            Assert.Equal(status.Active, db.Users.FirstOrDefault(f => f.Id == User.Id).Active);
         }
         [Fact(DisplayName = "ChangeStatusError")]
         [Trait("User", "Edit")]
@@ -247,7 +247,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            Assert.True(db.User.Any(f => f.UserName == dto.UserName && f.FirstName == dto.FirstName && f.LastName == dto.LastName && f.Email == dto.Email));
+            Assert.True(db.Users.Any(f => f.UserName == dto.UserName && f.FirstName == dto.FirstName && f.LastName == dto.LastName && f.Email == dto.Email));
         }
 
         [Fact(DisplayName = "UpdateCurrentUserError")]
@@ -255,7 +255,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldNotUpdateCurrentUserWithExistEmailDetails()
         {
             // arrange
-            var user = db.User.FirstOrDefault(f => f.Id != 1 && !f.Deleted).Email;
+            var user = db.Users.FirstOrDefault(f => f.Id != 1 && !f.Deleted).Email;
             var dto = new CurrentUserUpdateDto
             {
                 Email = user,
@@ -269,7 +269,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.False(result.Success);
             Assert.Equal(result.Message, Messages.EmailAlreadyExists);
-            Assert.False(db.User.Any(f => f.UserName == dto.UserName && f.FirstName == dto.FirstName && f.LastName == dto.LastName && f.Email == dto.Email));
+            Assert.False(db.Users.Any(f => f.UserName == dto.UserName && f.FirstName == dto.FirstName && f.LastName == dto.LastName && f.Email == dto.Email));
         }
 
 

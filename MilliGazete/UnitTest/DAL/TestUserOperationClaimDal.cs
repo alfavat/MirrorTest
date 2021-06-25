@@ -17,13 +17,13 @@ namespace UnitTest.DAL
 
         IUserOperationClaimDal MockUserOperationClaimDal()
         {
-            var list = db.UserOperationClaim.ToList();
-            db.UserOperationClaim.RemoveRange(list);
+            var list = db.UserOperationClaims.ToList();
+            db.UserOperationClaims.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
                 byte[] passwordHash, passwordSalt;
                 HashingHelper.CreatePasswordHash("Password_" + i, out passwordHash, out passwordSalt);
-                db.UserOperationClaim.Add(new UserOperationClaim()
+                db.UserOperationClaims.Add(new UserOperationClaim()
                 {
                     Id = i,
                     UserId = i % 2 == 0 ? 1 : i,

@@ -36,7 +36,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.OperationClaim.Count());
+            Assert.Equal(result.Data.Count, db.OperationClaims.Count());
         }
 
 

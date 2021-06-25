@@ -96,7 +96,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.CategoryName, db.Category.FirstOrDefault(f => f.Id == id & !f.Deleted).CategoryName);
+            Assert.Equal(result.Data.CategoryName, db.Categories.FirstOrDefault(f => f.Id == id & !f.Deleted).CategoryName);
         }
         [Theory(DisplayName = "GetByIdError")]
         [Trait("Category", "Get")]
@@ -136,7 +136,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            var newCategory = db.Category.FirstOrDefault(f => f.SeoKeywords == category.SeoKeywords);
+            var newCategory = db.Categories.FirstOrDefault(f => f.SeoKeywords == category.SeoKeywords);
             Assert.NotNull(newCategory);
             Assert.Equal(newCategory.CreatedAt.Date, DateTime.Now.Date);
             Assert.Equal(result.Message, Messages.Added);
@@ -148,7 +148,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldChangecategoryStatus()
         {
             // arrange
-            var category = db.Category.FirstOrDefault();
+            var category = db.Categories.FirstOrDefault();
             var status = new ChangeActiveStatusDto()
             {
                 Active = !category.Active,
@@ -160,7 +160,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            Assert.Equal(status.Active, db.Category.FirstOrDefault(f => f.Id == category.Id).Active);
+            Assert.Equal(status.Active, db.Categories.FirstOrDefault(f => f.Id == category.Id).Active);
         }
         [Fact(DisplayName = "ChangeStatusError")]
         [Trait("category", "Edit")]
@@ -185,14 +185,14 @@ namespace UnitTest.BLL
         public async Task ServiceShouldUpdateCategory()
         {
             // arrange
-            var category = db.Category.FirstOrDefault(f => !f.Deleted);
+            var category = db.Categories.FirstOrDefault(f => !f.Deleted);
             var dto = new CategoryUpdateDto
             {
                 CategoryName = "Edited name",
                 Active = !category.Active,
                 Id = category.Id,
                 IsStatic = category.IsStatic,
-                ParentCategoryId = db.Category.ToList()[2].Id,
+                ParentCategoryId = db.Categories.ToList()[2].Id,
                 SeoDescription = "edited seo",
                 SeoKeywords = "edited seo",
                 StyleCode = "edited code",
@@ -205,7 +205,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            var updatedCategory = db.Category.FirstOrDefault(f => f.Id == category.Id);
+            var updatedCategory = db.Categories.FirstOrDefault(f => f.Id == category.Id);
             Assert.Equal(updatedCategory.Active, dto.Active);
             Assert.Equal(updatedCategory.Symbol, dto.Symbol);
             Assert.Equal(updatedCategory.Url, dto.Url);

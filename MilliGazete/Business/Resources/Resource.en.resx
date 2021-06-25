@@ -342,4 +342,7 @@
   <data name="entityMainPageRedirect" xml:space="preserve">
     <value></value>
   </data>
+  <data name="validationQuestionTextMaxCharacterLimit" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

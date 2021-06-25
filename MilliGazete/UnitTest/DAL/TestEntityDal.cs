@@ -15,11 +15,11 @@ namespace UnitTest.DAL
 
         IEntityDal MockEntityDal()
         {
-            var list = db.Entity.ToList();
-            db.Entity.RemoveRange(list);
+            var list = db.Entities.ToList();
+            db.Entities.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.Entity.Add(new Entity.Models.Entity()
+                db.Entities.Add(new Entity.Models.Entity()
                 {
                     Id = i,
                     EntityGroupId = i < 3 ? 1 : i < 5 ? 2 : i,

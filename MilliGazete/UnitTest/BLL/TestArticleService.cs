@@ -84,7 +84,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Title, db.Article.FirstOrDefault(f => f.Id == id & !f.Deleted).Title);
+            Assert.Equal(result.Data.Title, db.Articles.FirstOrDefault(f => f.Id == id & !f.Deleted).Title);
         }
         [Theory(DisplayName = "GetByIdError")]
         [Trait("Article", "Get")]
@@ -121,7 +121,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            var newArticle = db.Article.FirstOrDefault(f => f.SeoKeywords == Article.SeoKeywords);
+            var newArticle = db.Articles.FirstOrDefault(f => f.SeoKeywords == Article.SeoKeywords);
             Assert.NotNull(newArticle);
             Assert.Equal(newArticle.CreatedAt.Date, DateTime.Now.Date);
             Assert.Equal(result.Message, Messages.Added);
@@ -133,7 +133,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldUpdateArticle()
         {
             // arrange
-            var Article = db.Article.FirstOrDefault(f => !f.Deleted);
+            var Article = db.Articles.FirstOrDefault(f => !f.Deleted);
             var dto = new ArticleUpdateDto
             {
                 Title = "Edited name",
@@ -148,7 +148,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            var updatedArticle = db.Article.FirstOrDefault(f => f.Id == Article.Id);
+            var updatedArticle = db.Articles.FirstOrDefault(f => f.Id == Article.Id);
             Assert.Equal(updatedArticle.Approved, dto.Approved);
             Assert.Equal(updatedArticle.Title, dto.Title);
             Assert.Equal(updatedArticle.Url, dto.Url);

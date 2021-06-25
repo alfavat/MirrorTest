@@ -18,13 +18,13 @@ namespace UnitTest.DAL
 
         IUserDal MockUserDal()
         {
-            var list = db.User.ToList();
-            db.User.RemoveRange(list);
+            var list = db.Users.ToList();
+            db.Users.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
                 byte[] passwordHash, passwordSalt;
                 HashingHelper.CreatePasswordHash("Password_" + i, out passwordHash, out passwordSalt);
-                db.User.Add(new User()
+                db.Users.Add(new User()
                 {
                     Active = i < 8,
                     Id = i,

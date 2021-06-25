@@ -120,7 +120,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            var newPage = db.Page.FirstOrDefault(f => f.SeoKeywords == Page.SeoKeywords);
+            var newPage = db.Pages.FirstOrDefault(f => f.SeoKeywords == Page.SeoKeywords);
             Assert.NotNull(newPage);
             Assert.Equal(newPage.CreatedAt.Date, DateTime.Now.Date);
             Assert.Equal(result.Message, Messages.Added);
@@ -132,7 +132,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldUpdatePage()
         {
             // arrange
-            var Page = db.Page.FirstOrDefault(f => !f.Deleted);
+            var Page = db.Pages.FirstOrDefault(f => !f.Deleted);
             var dto = new PageUpdateDto
             {
                 Id = Page.Id,
@@ -147,7 +147,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            var updatedPage = db.Page.FirstOrDefault(f => f.Id == Page.Id);
+            var updatedPage = db.Pages.FirstOrDefault(f => f.Id == Page.Id);
             Assert.Equal(updatedPage.Title, dto.Title);
             Assert.Equal(updatedPage.Url, dto.Url);
         }

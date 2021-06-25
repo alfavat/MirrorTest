@@ -17,13 +17,13 @@ namespace UnitTest.DAL
 
         INewsCommentLikeDal MockNewsCommentLikeDal()
         {
-            var comments = db.NewsComment.ToList();
-            db.NewsComment.RemoveRange(comments);
-            var list = db.NewsCommentLike.ToList();
-            db.NewsCommentLike.RemoveRange(list);
+            var comments = db.NewsComments.ToList();
+            db.NewsComments.RemoveRange(comments);
+            var list = db.NewsCommentLikes.ToList();
+            db.NewsCommentLikes.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.NewsComment.Add(new NewsComment()
+                db.NewsComments.Add(new NewsComment()
                 {
                     Id = i,
                     CreatedAt = DateTime.Now.AddDays(-i * 2),
@@ -35,7 +35,7 @@ namespace UnitTest.DAL
                     UserId = i,
                     TotalLikeCount = i + 2
                 });
-                db.NewsCommentLike.Add(new NewsCommentLike()
+                db.NewsCommentLikes.Add(new NewsCommentLike()
                 {
                     Id = i,
                     CreatedAt = DateTime.Now.AddDays(-i * 2),

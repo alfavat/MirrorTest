@@ -36,7 +36,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.NotNull(result.Data);
-            Assert.Equal(result.Data.WebsiteTitle, db.Option.FirstOrDefault().WebsiteTitle);
+            Assert.Equal(result.Data.WebsiteTitle, db.Options.FirstOrDefault().WebsiteTitle);
         }
 
         [Fact(DisplayName = "Update")]
@@ -44,7 +44,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldEditOption()
         {
             // arrange
-            var option = db.Option.FirstOrDefault();
+            var option = db.Options.FirstOrDefault();
             string keywords = option.SeoKeywords;
             var data = _mapper.Map<OptionUpdateDto>(option);
             data.WebsiteTitle = "edited title";
@@ -56,7 +56,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            var editedOption = db.Option.FirstOrDefault(f => f.Id == option.Id);
+            var editedOption = db.Options.FirstOrDefault(f => f.Id == option.Id);
             Assert.Equal(editedOption.WebsiteTitle, data.WebsiteTitle);
             Assert.Equal(editedOption.SeoDescription, data.SeoDescription);
             Assert.Equal(editedOption.SeoKeywords, option.SeoKeywords);

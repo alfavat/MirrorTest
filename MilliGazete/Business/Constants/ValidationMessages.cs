@@ -74,5 +74,6 @@
         public static string EmptyDescription { get => Translator.GetByKey("validationEmptyDescription"); }
         public static string EmptyQuestionText { get => Translator.GetByKey("validationEmptyQuestionText"); }
         public static string EmptyAnswer { get => Translator.GetByKey("validationEmptyAnswer"); }
+        public static string QuestionTextMaxCharacterLimit { get => Translator.GetByKey("validationQuestionTextMaxCharacterLimit"); }
     }
 }

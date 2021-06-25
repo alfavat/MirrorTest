@@ -17,11 +17,11 @@ namespace UnitTest.DAL
 
         IAdvertisementDal MockAdvertisementDal()
         {
-            var list = db.Advertisement.ToList();
-            db.Advertisement.RemoveRange(list);
+            var list = db.Advertisements.ToList();
+            db.Advertisements.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.Advertisement.Add(new Advertisement()
+                db.Advertisements.Add(new Advertisement()
                 {
                     Active = i < 8,
                     Id = i,

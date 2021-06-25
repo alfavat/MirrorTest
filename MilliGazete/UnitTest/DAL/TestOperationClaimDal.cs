@@ -17,13 +17,13 @@ namespace UnitTest.DAL
 
         IOperationClaimDal MockOperationClaimDal()
         {
-            var list = db.OperationClaim.ToList();
-            db.OperationClaim.RemoveRange(list);
+            var list = db.OperationClaims.ToList();
+            db.OperationClaims.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
                 byte[] passwordHash, passwordSalt;
                 HashingHelper.CreatePasswordHash("Password_" + i, out passwordHash, out passwordSalt);
-                db.OperationClaim.Add(new OperationClaim()
+                db.OperationClaims.Add(new OperationClaim()
                 {
                     Id = i,
                     ClaimName = "claim " + i

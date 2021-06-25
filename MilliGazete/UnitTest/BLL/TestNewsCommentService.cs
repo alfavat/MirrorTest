@@ -15,11 +15,13 @@ namespace UnitTest.BLL
 
         #region setup
         private readonly INewsCommentService _newsCommentService;
+        private readonly IFileAssistantService _fileAssistantService;
+        private readonly IBaseService _baseService;
         public TestNewsCommentService()
         {
             var _mapper = new TestAutoMapper()._mapper;
             _newsCommentService = new NewsCommentManager(new NewsCommentAssistantManager(newsCommentDal, _mapper),
-                _mapper, new NewsAssistantManager(new TestNewsDal().newsDal, _mapper),
+                _mapper, new NewsAssistantManager(new TestNewsDal().newsDal,_fileAssistantService, _mapper, _baseService),
                 new TestBaseService()._baseService, new TestNewsCommentsHelper()._helper);
         }
         #endregion
@@ -86,7 +88,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Title, db.NewsComment.FirstOrDefault(f => f.Id == id & !f.Deleted).Title);
+            Assert.Equal(result.Data.Title, db.NewsComments.FirstOrDefault(f => f.Id == id & !f.Deleted).Title);
         }
 
         [Theory(DisplayName = "GetByIdError")]
@@ -122,7 +124,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            var newNewsComment = db.NewsComment.FirstOrDefault(f => f.Title == NewsComment.Title);
+            var newNewsComment = db.NewsComments.FirstOrDefault(f => f.Title == NewsComment.Title);
             Assert.NotNull(newNewsComment);
             Assert.Equal(newNewsComment.CreatedAt.Date, DateTime.Now.Date);
             Assert.Equal(1, newNewsComment.UserId);
@@ -136,7 +138,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldUpdateNewsComment()
         {
             // arrange
-            var NewsComment = db.NewsComment.FirstOrDefault(f => !f.Deleted);
+            var NewsComment = db.NewsComments.FirstOrDefault(f => !f.Deleted);
             var dto = new NewsCommentUpdateDto
             {
                 Id = NewsComment.Id,
@@ -153,7 +155,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            var updatedNewsComment = db.NewsComment.FirstOrDefault(f => f.Id == NewsComment.Id);
+            var updatedNewsComment = db.NewsComments.FirstOrDefault(f => f.Id == NewsComment.Id);
             Assert.Equal(updatedNewsComment.Approved, dto.Approved);
             Assert.Equal(updatedNewsComment.TotalLikeCount, dto.TotalLikeCount);
             Assert.Equal(updatedNewsComment.Title, dto.Title);

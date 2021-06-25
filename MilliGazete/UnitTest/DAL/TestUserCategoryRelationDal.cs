@@ -16,11 +16,11 @@ namespace UnitTest.DAL
 
         IUserCategoryRelationDal MockUserCategoryRelationDal()
         {
-            var list = db.UserCategoryRelation.ToList();
-            db.UserCategoryRelation.RemoveRange(list);
+            var list = db.UserCategoryRelations.ToList();
+            db.UserCategoryRelations.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.UserCategoryRelation.Add(new UserCategoryRelation()
+                db.UserCategoryRelations.Add(new UserCategoryRelation()
                 {
                     Id = i,
                     UserId = i < 3 ? 1 : i,

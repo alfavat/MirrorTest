@@ -45,8 +45,8 @@ namespace UnitTest.BLL
         public async Task ServiceShouldChangeUserCategoryRelationStatus()
         {
             // arrange
-            var data = db.UserCategoryRelation.FirstOrDefault();
-            var categoryIds = db.UserCategoryRelation.Where(f => f.UserId != data.UserId).Select(f => f.CategoryId).Take(4).ToList();
+            var data = db.UserCategoryRelations.FirstOrDefault();
+            var categoryIds = db.UserCategoryRelations.Where(f => f.UserId != data.UserId).Select(f => f.CategoryId).Take(4).ToList();
             // act
             var result = await _userCategoryRelationService.Update(new UserCategoryRelationUpdateDto
             {
@@ -57,7 +57,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            Assert.Equal(4, db.UserCategoryRelation.Count(f => f.UserId == data.UserId));
+            Assert.Equal(4, db.UserCategoryRelations.Count(f => f.UserId == data.UserId));
         }
         #endregion
     }

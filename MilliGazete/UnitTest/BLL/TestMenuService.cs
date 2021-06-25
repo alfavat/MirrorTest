@@ -15,10 +15,11 @@ namespace UnitTest.BLL
 
         #region setup
         private readonly IMenuService _menuService;
+        private readonly IBaseService _baseService;
         public TestMenuService()
         {
             var _mapper = new TestAutoMapper()._mapper;
-            _menuService = new MenuManager(new MenuAssistantManager(menuDal, _mapper), _mapper);
+            _menuService = new MenuManager(new MenuAssistantManager(menuDal, _mapper, _baseService), _mapper);
         }
         #endregion
 
@@ -33,7 +34,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.True(result.Data.Count <= db.Menu.Count(f => f.Active && !f.Deleted));
+            Assert.True(result.Data.Count <= db.Menus.Count(f => f.Active && !f.Deleted));
         }
 
         [Fact(DisplayName = "GetList")]
@@ -46,7 +47,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Count, db.Menu.Count(f => !f.Deleted));
+            Assert.Equal(result.Data.Count, db.Menus.Count(f => !f.Deleted));
         }
 
         [Theory(DisplayName = "GetById")]
@@ -62,7 +63,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            Assert.Equal(result.Data.Title, db.Menu.FirstOrDefault(f => f.Id == id & !f.Deleted).Title);
+            Assert.Equal(result.Data.Title, db.Menus.FirstOrDefault(f => f.Id == id & !f.Deleted).Title);
         }
         [Theory(DisplayName = "GetByIdError")]
         [Trait("Menu", "Get")]
@@ -97,7 +98,7 @@ namespace UnitTest.BLL
             // assert
             Assert.NotNull(result);
             Assert.True(result.Success);
-            var newMenu = db.Menu.FirstOrDefault(f => f.Title == Menu.Title);
+            var newMenu = db.Menus.FirstOrDefault(f => f.Title == Menu.Title);
             Assert.NotNull(newMenu);
             Assert.Equal(newMenu.CreatedAt.Date, DateTime.Now.Date);
             Assert.Equal(result.Message, Messages.Added);
@@ -109,7 +110,7 @@ namespace UnitTest.BLL
         public async Task ServiceShouldChangeMenuStatus()
         {
             // arrange
-            var Menu = db.Menu.FirstOrDefault();
+            var Menu = db.Menus.FirstOrDefault();
             var status = new ChangeActiveStatusDto()
             {
                 Active = !Menu.Active,
@@ -121,7 +122,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            Assert.Equal(status.Active, db.Menu.FirstOrDefault(f => f.Id == Menu.Id).Active);
+            Assert.Equal(status.Active, db.Menus.FirstOrDefault(f => f.Id == Menu.Id).Active);
         }
         [Fact(DisplayName = "ChangeStatusError")]
         [Trait("Menu", "Edit")]
@@ -146,13 +147,13 @@ namespace UnitTest.BLL
         public async Task ServiceShouldUpdateMenu()
         {
             // arrange
-            var Menu = db.Menu.FirstOrDefault(f => !f.Deleted);
+            var Menu = db.Menus.FirstOrDefault(f => !f.Deleted);
             var dto = new MenuUpdateDto
             {
                 Title = "Edited name",
                 Active = !Menu.Active,
                 Id = Menu.Id,
-                ParentMenuId = db.Menu.ToList()[2].Id,
+                ParentMenuId = db.Menus.ToList()[2].Id,
                 Url = "edited url"
             };
             // act
@@ -161,7 +162,7 @@ namespace UnitTest.BLL
             Assert.NotNull(result);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.Updated);
-            var updatedMenu = db.Menu.FirstOrDefault(f => f.Id == Menu.Id);
+            var updatedMenu = db.Menus.FirstOrDefault(f => f.Id == Menu.Id);
             Assert.Equal(updatedMenu.Active, dto.Active);
             Assert.Equal(updatedMenu.Title, dto.Title);
             Assert.Equal(updatedMenu.Url, dto.Url);

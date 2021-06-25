@@ -17,11 +17,11 @@ namespace UnitTest.DAL
 
         INewsCommentDal MockNewsCommentDal()
         {
-            var list = db.NewsComment.ToList();
-            db.NewsComment.RemoveRange(list);
+            var list = db.NewsComments.ToList();
+            db.NewsComments.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.NewsComment.Add(new NewsComment()
+                db.NewsComments.Add(new NewsComment()
                 {
                     Id = i,
                     CreatedAt = DateTime.Now.AddDays(-i * 2),

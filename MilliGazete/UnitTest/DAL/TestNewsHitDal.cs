@@ -18,11 +18,11 @@ namespace UnitTest.DAL
 
         INewsHitDal MockNewsHitDal()
         {
-            var list = db.NewsHit.ToList();
-            db.NewsHit.RemoveRange(list);
+            var list = db.NewsHits.ToList();
+            db.NewsHits.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.NewsHit.Add(new NewsHit()
+                db.NewsHits.Add(new NewsHit()
                 {
                     Id = i,
                     CreatedAt = DateTime.Now.AddDays(-i * 2),

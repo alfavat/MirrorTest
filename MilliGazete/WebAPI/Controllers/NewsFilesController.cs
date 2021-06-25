@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getlistbypaging")]
-        public IActionResult GetListByPaging(string query, int limit = 10, string orderBy = "Id", int page = 1, int ascending = 1)
+        public IActionResult GetListByPaging(string query, int limit = 10, string orderBy = "Id", int page = 1, int ascending = 1, int newsFileTypeEntityId = 0)
         {
             return GetResponse(_newsFileService.GetListByPaging(new NewsFilePagingDto()
             {
@@ -25,6 +25,7 @@ namespace WebAPI.Controllers
                 Limit = limit,
                 OrderBy = orderBy + (ascending == 1 ? " ascending" : " descending"),
                 PageNumber = page,
+                NewsFileTypeEntityId = newsFileTypeEntityId
             }, out int total), total);
         }
 

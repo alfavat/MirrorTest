@@ -17,11 +17,11 @@ namespace UnitTest.DAL
 
         IArticleDal MockArticleDal()
         {
-            var list = db.Article.ToList();
-            db.Article.RemoveRange(list);
+            var list = db.Articles.ToList();
+            db.Articles.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.Article.Add(new Article()
+                db.Articles.Add(new Article()
                 {
                     Approved = i < 8,
                     Id = i,

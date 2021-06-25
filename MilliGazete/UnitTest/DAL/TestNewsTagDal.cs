@@ -16,11 +16,11 @@ namespace UnitTest.DAL
 
         INewsTagDal MockNewsTagDal()
         {
-            var list = db.NewsTag.ToList();
-            db.NewsTag.RemoveRange(list);
+            var list = db.NewsTags.ToList();
+            db.NewsTags.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.NewsTag.Add(new NewsTag()
+                db.NewsTags.Add(new NewsTag()
                 {
                     Id = i,
                     NewsId = i,

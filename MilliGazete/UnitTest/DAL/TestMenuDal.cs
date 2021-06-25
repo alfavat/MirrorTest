@@ -17,11 +17,11 @@ namespace UnitTest.DAL
 
         IMenuDal MockMenuDal()
         {
-            var list = db.Menu.ToList();
-            db.Menu.RemoveRange(list);
+            var list = db.Menus.ToList();
+            db.Menus.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.Menu.Add(new Menu()
+                db.Menus.Add(new Menu()
                 {
                     Active = i < 8,
                     Id = i,

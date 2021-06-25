@@ -17,11 +17,11 @@ namespace UnitTest.DAL
 
         INewsPositionDal MockNewsPositionDal()
         {
-            var list = db.NewsPosition.ToList();
-            db.NewsPosition.RemoveRange(list);
+            var list = db.NewsPositions.ToList();
+            db.NewsPositions.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.NewsPosition.Add(new NewsPosition()
+                db.NewsPositions.Add(new NewsPosition()
                 {
                     Id = i,
                     PositionEntityId = i < 5 ? 1 : i,

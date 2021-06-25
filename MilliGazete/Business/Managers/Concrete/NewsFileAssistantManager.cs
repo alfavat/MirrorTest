@@ -32,6 +32,9 @@ namespace Business.Managers.Concrete
             if (pagingDto.Query.StringNotNullOrEmpty())
                 list = list.Where(f => f.Title.Contains(pagingDto.Query) || f.Description.Contains(pagingDto.Query) || f.News.Title.Contains(pagingDto.Query));
 
+            if(pagingDto.NewsFileTypeEntityId != 0)
+                list = list.Where(prop => prop.NewsFileTypeEntityId == pagingDto.NewsFileTypeEntityId);
+
             var query = _mapper.ProjectTo<NewsFileDto>(list);
             total = query.Count();
             var data = query.OrderBy(pagingDto.OrderBy).Skip((pagingDto.PageNumber - 1) * pagingDto.Limit.CheckLimit()).Take(pagingDto.Limit.CheckLimit());

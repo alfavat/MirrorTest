@@ -17,11 +17,11 @@ namespace UnitTest.DAL
 
         IPageDal MockPageDal()
         {
-            var list = db.Page.ToList();
-            db.Page.RemoveRange(list);
+            var list = db.Pages.ToList();
+            db.Pages.RemoveRange(list);
             for (int i = 1; i <= dataCount; i++)
             {
-                db.Page.Add(new Page()
+                db.Pages.Add(new Page()
                 {
                     Id = i,
                     CreatedAt = DateTime.Now.AddDays(-i * 2),
