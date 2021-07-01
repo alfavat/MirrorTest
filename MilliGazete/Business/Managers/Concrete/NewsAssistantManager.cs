@@ -207,5 +207,23 @@ namespace Business.Managers.Concrete
             return await _mapper.ProjectTo<NewsViewDto>(list).ToListAsync();
 
         }
+
+        public async Task<List<NewsViewDto>> GetListByReporterId(int reporterId)
+        {
+            var languageId = (int)_baseService.UserLanguage;
+            var list = _newsDal.GetActiveList().Where(p => p.AuthorId == reporterId && p.NewsCategories.Any(f => (languageId == 0 || f.Category.LanguageId == languageId)))
+                .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsAgencyEntity)
+                .Include(f => f.Author).ThenInclude(f => f.PhotoFile)
+                .Include(f => f.NewsTypeEntity)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsFiles).ThenInclude(f => f.VideoCoverFile)
+                .Include(f => f.NewsRelatedNewsNews).ThenInclude(f => f.RelatedNews).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+                .Include(f => f.NewsPositions).Include(f => f.NewsProperties)
+                .AsQueryable();
+            return await _mapper.ProjectTo<NewsViewDto>(list).ToListAsync();
+
+        }
     }
 }

@@ -62,6 +62,7 @@ namespace Business.AutoMapper
               .ForMember(f => f.AddUser, u => u.MapFrom(g => g.AddUser == null ? "" : g.AddUser.UserName))
               .ForMember(f => f.Url, u => u.MapFrom(g => g.GetUrl()))
               .ForMember(f => f.NewsAgencyEntity, u => u.MapFrom(g => g.NewsAgencyEntity == null ? "" : Translator.GetByKey(g.NewsAgencyEntity.EntityName)))
+              .ForMember(f => f.Reporter, u => u.MapFrom(g => g.Reporter == null ? null : g.Reporter))
               .ForMember(f => f.NewsTypeEntity, u => u.MapFrom(g => g.NewsTypeEntity == null ? "" : Translator.GetByKey(g.NewsTypeEntity.EntityName)))
               .ForMember(f => f.NewsRelatedNewsList, g => g.MapFrom(t => t.NewsRelatedNewsNews))
               .ForMember(f => f.NewsFileList, g => g.MapFrom(u => u.NewsFiles))

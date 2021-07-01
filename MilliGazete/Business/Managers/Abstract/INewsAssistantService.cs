@@ -20,5 +20,6 @@ namespace Business.Managers.Abstract
         Task<NewsViewDto> GetViewByUrl(string url);
         Task<List<ArticleDto>> GetLastWeekMostViewedArticles(int limit);
         Task<List<NewsViewDto>> GetListByAuthorId(int authorId);
+        Task<List<NewsViewDto>> GetListByReporterId(int reporterId);
     }
 }

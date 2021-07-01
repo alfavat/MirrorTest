@@ -11,9 +11,17 @@ namespace WebAPI.Controllers
     public class ReportersController : MainController
     {
         private IReporterService _reporterService;
-        public ReportersController(IReporterService ReporterService)
+        private INewsService _newsService;
+        public ReportersController(IReporterService ReporterService, INewsService newsService)
         {
             _reporterService = ReporterService;
+            _newsService = newsService;
+        }
+
+        [HttpGet("getbyreporterid")]
+        public async Task<IActionResult> GetListByreporterId(int reporterId)
+        {
+            return GetResponse(await _newsService.GetListByReporterId(reporterId));
         }
 
         [HttpGet("getlist")]

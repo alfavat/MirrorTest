@@ -232,5 +232,10 @@ namespace Business.Managers.Concrete
         {
             return new SuccessDataResult<List<NewsViewDto>>(await _newsAssistantService.GetListByAuthorId(authorId));
         }
+
+        public async Task<IDataResult<List<NewsViewDto>>> GetListByReporterId(int reporterId)
+        {
+            return new SuccessDataResult<List<NewsViewDto>>(await _newsAssistantService.GetListByReporterId(reporterId));
+        }
     }
 }

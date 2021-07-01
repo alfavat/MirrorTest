@@ -20,5 +20,6 @@ namespace Business.Managers.Abstract
         Task<IResult> IncreaseShareCount(int newsId);
         Task<IDataResult<List<ArticleDto>>> GetLastWeekMostViewedArticles(int count);
         Task<IDataResult<List<NewsViewDto>>> GetListByAuthorId(int authorId);
+        Task<IDataResult<List<NewsViewDto>>> GetListByReporterId(int reporterId);
     }
 }

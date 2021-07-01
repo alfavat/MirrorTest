@@ -63,6 +63,7 @@ namespace Business.Managers.Concrete
             .Include(f => f.NewsProperties)
             .Include(f => f.NewsBookmarks)
             .Include(f => f.NewsPositions)
+            .Include(f => f.Reporter).ThenInclude(prop=>prop.ProfileImage)
             .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
             .Include(f => f.NewsFiles).ThenInclude(f => f.File)
             .Include(f => f.NewsFiles).ThenInclude(f => f.VideoCoverFile);
