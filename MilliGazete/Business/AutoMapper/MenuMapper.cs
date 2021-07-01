@@ -18,7 +18,8 @@ namespace Business.AutoMapper
 
             CreateMap<Menu, MenuViewDto>().ForMember(f => f.ParentMenuTitle,
                 u => u.MapFrom(g => g.ParentMenu == null ? "" : g.ParentMenu.Title))
-                .ForMember(f => f.ChildrenMenuList, g => g.MapFrom(t => t.InverseParentMenu));
+                .ForMember(f => f.ChildrenMenuList, g => g.MapFrom(t => t.InverseParentMenu))
+                .ForMember(f => f.Language, u => u.MapFrom(g => g.Language));
 
         }
     }

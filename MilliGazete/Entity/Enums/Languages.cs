@@ -8,7 +8,8 @@ namespace Entity.Enums
 {
     public enum Languages
     {
+        All = 0,
         Turkish = 1,
-        English
+        English = 2
     }
 }

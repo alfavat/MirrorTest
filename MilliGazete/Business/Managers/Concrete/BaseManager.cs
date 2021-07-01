@@ -29,12 +29,15 @@ namespace Business.Managers.Concrete
             {
                 _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
                 string language = _httpContextAccessor.HttpContext.Request.Headers["accept-language"].ToString();
-                if (language == "tr-TR")
+                switch (language)
                 {
-                    return Languages.Turkish;
+                    case "tr-TR":
+                        return Languages.Turkish;
+                    case "en-US":
+                        return Languages.English;
+                    default:
+                        return Languages.All;
                 }
-                else
-                    return Languages.English;
             }
         }
 

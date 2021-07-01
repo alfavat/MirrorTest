@@ -6,6 +6,7 @@
         public int FileId { get; set; }
         public int? VideoCoverFileId { get; set; }
         public int NewsFileTypeEntityId { get; set; }
+        public string NewsFileTypeEntityName { get; set; }
         public int? Order { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

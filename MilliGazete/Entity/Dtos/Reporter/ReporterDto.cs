@@ -10,6 +10,6 @@ namespace Entity.Dtos
         public string FullName { get; set; }
         public int? ProfileImageId { get; set; }
 
-        public virtual File ProfileImage { get; set; }
+        public virtual FileDto ProfileImage { get; set; }
     }
 }
