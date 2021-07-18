@@ -195,11 +195,20 @@
   <data name="entityCategoryHeadingEconomy" xml:space="preserve">
     <value>Economy Category Headline</value>
   </data>
-  <data name="entityCategoryHeadingMedia" xml:space="preserve">
-    <value>Media Category Headline</value>
+  <data name="entityCategoryHeadingWorld" xml:space="preserve">
+    <value>World Category Headline</value>
   </data>
-  <data name="entityCategoryHeadingMagazine" xml:space="preserve">
-    <value>Magazine Category Headline</value>
+  <data name="entityCategoryHeadingReportage" xml:space="preserve">
+    <value>Reportage Category Headline</value>
+  </data>
+  <data name="entityCategoryHeadingWhoIsWho" xml:space="preserve">
+    <value>Who is Who Category Headline</value>
+  </data>
+  <data name="entityCategoryHeadingCulture" xml:space="preserve">
+    <value>Culture-Art Category Headline</value>
+  </data>
+  <data name="entityCategoryHeadingAutomobile" xml:space="preserve">
+    <value>Automobile Category Headline</value>
   </data>
   <data name="entityCategoryHeadingSport" xml:space="preserve">
     <value>Sport Category Headline</value>

@@ -483,11 +483,20 @@
   <data name="entityCategoryHeadingEconomy" xml:space="preserve">
     <value>Ekonomi Kategori Manşeti</value>
   </data>
-  <data name="entityCategoryHeadingMedia" xml:space="preserve">
-    <value>Medya Kategori Manşeti</value>
+  <data name="entityCategoryHeadingWorld" xml:space="preserve">
+    <value>Dünya Kategori Manşeti</value>
   </data>
-  <data name="entityCategoryHeadingMagazine" xml:space="preserve">
-    <value>Magazin Kategori Manşeti</value>
+  <data name="entityCategoryHeadingReportage" xml:space="preserve">
+    <value>Röportaj Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingWhoIsWho" xml:space="preserve">
+    <value>Kim Kimdir Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingCulture" xml:space="preserve">
+    <value>Kültür-Sanat Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingAutomobile" xml:space="preserve">
+    <value>Otomobil Kategori Manşeti</value>
   </data>
   <data name="entityCategoryHeadingSport" xml:space="preserve">
     <value>Spor Kategori Manşeti</value>
