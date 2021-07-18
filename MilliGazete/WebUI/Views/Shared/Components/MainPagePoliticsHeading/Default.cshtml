@@ -1,0 +1,33 @@
+﻿@model List<MainHeadingDto>
+
+<div class="container mt-3 bg-politics">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="decorated-title text-white"><span>@Translator.GetByKey("Politics")</span></div>
+        </div>
+        <a href="~/siyaset" class="col-md-1 decorated-title text-white" target="_blank">
+            @Translator.GetByKey("All")
+        </a>
+    </div>
+    <div class="row">
+        <div class="swiper-container swiper-container-bottom2">
+            <div class="swiper-wrapper">
+                @if (Model.HasValue())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <a href="@item.Url" class="swiper-slide politics-slider-item" target="_blank">
+                            <div class="politics-slider-item-title">@item.Title</div>
+                            <img src="@item.ImageUrl" alt="@item.Title" />
+                        </a>
+                    }
+                }
+            </div>
+            <div class="swiper-button-prev swiper-button-prev-bottom2"></div>
+            <div class="swiper-button-next swiper-button-next-bottom2"></div>
+
+            <div class="swiper-pagination swiper-pagination-bottom2" style="margin-bottom: 5px;"></div>
+        </div>
+    </div>
+
+</div>

@@ -121,7 +121,7 @@
     <value>Yazar Hakkında</value>
   </data>
   <data name="Actual" xml:space="preserve">
-    <value>MilliGazete Aktüel</value>
+    <value>Gündem</value>
   </data>
   <data name="Advertisement" xml:space="preserve">
     <value>Reklam</value>
@@ -141,8 +141,14 @@
   <data name="Authors" xml:space="preserve">
     <value>Yazarlar</value>
   </data>
+  <data name="Biography" xml:space="preserve">
+    <value>Kim Kimdir</value>
+  </data>
+  <data name="BottomDescription" xml:space="preserve">
+    <value>Türkiye ve dünyadaki flaş gelişmeleri Milli Gazete farkıyla okuyun!</value>
+  </data>
   <data name="BreakingNews" xml:space="preserve">
-    <value>Son Dakika</value>
+    <value>SON DAKİKA</value>
   </data>
   <data name="CommentLikeSuccess" xml:space="preserve">
     <value>Yorum Beğenildi</value>
@@ -170,6 +176,9 @@
   </data>
   <data name="Discover" xml:space="preserve">
     <value>Keşfedin</value>
+  </data>
+  <data name="Economy" xml:space="preserve">
+    <value>Ekonomi</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Mail</value>
@@ -282,6 +291,9 @@
   <data name="OtherArticles" xml:space="preserve">
     <value>Diğer Yazıları</value>
   </data>
+  <data name="OtherNews" xml:space="preserve">
+    <value>DİĞER HABERLER</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Şifre</value>
   </data>
@@ -298,13 +310,16 @@
     <value>Şifre Güncellendi</value>
   </data>
   <data name="Photo" xml:space="preserve">
-    <value>MilliGazete Foto Galeri</value>
+    <value>Foto Galeri</value>
   </data>
   <data name="PhotoGallery" xml:space="preserve">
     <value>Fotoğraf Galerisi</value>
   </data>
   <data name="PhotoGalleryKeywords" xml:space="preserve">
     <value>fotoğraf galerisi, fotoğraf albümleri, haber fotoğrafları</value>
+  </data>
+  <data name="Politics" xml:space="preserve">
+    <value>Siyaset</value>
   </data>
   <data name="PopularArticles" xml:space="preserve">
     <value>Popüler Yazılar</value>
@@ -357,11 +372,20 @@
   <data name="SpecialNews" xml:space="preserve">
     <value>Özel Haber</value>
   </data>
+  <data name="Sports" xml:space="preserve">
+    <value>Spor</value>
+  </data>
+  <data name="Standings" xml:space="preserve">
+    <value>PUAN DURUMU</value>
+  </data>
   <data name="Summary" xml:space="preserve">
     <value>Özet</value>
   </data>
   <data name="TagResultText" xml:space="preserve">
     <value>etiketi için {0} sonuç bulundu.</value>
+  </data>
+  <data name="TodaysNewspaper" xml:space="preserve">
+    <value>BUGÜNKÜ&lt;br&gt;MİLLİ GAZETE</value>
   </data>
   <data name="Unlike" xml:space="preserve">
     <value>Beğeniyi Kaldır</value>
@@ -370,13 +394,16 @@
     <value>Şifre Güncelle</value>
   </data>
   <data name="Video" xml:space="preserve">
-    <value>MilliGazete Video</value>
+    <value>Video</value>
   </data>
   <data name="VideoGallery" xml:space="preserve">
     <value>Video Galeri</value>
   </data>
   <data name="VideoGalleryKeywords" xml:space="preserve">
     <value>video galerisi, video albümleri, haber videoları</value>
+  </data>
+  <data name="World" xml:space="preserve">
+    <value>Dünya</value>
   </data>
   <data name="Wrote" xml:space="preserve">
     <value>yazdı</value>

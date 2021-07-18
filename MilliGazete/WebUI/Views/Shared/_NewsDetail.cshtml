@@ -13,10 +13,21 @@
 
 @if (Model != null)
 {
-<div class="anchor" url="@Model.Url">
+<div class="anchor news-detail-box mt-3" url="@Model.Url">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/@Model.NewsCategoryList[0].Url">@Model.NewsCategoryList[0].CategoryName</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Sanayi kenti Kocaeli'de günde 1.521 araç üretildi</li>
+        </ol>
+    </nav>
+
+    <h1>@Model.InnerTitle </h1>
+
+    <h2>@Model.ShortDescription</h2>
+
     <div class="news-photo">
         @if (Model.NewsTypeEntityId == (int)Entity.Enums.NewsTypeEntities.VideoGallery && Model.NewsFileList.HasValue() &&
-                           Model.NewsFileList.Any(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo))
+                        Model.NewsFileList.Any(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo))
         {
             <video id="main-video"
                    class="video-js"
@@ -39,15 +50,13 @@
         }
 
     </div>
-    <div class="news-wrapper">
-        <h1 class="news-headline">@Model.InnerTitle </h1>
+    <div class="news-detail-body">
+
         <div class="news-date"><span>@Model.PublishDate.Value.ToString("dd MMMM dddd yyyy") @Model.PublishTime.Value.ToString().Substring(0, 5)</span></div>
         <div class="news-buttons-wrapper clearfix">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebUIUrl@Model.Url&t=@Model.Title" class="news-button facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-            <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebUIUrl@Model.Url&text=@Model.Title" class="news-button twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebUIUrl@Model.Url" class="news-button whatsapp" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
-            <a href="#" class="news-button textsize t-down">A-</a>
-            <a href="#" class="news-button textsize t-up">A+</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebUIUrl@Model.Url&t=@Model.Title" class="news-button facebook" target="_blank"><img src="~/images/icon-facebook.png" style="width:24px !important;" /></a>
+            <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebUIUrl@Model.Url&text=@Model.Title" class="news-button twitter" target="_blank"><img src="~/images/icon-twitter.png" style="width:24px !important;" /></a>
+            <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebUIUrl@Model.Url" class="news-button whatsapp" target="_blank"><img src="~/images/icon-whatsapp.png" style="width:24px !important;" /></a>
             <a href="javascript:;" class="news-button facebook divUser" onclick="AddOrDeleteBookmark(@Model.Id , this);" id="btnNewsBookmark_@Model.Id">
                 @if (!Model.BookMarkStatus)
                 {
@@ -116,10 +125,11 @@
 
     @if (Model.NewsTagList.HasValue())
     {
-        <div class="news-tags clearfix">
+
+        <div class="div-tags">
             @foreach (var tag in Model.NewsTagList)
             {
-                <a href="~/etiket/@tag.Url" class="btn btn-default">@tag.TagName</a>
+                <a href="~/etiket/@tag.Url" class="badge badge-secondary">@tag.TagName</a>
             }
         </div>
     }
@@ -159,23 +169,23 @@
 
     @if (Model.NewsRelatedNewsList.HasValue())
     {
-        <div class="oda-title" style="margin-top:15px;">@Translator.GetByKey("RelatedNews")</div>
-        <div class="column-news-wrapper">
+        <div class="card">
+            <h5 class="card-header">@Translator.GetByKey("RelatedNews")</h5>
+
             @foreach (var relatedNews in Model.NewsRelatedNewsList)
             {
-                <a href="@relatedNews.RelatedNews.Url" class="news-item-link br5">
-                    <div class="left rltv">
-                        <img src="@relatedNews.RelatedNews.Thumbnail" class="img-responsive m0a" alt="@relatedNews.RelatedNews.Title">
+                <a href="@relatedNews.RelatedNews.Url" class="card-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img class="" src="@relatedNews.RelatedNews.Thumbnail" alt="@relatedNews.RelatedNews.Title" />
+                        </div>
+                        <div class="col-md-7">
+                            @relatedNews.RelatedNews.Title
+                        </div>
                     </div>
-                    <div class="right">
-                        @*<div class="news-cat gundem">GÜNDEM</div>*@
-                        <div class="news-title">@relatedNews.RelatedNews.Title</div>
-                    </div>
-                    <div class="clearfix"></div>
+                    <hr>
                 </a>
-
             }
-            <div class="clearfix"></div>
         </div>
     }
 

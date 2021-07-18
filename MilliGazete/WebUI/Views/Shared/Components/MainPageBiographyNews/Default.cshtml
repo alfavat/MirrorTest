@@ -1,0 +1,23 @@
+﻿@model List<MainPageCategoryNewsDto>
+
+@if (Model.HasValue())
+{
+    <div class="container mb-2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="decorated-title text-success"><span>@Translator.GetByKey("Biography")</span></div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <a href="@item.Url" class="col-md-4 biography-news" target="_blank">
+                    <img src="@item.ImageUrl" alt="@item.Title" />
+                    <div class="biography-news-title">
+                        @item.Title
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+}

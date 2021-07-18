@@ -2,33 +2,18 @@
 
 @if (Model.mainPageNews.HasValue())
 {
-    var i = 0;
-    @foreach (var item in Model.mainPageNews)
-    {
-        <a href="@item.Url" class="news-item-link br5">
-            <div class="left rltv">
-                <img src="@item.FileList.Where(x=>x.NewsFileTypeEntityId==(int)Entity.Enums.NewsFileTypeEntities.NormalImage).Select(s=>s.FileName).FirstOrDefault()" class="img-responsive m0a" alt="@item.Title">
-            </div>
-            <div class="right">
-                <div class="news-cat" style="color: @item.StyleCode !important;">@item.CategoryName</div>
-                <div class="news-title">@item.Title</div>
-                <div class="news-sub">@item.ShortDescription</div>
-            </div>
-            <div class="clearfix"></div>
-        </a>
-
-        i++;
-
-        if (Model.mainPageWideNews.HasValue() && i % 3 == 0 && Model.mainPageWideNews.Count > (i / 3 - 1))
+<div class="container mb-2">
+    <div class="row">
+        @foreach (var item in Model.mainPageNews)
         {
-            var wideNews = Model.mainPageWideNews[i / 3 - 1];
-            <a href="@wideNews.Url" class="news-item-link br5">
-                <div>
-                    <img src="@wideNews.ImageUrl" class="img-responsive" style="width:100%;" alt="@wideNews.Title">
-                </div>
-                <div class="clearfix"></div>
+
+            <a href="@item.Url" class="col-md-4 news-list">
+                <img src="@item.FileList.Where(x=>x.NewsFileTypeEntityId==(int)Entity.Enums.NewsFileTypeEntities.NormalImage).Select(s=>s.FileName).FirstOrDefault()" alt="@item.Title" />
+                <span class="news-list-title">@item.Title</span>
+                @*<div class="news-cat" style="color: @item.StyleCode !important;">@item.CategoryName</div>
+                    <div class="news-sub">@item.ShortDescription</div>*@
             </a>
         }
-    }
-
+    </div>
+</div>
 }

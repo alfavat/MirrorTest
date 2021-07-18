@@ -1,12 +1,17 @@
 ﻿@model List<SubHeadingDto>
-
-<div class="small-slide left">
-
-    @if (Model.HasValue())
-    {
-        @foreach (var item in Model)
+<div class="swiper-container swiper-container-sub">
+    <div class="swiper-wrapper">
+        @if (Model.HasValue())
         {
-            <div><a href="@item.Url"><img src="@item.ImageUrl" class="img-responsive m0a" alt="@item.Title" style="height:208px;"></a></div>
+            @foreach (var item in Model)
+            {
+                <a href="@item.Url" class="swiper-slide"><img src="@item.ImageUrl" class="img-fluid" style="width: 100% !important; height: auto !important;"  alt="@item.Title" /></a>
+            }
         }
-    }
+
+    </div>
+    <div class="swiper-button-prev swiper-button-prev-sub"></div>
+    <div class="swiper-button-next swiper-button-next-sub"></div>
+
+    <div class="swiper-pagination swiper-pagination-sub" style="margin-bottom: 5px;"></div>
 </div>

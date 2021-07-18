@@ -5,168 +5,163 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@await Component.InvokeAsync("MainPageNewsTop")
 
-@if (LayoutModel.Option.LiveVideoActive)
+@if (LayoutModel.Option.LastMinutesActive)
 {
-    <div class="live-video-box">
-        <div class="container">
-            <iframe src="@LayoutModel.Option.LiveVideoLink"></iframe><br />
-            @await Component.InvokeAsync("BreakingNews")
-        </div>
-    </div>
+    @await Component.InvokeAsync("BreakingNews")
 }
 
-<section id="main">
-    <div class="container">
-
-        <div class="mob-order-container">
-            <!-- 1 -->
-            @* Reklam Alanı:
-                <div class="mob-order-wrapper-1">
-                    <div class="top-banner text-center mb14"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
-                </div>*@
-            <!-- 1 -->
-            <!-- 2 -->
-            @await Component.InvokeAsync("MainPageNewsTop")
-            <!-- 2 -->
-            <!-- 3 -->
-            @if (!LayoutModel.Option.LiveVideoActive)
-            {
-                @await Component.InvokeAsync("BreakingNews")
-            }
-            <!-- 3 -->
-            <!-- 4 -->
-            <div class="mob-order-wrapper-4">
-                @await Component.InvokeAsync("MainHeading")
-            </div>
-            <!-- 4 -->
-            <!-- 5 -->
-            <div class="mob-order-wrapper-5">
-
-                <div class="small-slide-container">
-
-                    @await Component.InvokeAsync("SubHeading")
-
-                    @await Component.InvokeAsync("SubHeading2")
-
-                </div>
-
-            </div>
-            <!-- 5 -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-sm-12 mb-2">
+            @await Component.InvokeAsync("MainHeading")
         </div>
+        <div class="col-md-4">
+            @await Component.InvokeAsync("SubHeading")
 
-    </div>
-
-</section>
-
-@await Component.InvokeAsync("VideoNews")
-
-<section id="uptodate">
-
-    <div class="container">
-
-        @*
-                Reklam Alanı:
-                <!-- banner -->
-            <div class="text-center mb28"><img src="http://placehold.it/970x90" class="img-responsive m0a"></div>
-            <!-- banner end -->*@
-
-        <div class="row mb14">
-            <div class="col-sm-8">
-
-                <a href="" class="oda-title">
-                    @Translator.GetByKey("Actual")
-                </a>
-
-                <div class="column-news-wrapper-big clearfix">
-
-                    @await Component.InvokeAsync("MainPageNewsMiddle")
-
-                </div>
-
-
-            </div>
-            <div class="col-sm-4">
-                @await Component.InvokeAsync("MostViewedNews")
-            </div>
+            @await Component.InvokeAsync("SubHeading2")
         </div>
-
     </div>
+</div>
 
-</section>
+@await Component.InvokeAsync("MainPageEconomyHeading")
 
-@await Component.InvokeAsync("PhotoNews")
+@await Component.InvokeAsync("MainPageAuthors")
 
-<section id="uptodate-2">
-    <div class="container">
-
-        @* Reklam Alanı:
-                <!-- banner -->
-            <div class="text-center mb28"><img src="http://placehold.it/970x90" class="img-responsive m0a"></div>
-            <!-- banner end -->
-        *@
-
-        <div class="row">
-            <div class="col-sm-8">
-
-                <!-- dont load this content on mobile ( < 768px ) -->
-                <div class="hidden-xs">
-
-                    @* Reklam alanı:
-                        <!-- single slide -->
-                        <div class="text-center mb14"><a href=""><img src="http://placehold.it/1000x560" class="img-responsive m0a br5"></a></div>
-                        <!-- single slide end -->
-                    *@
-
-                    <div class="column-news-wrapper-big clearfix">
-
-                        <!-- continue news -->
-
-                        @await Component.InvokeAsync("MainPageNewsBottom")
-
-                    </div>
-
-                </div>
-                <!-- dont load this content on mobile ( < 768px )END  -->
-
-            </div>
-            <div class="col-sm-4">
-
-                @* Reklam Alanı:
-                    <div class="hidden-xs">
-                        <!-- dont load this content on mobile ( < 768px ) -->
-                        <!-- banner -->
-                        <div class="banner-box"><img src="http://placehold.it/300x300" class="img-responsive m0a"></div>
-                        <!-- banner end -->
-                    </div>
-                *@
-
-                @await Component.InvokeAsync("MostSharedNews")
-
-            </div>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6 main-page-gallery">
+            @await Component.InvokeAsync("VideoNews")
         </div>
-
+        <div class="col-md-6 main-page-gallery" style="background-color:#656565 !important">
+            @await Component.InvokeAsync("PhotoNews")
+        </div>
     </div>
+</div>
 
-</section>
+@await Component.InvokeAsync("MainPageActualNews")
+
+@await Component.InvokeAsync("MainPageSportsNews")
+
+@await Component.InvokeAsync("MainPagePoliticsHeading")
+
+@await Component.InvokeAsync("MainPageWorldNews")
+
+@await Component.InvokeAsync("MainPageBiographyNews")
+
+@await Component.InvokeAsync("MainPageNewsMiddle")
+
+@await Component.InvokeAsync("MainPageNewsBottom")
+
 
 @section SectionBottom{
 
+    <!-- Swiper core JavaScript -->
+    <script src="~/js/swiper-bundle.min.js"></script>
+    <!-- Acmeticker core JavaScript -->
     <script src="~/js/acmeticker.min.js"></script>
 
     <script>
+        var swiper_top_main = new Swiper('.swiper-container-main', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next-main',
+                prevEl: '.swiper-button-prev-main',
+            },
+            pagination: {
+                el: '.swiper-pagination-main',
+                clickable: true,
+                renderBullet: function (index, className) {
+                    return '<span class="' + className + '">' + (index + 1) + '</span>';
+                },
+            },
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+        });
+
+        var swiper_sub = new Swiper('.swiper-container-sub', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next-sub',
+                prevEl: '.swiper-button-prev-sub',
+            },
+            pagination: {
+                el: '.swiper-pagination-sub',
+                clickable: true
+            },
+            autoplay: {
+                delay: 7500,
+                disableOnInteraction: false,
+            },
+        });
+
+        var swiper_sub2 = new Swiper('.swiper-container-sub2', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next-sub2',
+                prevEl: '.swiper-button-prev-sub2',
+            },
+            pagination: {
+                el: '.swiper-pagination-sub2',
+                clickable: true
+            },
+            autoplay: {
+                delay: 8000,
+                disableOnInteraction: false,
+            },
+        });
+
+        var swiper_bottom = new Swiper('.swiper-container-bottom', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next-bottom',
+                prevEl: '.swiper-button-prev-bottom',
+            },
+            pagination: {
+                el: '.swiper-pagination-bottom',
+                clickable: true
+            },
+            autoplay: {
+                delay: 8000,
+                disableOnInteraction: false,
+            },
+        });
+
+        var swiper_bottom2 = new Swiper('.swiper-container-bottom2', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next-bottom2',
+                prevEl: '.swiper-button-prev-bottom2',
+            },
+            pagination: {
+                el: '.swiper-pagination-bottom2',
+                clickable: true
+            },
+            autoplay: {
+                delay: 8000,
+                disableOnInteraction: false,
+            },
+        });
+
+        $('.swiper-pagination-bullet').hover(function () {
+            $(this).trigger("click");
+        });
+
         jQuery(document).ready(function ($) {
-            $('.braking-news-ticker').AcmeTicker({
+            $('.breaking-news-ticker').AcmeTicker({
                 type: 'vertical',/*vertical/horizontal/Marquee/type*/
-                direction: 'down',/*up/down/left/right*/
+                direction: 'up',/*up/down/left/right*/
                 speed: 600,/*true/false/number*/ /*For vertical/horizontal 600*//*For marquee 0.05*//*For typewriter 50*/
                 autoplay: 4000, /*sn*/
                 controls: {
-                    prev: $('.braking-news-ticker-prev'),/*Can be used for vertical/horizontal/typewriter*//*not work for marquee*/
-                    next: $('.braking-news-ticker-next')/*Can be used for vertical/horizontal/typewriter*//*not work for marquee*/
+                    prev: $('.breaking-news-ticker-prev'),/*Can be used for vertical/horizontal/typewriter*//*not work for marquee*/
+                    next: $('.breaking-news-ticker-next')/*Can be used for vertical/horizontal/typewriter*//*not work for marquee*/
                     //toggle: $('.acme-news-ticker-pause')/*Can be used for vertical/horizontal/marquee/typewriter*/
                 }
             });
-        })
+        });
     </script>
 }

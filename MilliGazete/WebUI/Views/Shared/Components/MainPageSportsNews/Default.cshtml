@@ -1,0 +1,67 @@
+﻿@model List<MainPageCategoryNewsDto>
+
+@if (Model.HasValue() && Model.Count>=6)
+{
+    <div class="container mt-3 bg-sport">
+        <div class="row">
+            <div class="col-md-11">
+                <div class="decorated-title text-white"><span>@Translator.GetByKey("Sports")</span></div>
+            </div>
+            <a href="~/spor" class="col-md-1 decorated-title text-white" target="_blank">
+                @Translator.GetByKey("All")
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row" style="margin-bottom: -10px !important;">
+
+                    <a href="@Model[0].Url" class="col-md-6 news-list-wide">
+                        <img src="@Model[0].ImageUrl" class="img-fluid" alt="@Model[0].Title" />
+                    </a>
+
+                    <a href="@Model[1].Url" class="col-md-6 news-list-wide">
+                        <img src="@Model[1].ImageUrl" class="img-fluid" alt="@Model[1].Title" />
+                    </a>
+
+                </div>
+                <div class="row">
+
+                    <a href="@Model[2].Url" class="col-md-3 news-list" target="_blank">
+                        <img src="@Model[2].ImageUrl" alt="@Model[2].Title" />
+                        <span class="news-list-title">@Model[2].Title</span>
+                    </a>
+
+                    <a href="@Model[3].Url" class="col-md-3 news-list" target="_blank">
+                        <img src="@Model[3].ImageUrl" alt="@Model[3].Title" />
+                        <span class="news-list-title">@Model[3].Title</span>
+                    </a>
+
+                    <a href="@Model[4].Url" class="col-md-3 news-list" target="_blank">
+                        <img src="@Model[4].ImageUrl" alt="@Model[4].Title" />
+                        <span class="news-list-title">@Model[4].Title</span>
+                    </a>
+
+                    <a href="@Model[5].Url" class="col-md-3 news-list" target="_blank">
+                        <img src="@Model[5].ImageUrl" alt="@Model[5].Title" />
+                        <span class="news-list-title">@Model[5].Title</span>
+                    </a>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white text-center" style="margin-top: 20px !important;margin-right: 10px; width: 336px; height: 280px !important; bottom: 0 !important;">Reklam Alanı<br><br>(336x280)</div><br>
+                <div class="col-md-12 bg-white" style="height: 55px;">
+                    <a href="javascript:;" class="row sport-link">
+                        <div class="col-md-6" style="padding-top: 5px;">
+                            @Translator.GetByKey("Standings")
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <img src="images/super-lig-dummy.png" width="100px;">
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,27 +1,15 @@
 ﻿@model List<MainHeadingDto>
 
-<div class="large-slide-container">
-
-    <div class="large-slide">
-        @if (Model.HasValue())
-        {
-            @foreach (var item in Model)
+    <div class="swiper-container swiper-container-main">
+        <div class="swiper-wrapper">
+            @if (Model.HasValue())
             {
-                <div style="position:relative;">
-
-                    <a href="@item.Url">
-                        @if (!@item.AuthorNameSurename.StringIsNullOrEmpty())
-                        {
-                            <div style="position:absolute;top:0;left:0;padding:10px;background-color:#ff0000;color:#fff;">
-                                <b><i class="fa fa-pencil"></i> @item.AuthorNameSurename @Translator.GetByKey("Wrote")</b>
-                            </div>
-                        }
-                        <img src="@item.ImageUrl" class="img-responsive m0a" alt="@item.Title" style="width:100%;">
-                    </a>
-                </div>
+                @foreach (var item in Model)
+                {
+                    <a href="@item.Url" class="swiper-slide"><img src="@item.ImageUrl" class="img-fluid" style="width: 730px !important; height: auto !important;" /></a>
+                }
             }
-        }
+        </div>
 
+        <div class="swiper-pagination swiper-pagination-main visible-desktop" style="margin-top: 5px;"></div>
     </div>
-
-</div>
