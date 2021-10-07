@@ -41,34 +41,25 @@
 {
     <section id="main">
         <div class="container">
+            <div class="col-md-12">
+                <div class="row mb14">
+                    <div class="col-sm-8">
 
-            @* Reklam Alanı:
-                <div class="top-banner text-center mb14 hidden-xs"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
-            *@
+                        <div class="row">
+                            @await Html.PartialAsync("_NewsDetail", Model)
+                        </div>
+                        <div class="row" id="divNews"></div>
+                        <!-- news block -->
 
-            <div class="row mb14">
-                <div class="col-sm-8">
-
-                    <div class="row">
-                        @await Html.PartialAsync("_NewsDetail", Model)
                     </div>
-                    <div class="row" id="divNews"></div>
-                    <!-- news block -->
+                    <div class="col-sm-4 hidden-xs" style="position:sticky;top:65px;">
 
-                </div>
-                <div class="col-sm-4 hidden-xs" style="position:sticky;top:65px;">
-                    <!--right col-->
-                    @* Reklam Alanı:
-                        <div class="mb14"><img src="http://placehold.it/300x600" class="img-responsive m0a"></div>
-                    *@
+                        @await Component.InvokeAsync("MostViewedNews")
 
-                    @await Component.InvokeAsync("MostViewedNews")
-
-                    <!--right col end-->
+                        <!--right col end-->
+                    </div>
                 </div>
             </div>
-
-
         </div>
 
     </section>
@@ -222,7 +213,7 @@
                 }
             });
 
-            if ($(document).height() - $(this).height() - 400 < $(this).scrollTop()) {
+            if ($(document).height()/3 < $(this).scrollTop()) { //$(document).height() - $(this).height() - 400 < $(this).scrollTop()
                 if (!process) {
                     process = true;
                     loadMoreNews();
@@ -240,6 +231,74 @@
                     scrollTop: $('.anchor [url="' + currentUrl + '"]').offset().top - 200
                 }, 1000);
             }
+        }
+
+        function AddOrDeleteBookmark(_newsId, el) {
+            var isAdd = $(el).find('>i').hasClass('fa-bookmark');
+            console.log(isAdd);
+            console.log($(el));
+            console.log($(el).find('>i'));
+            var param = { 'newsId': _newsId };
+            $.ajax({
+                type: "POST",
+                url: rootPath + (isAdd ? "/add-bookmark" : "/delete-bookmark"),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    var msg = "";
+                    if (isAdd) {
+                        msg = "@Translator.GetByKey("SaveBookmarkSuccess")";
+                        $(el).find('.fa-bookmark').removeClass('fa-bookmark').addClass('fa-remove');
+                    }
+                    else
+                    {
+                        msg = "@Translator.GetByKey("DeleteBookmarkSuccess")";
+                        $(el).find('.fa-remove').removeClass('fa-remove').addClass('fa-bookmark');
+                    }
+                    swal({
+                        title: msg,
+                        text: "",
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+         function SaveComment(_newsId) {
+            var content = $('#txtComment_' + _newsId).val();
+            if (content=="") {
+                return;
+            }
+
+            var param = { 'newsId': _newsId, 'content': content };
+            $.ajax({
+                type: "POST",
+                url: rootPath + "/add-comment",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(param),
+                success: function (result) {
+                    $('#txtComment_' + _newsId).val('')
+                    swal({
+                        title: "@Translator.GetByKey("CommentSaveSuccess")",
+                        text: "",
+                        icon: "success",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }
         </script>
     }

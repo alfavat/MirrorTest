@@ -1,35 +1,31 @@
 ﻿@model List<MainHeadingDto>
 
-<div class="container mt-3 bg-economy">
-    <div class="row">
-        <div class="col-md-11">
-            <div class="decorated-title text-white"><span>@Translator.GetByKey("Economy")</span></div>
-        </div>
-        <a href="~/ekonomi" class="col-md-1 decorated-title text-white" target="_blank">
-            @Translator.GetByKey("All")
-        </a>
-    </div>
-    <div class="row">
-        <div class="swiper-container swiper-container-bottom">
-            <div class="swiper-wrapper">
-
-                @if (Model.HasValue())
-                {
-                    @foreach (var item in Model)
-                    {
-                        <a href="@item.Url" class="swiper-slide economy-slider-item" target="_blank">
-                            <div class="economy-slider-item-title">@item.Title</div>
-                            <img src="@item.ImageUrl" alt="@item.Title" />
-                        </a>
-                    }
-                }
-
+<div class="container mt-3">
+    <div class="col-md-12 bg-economy">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="decorated-title text-white"><a href="~/ekonomi" class="link link-white" target="_blank">@Translator.GetByKey("Economy")</a></div>
             </div>
-            <div class="swiper-button-prev swiper-button-prev-bottom"></div>
-            <div class="swiper-button-next swiper-button-next-bottom"></div>
+        </div>
+        <div class="row">
+            <div class="swiper-container swiper-container-bottom">
+                <div class="swiper-wrapper">
 
-            <div class="swiper-pagination swiper-pagination-bottom" style="margin-bottom: 5px;"></div>
+                    @if (Model.HasValue())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <a href="@item.Url" class="swiper-slide economy-slider-item" target="_blank">
+                                <div class="economy-slider-item-title">@item.Title</div>
+                                <img src="@item.ImageUrl" alt="@item.Title" />
+                            </a>
+                        }
+                    }
+
+                </div>
+                <div class="swiper-button-prev swiper-button-prev-bottom"></div>
+                <div class="swiper-button-next swiper-button-next-bottom"></div>
+            </div>
         </div>
     </div>
-
 </div>

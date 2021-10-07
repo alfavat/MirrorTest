@@ -2,32 +2,30 @@
 
 @if (Model.HasValue())
 {
-    <div class="container mt-3 bg-world">
-        <div class="row">
-            <div class="col-md-11">
-                <div class="decorated-title text-white"><span>@Translator.GetByKey("World")</span></div>
-            </div>
-            <a href="javascript:;" class="col-md-1 decorated-title text-white" target="_blank">
-                @Translator.GetByKey("All")
-            </a>
-        </div>
-        <div class="row">
-            <div class="col-md-9">
-                <div class="row">
-
-                    @foreach (var item in Model)
-                    {
-                        <a href="@item.Url" class="col-md-3 news-list" target="_blank">
-                            <img src="@item.ImageUrl" alt="@item.Title" />
-                            <span class="news-list-title">@item.Title</span>
-                        </a>
-                    }
+    <div class="container mt-3">
+        <div class="col-md-12 bg-world">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="decorated-title text-white"><a href="~/dunya" class="link link-white" target="_blank">@Translator.GetByKey("World")</a></div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="bg-white text-center" style="margin-top: 20px !important;margin-right: 10px; width: 100%; height: 390px !important; bottom: 0 !important;">Reklam Alanı</div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="row">
+
+                        @foreach (var item in Model)
+                        {
+                            <a href="@item.Url" class="col-md-3 news-list" target="_blank">
+                                <img src="@item.ImageUrl" alt="@item.Title" />
+                                <span class="news-list-title">@item.Title</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="bg-white text-center" style="margin-top: 20px !important;margin-right: 10px; width: 100%; height: 350px !important; bottom: 0 !important;margin-bottom:20px;">Reklam Alanı</div>
+                </div>
             </div>
         </div>
-
     </div>
 }

@@ -14,107 +14,74 @@
         .news-container-text img {
             max-width: 710px;
         }
+
+        .article-detail {
+            padding:20px;
+        }
+
     </style>
 }
 
 <section id="main">
     <div class="container">
 
-        @* Reklam Alanı:
-            <div class="top-banner text-center mb14 hidden-xs"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
-        *@
         @if (Model != null)
         {
-            <div class="row mb14">
-                <div class="col-sm-8">
-
-                    <!-- news block -->
-
-                    <div class="news-wrapper">
-                        <h1 class="news-headline article-headline">@Model.Title</h1>
-                        <div class="news-date"><span>@Model.CreatedAt.ToString("dd/MM/yyyy")</span></div>
-                        <div class="news-buttons-wrapper clearfix">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebUIUrl@Model?.Url&text=@Model?.Title" class="news-button facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebUIUrl@Model?.Url&text=@Model?.Title" class="news-button twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebUIUrl@Model?.Url" class="news-button whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
-                            <a href="#" class="news-button textsize t-down">A-</a>
-                            <a href="#" class="news-button textsize t-up">A+</a>
+            <div class="col-md-12 mt-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="@Model.Author?.PhotoFile?.FileName" alt="@Model.Author?.NameSurename" class="rounded-circle" width="150">
+                                    <div class="mt-3">
+                                        <h4>@Model.Author?.NameSurename</h4>
+                                        <a href="@Model.Author?.Twitter" target="_blank"><img src="~/images/icon-twitter.png" style="width:32px;" /></a>
+                                        <a href="@Model.Author?.Instagram" target="_blank"><img src="~/images/icon-instagram.png" style="width:32px;" /></a>
+                                        <a href="http://@Model.Author?.Web" target="_blank"><img src="~/images/icon-website-48.png" style="width:32px;" /></a>
+                                        <a href="mailto:@Model.Author?.Email" target="_blank"><img src="~/images/icon-mail-48.png" style="width:32px;" /></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="news-container">
-
-                            <div class="news-container-text">
+                        <div class="card">
+                            <div class="card-header">
+                                @Translator.GetByKey("OtherArticles")
+                            </div>
+                            <div class="card-body">
+                                @await Component.InvokeAsync("ArticleByAuthor", new { nameSurename = @Model?.Author?.NameSurename })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h1 class="news-headline article-headline">@Model.Title</h1>
+                                @Model.PublishDate?.ToString("dd/MM/yyyy")
+                            </div>
+                            <div class="article-detail">
                                 @Html.Raw(Model.HtmlContent)
                             </div>
-
-
                         </div>
                     </div>
-                    @* Reklam Alanı:
-                        <div class="news-bottom-banner"><img src="http://placehold.it/755x300" class="img-responsive m0a"></div>
-                    *@
-                    <!-- news block end -->
-
-                    <div class="mb28"></div>
-                    <div class="clearfix"></div>
-
-                </div>
-                <div class="col-sm-4">
-                    <!--right col-->
-
-                    <div class="author-profile">
-                        <img src="@Model?.Author?.PhotoFile?.FileName" class="author-picture" alt="@Model?.Author?.NameSurename">
-                        <div class="author-name">@Model?.Author?.NameSurename</div>
-                        <div class="author-social">
-                            <a href="@Model?.Author?.Twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="@Model?.Author?.Instagram" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="@Model?.Author?.Web" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a>
-                            <a href="mailto:@Model?.Author?.Email" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-
-
-                    <a href="" class="oda-title">
-                        @Translator.GetByKey("OtherArticles")
-                    </a>
-
-                    <div class="clearfix"></div>
-
-                    <div class="column-articles-wrapper">
-
-                        @await Component.InvokeAsync("ArticleByAuthor", new { nameSurename = @Model?.Author?.NameSurename })
-
-                        <div class="clearfix mb14"></div>
-
-                    </div>
-
-
-                    <a href="/yazar/@Model.Author?.NameSurename?.ToUrlFormat()" class="btn btn-primary btn-block">@Translator.GetByKey("AllArticles")</a>
-
-                    <div class="clearfix mb14"></div>
-
-
-                    <!--right col end-->
                 </div>
             </div>
         }
 
-        <!-- author list  -->
-
-        <a href="" class="oda-title">
-            @Translator.GetByKey("PopularArticles")
-        </a>
-
-        <div class="author-list">
-
+        <div class="col-md-12">
             <div class="row">
-
-                @await Component.InvokeAsync("MostViewedArticles")
-
+                <div class="col-md-12">
+                    <div class="card-header">
+                        @Translator.GetByKey("PopularArticles")
+                    </div>
+                    <div class="row">
+                        @await Component.InvokeAsync("MostViewedArticles")
+                    </div>
+                </div>
             </div>
-
         </div>
-        <!-- author list end -->
-
+        <!-- author list  -->
 
     </div>
 

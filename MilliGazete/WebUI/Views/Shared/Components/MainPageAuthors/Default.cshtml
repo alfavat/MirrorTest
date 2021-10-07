@@ -1,13 +1,11 @@
 ﻿@model List<AuthorDto>
 
-    <div class="container bg-author">
+<div class="container">
+    <div class="col-md-12 bg-author">
         <div class="row">
-            <div class="col-md-11">
-                <div class="decorated-title text-danger"><span>@Translator.GetByKey("Authors")</span></div>
+            <div class="col-md-12">
+                <div class="decorated-title"><a href="~/yazarlar" class="link link-danger" target="_blank">@Translator.GetByKey("Authors")</a></div>
             </div>
-            <a href="~/yazarlar" class="col-md-1 decorated-title text-danger" target="_blank">
-                @Translator.GetByKey("All")
-            </a>
         </div>
         <div class="row">
             @if (Model.HasValue())
@@ -15,7 +13,7 @@
                 @foreach (var item in Model)
                 {
                     <a href="~/yazar/@item.NameSurename.ToUrlFormat()" class="col-md-2 col-6 author-box" target="_blank">
-                        <img src="@item.PhotoFile?.FileName" style="width:160px !important; height: 160px !important; object-fit: cover !important;" class="rounded-circle" />
+                        <img src="@item.PhotoFile?.FileName" style="width:130px !important; height: 130px !important; object-fit: cover !important;" class="rounded-circle" />
                         <div class="author-name">@item.NameSurename</div>
                         <div class="article-name">@item.LastArticleTitle</div>
                     </a>
@@ -23,3 +21,4 @@
             }
         </div>
     </div>
+</div>

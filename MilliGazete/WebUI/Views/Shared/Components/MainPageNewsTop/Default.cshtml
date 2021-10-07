@@ -2,15 +2,17 @@
 
     <div class="container">
         <div class="row">
-            @if (Model.HasValue())
-            {
-                @for (int i = 0; i < Model.Count; i++)
+            
+                @if (Model.HasValue())
                 {
-                    <a href="@Model[i].Url" class="col-md-3 news-list">
-                        <img src="@Model[i].ImageUrl" alt="@Model[i].Title" />
-                        <span class="news-list-title">@Model[i].Title</span>
-                    </a>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <a href="@Model[i].Url" class="col-md-3 news-list">
+                            <img src="@Model[i].ImageUrl" alt="@Model[i].Title" />
+                            <span class="news-list-title">@Model[i].Title</span>
+                        </a>
+                    }
                 }
-            }
+            
         </div>
     </div>

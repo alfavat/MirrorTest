@@ -16,7 +16,7 @@ namespace WebUI.ViewComponents
         public async Task<ViewViewComponentResult> InvokeAsync()
         {
             MainPageNewsModel rtrn = new MainPageNewsModel();
-            var result = await _mainPageRepository.GetTopMainPageNews(25);
+            var result = await _mainPageRepository.GetTopMainPageNews(24);
             if (result.DataResultIsNotNull())
             {
                 var resultData = result.Data;

@@ -24,10 +24,10 @@
     <h1>@Model.InnerTitle </h1>
 
     <h2>@Model.ShortDescription</h2>
-
+    
     <div class="news-photo">
         @if (Model.NewsTypeEntityId == (int)Entity.Enums.NewsTypeEntities.VideoGallery && Model.NewsFileList.HasValue() &&
-                        Model.NewsFileList.Any(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo))
+                       Model.NewsFileList.Any(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo))
         {
             <video id="main-video"
                    class="video-js"
@@ -51,23 +51,25 @@
 
     </div>
     <div class="news-detail-body">
-
-        <div class="news-date"><span>@Model.PublishDate.Value.ToString("dd MMMM dddd yyyy") @Model.PublishTime.Value.ToString().Substring(0, 5)</span></div>
-        <div class="news-buttons-wrapper clearfix">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebUIUrl@Model.Url&t=@Model.Title" class="news-button facebook" target="_blank"><img src="~/images/icon-facebook.png" style="width:24px !important;" /></a>
-            <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebUIUrl@Model.Url&text=@Model.Title" class="news-button twitter" target="_blank"><img src="~/images/icon-twitter.png" style="width:24px !important;" /></a>
-            <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebUIUrl@Model.Url" class="news-button whatsapp" target="_blank"><img src="~/images/icon-whatsapp.png" style="width:24px !important;" /></a>
-            <a href="javascript:;" class="news-button facebook divUser" onclick="AddOrDeleteBookmark(@Model.Id , this);" id="btnNewsBookmark_@Model.Id">
-                @if (!Model.BookMarkStatus)
-                {
-                    <i class="fa fa-bookmark"></i>
-                }
-                else
-                {
-                    <i class="fa fa-remove"></i>
-                }
-            </a>
+        <div class="news-share-bar">
+            <div class="news-date"><span>@Model.PublishDate.Value.ToString("dd MMMM dddd yyyy") @Model.PublishTime.Value.ToString().Substring(0, 5)</span></div>
+            <div class="news-buttons-wrapper clearfix">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebUIUrl@Model.Url&t=@Model.Title" class="news-button facebook" target="_blank"><img src="~/images/icon-facebook-48.png" style="width:36px !important;" /></a>
+                <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebUIUrl@Model.Url&text=@Model.Title" class="news-button twitter" target="_blank"><img src="~/images/icon-twitter-48.png" style="width:36px !important;" /></a>
+                <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebUIUrl@Model.Url" class="news-button whatsapp" target="_blank"><img src="~/images/icon-whatsapp-48.png" style="width:36px !important;" /></a>
+                <a href="javascript:;" class="news-button facebook divUser" onclick="AddOrDeleteBookmark(@Model.Id , this);" id="btnNewsBookmark_@Model.Id">
+                    @if (!Model.BookMarkStatus)
+                    {
+                        <img src="~/images/icon-unbookmark.png" style="width:36px !important;" />
+                    }
+                    else
+                    {
+                        <img src="~/images/icon-bookmark.png" style="width: 36px !important;" />
+                    }
+                </a>
+            </div>
         </div>
+
         <div class="news-container">
 
             <div class="news-container-text">
@@ -134,37 +136,38 @@
         </div>
     }
 
+    <div class="card">
+        <h5 class="card-header">@Translator.GetByKey("Comments") @if (Model.CommentList.HasValue())@Html.Raw("(" + Model.CommentList.Count + ")")</h5>
 
-    @*<a href="" class="oda-title" style="margin-top: 20px;">
-            Yorumlar @if (Model.CommentList.HasValue())@Html.Raw("(" + Model.CommentList.Count + ")")
-        </a>
-        <div class="comment-form mb14 clearfix">
-            <div class="divNotUser">
-                <div class="pull-left mb14">Yorum yazmak için <a href="~/login" class="c-red">üye girişi</a> yapmalısınız.</div>
+        <div class="card-body" style="font-size:14px !important;">
+            <div class="comment-form mb14 clearfix">
+                <div class="divNotUser">
+                    <div class="pull-left mb14">@Translator.GetByKey("ForWriteComment") <a href="~/login" class="c-red">@Translator.GetByKey("UserLogin")</a> @Translator.GetByKey("YouShould").</div>
+                </div>
+                <div class="divUser">
+                    <div class="form-group"><textarea class="form-control vresize" placeholder="Yorumunuz" id="txtComment_@Model.Id" maxlength="200"></textarea></div>
+                    <button class="btn btn-primary pull-right" onclick="SaveComment(@Model.Id);">@Translator.GetByKey("Send")</button>
+                </div>
             </div>
-            <div class="divUser">
-                <div class="form-group"><textarea class="form-control vresize" placeholder="Yorumunuz" id="txtComment_@Model.Id" maxlength="200"></textarea></div>
-                <button class="btn btn-primary pull-right" onclick="SaveComment(@Model.Id);">@Translator.GetByKey("Send")</button>
-            </div>
-        </div>
 
 
-        @if (Model.CommentList.HasValue())
-        {
-            @await Html.PartialAsync("_NewsComment", Model.CommentList)
-
-            @if (Model.CommentsCount > 5)
+            @if (Model.CommentList.HasValue())
             {
-                <button class="btn btn-default btn-block" data-id="@Model.Id" data-total="@Model.CommentsCount" onclick="loadMoreComments(this)">@Translator.GetByKey("LoadMore")</button>
-            }
-        }
-        else
-        {
-            <div>
-                @Translator.GetByKey("EmptyCommentList")
-            </div>
-        }*@
+                @await Html.PartialAsync("_NewsComment", Model.CommentList)
 
+                @if (Model.CommentsCount > 5)
+                {
+                    <button class="btn btn-default btn-block" data-id="@Model.Id" data-total="@Model.CommentsCount" onclick="loadMoreComments(this)">@Translator.GetByKey("LoadMore")</button>
+                }
+            }
+            else
+            {
+                <div>
+                    @Translator.GetByKey("EmptyCommentList")
+                </div>
+            }
+        </div>
+    </div>
     <!-- news block end -->
 
     @if (Model.NewsRelatedNewsList.HasValue())
@@ -211,73 +214,7 @@
             }
         }
 
-        function AddOrDeleteBookmark(_newsId, el) {
-            var isAdd = $(el).find('>i').hasClass('fa-bookmark');
-            console.log(isAdd);
-            console.log($(el));
-            console.log($(el).find('>i'));
-            var param = { 'newsId': _newsId };
-            $.ajax({
-                type: "POST",
-                url: rootPath + (isAdd ? "/add-bookmark" : "/delete-bookmark"),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(param),
-                success: function (result) {
-                    var msg = "";
-                    if (isAdd) {
-                        msg = "@Translator.GetByKey("SaveBookmarkSuccess")";
-                        $(el).find('.fa-bookmark').removeClass('fa-bookmark').addClass('fa-remove');
-                    }
-                    else
-                    {
-                        msg = "@Translator.GetByKey("DeleteBookmarkSuccess")";
-                        $(el).find('.fa-remove').removeClass('fa-remove').addClass('fa-bookmark');
-                    }
-                    swal({
-                        title: msg,
-                        text: "",
-                        icon: "success",
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                        timer: 1000
-                    });
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
-
-         function SaveComment(_newsId) {
-            var content = $('#txtComment_' + _newsId).val();
-            if (content=="") {
-                return;
-            }
-
-            var param = { 'newsId': _newsId, 'content': content };
-            $.ajax({
-                type: "POST",
-                url: rootPath + "/add-comment",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(param),
-                success: function (result) {
-                    $('#txtComment_' + _newsId).val('')
-                    swal({
-                        title: "@Translator.GetByKey("CommentSaveSuccess")",
-                        text: "",
-                        icon: "success",
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                        timer: 2500
-                    });
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
+        
         </script>
     }
 }

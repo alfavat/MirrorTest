@@ -5,6 +5,17 @@
     ViewData["Keywords"] = Model?.SeoKeywords;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+    .card:hover{
+        text-decoration: none;
+    }
+
+    .article-date{
+        font-size: 14px;
+        color: #808080;
+    }
+</style>
 @if (Model != null)
 {
     <section id="main">
@@ -14,47 +25,40 @@
                 <div class="top-banner text-center mb14 hidden-xs"><img src="http://placehold.it/970x250" class="img-responsive m0a"></div>
             *@
 
-            <div class="row mb14">
-                <div class="col-sm-4 col-md-3">
+            <div class="row mt-3">
+                <div class="col-md-3">
 
-                    <div class="author-profile">
-                        <img src="@Model.PhotoFile?.FileName" class="author-picture" alt="@Model.NameSurename">
-                        <div class="author-name">@Model.NameSurename</div>
-                        <div class="author-social">
-                            <a href="@Model.Twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="@Model.Instagram" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="@Model.Web" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a>
-                            <a href="mailto:@Model.Email" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="@Model.PhotoFile?.FileName" alt="@Model.NameSurename" class="rounded-circle" width="150">
+                                <div class="mt-3">
+                                    <h4>@Model.NameSurename</h4>
+                                    <a href="@Model.Twitter" target="_blank"><img src="~/images/icon-twitter.png" style="width:32px;" /></a>
+                                    <a href="@Model.Instagram" target="_blank"><img src="~/images/icon-instagram.png" style="width:32px;" /></a>
+                                    <a href="http://@Model.Web" target="_blank"><img src="~/images/icon-website-48.png" style="width:32px;" /></a>
+                                    <a href="mailto:@Model.Email" target="_blank"><img src="~/images/icon-mail-48.png" style="width:32px;" /></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="clearfix mb14"></div>
-
-
-                    <div class="hidden-xs">
-
-                        <a href="#" class="oda-title">
-                            @Translator.GetByKey("AboutAuthor")
-                        </a>
-
-                        <div class="column-author-list" style="padding:10px;">
-                            @Html.Raw(Model.HtmlBiography)
-
-                            @*<a href="#" class="author-item-link">
-                                    <div class="author-pic-wrapper"><img src="https://placehold.it/60x60" class="author-sm-picture"></div>
-                                    <div class="author-sm-name">İsim Soyisim</div>
-                                    <div class="clearfix"></div>
-                                </a>*@
-                        </div>
-
-                    </div>
+                    <div class="clearfix" style="margin-bottom:50px;"></div>
 
                 </div>
-                <div class="col-sm-8 col-md-9">
+                <div class="col-md-9">
                     <!--right col-->
-
-                    <h1 class="oda-title">
+                    <h5>
+                        @Translator.GetByKey("AboutAuthor")
+                    </h5>
+                    <div>
+                        @Html.Raw(Model.HtmlBiography)
+                    </div>
+                    <div>
+                        <hr />
+                    </div>
+                    <h5>
                         @Translator.GetByKey("AllArticles")
-                    </h1>
+                    </h5>
 
                     <div class="clearfix"></div>
 
@@ -64,14 +68,16 @@
                         {
                             @foreach (var item in Model.ArticleList)
                             {
-                                <a href='@(item.Url)' class="article-item-link br5">
-                                    <div class="article-title">@item.Title</div>
-                                    @if (item.PublishDate.HasValue)
-                                    {
-                                        <div class="article-date">
-                                            @item.PublishDate.Value.ToString("dd/MM/yyyy")
-                                        </div>
-                                    }
+                                <a href="@(item.Url)" class="card mt-1">
+                                    <div class="card-body">
+                                        <div class="article-title">@item.Title</div>
+                                        @if (item.PublishDate.HasValue)
+                                        {
+                                            <div class="article-date">
+                                                @item.PublishDate.Value.ToString("dd/MM/yyyy")
+                                            </div>
+                                        }
+                                    </div>
                                 </a>
                             }
                         }

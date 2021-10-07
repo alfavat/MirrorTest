@@ -3,17 +3,19 @@
 @if (Model.mainPageNews.HasValue())
 {
 <div class="container mb-2">
-    <div class="row">
-        @foreach (var item in Model.mainPageNews)
-        {
+    <div class="col-md-12">
+        <div class="row">
+            @foreach (var item in Model.mainPageNews)
+            {
 
-            <a href="@item.Url" class="col-md-4 news-list">
-                <img src="@item.FileList.Where(x=>x.NewsFileTypeEntityId==(int)Entity.Enums.NewsFileTypeEntities.NormalImage).Select(s=>s.FileName).FirstOrDefault()" alt="@item.Title" />
-                <span class="news-list-title">@item.Title</span>
-                @*<div class="news-cat" style="color: @item.StyleCode !important;">@item.CategoryName</div>
+                <a href="@item.Url" class="col-md-4 news-list">
+                    <img src="@item.FileList.Where(x=>x.NewsFileTypeEntityId==(int)Entity.Enums.NewsFileTypeEntities.NormalImage).Select(s=>s.FileName).FirstOrDefault()" alt="@item.Title" />
+                    <span class="news-list-title">@item.Title</span>
+                    @*<div class="news-cat" style="color: @item.StyleCode !important;">@item.CategoryName</div>
                     <div class="news-sub">@item.ShortDescription</div>*@
-            </a>
-        }
+                </a>
+            }
+        </div>
     </div>
 </div>
 }

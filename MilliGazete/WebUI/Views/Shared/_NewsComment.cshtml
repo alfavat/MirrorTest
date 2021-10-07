@@ -16,7 +16,6 @@
 
         .comment-box span {
             color: #acacac;
-            margin-left: 10px;
             font-size: 14px;
         }
 
@@ -25,7 +24,6 @@
         }
 
         .comment-box i {
-            margin-left: 25px;
             cursor: pointer;
         }
 
@@ -40,13 +38,23 @@
     .like-count {
         font-size: 12px;
     }
+
+
+    .btn-like:hover{
+        text-decoration:none;
+    }
+
+    .btn-unlike:hover {
+        text-decoration: none;
+    }
 </style>
 @if (Model.HasValue())
 {
     @foreach (var comment in Model)
     {
-        <div class="comment-wrapper mb14">
-            <div class="mb14"><span class="comment-name">@comment.User.FirstName @comment.User.LastName</span> <span class="comment-date">@comment.CreatedAt.GetPrettyDate()</span></div>
+        <hr />
+        <div class="comment-wrapper mb14" style="margin-top:20px;">
+            <div class="mb14"><span class="comment-name"><img src="~/images/icons-user.png" style="width:32px !important;" /> @comment.User.FirstName @comment.User.LastName</span> <span class="comment-date">@comment.CreatedAt.GetPrettyDate()</span></div>
             <div class="comment-text">
                 @comment.Content
                 <br />
@@ -54,15 +62,16 @@
                 <div id="divCommentLikeButtons_@comment.Id">
                     @if (!comment.LikeStatus.HasValue || !comment.LikeStatus.Value)
                     {
-                        <a href="javascript:;" onclick="likeComment('@comment.Id' , this , true)"><i class="fa fa-thumbs-o-up"></i> @Translator.GetByKey("Like")</a>
+                        <a href="javascript:;" onclick="likeComment('@comment.Id' , this , true)" class="btn-like"><i class="fa fa-thumbs-o-up"></i> @Translator.GetByKey("Like")</a>
                     }
                     else
                     {
-                        <a href="javascript:;" onclick="likeComment('@comment.Id' , this, false)" class=" text-info"><i class="fa fa-thumbs-o-up"></i> @Translator.GetByKey("Unlike")</a>
+                        <a href="javascript:;" onclick="likeComment('@comment.Id' , this, false)" class="btn-unlike"><i class="fa fa-thumbs-o-up"></i> @Translator.GetByKey("Unlike")</a>
                     }
                 </div>
             </div>
         </div>
+        <hr />
     }
 <script>
         function likeComment(id , el, likeStatus) {

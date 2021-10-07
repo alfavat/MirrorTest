@@ -153,6 +153,9 @@
   <data name="CommentLikeSuccess" xml:space="preserve">
     <value>Yorum Beğenildi</value>
   </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Yorumlar</value>
+  </data>
   <data name="CommentSaveSuccess" xml:space="preserve">
     <value>Yorumun gönderildi. Editör onayından sonra yayınlanacaktır.</value>
   </data>
@@ -206,6 +209,9 @@
   </data>
   <data name="ForgotPasswordSuccess" xml:space="preserve">
     <value>Mail adresinize doğrulama maili gönderildi</value>
+  </data>
+  <data name="ForWriteComment" xml:space="preserve">
+    <value>Yorum yazmak için</value>
   </data>
   <data name="Gallery" xml:space="preserve">
     <value>GALERİ</value>
@@ -393,6 +399,9 @@
   <data name="UpdatePassword" xml:space="preserve">
     <value>Şifre Güncelle</value>
   </data>
+  <data name="UserLogin" xml:space="preserve">
+    <value>üye girişi</value>
+  </data>
   <data name="Video" xml:space="preserve">
     <value>Video</value>
   </data>
@@ -407,5 +416,8 @@
   </data>
   <data name="Wrote" xml:space="preserve">
     <value>yazdı</value>
+  </data>
+  <data name="YouShould" xml:space="preserve">
+    <value>yapmalısınız</value>
   </data>
 </root>
