@@ -231,6 +231,9 @@
   <data name="LastName" xml:space="preserve">
     <value>Soyad</value>
   </data>
+  <data name="Life" xml:space="preserve">
+    <value>Yaşam</value>
+  </data>
   <data name="Like" xml:space="preserve">
     <value>Beğen</value>
   </data>

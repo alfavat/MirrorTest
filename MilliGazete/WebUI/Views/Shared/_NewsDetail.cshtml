@@ -21,7 +21,7 @@
         </ol>
     </nav>
 
-    <h1>@Model.InnerTitle </h1>
+    <h1 style="margin:auto !important;">@Model.InnerTitle </h1>
 
     <h2>@Model.ShortDescription</h2>
     
@@ -54,17 +54,18 @@
         <div class="news-share-bar">
             <div class="news-date"><span>@Model.PublishDate.Value.ToString("dd MMMM dddd yyyy") @Model.PublishTime.Value.ToString().Substring(0, 5)</span></div>
             <div class="news-buttons-wrapper clearfix">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebUIUrl@Model.Url&t=@Model.Title" class="news-button facebook" target="_blank"><img src="~/images/icon-facebook-48.png" style="width:36px !important;" /></a>
-                <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebUIUrl@Model.Url&text=@Model.Title" class="news-button twitter" target="_blank"><img src="~/images/icon-twitter-48.png" style="width:36px !important;" /></a>
-                <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebUIUrl@Model.Url" class="news-button whatsapp" target="_blank"><img src="~/images/icon-whatsapp-48.png" style="width:36px !important;" /></a>
+                <a href="https://news.google.com/publications/CAAqBwgKMKisnAswvLa0Aw?hl=tr&gl=TR&ceid=TR%3Atr" class="news-button google" target="_blank"><img src="~/images/icon-google-news.svg" style="width:130px !important;" /></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=@LayoutModel.WebUIUrl@Model.Url&t=@Model.Title" class="news-button facebook" target="_blank"><img src="~/images/icon-facebook-48.png" style="width:32px !important;" /></a>
+                <a href="https://twitter.com/intent/tweet?url=@LayoutModel.WebUIUrl@Model.Url&text=@Model.Title" class="news-button twitter" target="_blank"><img src="~/images/icon-twitter-48.png" style="width:32px !important;" /></a>
+                <a href="https://api.whatsapp.com/send?text=@LayoutModel.WebUIUrl@Model.Url" class="news-button whatsapp" target="_blank"><img src="~/images/icon-whatsapp-48.png" style="width:32px !important;" /></a>
                 <a href="javascript:;" class="news-button facebook divUser" onclick="AddOrDeleteBookmark(@Model.Id , this);" id="btnNewsBookmark_@Model.Id">
                     @if (!Model.BookMarkStatus)
                     {
-                        <img src="~/images/icon-unbookmark.png" style="width:36px !important;" />
+                        <img src="~/images/icon-unbookmark.png" style="width:32px !important;" />
                     }
                     else
                     {
-                        <img src="~/images/icon-bookmark.png" style="width: 36px !important;" />
+                        <img src="~/images/icon-bookmark.png" style="width: 32px !important;" />
                     }
                 </a>
             </div>

@@ -1,12 +1,12 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');*/
-@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@500&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@500&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400;800&display=swap');
 
 html, body {
     max-width: 100% !important;
 }
 
-body{
-    font-family: 'Merriweather Sans', sans-serif;
+body {
+    font-family: 'Fira Sans Condensed', sans-serif;
     background-color: #efefef;
 }
 
@@ -57,15 +57,15 @@ h1 {
 
 .info-bar{
     background-color: #f7f7f7;
-    min-height: 50px;
+    min-height: 65px;
     border-bottom: 3px solid #dfdfdf;
 }
 
 .city-dropdown{
     background-color: #376284 !important;
     color: #fff !important;
-    height: 50px !important;
-    padding-top: 12px;
+    height: 65px !important;
+    padding-top: 20px;
     width: 130px !important;
     max-width: 130px !important;
     text-align: center;
@@ -92,21 +92,28 @@ h1 {
 .wheather-info{
     padding-top: 10px;
     color: #376284 !important;
-    font-size: 20px !important;
+    font-size: 16px !important;
     border-right: 1px solid #dfdfdf;
-    width: 130px !important;
-    max-width: 130px !important;
+    width: 160px !important;
+    max-width: 160px !important;
+    text-align: center !important;
+}
+
+.wheather-info hr{
+    margin-top:2px !important;
+    margin-bottom:2px !important;
 }
 
 .wheather-info .wi{
-    font-size: 25px !important;
+    font-size: 20px !important;
 }
 
 .finance-box {
     font-size: 13px;
     color: #535863;
     border-right: 1px solid #dfdfdf;
-    padding-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 12px;
     text-align: center;
 }
 
@@ -122,6 +129,7 @@ h1 {
     color: #d91d18;
     font-size: 16px;
     font-weight: bold;
+    padding-top: 10px;
 }
 
 .today-newspaper-box:hover{
@@ -141,8 +149,8 @@ h1 {
 }
 
 .nav-item a{
-    margin-left: 10px;
-    font-size: 19px;
+    margin-left: 20px;
+    font-size: 20px;
     font-weight: bold;
     color: #000 !important;
 }
@@ -352,6 +360,14 @@ h1 {
     background-color: #d91d18 !important;
 }
 
+.swiper-full-width-div, .swiper-full-width-div:hover {
+    width: 38px;
+    height: 38px;
+    color: #fff;
+    text-decoration:none;
+    margin-left: -4px;
+}
+
 .decorated-title{
     margin-top: 20px !important;
     overflow: hidden;
@@ -408,7 +424,7 @@ h1 {
 .author-box {
     text-decoration: none !important;
     text-align: center;
-    border-right: 1px solid #efefef;
+    border-right: 1px dashed #828282;
 }
 
 .author-box img{    
@@ -438,7 +454,130 @@ h1 {
     color: #dc3545 !important;
 }
 
-.main-page-gallery{
+.video-box::after {
+    background: #ED1515;
+    border-radius: 100%;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+    color: white;
+    content: url('../images/icon-play.png');
+    display: block;
+    /*font-family: FontAwesome;*/
+    left: 22px;
+    line-height: 22px;
+    padding: 8px 10px 8px 14px;
+    position: absolute;
+    top: 12px;
+}
+.video-box::before {
+    background: linear-gradient(to bottom, transparent 0px, #000 100%);
+    bottom: 0;
+    content: "";
+    height: 210px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    margin: 0px 10px;
+    width: auto;
+}
+
+.video-box .video-box-description {
+    font-size: 16px;
+    line-height: 26px;
+    padding: 0px 30px 0px 20px;
+    bottom: 20px;
+    position: absolute;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    display: -webkit-box !important;
+}
+
+.video-box-small::after {
+    background: #ED1515;
+    border-radius: 100%;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+    color: white;
+    content: url('../images/icon-play-small.png');
+    display: block;
+    /*font-family: FontAwesome;*/
+    left: 20px;
+    line-height: 14px;
+    padding: 5px 4px 5px 9px;
+    position: absolute;
+    top: 6px;
+}
+
+.video-box-small::before {
+    background: linear-gradient(to bottom, transparent 0px, #000 100%);
+    bottom: 0;
+    content: "";
+    height: 100px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    margin: 0px 10px;
+    width: auto;
+}
+
+.video-box-small .video-box-description {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px 10px 0px 10px;
+    bottom: 20px;
+    position: absolute;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    display: -webkit-box !important;
+}
+
+.photo-box::before {
+    background: linear-gradient(to bottom, transparent 0px, #000 100%);
+    bottom: 0;
+    content: "";
+    height: 120px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    margin: 0px 10px;
+    width: auto;
+    z-index: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.photo-box img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.photo-box:hover img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+
+.photo-box .photo-box-description {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px 10px 0px 10px;
+    bottom: 10px;
+    position: absolute;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    display: -webkit-box !important;
+    z-index: 2;
+}
+
+.main-page-gallery {
     color: #fff !important;
     background-color: #000 !important;
 }
@@ -579,45 +718,67 @@ h1 {
     background-color: #000 !important;
 }
 
-.politics-slider-item{
-    background-color: #1b1b1b !important;
-    width: 100% !important;
-    color: #fff !important
+.politics-slider-wrapper {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.politics-slider-item img {
+    width: 70% !important;
+    height: 300px !important;
+    float: right !important;
+    mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)) !important;
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)) !important;
 }
 
 .politics-slider-item-title {
-    float: right !important;
+    color: #fff !important;
+    float: left !important;
     width: 60% !important;
-    top: 30% !important;
+    top: 25% !important;
     margin: 0;
     position: absolute;
-    left: 40% !important;
     font-size: 40px !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 3 !important;
+    -webkit-line-clamp: 2 !important;
     display: -webkit-box !important;
 }
 
-@media (max-width : 1200px) {
-    .politics-slider-item-title{
-        font-size: 15px !important;
-    }
+.swiper-pagination-bottom2 {
+    position: absolute !important;
+    width: 30px;
+    margin-left:-20px;
 }
 
-.politics-slider-item img{
-    width: 50% !important;
-    max-height:330px !important;
-    float: left !important;
-    mask-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0)) !important;
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0)) !important;
+.swiper-container-bottom2 .swiper-pagination-bullet {
+    top: 0 !important;
+    width: 40px;
+    height: 24px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10%;
+    text-align: center;
+    padding-left: 4px;
 }
 
-.bg-author{
+.swiper-bottom2-full-width-div, .swiper-bottom2-full-width-div:hover {
+    width: 40px;
+    height: 24px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    margin-left: -4px;
+}
+
+.bg-author {
     background-color: #fff !important;
     margin-top: 20px !important;
-    padding-bottom: 20px !important ;
+    padding-bottom: 20px !important;
 }
 
 .bg-actual{

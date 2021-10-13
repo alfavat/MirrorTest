@@ -15,7 +15,7 @@ namespace WebUI.ViewComponents
 
         public async Task<ViewViewComponentResult> InvokeAsync()
         {
-            var result = await _mainPageRepository.GetTopVideoNews(4);
+            var result = await _mainPageRepository.GetTopVideoNews(3);
             if (result.DataResultIsNotNull())
             {
                 return View(result.Data);

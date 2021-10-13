@@ -68,7 +68,8 @@
                 el: '.swiper-pagination-main',
                 clickable: true,
                 renderBullet: function (index, className) {
-                    return '<span class="' + className + '">' + (index + 1) + '</span>';
+                    var url = document.getElementById("mainSlider_" + (index + 1)).getAttribute("href");
+                    return '<div class="' + className + '"><div class="swiper-full-width-div" onclick="gotoUrl(\'' + url + '\');">' + (index + 1) + '</div></div>';
                 },
             },
             autoplay: {
@@ -80,5 +81,9 @@
         $('.swiper-pagination-bullet').hover(function () {
             $(this).trigger("click");
         });
+
+        function gotoUrl(_url) {
+            window.location.href = _url;
+        }
     </script>
 }

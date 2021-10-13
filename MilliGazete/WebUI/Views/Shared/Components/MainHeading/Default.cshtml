@@ -2,11 +2,15 @@
 
     <div class="swiper-container swiper-container-main">
         <div class="swiper-wrapper">
+            @{ 
+                var i = 1;
+            }
             @if (Model.HasValue())
             {
                 @foreach (var item in Model)
                 {
-                    <a href="@item.Url" class="swiper-slide"><img src="@item.ImageUrl" class="img-fluid" style="width: 730px !important; height: auto !important;" /></a>
+                    <a href="@item.Url" id="mainSlider_@i" class="swiper-slide"><img src="@item.ImageUrl" class="img-fluid" style="width: 730px !important; height: auto !important;" /></a>
+                    i++;
                 }
             }
         </div>

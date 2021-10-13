@@ -75,7 +75,8 @@
                 el: '.swiper-pagination-main',
                 clickable: true,
                 renderBullet: function (index, className) {
-                    return '<span class="' + className + '">' + (index + 1) + '</span>';
+                    var url = document.getElementById("mainSlider_" + (index + 1)).getAttribute("href");
+                    return '<div class="' + className + '"><div class="swiper-full-width-div" onclick="gotoUrl(\'' + url+'\');">' + (index + 1) + '</div></div>';
                 },
             },
             autoplay: {
@@ -133,6 +134,8 @@
         });
 
         var swiper_bottom2 = new Swiper('.swiper-container-bottom2', {
+            direction: 'vertical',
+            slidesPerView: 1,
             loop: true,
             navigation: {
                 nextEl: '.swiper-button-next-bottom2',
@@ -140,10 +143,14 @@
             },
             pagination: {
                 el: '.swiper-pagination-bottom2',
-                clickable: true
+                clickable: true,
+                renderBullet: function (index, className) {
+                    var url = document.getElementById("politicsSlider_" + (index + 1)).getAttribute("href");
+                    return '<div class="' + className + '"><div class="swiper-bottom2-full-width-div" onclick="gotoUrl(\'' + url + '\');">' + (index + 1) + '</div></div>';
+                },
             },
             autoplay: {
-                delay: 8000,
+                delay: 5000,
                 disableOnInteraction: false,
             },
         });
@@ -151,6 +158,10 @@
         $('.swiper-pagination-bullet').hover(function () {
             $(this).trigger("click");
         });
+
+        function gotoUrl(_url) {
+            window.open(_url, '_blank');
+        }
 
         jQuery(document).ready(function ($) {
             $('.breaking-news-ticker').AcmeTicker({

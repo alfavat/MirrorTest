@@ -2,32 +2,24 @@
 
 @if (Model != null && Model.Count > 0)
 {
-<div class="main-page-gallery-title">
-    @Translator.GetByKey("Photo")
-</div>
 
-    <a href="@Model[0].Url">
-        <img src="@Model[0].ImageUrl" alt="@Model[0].Title">
-        <div class="main-page-item-title">
-            @Model[0].Title
-        </div>
-    </a>
+    <div class="decorated-title" style="margin-bottom:10px;">
+        @Translator.GetByKey("Photo")
+    </div>
 
     <div class="row">
-
-        @{ int i = 0;}
-        @foreach (var item in Model)
-        {
-            if (i>0)
-            {
-                <a href="@item.Url" class="col-md-4">
-                    <img src="@item.ImageUrl" alt="@item.Title">
-                    <div class="main-page-item-title small">
-                        @item.Title
-                    </div>
-                </a>
-            }
-            i = i + 1;
-        }
+        <div class="col-md-12">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <a href="@item.Url" class="col-md-6 photo-box" target="_blank">
+                        <img src="@item.ImageUrl" />
+                        <div class="photo-box-description">
+                            @item.Title
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
     </div>
 }
