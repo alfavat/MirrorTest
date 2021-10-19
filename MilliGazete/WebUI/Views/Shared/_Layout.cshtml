@@ -38,7 +38,7 @@
 
     <!-- Header -->
     <div class="div-logo">
-        <a href="~/"><img src="~/images/logo-white.png" class="img-fluid" style="width: 30%;" alt="@Translator.GetByKey("ProjectName")" /></a>
+        <a href="~/"><img src="~/images/logo-white.png" class="img-fluid" alt="@Translator.GetByKey("ProjectName")" /></a>
     </div>
     <div class="info-bar">
         <div class="container visible-desktop">
@@ -47,7 +47,9 @@
                     <a href="javascript:;">İSTANBUL <i class="fa fa-angle-down"></i></a>
                 </div>
                 <div class="col-md-2 wheather-info">
-                    <i class="wi wi-day-cloudy text-bold"></i> 13 &#8451;
+                    <i class="wi wi-day-cloudy text-bold"></i> <b>13 &#8451;</b>
+                    <hr />
+                    <i class="fa fa-mosque"></i> Akşama <span class="badge badge-dark">28 dk</span>
                 </div>
                 <!--<div>
                   <i class="fa fa-mosque"></i>
@@ -80,18 +82,20 @@
         </div>
         <div class="container visible-mobile">
             <div class="row">
-                <div class="col-4 city-dropdown" style="width: 100% !important;max-width: 100% !important;">
+                <div class="col-4 city-dropdown" style="height:90px !important; width: 100% !important;max-width: 100% !important; padding-top:35px !important;">
                     <a href="javascript:;">İSTANBUL <i class="fa fa-angle-down"></i></a>
                 </div>
-                <div class="col-4 wheather-info" style="background-color: #eee !important;width: 100% !important;max-width: 100% !important;text-align: center;">
+                <div class="col-4 wheather-info" style="background-color: #eee !important; width: 100% !important; max-width: 100% !important; text-align: center;">
                     <i class="wi wi-day-cloudy text-bold"></i> 13 &#8451;
+                    <hr />
+                    <i class="fa fa-mosque"></i> Akşama <span class="badge badge-dark">28 dk</span>
                 </div>
-                <a href="javascript:;" class="col-4 today-newspaper-box" style="background-color: #e1e1e1 !important;font-size:13px !important;text-align: center;">
+                <a href="javascript:;" class="col-4 today-newspaper-box" style="background-color: #e1e1e1 !important; font-size: 13px !important; text-align: center; padding-top: 25px !important;">
                     @Html.Raw(Translator.GetByKey("TodaysNewspaper"))
                 </a>
             </div>
             <div class="row">
-                <div class="col-3 finance-box">
+                <div class="col-3 finance-box" style="border-left: 1px solid #dfdfdf !important;">
                     <i class="fa fa-chart-bar"></i> BIST <i class="fa fa-sort-down text-danger"></i>
                     <div class="finance-number">1.441,33</div>
                 </div>

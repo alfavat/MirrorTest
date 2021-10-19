@@ -2,35 +2,41 @@
 
 @if (Model.HasValue())
 {
-    <div class="main-page-gallery-title">
+    <div class="decorated-title" style="margin-bottom:10px;">
         @Translator.GetByKey("Video")
     </div>
 
-    <a href="@Model[0].Url">
-        <img src="@Model[0].VideoCoverImageUrl" alt="@Model[0].Title">
-        <div class="play-button"></div>
-        <div class="main-page-item-title">
-            @Model[0].Title
-        </div>
-    </a>
-
     <div class="row">
-        @{ int i = 0;}
-        @foreach (var item in Model)
-        {
-            if (i > 0)
-            {
-                <a href="@item.Url" class="col-md-4">
-                    <img src="@item.VideoCoverImageUrl" alt="@item.Title">
-                    <div class="play-button-small"></div>
-                    <div class="main-page-item-title small">
-                        @item.Title
-                    </div>
-                </a>
-            }
-            i = i + 1;
-        }
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <a href="@Model[0].Url" class="video-box" style="height: 230px; background: rgb(40, 40, 40) url('@Model[0].VideoCoverImageUrl') no-repeat scroll center center; background-size: cover;" target="_blank">
+                        <div class="video-box-description">
+                            @Model[0].Title
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    @{ int i = 0;}
+                    @foreach (var item in Model)
+                    {
+                        if (i > 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="@item.Url" class="video-box-small" style="height: 110px; background: rgb(40, 40, 40) url('@item.VideoCoverImageUrl') no-repeat scroll center center; background-size: cover;" target="_blank">
+                                        <div class="video-box-description">
+                                            @item.Title
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        i = i + 1;
+                    }
 
+                </div>
+            </div>
+        </div>
     </div>
-
 }
