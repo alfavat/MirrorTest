@@ -16,6 +16,7 @@ namespace Entity.Dtos
         public string SeoDescription { get; set; }
         public string InnerTitle { get; set; }
         public string Url { get; set; }
+        public string ExternalLink { get; set; }
         public DateTime? PublishDate { get; set; }
         public TimeSpan? PublishTime { get; set; }
 
@@ -34,5 +35,6 @@ namespace Entity.Dtos
         public List<NewsPropertyDto> NewsPropertyList { get; set; }
         public List<MainPageRelatedNewsDto> NewsRelatedNewsList { get; set; }
         public List<NewsTagDto> NewsTagList { get; set; }
+        public int? HistoryNo { get; set; }
     }
 }

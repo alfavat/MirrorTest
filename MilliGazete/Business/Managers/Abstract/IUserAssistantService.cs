@@ -16,5 +16,6 @@ namespace Business.Managers.Abstract
         Task Update(User user);
         List<int> GetPassiveUsers();
         List<UserViewDto> GetListByPaging(UserPagingDto pagingDto, out int total);
+        Task<User> AddWithCliams(User user, int[] defaultUserOperationClaims);
     }
 }

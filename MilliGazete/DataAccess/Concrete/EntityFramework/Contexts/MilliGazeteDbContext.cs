@@ -1078,7 +1078,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.NewsHitComeFromEntityId).HasColumnName("news_hit_come_from_entity_id");
 
-                entity.Property(e => e.NewsId).HasColumnName(" news_id");
+                entity.Property(e => e.NewsId).HasColumnName("news_id");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 

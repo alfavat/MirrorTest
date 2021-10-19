@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Downloads\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
   </ItemGroup>
 

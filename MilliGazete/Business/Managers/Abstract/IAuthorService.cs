@@ -13,5 +13,6 @@ namespace Business.Managers.Abstract
         Task<IResult> Delete(int authorId);
         Task<IDataResult<List<AuthorDto>>> GetList();
         Task<IDataResult<AuthorWithDetailsDto>> GetByName(string nameSurename);
+        Task<IDataResult<AuthorWithDetailsDto>> GetByUrl(string url);
     }
 }

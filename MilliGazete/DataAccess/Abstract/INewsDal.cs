@@ -11,9 +11,13 @@ namespace DataAccess.Abstract
 {
     public interface INewsDal : IEntityRepository<News>
     {
+        Task<Tuple<List<NewsDetailPageDto>, int>> GetNewsWithDetailsByPaging(MainPageNewsPagingDto pagingDto, int? requestedUserId = null);
+        Task<List<MostViewedNewsDto>> GetLastWeekMostViewedNews(int limit);
+        Task<List<MostSharedNewsDto>> GetMostShareNewsList(int limit);
+        Task<NewsDetailPageDto> GetNewsWithDetails(string url, int? id = null, bool preview = false, int? requestedUserId = null);
         Task AddNewsWithDetails(News news, List<NewsCategory> categories, List<NewsFile> files,
-            List<NewsPosition> positions, List<NewsProperty> properties,
-            List<NewsRelatedNews> newsRelatedNews, List<NewsTag> tags);
+          List<NewsPosition> positions, List<NewsProperty> properties,
+          List<NewsRelatedNews> newsRelatedNews, List<NewsTag> tags, bool isAdd);
         Task<List<DashboardChartDataDto>> GetDashboardChartData(DateTime fromDate);
         Task<News> GetView(Expression<Func<News, bool>> filter = null);
         Task<DashboardStatisticsDto> GetDashboardStatistics();

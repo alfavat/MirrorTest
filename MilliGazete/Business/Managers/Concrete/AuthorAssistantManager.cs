@@ -54,7 +54,7 @@ namespace Business.Managers.Concrete
                 {
                     var article = await _newsDal.GetActiveList().Where(f => f.AuthorId == item.Id)
                         .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
-                        .Select(f => new { f.AuthorId, f.Title, Url = f.GetUrl(), f.PublishDate })
+                        .Select(t => new { t.AuthorId, t.Title, Url = t.Url.GetUrl(t.HistoryNo, t.NewsTypeEntityId, t.NewsCategories.Select(e => e.Category.Url).FirstOrDefault()), t.PublishDate })
                         .OrderByDescending(f => f.PublishDate).FirstOrDefaultAsync();
                     if (article != null)
                     {
@@ -75,7 +75,7 @@ namespace Business.Managers.Concrete
             var item = _mapper.Map<AuthorDto>(data);
             var article = await _newsDal.GetActiveList().Where(f => f.AuthorId == item.Id)
                         .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
-                        .Select(f => new { f.AuthorId, f.Title, Url = f.GetUrl(), f.PublishDate })
+                        .Select(t => new { t.AuthorId, t.Title, Url = t.Url.GetUrl(t.HistoryNo, t.NewsTypeEntityId, t.NewsCategories.Select(e => e.Category.Url).FirstOrDefault()), t.PublishDate })
                         .OrderByDescending(f => f.PublishDate).FirstOrDefaultAsync();
             if (article != null)
             {
@@ -89,6 +89,23 @@ namespace Business.Managers.Concrete
         public async Task<AuthorWithDetailsDto> GetViewByName(string nameSurename)
         {
             var data = await _authorDal.GetList(p => !p.Deleted && p.NameSurename.ToLower().Trim() == nameSurename.ToLower().Trim())
+                .Include(f => f.FeaturedImageFile)
+                .Include(f => f.PhotoFile)
+                .FirstOrDefaultAsync();
+            var item = _mapper.Map<AuthorWithDetailsDto>(data);
+            var articles = _newsDal.GetActiveList().Where(f => f.AuthorId == item.Id)
+                        .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                        .OrderByDescending(f => f.PublishDate);
+            if (articles != null)
+            {
+                item.ArticleList = await _mapper.ProjectTo<ArticleDto>(articles).ToListAsync();
+            }
+            return item;
+        }
+
+        public async Task<AuthorWithDetailsDto> GetViewByUrl(string url)
+        {
+            var data = await _authorDal.GetList(p => !p.Deleted && p.Url.ToLower().Trim() == url.ToLower().Trim())
                 .Include(f => f.FeaturedImageFile)
                 .Include(f => f.PhotoFile)
                 .FirstOrDefaultAsync();

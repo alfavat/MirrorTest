@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using OneSignal.RestAPIv3.Client;
 using OneSignal.RestAPIv3.Client.Resources.Notifications;
 using System;
+using System.Threading.Tasks;
 
 namespace Core.Notifications
 {
@@ -19,7 +20,7 @@ namespace Core.Notifications
         {
             _configuration = configuration;
         }
-        public IResult SendNotification(NotificationCreateOptions options)
+        public async Task<IResult> SendNotification(NotificationCreateOptions options)
         {
             try
             {
@@ -27,12 +28,12 @@ namespace Core.Notifications
                 var client = new OneSignalClient(appSettings.ApiKey);
                 options.AppId = new Guid(appSettings.AppId);
                 options.Priority = 10;
-                var result = client.Notifications.Create(options);
+                var result = await client.Notifications.CreateAsync(options);
                 return new SuccessResult(JsonConvert.SerializeObject(result));
             }
             catch (Exception ex)
             {
-                return new ErrorResult(ex.Message);
+                return new ErrorResult(ex.Message + (ex.InnerException == null ? "" : ex.InnerException.Message));
             }
         }
     }

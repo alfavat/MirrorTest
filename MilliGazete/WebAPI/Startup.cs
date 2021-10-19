@@ -9,6 +9,7 @@ using Core.Utilities.IoC;
 using Core.Utilities.Security.Encyption;
 using Core.Utilities.Security.Jwt;
 using DataAccess.Concrete.EntityFramework.Contexts;
+using Entity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -92,7 +93,7 @@ namespace WebAPI
             {
                 new CoreModule()
             });
-
+            EntityServiceTool.Create(services);
             var profiles = typeof(AutoMapperConfiguration).Assembly.GetTypes().Where(x => typeof(Profile).IsAssignableFrom(x));
             foreach (var profile in profiles)
             {

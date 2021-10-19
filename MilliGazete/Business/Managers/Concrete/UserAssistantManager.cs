@@ -88,5 +88,10 @@ namespace Business.Managers.Concrete
         {
             await _userDal.AddUserClaim(claim);
         }
+        public async Task<User> AddWithCliams(User user, int[] defaultUserOperationClaims)
+        {
+            return await _userDal.AddWithCliams(user, defaultUserOperationClaims);
+        }
+
     }
 }

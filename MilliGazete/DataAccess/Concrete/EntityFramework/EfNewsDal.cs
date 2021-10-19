@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -17,6 +18,353 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public EfNewsDal(MilliGazeteDbContext milligazeteDb) : base(milligazeteDb)
         {
+        }
+        private string GetUrl2(int? NewsTypeEntityId, string Url, int? HistoryNo, string CategoryUrl)
+        {
+
+            if (NewsTypeEntityId == (int)NewsTypeEntities.Article)
+            {
+                return "/makale/" + Url + "-" + HistoryNo.ToString();
+            }
+            return "/" + CategoryUrl + "/" + Url + "-" + HistoryNo.ToString();
+        }
+
+        public async Task<Tuple<List<NewsDetailPageDto>, int>> GetNewsWithDetailsByPaging(MainPageNewsPagingDto pagingDto, int? requestedUserId = null)
+        {
+            DateTime fromDate = DateTime.Now.AddDays(-30);
+            var query = GetActiveList();
+
+            if (pagingDto.Query.StringNotNullOrEmpty())
+                query = query.Where(f => f.Title.Contains(pagingDto.Query));
+
+            if (!pagingDto.NewsId.HasValue)
+            {
+                var historyNo = pagingDto.Url.GetHistoryNoFromUrl();
+                pagingDto.NewsId = await query.Where(g => g.HistoryNo == historyNo).Select(f => f.Id).FirstOrDefaultAsync();
+            }
+            if (query != null)
+            {
+                if (pagingDto.NewsId.HasValue)
+                {
+                    var tagIds = Db.NewsTags.Where(f => f.NewsId == pagingDto.NewsId.Value).Select(y => y.TagId);
+                    var tagNewsIds = Db.NewsTags.Where(f => tagIds.Contains(f.TagId) && f.NewsId != pagingDto.NewsId.Value).Select(f => f.NewsId);
+
+                    var categoryIds = Db.NewsCategories.Where(f => f.NewsId == pagingDto.NewsId.Value).Select(y => y.CategoryId);
+                    var categoryNewsIds = Db.NewsCategories.Where(f => categoryIds.Contains(f.CategoryId) && f.NewsId != pagingDto.NewsId.Value).Select(f => f.NewsId);
+
+                    var relatedNewsIds = Db.NewsRelatedNews.Where(f => f.NewsId == pagingDto.NewsId.Value).Select(u => u.NewsId);
+                    query = query.Where(f => f.PublishDate >= fromDate && (relatedNewsIds.Contains(f.Id) || tagNewsIds.Contains(f.Id) || categoryNewsIds.Contains(f.Id)) && f.Id != pagingDto.NewsId.Value);
+                }
+                var list = await query.OrderBy(pagingDto.OrderBy).Skip((pagingDto.PageNumber - 1) * pagingDto.Limit.CheckLimit()).Take(pagingDto.Limit.CheckLimit())
+                    .Select(f => new NewsDetailPageDto
+                    {
+                        HtmlContent = f.HtmlContent,
+                        Id = f.Id,
+                        InnerTitle = f.InnerTitle,
+                        NewsAgencyEntityId = f.NewsAgencyEntityId,
+                        NewsTypeEntityId = f.NewsTypeEntityId,
+                        PublishDate = f.PublishDate,
+                        PublishTime = f.PublishTime,
+                        SeoDescription = f.SeoDescription,
+                        SeoKeywords = f.SeoKeywords,
+                        SeoTitle = f.SeoTitle,
+                        ShortDescription = f.ShortDescription,
+                        SocialDescription = f.SocialDescription,
+                        SocialTitle = f.SocialTitle,
+                        Title = f.Title,
+                        Url = f.Url,
+                        UserId = f.AddUserId,
+                        HistoryNo = f.HistoryNo,
+                        BookMarkStatus = requestedUserId.HasValue && f.NewsBookmarks.Any(f => f.UserId == requestedUserId)
+                    }).ToListAsync();
+                if (list.Any())
+                {
+                    foreach (var item in list)
+                    {
+                        if (item != null)
+                        {
+                            var relatedNewsList = await Db.NewsRelatedNews.Where(f => f.NewsId == item.Id).Select(f => new MainPageRelatedNewsDto
+                            {
+                                RelatedNewsId = f.RelatedNewsId,
+                                RelatedNews = new MainPageRelatedNewsDetailsDto
+                                {
+                                    Id = f.RelatedNewsId,
+                                    Thumbnail = f.RelatedNews.NewsFiles.Any(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage) ?
+                                        f.RelatedNews.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.FileName.GetFullFilePath() : "".GetDefaultImageUrl(),
+                                    Title = f.RelatedNews.Title,
+                                    Url = f.RelatedNews.Url,
+                                    HistoryNo = f.RelatedNews.HistoryNo,
+                                    NewsTypeEntityId = f.RelatedNews.NewsTypeEntityId
+                                }
+                            }).ToListAsync();
+
+                            var newsIds = new List<int> { item.Id };
+                            if (relatedNewsList.Any())
+                            {
+                                newsIds.AddRange(relatedNewsList.Select(h => h.RelatedNewsId).ToList());
+                            }
+
+                            var categories = Db.NewsCategories.AsNoTracking().Where(f => newsIds.Contains(f.NewsId))
+                                        .Select(f => new { f.NewsId, f.CategoryId, CategoryUrl = f.Category.Url });
+
+                            var positions = Db.NewsPositions.AsNoTracking().Where(f => newsIds.Contains(f.NewsId))
+                                            .Select(f => new { f.NewsId, f.PositionEntityId });
+
+                            if (relatedNewsList.Any())
+                            {
+                                relatedNewsList.ForEach(f =>
+                                {
+                                    f.RelatedNews.Url = GetUrl2(f.RelatedNews.NewsTypeEntityId, f.RelatedNews.Url,
+                                f.RelatedNews.HistoryNo, categories.Where(r => r.NewsId == f.RelatedNewsId).Select(g => g.CategoryUrl).FirstOrDefault());
+                                });
+                            }
+
+
+                            item.Url = GetUrl2(item.NewsTypeEntityId, item.Url,
+                                item.HistoryNo, categories.Where(r => r.NewsId == item.Id).Select(g => g.CategoryUrl).FirstOrDefault());
+
+                            var files = await Db.NewsFiles.Where(f => f.NewsId == item.Id).Select(f => new MainPageNewsFileDto
+                            {
+                                CoverFileName = f.VideoCoverFile == null ? "" : f.VideoCoverFile.FileName,
+                                Description = f.Description,
+                                FileName = f.File.FileName,
+                                NewsFileTypeEntityId = f.NewsFileTypeEntityId,
+                                Order = f.Order,
+                                Title = f.Title
+                            }).OrderBy(t => t.Order).ToListAsync();
+                            if (files.Any())
+                            {
+                                files.ForEach(f =>
+                                {
+                                    f.CoverFileName = f.CoverFileName.GetFullFilePath();
+                                    f.FileName = f.FileName.GetFullFilePath();
+                                });
+                            }
+                            var tags = await Db.NewsTags.Where(f => f.NewsId == item.Id).Select(f => new NewsTagDto
+                            {
+                                TagId = f.TagId,
+                                TagName = f.Tag.TagName,
+                                Url = f.Tag.Url
+                            }).ToListAsync();
+
+                            item.NewsFileList = files;
+                            item.NewsRelatedNewsList = relatedNewsList;
+                            item.NewsTagList = tags;
+                            var categryIds = categories.Where(g => g.NewsId == item.Id).Select(g => g.CategoryId).ToList();
+                            item.NewsCategoryList = await Db.Categories.Where(f => categryIds.Contains(f.Id)).Select(f => new CategoryDto
+                            {
+                                CategoryName = f.CategoryName,
+                                Id = f.Id,
+                                StyleCode = f.StyleCode,
+                                Url = f.Url
+                            }).ToListAsync();
+                        }
+                    }
+                }
+                var total = query.Count();
+                return new Tuple<List<NewsDetailPageDto>, int>(list, total);
+            }
+            return null;
+        }
+
+        public async Task<NewsDetailPageDto> GetNewsWithDetails(string url, int? id = null, bool preview = false, int? requestedUserId = null)
+        {
+            var query = preview ? Db.News.AsNoTracking().Where(f => !f.Deleted) : GetActiveList();
+            NewsDetailPageDto item = null;
+            if (id.HasValue)
+            {
+                query = query.Where(f => f.Id == id.Value);
+            }
+            else
+            {
+                var historyNo = url.GetHistoryNoFromUrl();
+                query = query.Where(f => f.HistoryNo == historyNo);
+            }
+            if (query != null)
+            {
+                item = await query.Select(f => new NewsDetailPageDto
+                {
+                    HtmlContent = f.HtmlContent,
+                    Id = f.Id,
+                    InnerTitle = f.InnerTitle,
+                    NewsAgencyEntityId = f.NewsAgencyEntityId,
+                    NewsTypeEntityId = f.NewsTypeEntityId,
+                    PublishDate = f.PublishDate,
+                    PublishTime = f.PublishTime,
+                    SeoDescription = f.SeoDescription,
+                    SeoKeywords = f.SeoKeywords,
+                    SeoTitle = f.SeoTitle,
+                    ShortDescription = f.ShortDescription,
+                    SocialDescription = f.SocialDescription,
+                    SocialTitle = f.SocialTitle,
+                    Title = f.Title,
+                    Url = f.Url,
+                    UserId = f.AddUserId,
+                    HistoryNo = f.HistoryNo,
+                    BookMarkStatus = requestedUserId.HasValue && f.NewsBookmarks.Any(f => f.UserId == requestedUserId)
+                }).FirstOrDefaultAsync();
+
+                if (item != null)
+                {
+                    var relatedNewsList = await Db.NewsRelatedNews.Where(f => f.NewsId == item.Id).Select(f => new MainPageRelatedNewsDto
+                    {
+                        RelatedNewsId = f.RelatedNewsId,
+                        RelatedNews = new MainPageRelatedNewsDetailsDto
+                        {
+                            Id = f.RelatedNewsId,
+                            Thumbnail = f.RelatedNews.NewsFiles.Any(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage) ?
+                                f.RelatedNews.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.FileName.GetFullFilePath() : "".GetDefaultImageUrl(),
+                            Title = f.RelatedNews.Title,
+                            Url = f.RelatedNews.Url,
+                            HistoryNo = f.RelatedNews.HistoryNo,
+                            NewsTypeEntityId = f.RelatedNews.NewsTypeEntityId
+                        }
+                    }).ToListAsync();
+
+                    var newsIds = new List<int> { item.Id };
+                    if (relatedNewsList.Any())
+                    {
+                        newsIds.AddRange(relatedNewsList.Select(h => h.RelatedNewsId));
+                    }
+
+                    var categories = Db.NewsCategories.AsNoTracking().Where(f => newsIds.Contains(f.NewsId))
+                                .Select(f => new { f.NewsId, f.CategoryId, CategoryUrl = f.Category.Url });
+
+                    var positions = Db.NewsPositions.AsNoTracking().Where(f => newsIds.Contains(f.NewsId))
+                                    .Select(f => new { f.NewsId, f.PositionEntityId });
+
+                    if (relatedNewsList.Any())
+                    {
+                        relatedNewsList.ForEach(f =>
+                        {
+                            f.RelatedNews.Url = GetUrl2(f.RelatedNews.NewsTypeEntityId, f.RelatedNews.Url,
+                        f.RelatedNews.HistoryNo, categories.Where(r => r.NewsId == f.RelatedNewsId).Select(g => g.CategoryUrl).FirstOrDefault());
+                        });
+                    }
+
+                    item.Url = GetUrl2(item.NewsTypeEntityId, item.Url,
+                        item.HistoryNo, categories.Where(r => r.NewsId == item.Id).Select(g => g.CategoryUrl).FirstOrDefault());
+
+                    var files = await Db.NewsFiles.Where(f => f.NewsId == item.Id).Select(f => new MainPageNewsFileDto
+                    {
+                        CoverFileName = f.VideoCoverFile == null ? "" : f.VideoCoverFile.FileName,
+                        Description = f.Description,
+                        FileName = f.File.FileName,
+                        NewsFileTypeEntityId = f.NewsFileTypeEntityId,
+                        Order = f.Order,
+                        Title = f.Title
+                    }).OrderBy(t => t.Order).ToListAsync();
+                    if (files.Any())
+                    {
+                        files.ForEach(f =>
+                        {
+                            f.CoverFileName = f.CoverFileName.GetFullFilePath();
+                            f.FileName = f.FileName.GetFullFilePath();
+                        });
+                    }
+                    var tags = await Db.NewsTags.Where(f => f.NewsId == item.Id).Select(f => new NewsTagDto
+                    {
+                        TagId = f.TagId,
+                        TagName = f.Tag.TagName,
+                        Url = f.Tag.Url
+                    }).ToListAsync();
+
+                    item.NewsFileList = files;
+                    item.NewsRelatedNewsList = relatedNewsList;
+                    item.NewsTagList = tags;
+
+                    var categryIds = categories.Where(g => g.NewsId == item.Id).Select(g => g.CategoryId).ToList();
+                    item.NewsCategoryList = await Db.Categories.Where(f => categryIds.Contains(f.Id)).Select(f => new CategoryDto
+                    {
+                        CategoryName = f.CategoryName,
+                        Id = f.Id,
+                        StyleCode = f.StyleCode,
+                        Url = f.Url
+                    }).ToListAsync();
+                }
+            }
+
+            return item;
+        }
+
+
+        public async Task<List<MostSharedNewsDto>> GetMostShareNewsList(int limit)
+        {
+            DateTime start = DateTime.Now.AddDays(-1);
+
+            var query = await GetActiveList().Where(f => f.PublishDate >= start).Select(f => new
+            {
+                Id = f.Id,
+                ShortDescription = f.ShortDescription,
+                Title = f.Title,
+                Url = f.Url,
+                HistoryNo = f.HistoryNo,
+                NewsTypeEntityId = f.NewsTypeEntityId,
+                AuthorNameSurename = f.Author.NameSurename,
+                ShareCount = f.NewsCounters.Where(u => u.CounterEntityId == (int)NewsCounterEntities.TotalShareCount).Select(r => r.Value).FirstOrDefault() ?? 0
+            }).OrderByDescending(f => f.ShareCount).ThenByDescending(f => f.Id).Take(limit.CheckLimit()).ToListAsync();
+
+            var newsIds = query.Select(f => f.Id).Distinct();
+
+            var files = await Db.NewsFiles.AsNoTracking().Where(f => newsIds.Contains(f.NewsId) && f.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage)
+               .Select(f => new { f.NewsId, FileName = f.File.FileName.GetFullFilePath() }).ToListAsync();
+
+            var categories = await Db.NewsCategories.AsNoTracking().Where(f => newsIds.Contains(f.NewsId))
+                .Select(f => new { f.NewsId, CategoryUrl = f.Category.Url }).ToListAsync();
+
+            var positions = await Db.NewsPositions.AsNoTracking().Where(f => newsIds.Contains(f.NewsId))
+                .Select(f => new { f.NewsId, f.PositionEntityId }).ToListAsync();
+
+
+            return query.Select(u => new MostSharedNewsDto
+            {
+                ImageUrl = files.Where(t => t.NewsId == u.Id).Select(g => g.FileName).FirstOrDefault() ?? "".GetDefaultImageUrl(),
+                Url = GetUrl2(u.NewsTypeEntityId, u.Url, u.HistoryNo,
+                 categories.Where(t => t.NewsId == u.Id).Select(g => g.CategoryUrl).FirstOrDefault()),
+                Id = u.Id,
+                ShortDescription = u.ShortDescription,
+                Title = u.Title,
+                ShareCount = u.ShareCount
+            }).ToList();
+        }
+
+        public async Task<List<MostViewedNewsDto>> GetLastWeekMostViewedNews(int limit)
+        {
+            DateTime start = DateTime.Now.AddDays(-1);
+
+            var query = await GetActiveList().Where(f => f.PublishDate >= start).Select(f => new
+            {
+                Id = f.Id,
+                ShortDescription = f.ShortDescription,
+                Title = f.Title,
+                Url = f.Url,
+                HistoryNo = f.HistoryNo,
+                NewsTypeEntityId = f.NewsTypeEntityId,
+                ViewCount = f.NewsHitDetails.Count()
+            }).OrderByDescending(f => f.ViewCount).Take(limit.CheckLimit()).ToListAsync();
+
+            var newsIds = query.Select(f => f.Id).Distinct();
+
+            var files = await Db.NewsFiles.AsNoTracking().Where(f => newsIds.Contains(f.NewsId) && f.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage)
+                .Select(f => new { f.NewsId, FileName = f.File.FileName.GetFullFilePath() }).ToListAsync();
+
+            var categories = await Db.NewsCategories.AsNoTracking().Where(f => newsIds.Contains(f.NewsId))
+                .Select(f => new { f.NewsId, CategoryUrl = f.Category.Url }).ToListAsync();
+
+            var positions = await Db.NewsPositions.AsNoTracking().Where(f => newsIds.Contains(f.NewsId))
+                .Select(f => new { f.NewsId, f.PositionEntityId }).ToListAsync();
+
+
+            return query.Select(u => new MostViewedNewsDto
+            {
+                ImageUrl = files.Where(t => t.NewsId == u.Id).Select(g => g.FileName).FirstOrDefault() ?? "".GetDefaultImageUrl(),
+                Url = GetUrl2(u.NewsTypeEntityId, u.Url, u.HistoryNo,
+                categories.Where(t => t.NewsId == u.Id).Select(g => g.CategoryUrl).FirstOrDefault()),
+                Id = u.Id,
+                ShortDescription = u.ShortDescription,
+                Title = u.Title,
+                ViewCount = u.ViewCount
+            }).ToList();
         }
 
         public async Task<News> GetView(Expression<Func<News, bool>> filter = null)
@@ -56,14 +404,14 @@ namespace DataAccess.Concrete.EntityFramework
         }
 
         public async Task AddNewsWithDetails(News news, List<NewsCategory> categories, List<NewsFile> files,
-            List<NewsPosition> positions, List<NewsProperty> properties,
-            List<NewsRelatedNews> newsRelatedNews, List<NewsTag> tags)
+          List<NewsPosition> positions, List<NewsProperty> properties,
+          List<NewsRelatedNews> newsRelatedNews, List<NewsTag> tags, bool isAdd)
         {
             using (var transaction = Db.Database.BeginTransaction())
             {
                 try
                 {
-                    var newsHistory = Db.News.Where(f => f.HistoryNo == news.HistoryNo && !f.Deleted).ToList();
+                    var newsHistory = await Db.News.Where(f => f.HistoryNo == news.HistoryNo && !f.Deleted).ToListAsync();
                     var lastNews = newsHistory.FirstOrDefault(f => f.IsLastNews);
                     newsHistory.ForEach(n =>
                     {
@@ -72,9 +420,9 @@ namespace DataAccess.Concrete.EntityFramework
                     Db.SaveChanges();
 
                     Db.News.Add(news);
-                    Db.SaveChanges();
+                    await Db.SaveChangesAsync();
 
-                    var counterEntities = Db.Entities.Where(f => f.EntityGroupId == (int)EntityGroupType.CounterEntities).Select(g => g.Id).ToList();
+                    var counterEntities = await Db.Entities.Where(f => f.EntityGroupId == (int)EntityGroupType.CounterEntities).Select(g => g.Id).ToListAsync();
                     counterEntities.ForEach(entityId =>
                     {
                         var value = lastNews == null ? 0 :
@@ -102,15 +450,36 @@ namespace DataAccess.Concrete.EntityFramework
 
                     if (positions.HasValue())
                     {
-                        positions.ForEach(c =>
+                        var lastPositions = isAdd || lastNews == null ? null : Db.NewsPositions.Where(f => f.NewsId == lastNews.Id && f.Order > 0).Select(f => new { f.Order, f.PositionEntityId }).ToList();
+                        foreach (var pos in positions)
                         {
-                            c.Order = 1;
-                            c.NewsId = news.Id;
-                        });
-                        Db.NewsPositions.AddRange(positions);
+                            if (news.Active && !news.IsDraft && news.Approved.Value)
+                            {
+                                if (!lastPositions.HasValue())
+                                {
+                                    var activeNewsIds = GetActiveList().Select(u => u.Id);
+                                    var list = Db.NewsPositions.Where(f => activeNewsIds.Contains(f.NewsId) && f.PositionEntityId == pos.PositionEntityId && f.Order > 0).Select(t => t.Id).ToList();
+                                    if (list.HasValue())
+                                    {
+                                        foreach (var id in list)
+                                        {
+                                            var g = Db.NewsPositions.FirstOrDefault(r => r.Id == id);
+                                            g.Order = g.Order + 1;
+                                        }
+                                        if (list.Count > 35)
+                                        {
+                                            var g = Db.NewsPositions.FirstOrDefault(r => r.Id == list.Last());
+                                            g.Order = 0;
+                                        }
+                                    }
+                                }
+                                pos.Order = lastPositions == null ? 1 : lastPositions.Where(t => t.PositionEntityId == pos.PositionEntityId && t.Order > 0).Select(g => g.Order).DefaultIfEmpty(1).FirstOrDefault();
+                            }
+                            pos.NewsId = news.Id;
+                            Db.NewsPositions.Add(pos);
+                            var res = Db.SaveChanges();
+                        }
                     }
-
-
 
                     if (properties.HasValue())
                     {
@@ -143,7 +512,13 @@ namespace DataAccess.Concrete.EntityFramework
                         bookmarks.ForEach(c => c.NewsId = news.Id);
                     }
 
-                    Db.SaveChanges();
+                    if (lastNews != null)
+                    {
+                        Db.Database.ExecuteSqlRaw($"update public.news_hit_detail set news_id={news.Id} where news_id={lastNews.Id}");
+                        Db.Database.ExecuteSqlRaw($"update public.news_hit set news_id={news.Id} where news_id={lastNews.Id}");
+                    }
+
+                    await Db.SaveChangesAsync();
 
                     await transaction.CommitAsync();
                 }
@@ -201,7 +576,7 @@ namespace DataAccess.Concrete.EntityFramework
                 PublishDate = news.PublishDate,
                 ShortDescription = news.ShortDescription,
                 Title = news.Title,
-                Url = news.GetUrl(),
+                Url = news.Url.GetUrl(news.HistoryNo, news.NewsTypeEntityId, news.NewsCategories.Select(e => e.Category.Url).FirstOrDefault()),
                 TotalViewCount = news.NewsCounters.Any(g => g.CounterEntityId == (int)NewsCounterEntities.TotalViewCount) ?
                   (news.NewsCounters.First(g => g.CounterEntityId == (int)NewsCounterEntities.TotalViewCount).Value ?? 0) : 0
 

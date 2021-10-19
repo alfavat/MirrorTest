@@ -15,5 +15,6 @@ namespace Business.Managers.Abstract
         Task Add(Author author);
         Task<Author> CheckAuthor(AuthorAddDto authorAddDto);
         Task<AuthorWithDetailsDto> GetViewByName(string nameSurename);
+        Task<AuthorWithDetailsDto> GetViewByUrl(string url);
     }
 }

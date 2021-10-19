@@ -45,10 +45,23 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<AuthorDto>(data);
         }
 
+        [CacheAspect()]
         [PerformanceAspect()]
         public async Task<IDataResult<AuthorWithDetailsDto>> GetByName(string nameSurename)
         {
             var data = await _authorAssistantService.GetViewByName(nameSurename);
+            if (data == null)
+            {
+                return new ErrorDataResult<AuthorWithDetailsDto>(Messages.RecordNotFound);
+            }
+            return new SuccessDataResult<AuthorWithDetailsDto>(data);
+        }
+
+        [CacheAspect()]
+        [PerformanceAspect()]
+        public async Task<IDataResult<AuthorWithDetailsDto>> GetByUrl(string url)
+        {
+            var data = await _authorAssistantService.GetViewByUrl(url);
             if (data == null)
             {
                 return new ErrorDataResult<AuthorWithDetailsDto>(Messages.RecordNotFound);

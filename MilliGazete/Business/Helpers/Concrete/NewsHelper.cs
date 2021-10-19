@@ -49,9 +49,9 @@ namespace Business.Helpers.Concrete
             }
 
             return data.OrderBy(f => f.Order).ToList();
-        }
+        }     
 
-        public List<NewsViewDto> ShortenDescription(List<NewsViewDto> list)
+        public List<NewsPagingViewDto> ShortenDescription(List<NewsPagingViewDto> list)
         {
             if (!list.HasValue())
             {

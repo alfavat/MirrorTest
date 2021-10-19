@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Entity.Dtos
 {
@@ -14,7 +15,7 @@ namespace Entity.Dtos
         public DateTime? FromCreatedAt { get; set; }
         public DateTime? ToCreatedAt { get; set; }
         public int? AuthorId { get; set; }
-        public int? ReporterId { get; set; }
         public int? UserId { get; set; }
+        public List<int> CategoryIds { get; set; }
     }
 }

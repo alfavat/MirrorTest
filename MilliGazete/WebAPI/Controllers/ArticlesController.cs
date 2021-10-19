@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyurl")]
         public async Task<IActionResult> GetByUrl(string url)
         {
-            return GetResponse(await _newsService.GetViewByUrl(url));
+            return GetResponse(await _newsService.GetArticleByUrl(url));
         }
 
 

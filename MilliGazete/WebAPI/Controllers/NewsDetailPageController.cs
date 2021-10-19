@@ -40,9 +40,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getnewswithdetailsbypaging")]
-        public IActionResult GetNewsWithDetailsByPaging(string url, int? newsId, string query, int limit = 10, string orderBy = "Id", int page = 1, int ascending = 1)
+        public async Task<IActionResult> GetNewsWithDetailsByPaging(string url, int? newsId, string query, int limit = 10, string orderBy = "Id", int page = 1, int ascending = 2)
         {
-            return GetResponse(_newsDetailPageService.GetNewsWithDetailsByPaging(new MainPageNewsPagingDto()
+            var result = await _newsDetailPageService.GetNewsWithDetailsByPaging(new MainPageNewsPagingDto()
             {
                 Query = query,
                 Limit = limit,
@@ -50,7 +50,10 @@ namespace WebAPI.Controllers
                 PageNumber = page,
                 Url = url,
                 NewsId = newsId
-            }, out int total), total);
+            });
+            if (result.Success)
+                return Ok(new { data = new { data = result.Data.Item1, count = result.Data.Item2 }, result.Message, result.Success });
+            return BadRequest(result);
         }
     }
 }

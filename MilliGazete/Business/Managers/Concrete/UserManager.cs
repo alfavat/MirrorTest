@@ -133,8 +133,8 @@ namespace Business.Managers.Concrete
             var user = _mapper.Map<User>(userAddDto);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            await _userAssistantService.Add(user);
-            return new SuccessDataResult<int>(user.Id, Messages.UserRegistered);
+            var addedUser = await _userAssistantService.AddWithCliams(user, _baseService.DefaultUserOperationClaims);
+            return new SuccessDataResult<int>(addedUser.Id, Messages.UserRegistered);
         }
 
         [SecuredOperation("UserUpdate")]

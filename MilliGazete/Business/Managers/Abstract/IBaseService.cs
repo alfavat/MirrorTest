@@ -5,6 +5,7 @@ namespace Business.Managers.Abstract
 {
     public interface IBaseService
     {
+        int[] DefaultUserOperationClaims { get; }
         bool IsEmployee
         { get; }
         Languages UserLanguage

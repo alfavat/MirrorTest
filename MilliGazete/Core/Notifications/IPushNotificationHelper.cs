@@ -1,10 +1,11 @@
 ﻿using Core.Utilities.Results;
 using OneSignal.RestAPIv3.Client.Resources.Notifications;
+using System.Threading.Tasks;
 
 namespace Core.Notifications
 {
     public interface IPushNotificationHelper
     {
-        IResult SendNotification(NotificationCreateOptions options);
+        Task<IResult> SendNotification(NotificationCreateOptions options);
     }
 }
