@@ -17,6 +17,7 @@ namespace Entity.Dtos
         public string SeoDescription { get; set; }
         public string InnerTitle { get; set; }
         public string Url { get; set; }
+        public string ExternalLink { get; set; }
         public DateTime? PublishDate { get; set; }
         public TimeSpan? PublishTime { get; set; }
         public string NewsAgencyEntity { get; set; }

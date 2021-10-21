@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getmainheadingnews")]
-        public async Task<IActionResult> GetMainHeadingNews(int limit)
+        public async Task<IActionResult> GetMainHeadingNews(int limit = 10)
         {
             return GetResponse(await _mainPageService.GetMainHeadingNews(limit));
         }
@@ -36,13 +36,13 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getsubheadingnews")]
-        public async Task<IActionResult> GetSubHeadingNews(int limit)
+        public async Task<IActionResult> GetSubHeadingNews(int limit = 10)
         {
             return GetResponse(await _mainPageService.GetSubHeadingNews(limit));
         }
 
         [HttpGet("getsubheadingnews2")]
-        public async Task<IActionResult> GetSubHeadingNews2(int limit)
+        public async Task<IActionResult> GetSubHeadingNews2(int limit = 10)
         {
             return GetResponse(await _mainPageService.GetSubHeadingNews2(limit));
         }
@@ -54,25 +54,25 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("gettopbreakingnews")]
-        public async Task<IActionResult> GetTopBreakingNews(int limit)
+        public async Task<IActionResult> GetTopBreakingNews(int limit = 10)
         {
             return GetResponse(await _mainPageService.GetTopBreakingNews(limit));
         }
 
         [HttpGet("gettopvideonews")]
-        public async Task<IActionResult> GetTopVideoNews(int limit)
+        public async Task<IActionResult> GetTopVideoNews(int limit = 10)
         {
             return GetResponse(await _mainPageService.GetTopVideoNewsAsync(limit));
         }
 
         [HttpGet("gettopimagenews")]
-        public async Task<IActionResult> GetTopImageNews(int limit)
+        public async Task<IActionResult> GetTopImageNews(int limit = 10)
         {
             return GetResponse(await _mainPageService.GetTopImageNewsAsync(limit));
         }
 
         [HttpGet("gettopmainpagenews")]
-        public async Task<IActionResult> GetTopMainPageNews(int limit)
+        public async Task<IActionResult> GetTopMainPageNews(int limit = 10)
         {
             return GetResponse(await _mainPageService.GetTopMainPageNews(limit));
         }

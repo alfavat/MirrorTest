@@ -3,8 +3,8 @@ using Core.Extensions;
 using Core.Utilities.IoC;
 using Entity.Enums;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -14,6 +14,16 @@ namespace Business.Managers.Concrete
     public class BaseManager : IBaseService
     {
         private IHttpContextAccessor _httpContextAccessor;
+        private IConfiguration _configuration;
+        public int[] DefaultUserOperationClaims
+        {
+            get
+            {
+                _configuration = ServiceTool.ServiceProvider.GetService<IConfiguration>();
+                return _configuration.GetSection("DefaultUserOperationClaims").Get<int[]>();
+            }
+        }
+
         public bool IsEmployee
         {
             get

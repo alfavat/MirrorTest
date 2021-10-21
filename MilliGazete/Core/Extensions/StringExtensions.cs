@@ -1,5 +1,9 @@
-﻿using Entity.Models;
+﻿using Entity;
+using Entity.Enums;
+using Entity.Models;
 using HtmlAgilityPack;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Linq;
@@ -7,11 +11,37 @@ using System.Web;
 
 public static class StringExtensions
 {
+
+    private static IConfiguration _config;
     public static int ToInt32(this string str)
     {
         if (string.IsNullOrEmpty(str)) return 0;
         if (str == "null") return 0;
         return Convert.ToInt32(str);
+    }
+
+    public static string GetDefaultImageUrl<T>(this T val)
+    {
+        var _config = EntityServiceTool.ServiceProvider.GetService<IConfiguration>();
+        var cdn = _config["CdnUrl"].ToString();
+        return $"{cdn}Resources/Public/NoImage.jpg";
+    }
+
+    public static string GetFullFilePath(this string fileName)
+    {
+        _config = EntityServiceTool.ServiceProvider.GetService<IConfiguration>();
+        var cdn = _config["CdnUrl"].ToString();
+        return fileName.StringIsNullOrEmpty() ? $"{cdn}Resources/Public/NoImage.jpg" :
+         $"{cdn}{fileName}";
+    }
+
+    public static string GetUrl(this string Url, int? HistoryNo, int? newsTypeEntityId, string category)
+    {
+        if (newsTypeEntityId == (int)NewsTypeEntities.Article)
+        {
+            return "/makale/" + Url + "-" + HistoryNo.ToString();
+        }
+        return "/" + category + "/" + Url + "-" + HistoryNo.ToString();
     }
 
     public static string GetFullName(this User user)

@@ -1008,4 +1008,10 @@
   <data name="validationQuestionTextMaxCharacterLimit" xml:space="preserve">
     <value>Lütfen tüm alanları kontrol edin</value>
   </data>
+  <data name="messagePushNotificationActiveDraftError" xml:space="preserve">
+    <value>Bildirimlerin gönderilebilmesi için haberlerin aktif olması, taslak olmaması gerekmekdedir</value>
+  </data>
+  <data name="messagePushNotificationPublishDateError" xml:space="preserve">
+    <value>Bildirimlerin gönderilebilmesi için haberlerin yayınlanma tarihinin bu saatten önce olması gerekmektedir.</value>
+  </data>
 </root>

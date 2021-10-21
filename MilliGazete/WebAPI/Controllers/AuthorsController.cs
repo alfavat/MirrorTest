@@ -33,6 +33,12 @@ namespace WebAPI.Controllers
             return GetResponse(await _authorService.GetByName(nameSurename));
         }
 
+        [HttpGet("getbyurl")]
+        public async Task<IActionResult> GetByUrl(string url)
+        {
+            return GetResponse(await _authorService.GetByUrl(url));
+        }
+
         [HttpPost("add")]
         public async Task<IActionResult> Add(AuthorAddDto dto)
         {

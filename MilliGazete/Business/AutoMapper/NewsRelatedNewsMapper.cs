@@ -18,7 +18,7 @@ namespace Business.AutoMapper
               .ForMember(f => f.NewsTypeEntity, u => u.MapFrom(g => g.NewsTypeEntity == null ? "" : Translator.GetByKey(g.NewsTypeEntity.EntityName)))
               // .ForMember(f => f.Thumbnail, u => u.MapFrom(g => g.NewsFile != null && g.NewsFile.Any(t => t.File.FileType.ToLower().Contains("image")) ? g.NewsFile.FirstOrDefault(t => t.File.FileType.ToLower().Contains("image")).File.GetFullFilePath() : null));
               .ForMember(f => f.Thumbnail, u => u.MapFrom(g => g.NewsFiles != null && g.NewsFiles.Any(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage) ?
-              g.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.GetFullFilePath() : null));
+              g.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.FileName.GetFullFilePath() : "".GetDefaultImageUrl()));
 
 
             CreateMap<NewsRelatedNews, NewsRelatedNewsViewDto>().ForMember(f => f.RelatedNews, g => g.MapFrom(t => t.RelatedNews));
@@ -27,9 +27,9 @@ namespace Business.AutoMapper
                 .ForMember(f => f.RelatedNews, g => g.MapFrom(t => t.RelatedNews));
 
             CreateMap<News, MainPageRelatedNewsDetailsDto>()
-                .ForMember(f => f.Url, g => g.MapFrom(t => t.GetUrl()))
+                .ForMember(f => f.Url, g => g.MapFrom(t => t.Url.GetUrl(t.HistoryNo, t.NewsTypeEntityId, t.NewsCategories.Select(e => e.Category.Url).FirstOrDefault())))
                 .ForMember(f => f.Thumbnail, u => u.MapFrom(g => g.NewsFiles != null && g.NewsFiles.Any(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage) ?
-              g.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.GetFullFilePath() : null));
+              g.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.FileName.GetFullFilePath() : "".GetDefaultImageUrl()));
         }
     }
 }

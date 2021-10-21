@@ -16,11 +16,11 @@ namespace Business.AutoMapper
                 .ForMember(f => f.ShortDescription, g => g.MapFrom(t => t.News == null ? "" : t.News.ShortDescription))
                 .ForMember(f => f.Title, g => g.MapFrom(t => t.News == null ? "" : t.News.Title))
                 .ForMember(f => f.FullName, g => g.MapFrom(t => t.User == null ? "" : t.User.FirstName + " " + t.User.LastName))
-                .ForMember(f => f.Url, g => g.MapFrom(t => t.News == null ? "" : t.News.GetUrl()))
+                .ForMember(f => f.Url, g => g.MapFrom(t => t.News == null ? "" : t.News.Url.GetUrl(t.News.HistoryNo, t.News.NewsTypeEntityId, t.News.NewsCategories.Select(e => e.Category.Url).FirstOrDefault())))
                 .ForMember(f => f.ImageUrl, u => u.MapFrom(g => g.News == null ? "" :
                                 g.News.NewsFiles != null &&
                                 g.News.NewsFiles.Any(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage) ?
-                                g.News.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.GetFullFilePath() : null));
+                                g.News.NewsFiles.First(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage).File.FileName.GetFullFilePath() : "".GetDefaultImageUrl()));
         }
     }
 }

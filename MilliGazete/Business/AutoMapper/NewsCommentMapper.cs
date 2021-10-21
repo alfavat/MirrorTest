@@ -2,6 +2,7 @@
 using Entity.Dtos;
 using Entity.Models;
 using System;
+using System.Linq;
 
 namespace Business.AutoMapper
 {
@@ -27,7 +28,7 @@ namespace Business.AutoMapper
 
             CreateMap<News, CommentNewsDetailsDto>()
              .ForMember(f => f.NewsId, u => u.MapFrom(g => g.Id))
-             .ForMember(f => f.Url, u => u.MapFrom(g => g.GetUrl()));
+             .ForMember(f => f.Url, u => u.MapFrom(g => g.Url.GetUrl(g.HistoryNo, g.NewsTypeEntityId, g.NewsCategories.Select(e => e.Category.Url).FirstOrDefault())));
 
         }
     }

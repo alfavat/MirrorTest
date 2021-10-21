@@ -1,5 +1,6 @@
 ﻿using Entity.Dtos;
 using Entity.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,9 +11,8 @@ namespace Business.Managers.Abstract
         Task<News> GetById(int newsId);
         Task<NewsViewDto> GetViewById(int newsId);
         Task Update(News news);
-        Task<List<NewsViewDto>> GetList();
         Task<int> Add(NewsAddDto news, int addUserId, int historyNo);
-        List<NewsViewDto> GetListByPaging(NewsPagingDto pagingDto, out int total);
+        Task<Tuple<List<NewsPagingViewDto>, int>> GetListByPaging(NewsPagingDto pagingDto);
         Task<List<NewsHistoryDto>> GetListByHistoryNo(int historyNo);
         Task<int> GetMaxHistoryNo();
         Task<List<NewsSiteMapDto>> GetListForSiteMap();
@@ -21,5 +21,6 @@ namespace Business.Managers.Abstract
         Task<List<ArticleDto>> GetLastWeekMostViewedArticles(int limit);
         Task<List<NewsViewDto>> GetListByAuthorId(int authorId);
         Task<List<NewsViewDto>> GetListByReporterId(int reporterId);
+        Task<ArticleDto> GetArticleByUrl(string url);
     }
 }

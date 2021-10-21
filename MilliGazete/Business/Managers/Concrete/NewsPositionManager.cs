@@ -32,6 +32,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("INewsService.Get")]
         [CacheRemoveAspect("IMainPageService.Get")]
         [CacheRemoveAspect("INewsDetailPageService.Get")]
+        [CacheRemoveAspect("ICategoryPageService.Get")]
         public async Task<IResult> UpdateNewsPositionOrders(List<NewsPositionUpdateDto> newsPositions)
         {
             await _newsPositionAssistantService.UpdateNewsPositionOrders(newsPositions);

@@ -20,12 +20,6 @@ namespace WebAPI.Controllers
             _newsService = newsService;
         }
 
-        [HttpGet("getlist")]
-        public async Task<IActionResult> GetList()
-        {
-            return GetResponse(await _newsService.GetList());
-        }
-
         [HttpGet("getlistforsitemap")]
         public async Task<IActionResult> GetListForSiteMap()
         {

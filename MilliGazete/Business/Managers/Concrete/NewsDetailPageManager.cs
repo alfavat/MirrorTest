@@ -3,6 +3,7 @@ using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Performance;
 using Core.Utilities.Results;
 using Entity.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -48,9 +49,9 @@ namespace Business.Managers.Concrete
         }
 
         [PerformanceAspect()]
-        public IDataResult<List<NewsDetailPageDto>> GetNewsWithDetailsByPaging(MainPageNewsPagingDto pagingDto, out int total)
+        public async Task<IDataResult<Tuple<List<NewsDetailPageDto>, int>>> GetNewsWithDetailsByPaging(MainPageNewsPagingDto pagingDto)
         {
-            return new SuccessDataResult<List<NewsDetailPageDto>>(_newsDetailPageAssistantService.GetNewsWithDetailsByPaging(pagingDto, out total, requestedUserId: _baseService.RequestUserId));
+            return new SuccessDataResult<Tuple<List<NewsDetailPageDto>, int>>(await _newsDetailPageAssistantService.GetNewsWithDetailsByPaging(pagingDto));
         }
 
 
