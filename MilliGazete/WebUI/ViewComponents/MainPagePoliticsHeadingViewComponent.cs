@@ -13,7 +13,7 @@ namespace WebUI.ViewComponents
         }
         public async Task<ViewViewComponentResult> InvokeAsync(string url = "siyaset")
         {
-            var result = await _categoryPageRepository.GetLastMainHeadingNewsByCategoryUrl(url, 10);
+            var result = await _categoryPageRepository.GetLastMainHeadingNewsByCategoryUrl(url, 7);
             if (result.DataResultIsNotNull())
             {
                 return View(result.Data);

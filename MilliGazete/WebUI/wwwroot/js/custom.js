@@ -15,3 +15,14 @@ topBtn.on('click', function(e) {
   $('html, body').animate({scrollTop:0}, '300');
 });
 
+//Toogle Big Menu
+function toogleMenu() {
+    if ($('#bigMenu').is(":hidden")) {
+        $('#bigMenu').show('slow');
+        $('#iconBigMenu').removeClass('fa-bars').addClass('fa-times');
+    } else {
+        $('#bigMenu').hide('slow');
+        $('#iconBigMenu').removeClass('fa-times').addClass('fa-bars');
+    }
+}
+

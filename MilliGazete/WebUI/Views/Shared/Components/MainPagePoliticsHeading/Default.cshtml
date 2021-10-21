@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 politics-slider-wrapper">
-                <div class="swiper-container swiper-container-bottom2" style=" max-height: 300px !important;">
+                <div class="swiper-container swiper-container-bottom2" style=" max-height: 330px !important;">
                     <div class="swiper-pagination-bottom2"></div>
                     <div class="swiper-wrapper" style="margin-left:60px;">
                         @if (Model.HasValue())
@@ -19,7 +19,7 @@
                             {
                                 <a href="@item.Url" id="politicsSlider_@i" class="swiper-slide politics-slider-item" target="_blank">
                                     <div class="politics-slider-item-title">@item.Title</div>
-                                    <img src="@item.ImageUrl" alt="@item.Title" style="height:250px;width:100%;" />
+                                    <img src="@item.ImageUrl" alt="@item.Title" style="height:330px;width:100%;" />
                                 </a>
                                 i++;
                             }

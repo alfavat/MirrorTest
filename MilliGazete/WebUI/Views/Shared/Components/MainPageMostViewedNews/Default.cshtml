@@ -1,0 +1,24 @@
+﻿@model List<MostViewedNewsDto>
+
+
+@if (Model.HasValue())
+{
+<div class="row popular-news">
+    <span class="popular-news-title">@Translator.GetByKey("Highlights")</span>
+
+    @foreach (var item in Model)
+    {
+
+        <a href="@item.Url" class="news-list-horizontal" target="_blank">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="@item.ImageUrl" alt="@item.Title">
+                    <div class="title">@item.Title</div>
+                </div>
+            </div>
+        </a>
+    }
+
+
+</div>
+}

@@ -219,6 +219,9 @@
   <data name="GeneratePassword" xml:space="preserve">
     <value>Şifre Oluştur</value>
   </data>
+  <data name="Highlights" xml:space="preserve">
+    <value>ÖNE ÇIKANLAR</value>
+  </data>
   <data name="HotLine" xml:space="preserve">
     <value>&lt;strong&gt;WhatsApp&lt;/strong&gt; ihbar hattı</value>
   </data>

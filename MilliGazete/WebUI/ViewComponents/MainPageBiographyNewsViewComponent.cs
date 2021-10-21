@@ -11,7 +11,7 @@ namespace WebUI.ViewComponents
         {
             _categoryPageRepository = categoryPageRepository;
         }
-        public async Task<ViewViewComponentResult> InvokeAsync(string url = "dunya")
+        public async Task<ViewViewComponentResult> InvokeAsync(string url = "kim-kimdir")
         {
             var result = await _categoryPageRepository.GetLastNewsByCategoryUrl(url, 6);
             return View(result.Data);

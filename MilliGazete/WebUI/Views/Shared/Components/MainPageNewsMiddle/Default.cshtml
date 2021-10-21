@@ -13,7 +13,7 @@
             @foreach (var item in Model.mainPageNews)
             {
                 <a href="@item.Url" class="col-md-4 news-list">
-                    <img src="@item.FileList.Where(x=>x.NewsFileTypeEntityId==(int)Entity.Enums.NewsFileTypeEntities.NormalImage).Select(s=>s.FileName).FirstOrDefault()" alt="@item.Title" />
+                    <img src="@item.FileList.Where(x=>x.NewsFileTypeEntityId==(int)Entity.Enums.NewsFileTypeEntities.NormalImage).Select(s=>s.FileName).FirstOrDefault()" alt="@item.Title" class="img-general-list-bottom" />
                     <span class="news-list-title">@item.Title</span>
                     @*<div class="news-cat" style="color: @item.StyleCode !important;">@item.CategoryName</div>
                     <div class="news-sub">@item.ShortDescription</div>*@

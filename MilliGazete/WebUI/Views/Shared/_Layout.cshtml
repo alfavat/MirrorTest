@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="javascript:;" class="col-md-2 today-newspaper-box">
+                <a href="/sayfa/bugunku-milli-gazete" class="col-md-2 today-newspaper-box" target="_blank">
                     @Html.Raw(Translator.GetByKey("TodaysNewspaper"))
                     <div class="visible-desktop"></div>
                 </a>
@@ -132,16 +132,79 @@
                             </li>
                         }
                         <li class="nav-item nav-item-menu-title text-right" style="margin-left: 30px !important;">
-                            <a class="nav-link" href="#"><i class="fa fa-bars"></i> MENÜ</a>
+                            <a class="nav-link" href="javascript:;" onclick="toogleMenu();"><i class="fa fa-bars" id="iconBigMenu"></i> MENÜ</a>
                         </li>
                     </ul>
                 </div>
             </div>
 
         </nav>
-        <div class="container" style="display:none;">
-            Menü Planlama Aşamasında
-            <br /><br /><br />
+        <div id="bigMenu" class="container" style="display: none; border-top: 1px solid #dc1e18;">
+            <div class="col-md-12">
+                <div class="row" style="margin: 10px 0 10px 0;">
+                    <div class="col-md-12">
+                        <form action="~/haber" method="get">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="ara" placeholder="Haberlerde arayın...">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-danger">Ara</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="~/login" class="btn btn-block btn-light"><i class="fa fa-user text-danger"></i> Üye Girişi</a>
+                        <a href="javascript:;" class="btn btn-block btn-light"><i class="fa fa-newspaper text-danger"></i> Abonelik</a>
+                        <a href="javascript:;" class="btn btn-block btn-light"><i class="fa fa-mail-bulk text-danger"></i> Bize Ulaşın</a>
+                        <p style="margin-top:10px;">
+                            <a href="@LayoutModel.Option.Facebook" class="btn" target="_blank"><img src="~/images/icon-facebook.png" width="24"></a>
+                            <a href="@LayoutModel.Option.Twitter" class="btn" target="_blank"><img src="~/images/icon-twitter.png" width="24"></a>
+                            <a href="@LayoutModel.Option.Instagram" class="btn" target="_blank"><img src="~/images/icon-instagram.png" width="24"></a>
+                            <a href="@LayoutModel.Option.Youtube" class="btn" target="_blank"><img src="~/images/icon-youtube.png" width="24"></a>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <b>İçerik</b><br />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="~/yazarlar" class="btn btn-block big-menu-btn-link">Yazarlar</a>
+                                <a href="~/roportaj" class="btn btn-block big-menu-btn-link">Röportajlar</a>
+                                <a href="~/kim-kimdir" class="btn btn-block big-menu-btn-link">Kim Kimdir?</a>
+                                <a href="~/gundem" class="btn btn-block big-menu-btn-link">Gündem</a>
+                                <a href="~/siyaset" class="btn btn-block big-menu-btn-link">Siyaset</a>
+                                <a href="~/spor" class="btn btn-block big-menu-btn-link">Spor</a>
+                                <a href="~/dunya" class="btn btn-block big-menu-btn-link">Dünya</a>
+                                <a href="~/ekonomi" class="btn btn-block big-menu-btn-link">Ekonomi</a>
+                                <a href="~/teknoloji" class="btn btn-block big-menu-btn-link">Teknoloji</a>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <a href="~/kultur-sanat" class="btn btn-block big-menu-btn-link">Kültür-Sanat</a>
+                                <a href="~/aile-yasam" class="btn btn-block big-menu-btn-link">Aile & Yaşam</a>
+                                <a href="~/egitim" class="btn btn-block big-menu-btn-link">Eğitim</a>
+                                <a href="~/asayis" class="btn btn-block big-menu-btn-link">Asayiş</a>
+                                <a href="~/afet-kaza" class="btn btn-block big-menu-btn-link">Afet & Kaza</a>
+                                <a href="~/saglik" class="btn btn-block big-menu-btn-link">Sağlık</a>
+                                <a href="~/helal-hayat" class="btn btn-block big-menu-btn-link">Helal Hayat</a>
+                                <a href="~/mirasimiz-kudus" class="btn btn-block big-menu-btn-link">Mirasımız Kudüs</a>
+                                <a href="~/ramazan" class="btn btn-block big-menu-btn-link">Ramazan</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <b>Servisler</b><br />
+                        <a href="javascript:;" class="btn btn-block big-menu-btn-link">Namaz Vakti</a>
+                        <a href="javascript:;" class="btn btn-block big-menu-btn-link">Hava Durumu</a>
+                        <a href="javascript:;" class="btn btn-block big-menu-btn-link">Lig Fikstür</a>
+                        <a href="javascript:;" class="btn btn-block big-menu-btn-link">Döviz Bilgileri</a>
+                        <a href="javascript:;" class="btn btn-block big-menu-btn-link">Nöbetçi Eczaneler</a>
+                    </div>
+                    <div class="col-md-3">
+                        <b>Kurumsal</b><br />
+                        x
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -188,7 +251,7 @@
                     <h4>SOSYAL MEDYA</h4>
                     <p>
                         <a href="@LayoutModel.Option.Facebook" class="btn" target="_blank"><img src="~/images/icon-facebook.png" width="20"></a>
-                        <a href="@LayoutModel.Option.Twitter" class="btn" target="_blank"><img src="~/images/icon-twitter.png" width="20"></i></a>
+                        <a href="@LayoutModel.Option.Twitter" class="btn" target="_blank"><img src="~/images/icon-twitter.png" width="20"></a>
                         <a href="@LayoutModel.Option.Instagram" class="btn" target="_blank"><img src="~/images/icon-instagram.png" width="20"></a>
                         <a href="@LayoutModel.Option.Youtube" class="btn" target="_blank"><img src="~/images/icon-youtube.png" width="20"></a>
                     </p>
