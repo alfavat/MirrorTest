@@ -12,9 +12,9 @@ namespace WebUI.ViewComponents
         {
             _authorPageRepository = authorPageRepository;
         }
-        public async Task<ViewViewComponentResult> InvokeAsync(string nameSurename = "")
+        public async Task<ViewViewComponentResult> InvokeAsync(string url = "")
         {
-            var result = await _authorPageRepository.GetAuthorByName(nameSurename.FromUrlFormat());
+            var result = await _authorPageRepository.GetAuthorByUrl(url);
             if (result.DataResultIsNotNull())
             {
                 return View(result.Data);

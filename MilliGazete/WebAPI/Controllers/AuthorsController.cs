@@ -15,6 +15,12 @@ namespace WebAPI.Controllers
             _authorService = AuthorService;
         }
 
+        [HttpGet("gettodaylist")]
+        public async Task<IActionResult> GetTodayList()
+        {
+            return GetResponse(await _authorService.GetTodayList());
+        }
+
         [HttpGet("getlist")]
         public async Task<IActionResult> GetList()
         {

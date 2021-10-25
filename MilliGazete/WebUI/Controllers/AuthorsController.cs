@@ -24,10 +24,10 @@ namespace WebUI.Controllers
             return View();
         }
 
-        [Route("yazar/{nameSurename}")]
-        public async Task<IActionResult> AuthorDetails(string nameSurename)
+        [Route("yazar/{url}")]
+        public async Task<IActionResult> AuthorDetails(string url)
         {
-            var result = await _authorPageRepository.GetAuthorByName(nameSurename.FromUrlFormat());
+            var result = await _authorPageRepository.GetAuthorByUrl(url);
             if (result.DataResultIsNotNull())
             {
                 return View(result.Data);

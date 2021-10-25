@@ -11,6 +11,7 @@ namespace Business.Managers.Abstract
         Task<IResult> Update(AuthorUpdateDto authorUpdateDto);
         Task<IResult> Add(AuthorAddDto authorAddDto);
         Task<IResult> Delete(int authorId);
+        Task<IDataResult<List<AuthorDto>>> GetTodayList();
         Task<IDataResult<List<AuthorDto>>> GetList();
         Task<IDataResult<AuthorWithDetailsDto>> GetByName(string nameSurename);
         Task<IDataResult<AuthorWithDetailsDto>> GetByUrl(string url);

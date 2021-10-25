@@ -28,6 +28,7 @@ namespace Entity.Models
         public string Twitter { get; set; }
         public string Instagram { get; set; }
         public string Web { get; set; }
+        public int OrderNo { get; set; }
 
         public virtual File FeaturedImageFile { get; set; }
         public virtual File PhotoFile { get; set; }

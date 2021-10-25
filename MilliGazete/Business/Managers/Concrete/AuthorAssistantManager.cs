@@ -4,6 +4,7 @@ using DataAccess.Abstract;
 using Entity.Dtos;
 using Entity.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,11 +43,43 @@ namespace Business.Managers.Concrete
             await _authorDal.Add(author);
         }
 
+        public async Task<List<AuthorDto>> GetTodayList()
+        {
+            var today = DateTime.Now;
+            var list = _authorDal.GetList(p => !p.Deleted &&
+                                                p.News.Any(t => t.PublishDate != null &&
+                                                t.PublishDate.Value.Year == today.Year &&
+                                                t.PublishDate.Value.Month == today.Month &&
+                                                t.PublishDate.Value.Day == today.Day
+                ))
+                .Include(f => f.FeaturedImageFile)
+                .Include(f => f.PhotoFile).AsQueryable().OrderBy(f => f.OrderNo);
+            var authors = await _mapper.ProjectTo<AuthorDto>(list).ToListAsync();
+            if (authors.HasValue())
+            {
+                foreach (var item in authors)
+                {
+                    var article = await _newsDal.GetActiveList().Where(f => f.AuthorId == item.Id)
+                        .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                        .Select(t => new { t.AuthorId, t.Title, Url = t.Url.GetUrl(t.HistoryNo, t.NewsTypeEntityId, t.NewsCategories.Select(e => e.Category.Url).FirstOrDefault()), t.PublishDate })
+                        .OrderByDescending(f => f.PublishDate).FirstOrDefaultAsync();
+                    if (article != null)
+                    {
+                        item.LastArticleDate = article.PublishDate;
+                        item.LastArticleTitle = article.Title;
+                        item.LastArticleUrl = article.Url;
+                    }
+                }
+            }
+            return authors;
+        }
+
         public async Task<List<AuthorDto>> GetList()
         {
             var list = _authorDal.GetList(p => !p.Deleted)
                 .Include(f => f.FeaturedImageFile)
-                .Include(f => f.PhotoFile);
+                .Include(f => f.PhotoFile)
+                .AsQueryable().OrderBy(f => f.OrderNo);
             var authors = await _mapper.ProjectTo<AuthorDto>(list).ToListAsync();
             if (authors.HasValue())
             {

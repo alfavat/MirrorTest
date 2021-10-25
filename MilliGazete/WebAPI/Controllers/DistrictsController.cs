@@ -1,7 +1,5 @@
 ﻿using Business.Managers.Abstract;
-using Entity.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -20,6 +18,12 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetListByCityId(int id)
         {
             return GetResponse(await _districtService.GetListByCityId(id));
+        }
+
+        [HttpGet("getlist")]
+        public async Task<IActionResult> GetList()
+        {
+            return GetResponse(await _districtService.GetList());
         }
     }
 }

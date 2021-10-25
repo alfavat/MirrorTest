@@ -12,6 +12,7 @@ namespace Business.Managers.Abstract
         Task Update(Author author);
         Task Delete(Author author);
         Task<List<AuthorDto>> GetList();
+        Task<List<AuthorDto>> GetTodayList();
         Task Add(Author author);
         Task<Author> CheckAuthor(AuthorAddDto authorAddDto);
         Task<AuthorWithDetailsDto> GetViewByName(string nameSurename);

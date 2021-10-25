@@ -13,9 +13,13 @@ namespace WebUI.Repository.Concrete
             return await ApiHelper.GetApiAsync<List<AuthorDto>>("authors/getlist");
         }
 
-        public async Task<IDataResult<AuthorWithDetailsDto>> GetAuthorByName(string nameSurename)
+        //public async Task<IDataResult<AuthorWithDetailsDto>> GetAuthorByName(string nameSurename)
+        //{
+        //    return await ApiHelper.GetApiAsync<AuthorWithDetailsDto>("authors/getbyname?nameSurename=" + nameSurename);
+        //}
+        public async Task<IDataResult<AuthorWithDetailsDto>> GetAuthorByUrl(string url)
         {
-            return await ApiHelper.GetApiAsync<AuthorWithDetailsDto>("authors/getbyname?nameSurename=" + nameSurename);
+            return await ApiHelper.GetApiAsync<AuthorWithDetailsDto>("authors/getbyurl?url=" + url);
         }
     }
 }

@@ -32,6 +32,12 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<List<AuthorDto>>(await _authorAssistantService.GetList());
         }
 
+        [PerformanceAspect()]
+        public async Task<IDataResult<List<AuthorDto>>> GetTodayList()
+        {
+            return new SuccessDataResult<List<AuthorDto>>(await _authorAssistantService.GetTodayList());
+        }
+
         [SecuredOperation("AuthorGet")]
         [CacheAspect()]
         [PerformanceAspect()]

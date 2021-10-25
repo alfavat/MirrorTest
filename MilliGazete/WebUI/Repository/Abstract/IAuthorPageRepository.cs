@@ -8,6 +8,7 @@ namespace WebUI.Repository.Abstract
     public interface IAuthorPageRepository : IUIBaseRepository
     {
         Task<IDataResult<List<AuthorDto>>> GetAuthorList();
-        Task<IDataResult<AuthorWithDetailsDto>> GetAuthorByName(string nameSurename);
+        //Task<IDataResult<AuthorWithDetailsDto>> GetAuthorByName(string nameSurename);
+        Task<IDataResult<AuthorWithDetailsDto>> GetAuthorByUrl(string url);
     }
 }

@@ -1014,4 +1014,58 @@
   <data name="messagePushNotificationPublishDateError" xml:space="preserve">
     <value>Bildirimlerin gönderilebilmesi için haberlerin yayınlanma tarihinin bu saatten önce olması gerekmektedir.</value>
   </data>
+  <data name="entityCategoryHeadingArtAndCultureEn" xml:space="preserve">
+    <value>Art And Culture Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingDisasterAndAccident" xml:space="preserve">
+    <value>Afet ve Kaza Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingEconomyEn" xml:space="preserve">
+    <value>Economy Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingEducation" xml:space="preserve">
+    <value>Egitim Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingFamilyAndLife" xml:space="preserve">
+    <value>Aile ve Yaşam Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingHalalLife" xml:space="preserve">
+    <value>Helal Hayat Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingHealth" xml:space="preserve">
+    <value>Sağlık Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingHealthEn" xml:space="preserve">
+    <value>Health Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingOpinionEn" xml:space="preserve">
+    <value>Opinion Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingOurLegacyJerusalem" xml:space="preserve">
+    <value>Mirasımız Kudüs Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingPoliticsEn" xml:space="preserve">
+    <value>Politics Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingRamadan" xml:space="preserve">
+    <value>Ramazan Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingSportEn" xml:space="preserve">
+    <value>Sport Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingTechnologyEn" xml:space="preserve">
+    <value>Technology Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingTurkeyEn" xml:space="preserve">
+    <value>Turkey Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingWelfare" xml:space="preserve">
+    <value>Asayiş Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryHeadingWorldEn" xml:space="preserve">
+    <value>World Kategori Manşeti</value>
+  </data>
+  <data name="entityCategoryArticle" xml:space="preserve">
+    <value>Makale Kategori Manşeti</value>
+  </data>
 </root>

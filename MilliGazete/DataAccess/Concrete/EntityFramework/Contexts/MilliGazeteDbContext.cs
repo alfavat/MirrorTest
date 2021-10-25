@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework.Contexts
 {
-
     public partial class MilliGazeteDbContext : DbContext
     {
+
         public MilliGazeteDbContext(DbContextOptions<MilliGazeteDbContext> options)
             : base(options)
         {
@@ -44,6 +44,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public virtual DbSet<OperationClaim> OperationClaims { get; set; }
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<PrayerTime> PrayerTimes { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; }
         public virtual DbSet<Reporter> Reporters { get; set; }
@@ -272,6 +273,10 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.OrderNo)
+                    .HasColumnName("order_no")
+                    .HasDefaultValueSql("0");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("date")
@@ -1341,6 +1346,55 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .WithMany(p => p.Pages)
                     .HasForeignKey(d => d.FeaturedImageFileId)
                     .HasConstraintName("featured_image_file_id_fkey");
+            });
+
+            modelBuilder.Entity<PrayerTime>(entity =>
+            {
+                entity.ToTable("prayer_time");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.AfternoonPrayer)
+                    .HasColumnType("time without time zone")
+                    .HasColumnName("afternoon_prayer");
+
+                entity.Property(e => e.CityId).HasColumnName("city_id");
+
+                entity.Property(e => e.PrayerDate)
+                    .HasColumnType("date")
+                    .HasColumnName("prayer_date");
+
+                entity.Property(e => e.DawnTime)
+                    .HasColumnType("time without time zone")
+                    .HasColumnName("dawn_time");
+
+                entity.Property(e => e.EveningPrayer)
+                    .HasColumnType("time without time zone")
+                    .HasColumnName("evening_prayer");
+
+                entity.Property(e => e.LastUpdateDate)
+                    .HasColumnType("date")
+                    .HasColumnName("last_update_date");
+
+                entity.Property(e => e.NightPrayer)
+                    .HasColumnType("time without time zone")
+                    .HasColumnName("night_prayer");
+
+                entity.Property(e => e.NoonPrayer)
+                    .HasColumnType("time without time zone")
+                    .HasColumnName("noon_prayer");
+
+                entity.Property(e => e.SunTime)
+                    .HasColumnType("time without time zone")
+                    .HasColumnName("sun_time");
+
+                entity.HasOne(d => d.City)
+                    .WithMany(p => p.PrayerTimes)
+                    .HasForeignKey(d => d.CityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("city_id_fkey");
             });
 
             modelBuilder.Entity<Question>(entity =>

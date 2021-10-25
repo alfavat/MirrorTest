@@ -49,7 +49,7 @@
                                 @Translator.GetByKey("OtherArticles")
                             </div>
                             <div class="card-body">
-                                @await Component.InvokeAsync("ArticleByAuthor", new { nameSurename = @Model?.Author?.NameSurename })
+                                @await Component.InvokeAsync("ArticleByAuthor", new { url = @Model?.Author?.Url })
                             </div>
                         </div>
                     </div>

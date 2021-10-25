@@ -7,6 +7,7 @@ namespace Business.Managers.Abstract
 {
     public interface IDistrictService
     {
+        Task<IDataResult<List<DistrictDto>>> GetList();
         Task<IDataResult<List<DistrictDto>>> GetListByCityId(int id);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Dtos;
 using Entity.Models;
-using System;
 
 namespace Business.AutoMapper
 {
@@ -9,7 +8,8 @@ namespace Business.AutoMapper
     {
         public DistrictMapper()
         {
-            CreateMap<District, DistrictDto>().BeforeMap((dto, entity) => { dto.City = null;dto.Subscriptions = null; });
+            CreateMap<District, DistrictDto>()
+                .ForMember(f => f.CityName, g => g.MapFrom(t => t.City == null ? "" : t.City.Name));
         }
     }
 }

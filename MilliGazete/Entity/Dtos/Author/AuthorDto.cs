@@ -21,6 +21,7 @@ namespace Entity.Dtos
         public string Twitter { get; set; }
         public string Instagram { get; set; }
         public string Web { get; set; }
+        public int OrderNo { get; set; }
 
         public virtual FileDto PhotoFile { get; set; }
         public virtual FileDto FeaturedImageFile { get; set; }

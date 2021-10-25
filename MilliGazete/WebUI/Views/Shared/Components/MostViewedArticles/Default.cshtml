@@ -28,7 +28,7 @@
 {
     foreach (var item in Model)
     {
-        <a href="~/yazar/@item?.Author?.NameSurename.ToUrlFormat()" class="col-md-3 col-6 author-box">
+        <a href="~/yazar/@item?.Author?.Url" class="col-md-3 col-6 author-box">
             <div class="card">
                 <img class="card-img-top" src="@item?.Author?.PhotoFile?.FileName" style="width:100%;height:220px;" />
                 <div class="card-block">

@@ -340,18 +340,69 @@
     <value>Get User question answers</value>
   </data>
   <data name="entityMobileHit" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="entitySocialMediaRedirect" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="entitySearchEngineRedirc" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="entityMainPageRedirect" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="validationQuestionTextMaxCharacterLimit" xml:space="preserve">
-    <value></value>
+    <value />
+  </data>
+  <data name="entityCategoryHeadingArtAndCultureEn" xml:space="preserve">
+    <value>Art And Culture Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingDisasterAndAccident" xml:space="preserve">
+    <value>Disaster And Accident CategoryHeading</value>
+  </data>
+  <data name="entityCategoryHeadingEconomyEn" xml:space="preserve">
+    <value>Economy Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingEducation" xml:space="preserve">
+    <value>Education Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingFamilyAndLife" xml:space="preserve">
+    <value>Family And Life Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingHalalLife" xml:space="preserve">
+    <value>Halal Life Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingHealth" xml:space="preserve">
+    <value>Health Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingHealthEn" xml:space="preserve">
+    <value>Health Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingOpinionEn" xml:space="preserve">
+    <value>Opinion Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingOurLegacyJerusalem" xml:space="preserve">
+    <value>Our Legacy Jerusalem Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingPoliticsEn" xml:space="preserve">
+    <value>Politics Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingRamadan" xml:space="preserve">
+    <value>Ramadan Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingSportEn" xml:space="preserve">
+    <value>Sport Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingTechnologyEn" xml:space="preserve">
+    <value>Technology Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingTurkeyEn" xml:space="preserve">
+    <value>Turkey Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingWelfare" xml:space="preserve">
+    <value>Welfare Category Heading</value>
+  </data>
+  <data name="entityCategoryHeadingWorldEn" xml:space="preserve">
+    <value>World Category Heading</value>
   </data>
 </root>

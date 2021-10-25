@@ -12,7 +12,7 @@
             {
                 @foreach (var item in Model)
                 {
-                    <a href="~/yazar/@item.NameSurename.ToUrlFormat()" class="col-md-2 col-6 author-box" target="_blank">
+                    <a href="~/yazar/@item.Url" class="col-md-2 col-6 author-box" target="_blank">
                         <img src="@item.PhotoFile?.FileName" style="width:130px !important; height: 130px !important; object-fit: cover !important;" class="rounded-circle" />
                         <div class="author-name">@item.NameSurename</div>
                         <div class="article-name">@item.LastArticleTitle</div>
