@@ -17,6 +17,7 @@ namespace ServerService.DependencyInjection
             services.AddScoped<IDhaNewsService, DhaNewsManager>();
             services.AddScoped<IForeksService, ForeksManager>();
             services.AddScoped<ISiteMapService, SiteMapManager>();
+            services.AddScoped<IPrayerTimeService, PrayerTimeManager>();
             _serviceProvider = services.BuildServiceProvider();
         }
         public IServiceProvider getServiceProvider

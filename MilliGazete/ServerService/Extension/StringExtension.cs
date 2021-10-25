@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 
 public static class StringExtension
 {
     public static DateTime? GetDateTime(this string date)
     {
-        if (date.StringIsNotNullOrEmpty() && DateTime.TryParse(date, out DateTime result))
+        if (date.StringNotNullOrEmpty() && DateTime.TryParse(date, out DateTime result))
         {
             return result;
         }
@@ -36,20 +39,12 @@ public static class StringExtension
             return null;
         }
     }
-
-    public static bool StringIsNullOrEmpty(this string val)
+    public static string ToEnglishCharacter(this string text)
     {
-        return string.IsNullOrEmpty(val);
-    }
+        if (string.IsNullOrEmpty(text)) return "";
 
-    public static bool StringIsNotNullOrEmpty(this string val)
-    {
-        return !string.IsNullOrEmpty(val);
-    }
-
-    public static int ToInt32(this string val)
-    {
-        return int.Parse(val);
+        return string.Join("", text.Normalize(NormalizationForm.FormD)
+       .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)).Replace("ı", "i");
     }
 
     public static int ToSeconds(this string val)

@@ -17,7 +17,7 @@ namespace ServerService.Helper
             public string Method { get; set; }
         }
 
-        public dynamic Request<T>(RequestObject requestObject)
+        public T Request<T>(RequestObject requestObject)
         {
             if (string.IsNullOrEmpty(requestObject.Url)) throw new Exception("Url Not Found");
             if (string.IsNullOrEmpty(requestObject.Method)) throw new Exception("Request Method Name Not Found");

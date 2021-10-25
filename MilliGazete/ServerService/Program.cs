@@ -37,6 +37,10 @@ namespace ServerService
             {
                 var siteMapTimer = new Timer(GetSiteMapData, null, 0, AppSettingsHelper.SiteMapSeconds);
             }
+            if (AppSettingsHelper.PrayerTimeIsActive)
+            {
+                var siteMapTimer = new Timer(GetPrayerTimes, null, 0, AppSettingsHelper.PrayerTimesSeconds);
+            }
             Console.ReadLine();
         }
 
@@ -49,6 +53,8 @@ namespace ServerService
         private static void GetForeksData(object o) => ProcessMethod(() => InstanceFactory.GetInstance<IForeksService>().GetAllData(), "GetForeksData");
 
         private static void GetSiteMapData(object o) => ProcessMethod(() => InstanceFactory.GetInstance<ISiteMapService>().CreateSiteMapXml(), "GetSiteMapData");
+
+        private static void GetPrayerTimes(object o) => ProcessMethod(() => InstanceFactory.GetInstance<IPrayerTimeService>().GetLastPrayerTimeInfo(), "GetPrayerTimes");
 
         private static void ProcessMethod(Action action, string methodName)
         {

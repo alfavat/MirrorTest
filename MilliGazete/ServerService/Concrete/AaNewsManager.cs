@@ -75,7 +75,7 @@ namespace ServerService.Concrete
             {
                 foreach (var item in result.Data.Result)
                 {
-                    var splited = item.GroupId.StringIsNotNullOrEmpty() ? item.GroupId.Split(':') : item.Id.Split(':');
+                    var splited = item.GroupId.StringNotNullOrEmpty() ? item.GroupId.Split(':') : item.Id.Split(':');
                     var id = splited[2] + ":" + splited[3];
                     if (!list.Any(f => f.Code == item.Id || f.Code == item.GroupId))
                     {
@@ -84,7 +84,7 @@ namespace ServerService.Concrete
                         {
                             details.UpdateDate = item.Date.ToString().TurkishToUTCDate();
                             details.PublishDate = item.Date.ToString().TurkishToUTCDate();
-                            details.Code = item.GroupId.StringIsNotNullOrEmpty() ? item.GroupId : item.Id;
+                            details.Code = item.GroupId.StringNotNullOrEmpty() ? item.GroupId : item.Id;
                             details.NewsAgencyEntityId = NewsAgencyEntities.Aa;
                             details.Images = GetAaNewsPictures(id);
                             details.Videos = GetAaNewsVideos(id);

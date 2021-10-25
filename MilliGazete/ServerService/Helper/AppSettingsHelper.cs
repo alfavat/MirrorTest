@@ -77,5 +77,12 @@ namespace ServerService.Helper
         public static int SiteMapSeconds { get => configuration.GetSection("XmlInfo:TimerSeconds").Value.ToSeconds(); }
         public static bool SiteMapIsActive { get => configuration.GetSection("XmlInfo:Active").Value.ToBoolean(); }
         #endregion
+
+        #region prayer times
+        public static string PrayerTimeLink { get => configuration.GetSection("PrayerTimeLink").Value; }
+        public static int PrayerTimesSeconds { get => configuration.GetSection("PrayerTimesSeconds").Value.ToSeconds(); }
+        public static bool PrayerTimeIsActive { get => configuration.GetSection("PrayerTimeIsActive").Value.ToBoolean(); }
+        #endregion
+
     }
 }
