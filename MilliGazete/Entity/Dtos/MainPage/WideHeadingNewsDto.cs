@@ -29,6 +29,7 @@ namespace Entity.Dtos
         public bool BookMarkStatus { get; set; }
         public string ImageUrl { get; set; }
 
+        public bool UseTitle { get; set; }
 
         public List<CategoryDto> NewsCategoryList { get; set; }
         public List<MainPageNewsFileDto> NewsFileList { get; set; }

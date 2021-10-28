@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Business.BusinessAspects.Autofac;
+﻿using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.Helpers.Abstract;
 using Business.Managers.Abstract;
@@ -10,8 +9,9 @@ using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using Entity.Dtos;
-using System;
+using Entity.Enums;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Business.Managers.Concrete
@@ -19,18 +19,16 @@ namespace Business.Managers.Concrete
     public class NewsManager : INewsService
     {
         private readonly INewsAssistantService _newsAssistantService;
-        private readonly IMapper _mapper;
         private readonly IPushNotificationService _pushNotificationService;
         private readonly INewsPositionAssistantService _newsPositionAssistantService;
         private readonly INewsHelper _newsHelper;
 
         public NewsManager(INewsAssistantService newsAssistantService, INewsPositionAssistantService newsPositionAssistantService,
-            INewsHelper newsHelper, IMapper mapper, IPushNotificationService pushNotificationService)
+            INewsHelper newsHelper, IPushNotificationService pushNotificationService)
         {
             _newsAssistantService = newsAssistantService;
             _newsPositionAssistantService = newsPositionAssistantService;
             _newsHelper = newsHelper;
-            _mapper = mapper;
             _pushNotificationService = pushNotificationService;
         }
 
@@ -124,21 +122,15 @@ namespace Business.Managers.Concrete
         {
             if (newsAddDto.PushNotification)
             {
-                if (!newsAddDto.Active || newsAddDto.IsDraft)
-                {
-                    return new ErrorDataResult<int>(0, Messages.PushNotificationActiveDraftError);
-                }
-                if (newsAddDto.PublishDate.StringIsNullOrEmpty() && newsAddDto.PublishTime.StringIsNullOrEmpty())
-                {
-                    return new ErrorDataResult<int>(0, Messages.PushNotificationPublishDateError);
-                }
-                var publishDateTime = DateTime.Parse(newsAddDto.PublishDate).Date.Add(TimeSpan.Parse(newsAddDto.PublishTime));
-                if (publishDateTime > DateTime.Now.AddMinutes(5))
-                {
-                    return new ErrorDataResult<int>(0, Messages.PushNotificationPublishDateError);
-                }
+                if (!_newsHelper.CheckNewsPushNotification(newsAddDto, out string msg))
+                    return new ErrorDataResult<int>(0, msg);
             }
 
+            if (newsAddDto.NewsPositionList.HasValue() && newsAddDto.NewsPositionList.Any(f => f.PositionEntityId == (int)NewsPositionEntities.FlashNews))
+            {
+                if (!_newsHelper.CheckFlashNews(newsAddDto, out string msg))
+                    return new ErrorDataResult<int>(0, msg);
+            }
 
             int addUserId = 0;
             int historyNo;
@@ -158,15 +150,6 @@ namespace Business.Managers.Concrete
             }
 
             var newsId = await _newsAssistantService.Add(newsAddDto, addUserId, historyNo);
-
-            //if (newsAddDto.NewsId == 0 && newsAddDto.Active && !newsAddDto.IsDraft && newsAddDto.NewsPositionList.HasValue())
-            //{
-            //    if (newsAddDto.NewsPositionList.Any(f => f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainHeadingNews) &&
-            //        !newsAddDto.NewsPositionList.Any(f => f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainPageNews))
-            //    {
-            //        await _newsPositionAssistantService.MoveLastMainHeadingNewsToMainPageNewsPosition();
-            //    }
-            //}
 
             if (newsAddDto.PushNotification)
             {

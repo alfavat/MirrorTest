@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         public async Task<Tuple<List<NewsDetailPageDto>, int>> GetNewsWithDetailsByPaging(MainPageNewsPagingDto pagingDto, int? requestedUserId = null)
         {
-            DateTime fromDate = DateTime.Now.AddDays(-30);
+            DateTime fromDate = DateTime.Now.AddDays(-1 * AppSettingsExtension.GetValue<int>("NewsWithDetailsByPagingDays"));
             var query = GetActiveList();
 
             if (pagingDto.Query.StringNotNullOrEmpty())
@@ -75,7 +75,8 @@ namespace DataAccess.Concrete.EntityFramework
                         Url = f.Url,
                         UserId = f.AddUserId,
                         HistoryNo = f.HistoryNo,
-                        BookMarkStatus = requestedUserId.HasValue && f.NewsBookmarks.Any(f => f.UserId == requestedUserId)
+                        BookMarkStatus = requestedUserId.HasValue && f.NewsBookmarks.Any(f => f.UserId == requestedUserId),
+                        UseTitle = f.UseTitle ?? true
                     }).ToListAsync();
                 if (list.Any())
                 {
@@ -201,7 +202,8 @@ namespace DataAccess.Concrete.EntityFramework
                     Url = f.Url,
                     UserId = f.AddUserId,
                     HistoryNo = f.HistoryNo,
-                    BookMarkStatus = requestedUserId.HasValue && f.NewsBookmarks.Any(f => f.UserId == requestedUserId)
+                    BookMarkStatus = requestedUserId.HasValue && f.NewsBookmarks.Any(f => f.UserId == requestedUserId),
+                    UseTitle = f.UseTitle ?? true
                 }).FirstOrDefaultAsync();
 
                 if (item != null)
@@ -217,7 +219,8 @@ namespace DataAccess.Concrete.EntityFramework
                             Title = f.RelatedNews.Title,
                             Url = f.RelatedNews.Url,
                             HistoryNo = f.RelatedNews.HistoryNo,
-                            NewsTypeEntityId = f.RelatedNews.NewsTypeEntityId
+                            NewsTypeEntityId = f.RelatedNews.NewsTypeEntityId,
+                            UseTitle = f.RelatedNews.UseTitle??true
                         }
                     }).ToListAsync();
 
@@ -287,10 +290,9 @@ namespace DataAccess.Concrete.EntityFramework
             return item;
         }
 
-
         public async Task<List<MostSharedNewsDto>> GetMostShareNewsList(int limit)
         {
-            DateTime start = DateTime.Now.AddDays(-1);
+            DateTime start = DateTime.Now.AddDays(-1 * AppSettingsExtension.GetValue<int>("MostShareNewsDays"));
 
             var query = await GetActiveList().Where(f => f.PublishDate >= start).Select(f => new
             {
@@ -301,7 +303,8 @@ namespace DataAccess.Concrete.EntityFramework
                 HistoryNo = f.HistoryNo,
                 NewsTypeEntityId = f.NewsTypeEntityId,
                 AuthorNameSurename = f.Author.NameSurename,
-                ShareCount = f.NewsCounters.Where(u => u.CounterEntityId == (int)NewsCounterEntities.TotalShareCount).Select(r => r.Value).FirstOrDefault() ?? 0
+                ShareCount = f.NewsCounters.Where(u => u.CounterEntityId == (int)NewsCounterEntities.TotalShareCount).Select(r => r.Value).FirstOrDefault() ?? 0,
+                f.UseTitle
             }).OrderByDescending(f => f.ShareCount).ThenByDescending(f => f.Id).Take(limit.CheckLimit()).ToListAsync();
 
             var newsIds = query.Select(f => f.Id).Distinct();
@@ -324,13 +327,14 @@ namespace DataAccess.Concrete.EntityFramework
                 Id = u.Id,
                 ShortDescription = u.ShortDescription,
                 Title = u.Title,
-                ShareCount = u.ShareCount
+                ShareCount = u.ShareCount,
+                UseTitle = u.UseTitle ?? true
             }).ToList();
         }
 
         public async Task<List<MostViewedNewsDto>> GetLastWeekMostViewedNews(int limit)
         {
-            DateTime start = DateTime.Now.AddDays(-1);
+            DateTime start = DateTime.Now.AddDays(-1 * AppSettingsExtension.GetValue<int>("LastWeekMostViewedNewsDays"));
 
             var query = await GetActiveList().Where(f => f.PublishDate >= start).Select(f => new
             {
@@ -340,7 +344,8 @@ namespace DataAccess.Concrete.EntityFramework
                 Url = f.Url,
                 HistoryNo = f.HistoryNo,
                 NewsTypeEntityId = f.NewsTypeEntityId,
-                ViewCount = f.NewsHitDetails.Count()
+                ViewCount = f.NewsHitDetails.Count(),
+                f.UseTitle
             }).OrderByDescending(f => f.ViewCount).Take(limit.CheckLimit()).ToListAsync();
 
             var newsIds = query.Select(f => f.Id).Distinct();
@@ -363,7 +368,8 @@ namespace DataAccess.Concrete.EntityFramework
                 Id = u.Id,
                 ShortDescription = u.ShortDescription,
                 Title = u.Title,
-                ViewCount = u.ViewCount
+                ViewCount = u.ViewCount,
+                UseTitle = u.UseTitle ?? true
             }).ToList();
         }
 
@@ -382,7 +388,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         public async Task<DashboardStatisticsDto> GetDashboardStatistics()
         {
-            var yesterday = DateTime.Now.AddDays(-1).Date;
+            var yesterday = DateTime.Now.AddDays(-1 * AppSettingsExtension.GetValue<int>("DashboardStatisticsDays")).Date;
             var newsList = GetActiveList().Include(f => f.NewsComments).Include(f => f.NewsCounters);
 
             return new DashboardStatisticsDto
@@ -522,10 +528,10 @@ namespace DataAccess.Concrete.EntityFramework
 
                     await transaction.CommitAsync();
                 }
-                catch (Exception ec)
+                catch
                 {
                     await transaction.RollbackAsync();
-                    throw ec;
+                    throw;
                 }
             }
         }

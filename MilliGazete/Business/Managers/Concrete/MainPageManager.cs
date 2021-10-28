@@ -42,6 +42,12 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<List<BreakingNewsDto>>(await _mainPageAssistantService.GetTopBreakingNews(limit));
         }
 
+        [PerformanceAspect()]
+        public async Task<IDataResult<List<FlashNewsDto>>> GetLastFlashNews(int limit)
+        {
+            return new SuccessDataResult<List<FlashNewsDto>>(await _mainPageAssistantService.GetLastFlashNews(limit));
+        }
+
         [CacheAspect()]
         [PerformanceAspect()]
         public async Task<IDataResult<List<WideHeadingNewsDto>>> GetTopWideHeadingNews(int limit)

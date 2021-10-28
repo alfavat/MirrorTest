@@ -12,7 +12,7 @@ namespace Entity.Dtos
         public string SeoKeywords { get; set; }
         public string SeoDescription { get; set; }
         public DateTime CreatedAt { get; set; }
-
+        public bool IsStatic { get; set; }
         public int? FeaturedImageFileId { get; set; }
 
         public virtual FileDto FeaturedImageFile { get; set; }

@@ -25,6 +25,7 @@ namespace Entity.Dtos
         public bool PushNotification { get; set; } = false;
         public int? AuthorId { get; set; }
         public int? ReporterId { get; set; }
+        public bool UseTitle { get; set; }
 
         public List<NewsCategoryAddDto> NewsCategoryList { get; set; }
         public List<NewsFileAddDto> NewsFileList { get; set; }

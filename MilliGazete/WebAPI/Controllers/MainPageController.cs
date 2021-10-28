@@ -17,6 +17,12 @@ namespace WebAPI.Controllers
             this.newsService = newsService;
         }
 
+        [HttpGet("getlastflashnews")]
+        public async Task<IActionResult> GetLastFlashNews(int limit = 1)
+        {
+            return GetResponse(await _mainPageService.GetLastFlashNews(limit));
+        }
+
         [HttpGet("getmainheadingnews")]
         public async Task<IActionResult> GetMainHeadingNews(int limit = 10)
         {

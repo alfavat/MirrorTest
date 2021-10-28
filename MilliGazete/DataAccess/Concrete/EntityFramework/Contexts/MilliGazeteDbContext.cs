@@ -5,7 +5,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 {
     public partial class MilliGazeteDbContext : DbContext
     {
-
         public MilliGazeteDbContext(DbContextOptions<MilliGazeteDbContext> options)
             : base(options)
         {
@@ -274,10 +273,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnName("id")
                     .UseIdentityAlwaysColumn();
 
-                entity.Property(e => e.OrderNo)
-                    .HasColumnName("order_no")
-                    .HasDefaultValueSql("0");
-
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("date")
                     .HasColumnName("created_at")
@@ -302,6 +297,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.NameSurename)
                     .HasMaxLength(50)
                     .HasColumnName("name_surename");
+
+                entity.Property(e => e.OrderNo).HasColumnName("order_no");
 
                 entity.Property(e => e.PhotoFileId).HasColumnName("photo_file_id");
 
@@ -786,6 +783,11 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.Url)
                     .HasMaxLength(250)
                     .HasColumnName("url");
+
+                entity.Property(e => e.UseTitle)
+                    .IsRequired()
+                    .HasColumnName("use_title")
+                    .HasDefaultValueSql("true");
 
                 entity.HasOne(d => d.AddUser)
                     .WithMany(p => p.NewsAddUsers)
@@ -1322,6 +1324,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasColumnType("character varying")
                     .HasColumnName("html_content");
 
+                entity.Property(e => e.IsStatic).HasColumnName("is_static");
+
                 entity.Property(e => e.SeoDescription)
                     .HasColumnType("character varying")
                     .HasColumnName("seo_description");
@@ -1362,10 +1366,6 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.Property(e => e.CityId).HasColumnName("city_id");
 
-                entity.Property(e => e.PrayerDate)
-                    .HasColumnType("date")
-                    .HasColumnName("prayer_date");
-
                 entity.Property(e => e.DawnTime)
                     .HasColumnType("time without time zone")
                     .HasColumnName("dawn_time");
@@ -1385,6 +1385,10 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.NoonPrayer)
                     .HasColumnType("time without time zone")
                     .HasColumnName("noon_prayer");
+
+                entity.Property(e => e.PrayerDate)
+                    .HasColumnType("date")
+                    .HasColumnName("prayer_date");
 
                 entity.Property(e => e.SunTime)
                     .HasColumnType("time without time zone")

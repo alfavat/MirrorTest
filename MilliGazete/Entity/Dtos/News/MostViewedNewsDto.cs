@@ -9,5 +9,6 @@
         public string ExternalLink { get; set; }
         public string ImageUrl { get; set; }
         public int ViewCount { get; set; }
+        public bool UseTitle { get; set; }
     }
 }

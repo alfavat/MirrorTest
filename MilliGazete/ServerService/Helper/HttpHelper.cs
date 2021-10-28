@@ -59,9 +59,9 @@ namespace ServerService.Helper
                 }
                 throw new Exception("Request Create Exception");
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 

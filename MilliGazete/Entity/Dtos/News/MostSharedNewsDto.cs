@@ -10,5 +10,6 @@
         public string ImageUrl { get; set; }
         public int ShareCount { get; set; }
         public string AuthorNameSurename { get; set; }
+        public bool UseTitle { get; set; }
     }
 }

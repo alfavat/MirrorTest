@@ -1012,7 +1012,7 @@
     <value>Bildirimlerin gönderilebilmesi için haberlerin aktif olması, taslak olmaması gerekmekdedir</value>
   </data>
   <data name="messagePushNotificationPublishDateError" xml:space="preserve">
-    <value>Bildirimlerin gönderilebilmesi için haberlerin yayınlanma tarihinin bu saatten önce olması gerekmektedir.</value>
+    <value>Bildirimlerin gönderilebilmesi için haberin yayın tarihinin şimdiki zamandan önce olması gerekir.</value>
   </data>
   <data name="entityCategoryHeadingArtAndCultureEn" xml:space="preserve">
     <value>Art And Culture Kategori Manşeti</value>
@@ -1067,5 +1067,14 @@
   </data>
   <data name="entityCategoryArticle" xml:space="preserve">
     <value>Makale Kategori Manşeti</value>
+  </data>
+  <data name="entityFlashNews" xml:space="preserve">
+    <value>Flaş Haberi</value>
+  </data>
+  <data name="messageFlashNewsActiveDraftError" xml:space="preserve">
+    <value>Haberin flaş olması için haberlerin aktif olması, taslak olmaması gerekmekdedir</value>
+  </data>
+  <data name="messageFlashNewsPublishDateError" xml:space="preserve">
+    <value>Haberin flash olabilmesi için, haber'in yayın tarihinin şu anki saatten önce ve son 15 dakikadan sonra olması gerekir.</value>
   </data>
 </root>

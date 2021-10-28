@@ -10,6 +10,7 @@
         MobileStory = 41,
         MainPageFourHill = 44,
         SubHeadingNews2 = 54,
-        MainPageWideHeadingNews = 55
+        MainPageWideHeadingNews = 55,
+        FlashNews = 79
     }
 }

@@ -14,5 +14,6 @@
         public string Thumbnail { get; set; }
         public int? HistoryNo { get; set; }
         public int? NewsTypeEntityId { get; set; }
+        public bool UseTitle { get; set; }
     }
 }

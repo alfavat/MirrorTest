@@ -28,6 +28,7 @@ namespace Entity.Dtos
         public int? NewsAgencyEntityId { get; set; }
         public bool BookMarkStatus { get; set; }
         public string ImageUrl { get; set; }
+        public bool UseTitle { get; set; }
 
 
         public List<CategoryDto> NewsCategoryList { get; set; }

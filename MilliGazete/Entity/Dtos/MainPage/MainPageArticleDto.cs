@@ -8,6 +8,7 @@
         public string ExternalLink { get; set; }
         public string ImageUrl { get; set; }
         public string ShortDescription { get; set; }
+        public bool UseTitle { get; set; }
         public AuthorDto Author { get; set; }
     }
 }

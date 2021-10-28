@@ -38,6 +38,7 @@ namespace Entity.Dtos
         public int? AuthorId { get; set; }
         public int? ReporterId { get; set; }
         public int? NewsHitCount { get; set; }
+        public bool UseTitle { get; set; }
 
         public AuthorDto Author { get; set; }
         public ReporterDto Reporter { get; set; }

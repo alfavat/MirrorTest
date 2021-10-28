@@ -50,6 +50,7 @@ namespace Entity.Models
         public string InnerTitle { get; set; }
         public int? AuthorId { get; set; }
         public int? ReporterId { get; set; }
+        public bool? UseTitle { get; set; }
 
         public virtual User AddUser { get; set; }
         public virtual Author Author { get; set; }

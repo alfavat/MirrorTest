@@ -27,10 +27,10 @@ namespace WebAPI.Controllers
             return GetResponse(await _newsHitService.GetListByNewsId(newsId));
         }
 
-        //[HttpPost("add")]
-        //public async Task<IActionResult> Add(NewsHitAddDto dto)
-        //{
-        //    return GetResponse(await _newsHitService.AddWithDetail(dto));
-        //}
+        [HttpPost("add")]
+        public async Task<IActionResult> Add(NewsHitAddDto dto)
+        {
+            return GetResponse(await _newsHitService.AddWithDetail(dto));
+        }
     }
 }

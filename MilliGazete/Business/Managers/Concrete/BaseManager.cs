@@ -77,7 +77,7 @@ namespace Business.Managers.Concrete
             {
                 PassiveUsers.AddRange(users);
             }
-            catch (System.Exception ec)
+            catch
             {
             }
         }
@@ -103,10 +103,11 @@ namespace Business.Managers.Concrete
                     }
                 }
             }
-            catch (System.Exception ec)
+            catch
             {
             }
         }
+
         public bool IsCurrentUserPassive
         {
             get

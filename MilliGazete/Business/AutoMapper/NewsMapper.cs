@@ -71,6 +71,11 @@ namespace Business.AutoMapper
               .ForMember(f => f.NewsTagList, g => g.MapFrom(u => u.NewsTags.Where(f => !f.Tag.Deleted)))
               .ForMember(f => f.NewsCategoryList, g => g.MapFrom(u => u.NewsCategories.Select(x => x.Category)));
 
+            CreateMap<News, FlashNewsDto>()
+                .ForMember(f => f.AuthorNameSurename, g => g.MapFrom(u => u.Author == null ? "" : u.Author.NameSurename))
+                .ForMember(f => f.NewsId, u => u.MapFrom(g => g.Id))
+                .ForMember(f => f.Url, u => u.MapFrom(g => g.Url.GetUrl(g.HistoryNo, g.NewsTypeEntityId, g.NewsCategories.Select(e => e.Category.Url).FirstOrDefault())));
+
             CreateMap<News, BreakingNewsDto>()
                 .ForMember(f => f.AuthorNameSurename, g => g.MapFrom(u => u.Author == null ? "" : u.Author.NameSurename))
                 .ForMember(f => f.NewsId, u => u.MapFrom(g => g.Id))

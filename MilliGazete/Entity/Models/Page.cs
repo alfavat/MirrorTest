@@ -17,6 +17,7 @@ namespace Entity.Models
         public DateTime CreatedAt { get; set; }
         public bool Deleted { get; set; }
         public int? FeaturedImageFileId { get; set; }
+        public bool IsStatic { get; set; }
 
         public virtual File FeaturedImageFile { get; set; }
     }

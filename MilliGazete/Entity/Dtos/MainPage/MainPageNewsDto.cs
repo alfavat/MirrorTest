@@ -11,6 +11,7 @@ namespace Entity.Dtos
         public string CategoryName { get; set; }
         public string ShortDescription { get; set; }
         public string StyleCode { get; set; }
+        public bool UseTitle { get; set; }
         public List<MainPageNewsFileDto> FileList { get; set; }
     }
 }

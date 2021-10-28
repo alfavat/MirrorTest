@@ -19,5 +19,6 @@ namespace Business.Managers.Abstract
         Task<List<MainPageStoryNewsDto>> GetStoryNews(int limit);
         Task<List<MainPageFourHillNewsDto>> GetTopMainPageFourHillNews(int limit);
         Task<List<WideHeadingNewsDto>> GetTopWideHeadingNews(int limit);
+        Task<List<FlashNewsDto>> GetLastFlashNews(int limit);
     }
 }

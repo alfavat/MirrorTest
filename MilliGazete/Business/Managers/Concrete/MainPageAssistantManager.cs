@@ -16,16 +16,18 @@ namespace Business.Managers.Concrete
     public class MainPageAssistantManager : IMainPageAssistantService
     {
         private readonly IMapper _mapper;
+        private readonly IBaseService _baseService;
         private readonly INewsDal _newsDal;
         private readonly INewsTagDal _newsTagDal;
         private readonly INewsCategoryDal _newsCategoryDal;
 
-        public MainPageAssistantManager(INewsDal NewsDal, INewsTagDal newsTagDal, INewsCategoryDal newsCategoryDal, IMapper mapper)
+        public MainPageAssistantManager(INewsDal NewsDal, INewsTagDal newsTagDal, INewsCategoryDal newsCategoryDal, IMapper mapper, IBaseService baseService)
         {
             _newsDal = NewsDal;
             _newsTagDal = newsTagDal;
             _newsCategoryDal = newsCategoryDal;
             _mapper = mapper;
+            _baseService = baseService;
         }
 
         public async Task<NewsDetailPageDto> GetNewsWithDetails(string url)
@@ -101,6 +103,23 @@ namespace Business.Managers.Concrete
             query = query.Where(u => u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.BreakingNews));
             query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
             return await _mapper.ProjectTo<BreakingNewsDto>(query).ToListAsync();
+        }
+
+        public async Task<List<FlashNewsDto>> GetLastFlashNews(int limit)
+        {
+            var minutes = AppSettingsExtension.GetValue<int>("FlashNewsMinutes");
+            var dt = DateTime.Now.AddMinutes(-1 * minutes);
+            var query = _newsDal.GetActiveList()
+                .Include(f => f.Author)
+                .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
+                .Include(f => f.NewsPositions).AsQueryable();
+            query = query.Where(u =>
+            u.NewsPositions.Any(u => u.PositionEntityId == (int)NewsPositionEntities.FlashNews) &&
+            u.PublishDate != null && u.PublishTime != null &&
+            u.PublishDate.Value.Date >= dt.Date && u.PublishTime.Value >= dt.TimeOfDay
+            );
+            query = query.OrderByDescending(u => u.PublishDate).ThenByDescending(f => f.PublishTime).Take(limit.CheckLimit());
+            return await _mapper.ProjectTo<FlashNewsDto>(query).ToListAsync();
         }
 
         public async Task<List<WideHeadingNewsDto>> GetTopWideHeadingNews(int limit)

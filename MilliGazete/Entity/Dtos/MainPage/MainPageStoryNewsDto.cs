@@ -19,5 +19,6 @@ namespace Entity.Dtos
         public DateTime StoryDate { get; set; }
         public TimeSpan StoryTime { get; set; }
         public string MainImage { get; set; }
+        public bool UseTitle { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace Business.Managers.Abstract
         IDataResult<WeatherInfoDto> GetWeatherInfo();
         IDataResult<MainPageFixedFieldDto> GetFixedFields();
         IDataResult<List<StreamingDto>> GetStreamingList();
+        Task<IDataResult<List<FlashNewsDto>>> GetLastFlashNews(int limit);
         Task<IDataResult<List<MainPageNewsDto>>> GetTopMainPageNews(int limit);
         Task<IDataResult<List<MainPageVideoNewsDto>>> GetTopVideoNewsAsync(int limit);
         IDataResult<List<SuperLeagueStandingsDto>> GetSuperLeagueStandings();

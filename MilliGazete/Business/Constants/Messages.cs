@@ -35,5 +35,7 @@ namespace Business.Constants
         public static string UrlAlreadyExists { get => Translator.GetByKey("messageUrlAlreadyExists"); }
         public static string PushNotificationActiveDraftError { get => Translator.GetByKey("messagePushNotificationActiveDraftError"); }
         public static string PushNotificationPublishDateError { get => Translator.GetByKey("messagePushNotificationPublishDateError"); }
+        public static string FlashNewsActiveDraftError { get => Translator.GetByKey("messageFlashNewsActiveDraftError"); }
+        public static string FlashNewsPublishDateError { get => Translator.GetByKey("messageFlashNewsPublishDateError"); }
     }
 }
