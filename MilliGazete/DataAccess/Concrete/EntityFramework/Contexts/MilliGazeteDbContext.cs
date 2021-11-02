@@ -40,6 +40,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public virtual DbSet<NewsProperty> NewsProperties { get; set; }
         public virtual DbSet<NewsRelatedNews> NewsRelatedNews { get; set; }
         public virtual DbSet<NewsTag> NewsTags { get; set; }
+        public virtual DbSet<Newspaper> Newspapers { get; set; }
         public virtual DbSet<OperationClaim> OperationClaims { get; set; }
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
@@ -1214,6 +1215,41 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasConstraintName("news_tag_tag_id_fkey");
             });
 
+            modelBuilder.Entity<Newspaper>(entity =>
+            {
+                entity.ToTable("newspaper");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Active).HasColumnName("active");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("date")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.MainImageFileId).HasColumnName("main_image_file_id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.ThumbnailFileId).HasColumnName("thumbnail_file_id");
+
+                entity.HasOne(d => d.MainImageFile)
+                    .WithMany(p => p.NewspaperMainImageFiles)
+                    .HasForeignKey(d => d.MainImageFileId)
+                    .HasConstraintName("newspaper_main_image_file_id_fkey");
+
+                entity.HasOne(d => d.ThumbnailFile)
+                    .WithMany(p => p.NewspaperThumbnailFiles)
+                    .HasForeignKey(d => d.ThumbnailFileId)
+                    .HasConstraintName("newspaper_thumbnail_file_id_fkey");
+            });
+
             modelBuilder.Entity<OperationClaim>(entity =>
             {
                 entity.ToTable("operation_claim");
@@ -1459,6 +1495,10 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .IsRequired()
                     .HasColumnType("character varying")
                     .HasColumnName("full_name");
+
+                entity.Property(e => e.Url)
+                    .HasColumnType("character varying")
+                    .HasColumnName("url");
 
                 entity.Property(e => e.ProfileImageId).HasColumnName("profile_image_id");
 

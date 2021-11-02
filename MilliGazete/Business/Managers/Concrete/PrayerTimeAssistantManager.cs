@@ -37,7 +37,7 @@ namespace Business.Managers.Concrete
 
         public async Task<List<PrayerTimeDto>> GetPrayerTimeByCityId(int cityId)
         {
-            var list = _prayerTimeDal.GetList(f => f.CityId == cityId);
+            var list = _prayerTimeDal.GetList(f => f.CityId == cityId && f.PrayerDate.Date == System.DateTime.Now.Date);
             return await _mapper.ProjectTo<PrayerTimeDto>(list).ToListAsync();
         }
     }

@@ -70,6 +70,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("ISearchPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("ICategoryService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> Update(CategoryUpdateDto categoryUpdateDto)
         {
             var category = await _categoryAssistantService.GetById(categoryUpdateDto.Id);
@@ -91,6 +92,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("ISearchPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("ICategoryService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> Add(CategoryAddDto categoryAddDto)
         {
             var category = _mapper.Map<Category>(categoryAddDto);
@@ -106,6 +108,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("ISearchPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("ICategoryService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> Delete(int categoryId)
         {
             var category = await _categoryAssistantService.GetById(categoryId);
@@ -126,6 +129,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("ISearchPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("ICategoryService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> ChangeActiveStatus(ChangeActiveStatusDto changeActiveStatusDto)
         {
             var category = await _categoryAssistantService.GetById(changeActiveStatusDto.Id);

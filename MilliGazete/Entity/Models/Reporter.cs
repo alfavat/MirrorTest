@@ -15,6 +15,7 @@ namespace Entity.Models
         public int Id { get; set; }
         public string FullName { get; set; }
         public int? ProfileImageId { get; set; }
+        public string Url { get; set; }
         public bool Deleted { get; set; }
 
         public virtual File ProfileImage { get; set; }

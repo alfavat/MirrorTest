@@ -61,6 +61,30 @@ namespace Core.Utilities.File
             "document/pptx",
         };
 
+        public string DownloadNewspaperImage(string imageUrl, string title)
+        {
+            using (WebClient client = new WebClient())
+            {
+                using (Stream stream = client.OpenRead(imageUrl))
+                {
+                    Bitmap bitmap = new Bitmap(stream);
+                    var todayFolder = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+                    var folderName = Path.Combine("Resources", "Newspapers", todayFolder);
+                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                    if (!Directory.Exists(pathToSave))
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    var newFilename = Path.Combine(pathToSave, title + ".jpg");
+                    if (bitmap != null)
+                    {
+                        bitmap.Save(newFilename, ImageFormat.Jpeg);
+                    }
+                    return "Resources/Newspapers/" + todayFolder + "/" + title + ".jpg";
+                }
+            }
+        }
+
         public string UploadFile(string fileNamePreWord, IFormFile file)
         {
             var folderName = Path.Combine("Resources", "Downloads");
@@ -84,7 +108,7 @@ namespace Core.Utilities.File
                     stream.Flush();
                     stream.Dispose();
                 }
-                if (!file.ContentType.Contains("image/webp"))
+                if (!IsVideo(file.ContentType) && !file.ContentType.Contains("image/webp"))
                 {
                     var img = Image.FromFile(fullPath);
                     bool changed;
@@ -271,6 +295,16 @@ namespace Core.Utilities.File
                 return folderName.Replace(@"\", "/") + @"/" + fileName; ;
             }
             return null;
+        }
+
+        public bool FileExists(string name)
+        {
+            var todayFolder = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+            var folderName = Path.Combine("Resources", "Newspapers", todayFolder);
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            name = "main_" + name.ToEnglishStandardUrl();
+            var str = Path.Combine(pathToSave, name + ".jpg");
+            return System.IO.File.Exists(str);
         }
     }
 }

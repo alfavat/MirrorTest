@@ -9,6 +9,7 @@ namespace Business.Managers.Abstract
 {
     public interface IFileService
     {
+        Task<IDataResult<File>> Add(File file);
         Task<IDataResult<File>> Upload(IFormFile file);
         Task<IDataResult<File>> GetById(int fileId);
         Task<IResult> Delete(int fileId);

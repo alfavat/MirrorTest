@@ -13,6 +13,21 @@ public static class StringExtensions
 {
 
     private static IConfiguration _config;
+
+    public static string ToEnglishStandardUrl(this string str)
+    {
+        if (str.StringIsNullOrEmpty()) return "";
+        str = str.ToLower();
+        str = str.Replace("ı", "i");
+        str = str.Replace("ğ", "g");
+        str = str.Replace("ü", "u");
+        str = str.Replace("ş", "s");
+        str = str.Replace("ö", "o");
+        str = str.Replace("ç", "c");
+        str = str.Replace(" ", "_");
+        return str;
+    }
+
     public static int ToInt32(this string str)
     {
         if (string.IsNullOrEmpty(str)) return 0;
@@ -80,7 +95,7 @@ public static class StringExtensions
         int hixtoryNo = 0;
         if (url.StringNotNullOrEmpty())
         {
-            var splited = url.Split('-');
+            var splited = url.Split("-");
             if (splited.Length > 0)
             {
                 int.TryParse(splited[splited.Length - 1], out hixtoryNo);

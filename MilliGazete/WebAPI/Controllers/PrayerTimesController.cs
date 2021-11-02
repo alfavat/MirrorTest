@@ -19,12 +19,7 @@ namespace WebAPI.Controllers
         [HttpGet("getlistbycityid")]
         public async Task<IActionResult> GetListByCityIdAsync(int cityId)
         {
-            var result = await _prayerTimeService.GetPrayerTimeByCityId(cityId);
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            return BadRequest(result.Message);
+            return GetResponse(await _prayerTimeService.GetPrayerTimeByCityId(cityId));
         }
 
         [HttpGet("getlist")]

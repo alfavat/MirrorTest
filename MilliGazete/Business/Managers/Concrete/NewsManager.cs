@@ -118,6 +118,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("IMainPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("INewsDetailPageService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IDataResult<int>> Add(NewsAddDto newsAddDto)
         {
             if (newsAddDto.PushNotification)
@@ -167,6 +168,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("IMainPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("INewsDetailPageService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> Delete(int newsId)
         {
             var data = await _newsAssistantService.GetById(newsId);
@@ -189,6 +191,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("IMainPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("INewsDetailPageService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> ChangeActiveStatus(ChangeActiveStatusDto changeActiveStatusDto)
         {
             var data = await _newsAssistantService.GetById(changeActiveStatusDto.Id);
@@ -209,6 +212,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("IMainPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("INewsDetailPageService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> ChangeIsDraftStatus(ChangeIsDraftStatusDto dto)
         {
             var data = await _newsAssistantService.GetById(dto.Id);
@@ -229,6 +233,7 @@ namespace Business.Managers.Concrete
         [CacheRemoveAspect("IMainPageService.Get")]
         [CacheRemoveAspect("ICategoryPageService.Get")]
         [CacheRemoveAspect("INewsDetailPageService.Get")]
+        [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> IncreaseShareCount(int newsId)
         {
             var data = await _newsAssistantService.GetById(newsId);
@@ -243,11 +248,6 @@ namespace Business.Managers.Concrete
         public async Task<IDataResult<List<NewsViewDto>>> GetListByAuthorId(int authorId)
         {
             return new SuccessDataResult<List<NewsViewDto>>(await _newsAssistantService.GetListByAuthorId(authorId));
-        }
-
-        public async Task<IDataResult<List<NewsViewDto>>> GetListByReporterId(int reporterId)
-        {
-            return new SuccessDataResult<List<NewsViewDto>>(await _newsAssistantService.GetListByReporterId(reporterId));
         }
     }
 }

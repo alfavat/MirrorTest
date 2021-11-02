@@ -10,6 +10,7 @@ using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using Entity.Dtos;
 using Entity.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -46,6 +47,22 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<ReporterDto>(data);
         }
 
+        [CacheAspect()]
+        [PerformanceAspect()]
+        public async Task<IDataResult<ReporterDto>> GetByUrl(string url)
+        {
+            if (url.StringIsNullOrEmpty())
+            {
+                return new ErrorDataResult<ReporterDto>(Messages.EmptyParameter);
+            }
+            var data = await _reporterAssistantService.GetViewByUrl(url);
+            if (data == null)
+            {
+                return new ErrorDataResult<ReporterDto>(Messages.RecordNotFound);
+            }
+            return new SuccessDataResult<ReporterDto>(data);
+        }
+
         [SecuredOperation("ReporterUpdate")]
         [ValidationAspect(typeof(ReporterUpdateDtoValidator))]
         [LogAspect()]
@@ -70,7 +87,7 @@ namespace Business.Managers.Concrete
         {
             var data = _mapper.Map<Reporter>(dto);
             var result = await _reporterAssistantService.Add(data);
-            return new SuccessDataResult<int>(result.Id,Messages.Added);
+            return new SuccessDataResult<int>(result.Id, Messages.Added);
         }
 
         [SecuredOperation("ReporterDelete")]
@@ -86,5 +103,16 @@ namespace Business.Managers.Concrete
             await _reporterAssistantService.Delete(data);
             return new SuccessResult(Messages.Deleted);
         }
+
+        [PerformanceAspect()]
+        public async Task<IDataResult<Tuple<List<NewsPagingViewDto>, int>>> GetListByPagingViaUrl(ReporterNewsPagingDto pagingDto)
+        {
+            if (pagingDto.Url.StringIsNullOrEmpty())
+            {
+                return new ErrorDataResult<Tuple<List<NewsPagingViewDto>, int>>(Messages.EmptyParameter);
+            }
+            return new SuccessDataResult<Tuple<List<NewsPagingViewDto>, int>>(await _reporterAssistantService.GetListByPagingViaUrl(pagingDto));
+        }
+
     }
 }

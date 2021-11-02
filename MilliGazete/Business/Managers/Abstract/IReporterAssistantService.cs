@@ -1,5 +1,6 @@
 ﻿using Entity.Dtos;
 using Entity.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,5 +14,7 @@ namespace Business.Managers.Abstract
         Task<List<ReporterDto>> GetList();
         Task<Reporter> Add(Reporter reporter);
         Task<ReporterDto> GetViewById(int reporterId);
+        Task<ReporterDto> GetViewByUrl(string url);
+        Task<Tuple<List<NewsPagingViewDto>, int>> GetListByPagingViaUrl(ReporterNewsPagingDto pagingDto);
     }
 }

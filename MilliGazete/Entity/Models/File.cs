@@ -15,6 +15,8 @@ namespace Entity.Models
             Categories = new HashSet<Category>();
             NewsFileFiles = new HashSet<NewsFile>();
             NewsFileVideoCoverFiles = new HashSet<NewsFile>();
+            NewspaperMainImageFiles = new HashSet<Newspaper>();
+            NewspaperThumbnailFiles = new HashSet<Newspaper>();
             Pages = new HashSet<Page>();
             Reporters = new HashSet<Reporter>();
         }
@@ -38,6 +40,8 @@ namespace Entity.Models
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<NewsFile> NewsFileFiles { get; set; }
         public virtual ICollection<NewsFile> NewsFileVideoCoverFiles { get; set; }
+        public virtual ICollection<Newspaper> NewspaperMainImageFiles { get; set; }
+        public virtual ICollection<Newspaper> NewspaperThumbnailFiles { get; set; }
         public virtual ICollection<Page> Pages { get; set; }
         public virtual ICollection<Reporter> Reporters { get; set; }
     }

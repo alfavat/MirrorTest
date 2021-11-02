@@ -40,6 +40,15 @@ namespace Business.Managers.Concrete
             return new SuccessDataResult<File>(await _fileAssistantService.GetById(fileId));
         }
 
+        [SecuredOperation("Service")]
+        [LogAspect()]
+        [CacheRemoveAspect("IFileService.Get")]
+        public async Task<IDataResult<File>> Add(File file)
+        {
+            await _fileAssistantService.Add(file);
+            return new SuccessDataResult<File>(file, Messages.FileUploadSuccess);
+        }
+
         [SecuredOperation()]
         [LogAspect()]
         [CacheRemoveAspect("IFileService.Get")]

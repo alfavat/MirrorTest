@@ -76,7 +76,8 @@ namespace DataAccess.Concrete.EntityFramework
                         UserId = f.AddUserId,
                         HistoryNo = f.HistoryNo,
                         BookMarkStatus = requestedUserId.HasValue && f.NewsBookmarks.Any(f => f.UserId == requestedUserId),
-                        UseTitle = f.UseTitle ?? true
+                        UseTitle = f.UseTitle ?? false,
+                        ReporterId = f.ReporterId
                     }).ToListAsync();
                 if (list.Any())
                 {
@@ -84,6 +85,18 @@ namespace DataAccess.Concrete.EntityFramework
                     {
                         if (item != null)
                         {
+                            if (item.ReporterId.HasValue)
+                            {
+                                item.Reporter = await Db.Reporters.Where(f => f.Id == item.ReporterId.Value && !f.Deleted)
+                                    .Select(f => new ReporterDto
+                                    {
+                                        FullName = f.FullName,
+                                        Id = f.Id,
+                                        ProfileImage = f.ProfileImageId == null ? "".GetDefaultImageUrl() : f.ProfileImage.FileName.GetFullFilePath(),
+                                        ProfileImageId = f.ProfileImageId,
+                                        Url = f.Url
+                                    }).FirstOrDefaultAsync();
+                            }
                             var relatedNewsList = await Db.NewsRelatedNews.Where(f => f.NewsId == item.Id).Select(f => new MainPageRelatedNewsDto
                             {
                                 RelatedNewsId = f.RelatedNewsId,
@@ -203,11 +216,24 @@ namespace DataAccess.Concrete.EntityFramework
                     UserId = f.AddUserId,
                     HistoryNo = f.HistoryNo,
                     BookMarkStatus = requestedUserId.HasValue && f.NewsBookmarks.Any(f => f.UserId == requestedUserId),
-                    UseTitle = f.UseTitle ?? true
+                    UseTitle = f.UseTitle ?? false,
+                    ReporterId = f.ReporterId
                 }).FirstOrDefaultAsync();
 
                 if (item != null)
                 {
+                    if (item.ReporterId.HasValue)
+                    {
+                        item.Reporter = await Db.Reporters.Where(f => f.Id == item.ReporterId.Value && !f.Deleted)
+                            .Select(f => new ReporterDto
+                            {
+                                FullName = f.FullName,
+                                Id = f.Id,
+                                ProfileImage = f.ProfileImageId == null ? "".GetDefaultImageUrl() : f.ProfileImage.FileName.GetFullFilePath(),
+                                ProfileImageId = f.ProfileImageId,
+                                Url = f.Url
+                            }).FirstOrDefaultAsync();
+                    }
                     var relatedNewsList = await Db.NewsRelatedNews.Where(f => f.NewsId == item.Id).Select(f => new MainPageRelatedNewsDto
                     {
                         RelatedNewsId = f.RelatedNewsId,
@@ -220,7 +246,7 @@ namespace DataAccess.Concrete.EntityFramework
                             Url = f.RelatedNews.Url,
                             HistoryNo = f.RelatedNews.HistoryNo,
                             NewsTypeEntityId = f.RelatedNews.NewsTypeEntityId,
-                            UseTitle = f.RelatedNews.UseTitle??true
+                            UseTitle = f.RelatedNews.UseTitle ?? true
                         }
                     }).ToListAsync();
 
@@ -328,7 +354,7 @@ namespace DataAccess.Concrete.EntityFramework
                 ShortDescription = u.ShortDescription,
                 Title = u.Title,
                 ShareCount = u.ShareCount,
-                UseTitle = u.UseTitle ?? true
+                UseTitle = u.UseTitle ?? false
             }).ToList();
         }
 
@@ -369,13 +395,14 @@ namespace DataAccess.Concrete.EntityFramework
                 ShortDescription = u.ShortDescription,
                 Title = u.Title,
                 ViewCount = u.ViewCount,
-                UseTitle = u.UseTitle ?? true
+                UseTitle = u.UseTitle ?? false
             }).ToList();
         }
 
         public async Task<News> GetView(Expression<Func<News, bool>> filter = null)
         {
             return await Db.News.Where(filter).Include(f => f.NewsTypeEntity)
+                .Include(f=>f.Reporter).ThenInclude(f=>f.ProfileImage)
                 .Include(f => f.NewsAgencyEntity)
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsFiles).ThenInclude(f => f.File)

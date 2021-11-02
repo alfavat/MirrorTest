@@ -2,7 +2,6 @@
 using Business.Managers.Abstract;
 using DataAccess.Abstract;
 using Entity.Dtos;
-using Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace Business.Managers.Concrete
         }
         public async Task<List<CityDto>> GetList()
         {
-            var list = _cityDal.GetList(p => !p.Deleted);
+            var list = _cityDal.GetList(p => !p.Deleted).OrderBy(f => f.Name);
             return await _mapper.ProjectTo<CityDto>(list).ToListAsync();
         }
     }

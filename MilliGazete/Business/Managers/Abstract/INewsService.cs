@@ -1,6 +1,5 @@
 ﻿using Core.Utilities.Results;
 using Entity.Dtos;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,7 +19,6 @@ namespace Business.Managers.Abstract
         Task<IResult> IncreaseShareCount(int newsId);
         Task<IDataResult<List<ArticleDto>>> GetLastWeekMostViewedArticles(int count);
         Task<IDataResult<List<NewsViewDto>>> GetListByAuthorId(int authorId);
-        Task<IDataResult<List<NewsViewDto>>> GetListByReporterId(int reporterId);
         Task<IDataResult<ArticleDto>> GetArticleByUrl(string url);
     }
 }

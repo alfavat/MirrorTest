@@ -20,6 +20,10 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<NewspaperManager>().As<INewspaperService>();
+            builder.RegisterType<NewspaperAssistantManager>().As<INewspaperAssistantService>();
+            builder.RegisterType<EfNewspaperDal>().As<INewspaperDal>();
+
             builder.RegisterType<PrayerTimeManager>().As<IPrayerTimeService>();
             builder.RegisterType<PrayerTimeAssistantManager>().As<IPrayerTimeAssistantService>();
             builder.RegisterType<EfPrayerTimeDal>().As<IPrayerTimeDal>();
