@@ -11,6 +11,7 @@ using Core.Utilities.Helper.Abstract;
 using Core.Utilities.Results;
 using Entity.Dtos;
 using Entity.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -64,34 +65,34 @@ namespace Business.Managers.Concrete
             {
                 try
                 {
-                    if (_uploadHelper.FileExists(item.Name) || item.MainImageUrl.StringIsNullOrEmpty())
+                    if (_uploadHelper.FileExists(item.Name , item.NewspaperDate) || item.MainImageUrl.StringIsNullOrEmpty())
                     {
                         continue;
                     }
                     var data = _mapper.Map<Newspaper>(item);
-                    var mainFile = await AddFile(item.MainImageUrl, item.Name, false);
+                    var mainFile = await AddFile(item.MainImageUrl, item.Name, false, item.NewspaperDate);
                     data.MainImageFileId = mainFile.Id;
 
                     if (item.ThumbnailUrl.StringNotNullOrEmpty())
                     {
-                        var thumbnailFile = await AddFile(item.ThumbnailUrl, item.Name, true);
+                        var thumbnailFile = await AddFile(item.ThumbnailUrl, item.Name, true , item.NewspaperDate);
                         data.ThumbnailFileId = thumbnailFile.Id;
                     }
                     await _newspaperAssistantService.Add(data);
                 }
-                catch (System.Exception ec)
+                catch (Exception ec)
                 {
                 }
             }
             return new SuccessResult(Messages.Added);
         }
 
-        private async Task<File> AddFile(string imageUrl, string title, bool isThumbnail)
+        private async Task<File> AddFile(string imageUrl, string title, bool isThumbnail, string newspaperDate)
         {
-            var url = _uploadHelper.DownloadNewspaperImage(imageUrl, (isThumbnail ? "thumbnail_" : "main_") + title.ToEnglishStandardUrl());
+            var url = _uploadHelper.DownloadNewspaperImage(imageUrl, (isThumbnail ? "thumbnail_" : "main_") + title.ToEnglishStandardUrl() , newspaperDate);
             var file = new File
             {
-                CreatedAt = System.DateTime.Now,
+                CreatedAt = DateTime.Now,
                 FileName = url,
                 FileType = System.IO.Path.GetExtension(url),
                 UserId = _baseService.RequestUserId

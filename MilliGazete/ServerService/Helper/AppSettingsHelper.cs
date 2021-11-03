@@ -79,10 +79,17 @@ namespace ServerService.Helper
         #endregion
 
         #region prayer times
-        public static string PrayerTimeLink { get => configuration.GetSection("PrayerTimeLink").Value; }
-        public static int PrayerTimesSeconds { get => configuration.GetSection("PrayerTimesSeconds").Value.ToSeconds(); }
-        public static bool PrayerTimeIsActive { get => configuration.GetSection("PrayerTimeIsActive").Value.ToBoolean(); }
+        public static string PrayerTimeLink { get => configuration.GetSection("PrayerTimeInfo:Link").Value; }
+        public static int PrayerTimesSeconds { get => configuration.GetSection("PrayerTimeInfo:TimerSeconds").Value.ToSeconds(); }
+        public static bool PrayerTimeIsActive { get => configuration.GetSection("PrayerTimeInfo:Active").Value.ToBoolean(); }
         #endregion
+
+        #region newspaper
+        public static string NewsPaperLink { get => configuration.GetSection("NewsPaperInfo:Link").Value; }
+        public static int NewsPapersSeconds { get => configuration.GetSection("NewsPaperInfo:TimerSeconds").Value.ToSeconds(); }
+        public static bool NewsPaperIsActive { get => configuration.GetSection("NewsPaperInfo:Active").Value.ToBoolean(); }
+        #endregion
+
 
     }
 }

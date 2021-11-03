@@ -17,7 +17,7 @@ namespace Core.Utilities.Helper.Abstract
         bool IsImage(string link);
         string DownloadNewsVideo(string videoUrl);
         string UploadFileBase64(string fileNamePreWord, string base64, string fileType);
-        bool FileExists(string mainImageUrl);
-        string DownloadNewspaperImage(string imageUrl, string title);
+        bool FileExists(string mainImageUrl , string newspaperDate);
+        string DownloadNewspaperImage(string imageUrl, string title, string newspaperDate);
     }
 }

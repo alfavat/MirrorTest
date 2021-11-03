@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -61,14 +62,15 @@ namespace Core.Utilities.File
             "document/pptx",
         };
 
-        public string DownloadNewspaperImage(string imageUrl, string title)
+        public string DownloadNewspaperImage(string imageUrl, string title , string newspaperDate)
         {
             using (WebClient client = new WebClient())
             {
                 using (Stream stream = client.OpenRead(imageUrl))
                 {
                     Bitmap bitmap = new Bitmap(stream);
-                    var todayFolder = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+                    var dt = DateTime.Parse(newspaperDate, new CultureInfo("tr-TR"));
+                    var todayFolder = dt.Year + "-" + dt.Month + "-" + dt.Day;
                     var folderName = Path.Combine("Resources", "Newspapers", todayFolder);
                     var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                     if (!Directory.Exists(pathToSave))
@@ -297,9 +299,10 @@ namespace Core.Utilities.File
             return null;
         }
 
-        public bool FileExists(string name)
+        public bool FileExists(string name, string newspaperDate)
         {
-            var todayFolder = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+            var dt = DateTime.Parse(newspaperDate, new CultureInfo("tr-TR"));
+            var todayFolder = dt.Year + "-" + dt.Month + "-" + dt.Day;
             var folderName = Path.Combine("Resources", "Newspapers", todayFolder);
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             name = "main_" + name.ToEnglishStandardUrl();

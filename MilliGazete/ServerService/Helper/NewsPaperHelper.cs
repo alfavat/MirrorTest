@@ -6,11 +6,11 @@ using static ServerService.Helper.HttpHelper;
 
 namespace ServerService.Helpers
 {
-    public class PrayerTimeHelper
+    public class NewsPaperHelper
     {
-        public static bool AddArrayPrayerTimes(List<PrayerTimeAddDto> listPrayerTimes)
+        public static bool AddArrayNewsPapers(List<NewspaperAddDto> listNewsPapers)
         {
-            if (!listPrayerTimes.HasValue())
+            if (!listNewsPapers.HasValue())
             {
                 throw new Exception("no data to send to web api");
             }
@@ -20,10 +20,10 @@ namespace ServerService.Helpers
                 {
                     var res = http.Request<dynamic>(new RequestObject()
                     {
-                        Url = AppSettingsHelper.ApiLink + "prayertimes/addarray",
+                        Url = AppSettingsHelper.ApiLink + "Newspapers/addarray",
                         AuthorizationHeaderValue = "bearer " + AccessToken.Token,
                         Method = "POST",
-                        Body = listPrayerTimes
+                        Body = listNewsPapers
                     });
                     return true;
                 }

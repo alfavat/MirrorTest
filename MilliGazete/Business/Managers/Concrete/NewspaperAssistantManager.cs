@@ -65,7 +65,8 @@ namespace Business.Managers.Concrete
 
         public async Task<NewspaperDto> GetViewByName(string name)
         {
-            var data = await _newspaperDal.GetList(p => p.Active && p.Name == name &&
+            var data = await _newspaperDal.GetList(p => p.Active &&
+                                                    (p.Name == name || p.Name.ToLower().Contains(name.ToLower())) &&
                                                     p.CreatedAt.Year == DateTime.Now.Year &&
                                                     p.CreatedAt.Month == DateTime.Now.Month &&
                                                     p.CreatedAt.Day == DateTime.Now.Day

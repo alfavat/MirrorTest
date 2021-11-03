@@ -41,6 +41,10 @@ namespace ServerService
             {
                 var siteMapTimer = new Timer(GetPrayerTimes, null, 0, AppSettingsHelper.PrayerTimesSeconds);
             }
+            if (AppSettingsHelper.NewsPaperIsActive)
+            {
+                var siteMapTimer = new Timer(GetNewsPapers, null, 0, AppSettingsHelper.NewsPapersSeconds);
+            }
             Console.ReadLine();
         }
 
@@ -55,6 +59,8 @@ namespace ServerService
         private static void GetSiteMapData(object o) => ProcessMethod(() => InstanceFactory.GetInstance<ISiteMapService>().CreateSiteMapXml(), "GetSiteMapData");
 
         private static void GetPrayerTimes(object o) => ProcessMethod(() => InstanceFactory.GetInstance<IPrayerTimeService>().GetLastPrayerTimeInfo(), "GetPrayerTimes");
+
+        private static void GetNewsPapers(object o) => ProcessMethod(() => InstanceFactory.GetInstance<INewsPaperService>().GetLastNewsPaperInfo(), "GetNewsPapers");
 
         private static void ProcessMethod(Action action, string methodName)
         {
