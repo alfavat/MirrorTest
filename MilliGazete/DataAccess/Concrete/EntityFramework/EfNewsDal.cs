@@ -92,7 +92,7 @@ namespace DataAccess.Concrete.EntityFramework
                                     {
                                         FullName = f.FullName,
                                         Id = f.Id,
-                                        ProfileImage = f.ProfileImageId == null ? "".GetDefaultImageUrl() : f.ProfileImage.FileName.GetFullFilePath(),
+                                        ProfileImage = f.ProfileImageId == null ? null : new FileDto { FileName = f.ProfileImage.FileName.GetFullFilePath(), Id = f.ProfileImage.Id },
                                         ProfileImageId = f.ProfileImageId,
                                         Url = f.Url
                                     }).FirstOrDefaultAsync();
@@ -229,7 +229,7 @@ namespace DataAccess.Concrete.EntityFramework
                             {
                                 FullName = f.FullName,
                                 Id = f.Id,
-                                ProfileImage = f.ProfileImageId == null ? "".GetDefaultImageUrl() : f.ProfileImage.FileName.GetFullFilePath(),
+                                ProfileImage = f.ProfileImageId == null ? null : new FileDto { FileName = f.ProfileImage.FileName.GetFullFilePath(), Id = f.ProfileImage.Id },
                                 ProfileImageId = f.ProfileImageId,
                                 Url = f.Url
                             }).FirstOrDefaultAsync();
@@ -402,7 +402,7 @@ namespace DataAccess.Concrete.EntityFramework
         public async Task<News> GetView(Expression<Func<News, bool>> filter = null)
         {
             return await Db.News.Where(filter).Include(f => f.NewsTypeEntity)
-                .Include(f=>f.Reporter).ThenInclude(f=>f.ProfileImage)
+                .Include(f => f.Reporter).ThenInclude(f => f.ProfileImage)
                 .Include(f => f.NewsAgencyEntity)
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsFiles).ThenInclude(f => f.File)

@@ -65,22 +65,25 @@ namespace Business.Managers.Concrete
             {
                 try
                 {
-                    if (_uploadHelper.FileExists(item.Name , item.NewspaperDate) || item.MainImageUrl.StringIsNullOrEmpty())
+                    if (item.MainImageUrl.StringIsNullOrEmpty() || item.ThumbnailUrl.StringIsNullOrEmpty())
+                        continue;
+                    if (_uploadHelper.FileExists(item.Name, item.NewspaperDate))
                     {
+                        UpdateFile(item.MainImageUrl, item.Name, false, item.NewspaperDate);
+                        UpdateFile(item.ThumbnailUrl, item.Name, true, item.NewspaperDate);
                         continue;
                     }
                     var data = _mapper.Map<Newspaper>(item);
+
                     var mainFile = await AddFile(item.MainImageUrl, item.Name, false, item.NewspaperDate);
                     data.MainImageFileId = mainFile.Id;
 
-                    if (item.ThumbnailUrl.StringNotNullOrEmpty())
-                    {
-                        var thumbnailFile = await AddFile(item.ThumbnailUrl, item.Name, true , item.NewspaperDate);
-                        data.ThumbnailFileId = thumbnailFile.Id;
-                    }
+                    var thumbnailFile = await AddFile(item.ThumbnailUrl, item.Name, true, item.NewspaperDate);
+                    data.ThumbnailFileId = thumbnailFile.Id;
+
                     await _newspaperAssistantService.Add(data);
                 }
-                catch (Exception ec)
+                catch
                 {
                 }
             }
@@ -89,7 +92,7 @@ namespace Business.Managers.Concrete
 
         private async Task<File> AddFile(string imageUrl, string title, bool isThumbnail, string newspaperDate)
         {
-            var url = _uploadHelper.DownloadNewspaperImage(imageUrl, (isThumbnail ? "thumbnail_" : "main_") + title.ToEnglishStandardUrl() , newspaperDate);
+            var url = _uploadHelper.DownloadNewspaperImage(imageUrl, (isThumbnail ? "thumbnail_" : "main_") + title.ToEnglishStandardUrl(), newspaperDate);
             var file = new File
             {
                 CreatedAt = DateTime.Now,
@@ -99,6 +102,12 @@ namespace Business.Managers.Concrete
             };
             await _fileService.Add(file);
             return file;
+        }
+
+        private void UpdateFile(string imageUrl, string title, bool isThumbnail, string newspaperDate)
+        {
+            _uploadHelper.DownloadNewspaperImage(imageUrl, (isThumbnail ? "thumbnail_" : "main_") + title.ToEnglishStandardUrl(), newspaperDate);
+
         }
     }
 }

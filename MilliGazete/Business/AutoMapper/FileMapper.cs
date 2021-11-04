@@ -9,7 +9,6 @@ namespace Business.AutoMapper
         public FileMapper()
         {
             CreateMap<File, FileDto>().ForMember(f => f.FileName, g => g.MapFrom(u => u.FileName.GetFullFilePath()));
-            CreateMap<FileDto, File>();
         }
     }
 }

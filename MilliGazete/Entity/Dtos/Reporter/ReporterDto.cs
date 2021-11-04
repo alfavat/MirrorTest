@@ -7,6 +7,6 @@
         public int? ProfileImageId { get; set; }
         public string Url { get; set; }
 
-        public string ProfileImage { get; set; }
+        public FileDto ProfileImage { get; set; }
     }
 }

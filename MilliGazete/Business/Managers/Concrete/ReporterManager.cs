@@ -27,7 +27,6 @@ namespace Business.Managers.Concrete
             _mapper = mapper;
         }
 
-        [CacheAspect()]
         [PerformanceAspect()]
         public async Task<IDataResult<List<ReporterDto>>> GetList()
         {

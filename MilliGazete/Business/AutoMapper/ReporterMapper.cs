@@ -14,7 +14,7 @@ namespace Business.AutoMapper
             CreateMap<ReporterUpdateDto, Reporter>();
 
             CreateMap<Reporter, ReporterDto>()
-                .ForMember(f => f.ProfileImage, g => g.MapFrom(t => t.ProfileImageId == null ? "".GetDefaultImageUrl() : t.ProfileImage.FileName.GetFullFilePath()));
+                .ForMember(f => f.ProfileImage, g => g.MapFrom(t => t.ProfileImage == null ? null : t.ProfileImage));
 
         }
     }
