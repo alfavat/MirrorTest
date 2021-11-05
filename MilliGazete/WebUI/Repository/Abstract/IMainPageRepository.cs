@@ -7,6 +7,7 @@ namespace WebUI.Repository.Abstract
 {
     public interface IMainPageRepository : IUIBaseRepository
     {
+        Task<IDataResult<List<FlashNewsDto>>> GetLastFlashNews(int limit = 0);
         Task<IDataResult<List<MenuViewDto>>> GetMenuList();
         Task<IDataResult<List<MainHeadingDto>>> GetMainHeadingNews(int limit = 0);
         Task<IDataResult<List<SubHeadingDto>>> GetSubHeadingNews(int limit = 0);

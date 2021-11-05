@@ -31,7 +31,7 @@
     <!-- Swiper CSS -->
     <link href="~/css/swiper-bundle.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="~/css/custom.css" rel="stylesheet">
+    <link href="~/css/custom.css?v=2" rel="stylesheet">
 </head>
 
 <body>
@@ -43,17 +43,20 @@
     <div class="info-bar">
         <div class="container visible-desktop">
             <div class="row">
-                <div class="col-md-2 city-dropdown">
-                    <a href="javascript:;">İSTANBUL <i class="fa fa-angle-down"></i></a>
+                <div class="col-md-2 city-dropdown dropdown">
+                    <a href="javascript:;" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">İSTANBUL @*<i class="fa fa-angle-down"></i>*@</a>
+                    <div class="dropdown-menu dropdown-menu-lg-left" aria-labelledby="dropdownMenuButton">
+                        @foreach (var city in LayoutModel.CityItems)
+                        {
+                            <a href="javascript:;" class="dropdown-item" onclick="changeCity(@city.Id,'@city.Name')">@city.Name</a>
+                        }
+                    </div>
                 </div>
                 <div class="col-md-2 wheather-info">
                     <i class="wi wi-day-cloudy text-bold"></i> <b>13 &#8451;</b>
                     <hr />
-                    <i class="fa fa-mosque"></i> Akşama <span class="badge badge-dark">28 dk</span>
+                    <a href="~/istanbul-namaz-vakitleri" id="lblPrayerLink" target="_blank"><i class="fa fa-mosque"></i> <span class="lblPrayerLabel"></span> <span class="lblPrayerTime badge badge-dark">...</span></a>
                 </div>
-                <!--<div>
-                  <i class="fa fa-mosque"></i>
-                </div>-->
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-3 col-6 finance-box">
@@ -74,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="/sayfa/bugunku-milli-gazete" class="col-md-2 today-newspaper-box" target="_blank">
+                <a href="~/bugunku-milli-gazete" class="col-md-2 today-newspaper-box" target="_blank">
                     @Html.Raw(Translator.GetByKey("TodaysNewspaper"))
                     <div class="visible-desktop"></div>
                 </a>
@@ -88,9 +91,9 @@
                 <div class="col-4 wheather-info" style="background-color: #eee !important; width: 100% !important; max-width: 100% !important; text-align: center;">
                     <i class="wi wi-day-cloudy text-bold"></i> 13 &#8451;
                     <hr />
-                    <i class="fa fa-mosque"></i> Akşama <span class="badge badge-dark">28 dk</span>
+                    <i class="fa fa-mosque"></i> <span class="lblPrayerLabel"></span> <span class="lblPrayerTime badge badge-dark">...</span>
                 </div>
-                <a href="javascript:;" class="col-4 today-newspaper-box" style="background-color: #e1e1e1 !important; font-size: 13px !important; text-align: center; padding-top: 25px !important;">
+                <a href="~/bugunku-milli-gazete" class="col-4 today-newspaper-box" style="background-color: #e1e1e1 !important; font-size: 13px !important; text-align: center; padding-top: 25px !important;">
                     @Html.Raw(Translator.GetByKey("TodaysNewspaper"))
                 </a>
             </div>
@@ -167,6 +170,7 @@
                         <b>İçerik</b><br />
                         <div class="row">
                             <div class="col-md-6">
+                                <a href="~/gazete-mansetleri" class="btn btn-block big-menu-btn-link">Gazete&nbsp;Manşetleri</a>
                                 <a href="~/yazarlar" class="btn btn-block big-menu-btn-link">Yazarlar</a>
                                 <a href="~/roportaj" class="btn btn-block big-menu-btn-link">Röportajlar</a>
                                 <a href="~/kim-kimdir" class="btn btn-block big-menu-btn-link">Kim Kimdir?</a>
@@ -176,7 +180,7 @@
                                 <a href="~/dunya" class="btn btn-block big-menu-btn-link">Dünya</a>
                                 <a href="~/ekonomi" class="btn btn-block big-menu-btn-link">Ekonomi</a>
                                 <a href="~/teknoloji" class="btn btn-block big-menu-btn-link">Teknoloji</a>
-                                
+
                             </div>
                             <div class="col-md-6">
                                 <a href="~/kultur-sanat" class="btn btn-block big-menu-btn-link">Kültür-Sanat</a>
@@ -197,7 +201,6 @@
                         <a href="javascript:;" class="btn btn-block big-menu-btn-link">Hava Durumu</a>
                         <a href="javascript:;" class="btn btn-block big-menu-btn-link">Lig Fikstür</a>
                         <a href="javascript:;" class="btn btn-block big-menu-btn-link">Döviz Bilgileri</a>
-                        <a href="javascript:;" class="btn btn-block big-menu-btn-link">Nöbetçi Eczaneler</a>
                     </div>
                     <div class="col-md-3">
                         <b>Kurumsal</b><br />
@@ -274,11 +277,13 @@
 
     <!-- Jquery JavaScript -->
     <script src="~/js/jquery.min.js"></script>
+    <!-- Bootstrap Popper core JavaScript -->
+    <script src="~/js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
     <script src="~/js/bootstrap.min.js"></script>
     <!-- Custom JavaScript -->
-    <script src="~/js/custom.js"></script>
-
+    <script> var baseWebUrl = "http://localhost:57983";//"@LayoutModel.WebUIUrl"; </script>
+    <script src="~/js/custom.js?v=2"></script>
     @RenderSection("SectionBottom", false)
 
 </body>

@@ -10,12 +10,14 @@ namespace WebUI.Services
     {
         private readonly IMainPageRepository _mainPageRepository;
         private readonly IOptionRepository _optionRepository;
+        private readonly ICityRepository _cityRepository;
         private readonly IConfiguration configuration;
 
-        public ActionFilter(IMainPageRepository mainPageRepository, IOptionRepository optionRepository, IConfiguration configuration)
+        public ActionFilter(IMainPageRepository mainPageRepository, IOptionRepository optionRepository, IConfiguration configuration, ICityRepository cityRepository)
         {
             _mainPageRepository = mainPageRepository;
             _optionRepository = optionRepository;
+            _cityRepository = cityRepository;
             this.configuration = configuration;
         }
 
@@ -31,6 +33,7 @@ namespace WebUI.Services
                 await LoadMenuItemsAsync(context);
                 await LoadFinancialInfoAsync(context);
                 await LoadOptionsAsync(context);
+                await LoadCitiesAsync(context);
             }
         }
 
@@ -43,6 +46,11 @@ namespace WebUI.Services
         {
             var model = await _mainPageRepository.GetMenuList();
             if (model.Success) LayoutModel.MenuItems = model.Data;
+        }
+        private async Task LoadCitiesAsync(ActionExecutingContext context)
+        {
+            var model = await _cityRepository.GetList();
+            if (model.Success) LayoutModel.CityItems = model.Data;
         }
         private async Task LoadOptionsAsync(ActionExecutingContext context)
         {

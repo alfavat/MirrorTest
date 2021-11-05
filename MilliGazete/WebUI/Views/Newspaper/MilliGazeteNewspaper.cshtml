@@ -1,0 +1,45 @@
+﻿@model NewspapersModel
+@{
+    if (Model.Page != null)
+    {
+        ViewData["Title"] = Model.Page.Title + " - " + @Translator.GetByKey("ProjectName");
+        ViewData["Description"] = Model.Page.SeoDescription;
+        ViewData["Keywords"] = Model.Page.SeoKeywords;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@section SectionTop{
+    <link href="~/css/lightbox.css" rel="stylesheet" />
+}
+
+@if (Model.Page != null)
+{
+    <!-- content start-->
+    <section class="block-wrapper">
+        <div class="container" style="background-color:#fff;padding:20px;">
+            <h1 style="font-size:18px;color:#595959;">@Model.Page.Title</h1>
+            @Html.Raw(Model.Page.HtmlContent)
+            <br />
+
+            @if (Model.Newspaper!=null)
+            {
+                <a href="@Model.Newspaper.MainImage" class="col-md-12" data-toggle="lightbox" data-gallery="newspaper-gallery">
+                    <img class="card-img-top" src="@Model.Newspaper.MainImage" style="width: 100%;" alt="@Model.Newspaper.Name">
+                </a>
+            }
+
+        </div>
+    </section>
+    <!-- content end-->
+}
+
+@section SectionBottom{
+    <script src="~/js/lightbox.min.js"></script>
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+    </script>
+}

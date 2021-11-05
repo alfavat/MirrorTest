@@ -13,9 +13,10 @@ namespace WebUI.Models
         public static List<CurrencyDto> CurrencyItems { get; set; } = new List<CurrencyDto>();
         public static string WebUIUrl { get; set; }
         public static string WebMobileUIUrl { get; set; }
+        public static List<CityDto> CityItems { get; set; } = new List<CityDto>();
         public static Option Option { get; set; }
 
-        public static void LoadLayoutData(IConfiguration configuration, IMainPageRepository mainPageRepository, IOptionRepository optionRepository)
+        public static void LoadLayoutData(IConfiguration configuration, IMainPageRepository mainPageRepository, IOptionRepository optionRepository, ICityRepository cityRepository)
         {
             APIUrl = configuration.GetValue<string>("APIUrl");
             WebUIUrl = configuration.GetValue<string>("WebUIUrl");
@@ -29,6 +30,11 @@ namespace WebUI.Models
             if (option.DataResultIsNotNull())
             {
                 Option = option.Data;
+            }
+            var cities = cityRepository.GetList().Result;
+            if (cities.DataResultIsNotNull())
+            {
+                CityItems = cities.Data;
             }
         }
     }
