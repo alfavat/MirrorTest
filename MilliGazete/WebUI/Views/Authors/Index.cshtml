@@ -51,7 +51,7 @@
                     {
                         foreach (var item in Model)
                         {
-                            <a href="~/yazar/@item.Url.ToUrlFormat()" class="col-md-3 col-6 author-box">
+                            @*<a href="~/yazar/@item.Url.ToUrlFormat()" class="col-md-3 col-6 author-box">
                                 <div class="card">
                                     <img class="card-img-top" src="@item.PhotoFile?.FileName" style="width:100%;height:220px;" />
                                     <div class="card-block">
@@ -61,7 +61,27 @@
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </a>*@
+
+                            <div class="col-md-3 author-card">
+                                <div class="card card-profile">
+                                    <div class="card-avatar">
+                                        <a href="~/yazar/@item.Url" target="_blank">
+                                            <img class="img" src="@item.PhotoFile?.FileName">
+                                        </a>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div class="card-title-box">
+                                            <a href="~/yazar/@item.Url" class="card-title">@item.NameSurename</a>
+                                        </div>
+                                        <div class="card-description-box">
+                                            <a href="@item.LastArticleUrl" class="card-description" target="_blank">
+                                                @item.LastArticleTitle
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     }
 

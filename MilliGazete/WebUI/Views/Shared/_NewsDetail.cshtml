@@ -21,13 +21,28 @@
         </ol>
     </nav>
 
+    @if (Model.Reporter != null)
+    {
+        <div class="col-md-6 mb-3">
+            <div class="row">
+                <div class="col-md-4" style="border-right: 2px solid #808080;">
+                    <img src="@Model.Reporter.ProfileImage.FileName" class="rounded-circle" style="width:50px; height:50px;" />
+                </div>
+                <div class="col-md-8">
+                    <b>@Model.Reporter.FullName</b><br />
+                    <a href="javascript:;">Tüm Haberleri</a>
+                </div>
+            </div>
+        </div>
+    }
+
     <h1 style="margin:auto !important;">@Model.InnerTitle </h1>
 
     <h2>@Model.ShortDescription</h2>
-    
+
     <div class="news-photo">
         @if (Model.NewsTypeEntityId == (int)Entity.Enums.NewsTypeEntities.VideoGallery && Model.NewsFileList.HasValue() &&
-                       Model.NewsFileList.Any(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo))
+                      Model.NewsFileList.Any(x => x.NewsFileTypeEntityId == (int)Entity.Enums.NewsFileTypeEntities.GalleryVideo))
         {
             <video id="main-video"
                    class="video-js"

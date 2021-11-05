@@ -12,11 +12,31 @@
             {
                 @foreach (var item in Model)
                 {
-                    <a href="~/yazar/@item.Url" class="col-md-2 col-6 author-box" target="_blank">
+                    @*<a href="~/yazar/@item.Url" class="col-md-2 col-6 author-box" target="_blank">
                         <img src="@item.PhotoFile?.FileName" style="width:130px !important; height: 130px !important; object-fit: cover !important;" class="rounded-circle" />
                         <div class="author-name">@item.NameSurename</div>
                         <div class="article-name">@item.LastArticleTitle</div>
-                    </a>
+                    </a>*@
+
+                    <div class="col-md-3 author-card">
+                        <div class="card card-profile">
+                            <div class="card-avatar">
+                                <a href="~/yazar/@item.Url" target="_blank">
+                                    <img class="img" src="@item.PhotoFile?.FileName">
+                                </a>
+                            </div>
+                            <div class="card-body ">
+                                <div class="card-title-box">
+                                    <a href="~/yazar/@item.Url" class="card-title">@item.NameSurename</a>
+                                </div>
+                                <div class="card-description-box">
+                                    <a href="@item.LastArticleUrl" class="card-description" target="_blank">
+                                        @item.LastArticleTitle
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
             }
         </div>
