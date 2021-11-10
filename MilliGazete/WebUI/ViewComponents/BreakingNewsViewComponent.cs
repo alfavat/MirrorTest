@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using System.Threading.Tasks;
+using WebUI.Models;
 using WebUI.Repository.Abstract;
 
 namespace WebUI.ViewComponents
@@ -14,12 +15,13 @@ namespace WebUI.ViewComponents
         }
         public async Task<ViewViewComponentResult> InvokeAsync()
         {
-            var result = await _mainPageRepository.GetTopBreakingNews(10);
-            if (result.DataResultIsNotNull())
-            {
-                return View(result.Data);
-            }
-            return View();
+            BreakingNewsModel model = new BreakingNewsModel();
+            var flashNews = await _mainPageRepository.GetLastFlashNews(1);
+            var breakingNews = await _mainPageRepository.GetTopBreakingNews(10);
+            
+            model.FlashNews = flashNews.Data;
+            model.BreakingNews = breakingNews.Data;
+            return View(model);
         }
     }
 }

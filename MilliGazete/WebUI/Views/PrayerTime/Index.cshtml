@@ -1,0 +1,92 @@
+﻿@model PrayerPageModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Model.Page != null)
+    {
+        ViewData["Title"] = Model.PrayerTime[0].CityName+" "+Model.Page.Title + " - " + @Translator.GetByKey("ProjectName");
+        ViewData["Description"] = Model.Page.SeoDescription;
+        ViewData["Keywords"] = Model.Page.SeoKeywords;
+    }
+}
+
+
+@if (Model.Page != null)
+{
+    <!-- content start-->
+    <section class="block-wrapper">
+        <div class="container" style="background-color:#fff;padding:20px;">
+            <h1 style="font-size:18px;color:#595959;">@Model.PrayerTime[0].CityName @Model.Page.Title</h1>
+            <select class="float-right" id="ddlCity">
+                @foreach (var city in LayoutModel.CityItems)
+                {
+                    if (Model.PrayerTime[0].CityId == city.Id)
+                    {
+                        <option value="@city.Id" selected="selected">@city.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                }
+            </select>
+            <br /><br />
+            <div class="row">
+                <div class="col-md-2 text-center" style="font-size:18px;padding-top:20px;">
+                    <i class="fa fa-calendar-alt" style="font-size:25px;"></i><br /><span>@DateTime.Now.ToString("dd MMMM yyyy dddd")</span>
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-12 text-center" style="font-size:26px;">
+                            <i class="fa fa-mosque"></i> <span class="lblPrayerLabel"></span> <span class="lblPrayerTime badge badge-dark">...</span>
+                            <hr />
+                        </div>
+                        
+                        <div class="col-md-2 alert alert-secondary text-center">
+                            <b>İMSAK</b><br />
+                            @Model.PrayerTime[0].DawnTime.ToString().Substring(0, 5)
+                        </div>
+                        <div class="col-md-2 alert alert-secondary text-center">
+                            <b>GÜNEŞ</b><br />
+                            @Model.PrayerTime[0].SunTime.ToString().Substring(0, 5)
+                        </div>
+                        <div class="col-md-2 alert alert-secondary text-center">
+                            <b>ÖĞLE</b><br />
+                            @Model.PrayerTime[0].NoonPrayer.ToString().Substring(0, 5)
+                        </div>
+                        <div class="col-md-2 alert alert-secondary text-center">
+                            <b>İKİNDİ</b><br />
+                            @Model.PrayerTime[0].AfternoonPrayer.ToString().Substring(0, 5)
+                        </div>
+                        <div class="col-md-2 alert alert-secondary text-center">
+                            <b>AKŞAM</b><br />
+                            @Model.PrayerTime[0].EveningPrayer.ToString().Substring(0, 5)
+                        </div>
+                        <div class="col-md-2 alert alert-secondary text-center">
+                            <b>YATSI</b><br />
+                            @Model.PrayerTime[0].NightPrayer.ToString().Substring(0, 5)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            @Html.Raw(Model.Page.HtmlContent)
+        </div>
+    </section>
+    <!-- content end-->
+}
+
+@section SectionBottom{ 
+    <script>
+        $(document).ready(function () {
+            $("#ddlCity").val("@Model.PrayerTime[0].CityId");
+            changeCity(parseInt("@Model.PrayerTime[0].CityId"), "@Model.PrayerTime[0].CityName");
+        });
+
+        $('#ddlCity').on('change', function () {
+            var idCity = $("#ddlCity").val();
+            var url = getPrayerCityUrl(parseInt(idCity));
+            location.href = url;
+        });
+    </script>
+}

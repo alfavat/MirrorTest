@@ -9,7 +9,13 @@
             {
                 @foreach (var item in Model)
                 {
-                    <a href="@item.Url" id="mainSlider_@i" class="swiper-slide" target="_blank"><img src="@item.ImageUrl" class="img-fluid" style="width: 730px !important; height: auto !important;" /></a>
+                    <a href="@item.Url" id="mainSlider_@i" class="swiper-slide" style="position:relative;" target="_blank">
+                        @if (item.UseTitle)
+                        {
+                            <div class="badge main-heading-title">@item.Title</div>
+                        }
+                        <img src="@item.ImageUrl" class="img-fluid main-heading-img" />
+                    </a>
                     i++;
                 }
             }

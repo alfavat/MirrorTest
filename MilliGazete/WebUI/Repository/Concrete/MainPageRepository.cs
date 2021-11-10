@@ -8,6 +8,12 @@ namespace WebUI.Repository.Concrete
 {
     public class MainPageRepository : IMainPageRepository
     {
+        public async Task<IDataResult<List<FlashNewsDto>>> GetLastFlashNews(int limit = 0)
+        {
+            string param = "";
+            if (limit != 0) param = "?limit=" + limit;
+            return await ApiHelper.GetApiAsync<List<FlashNewsDto>>("MainPage/getlastflashnews" + param);
+        }
         public async Task<IDataResult<List<CurrencyDto>>> GetCurrencyList()
         {
             return await ApiHelper.GetApiAsync<List<CurrencyDto>>("Currencies/getlist");

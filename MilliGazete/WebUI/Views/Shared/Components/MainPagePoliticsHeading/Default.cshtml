@@ -18,7 +18,10 @@
                             @foreach (var item in Model)
                             {
                                 <a href="@item.Url" id="politicsSlider_@i" class="swiper-slide politics-slider-item" target="_blank">
-                                    <div class="politics-slider-item-title">@item.Title</div>
+                                    @if (item.UseTitle)
+                                    {
+                                        <div class="politics-slider-item-title">@item.Title</div>
+                                    }
                                     <img src="@item.ImageUrl" alt="@item.Title" style="height:330px;width:100%;" />
                                 </a>
                                 i++;

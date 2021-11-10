@@ -16,7 +16,10 @@
                         @foreach (var item in Model)
                         {
                             <a href="@item.Url" class="swiper-slide economy-slider-item" target="_blank">
-                                <div class="economy-slider-item-title">@item.Title</div>
+                                @if (item.UseTitle)
+                                {
+                                    <div class="economy-slider-item-title">@item.Title</div>
+                                }
                                 <img src="@item.ImageUrl" alt="@item.Title" />
                             </a>
                         }

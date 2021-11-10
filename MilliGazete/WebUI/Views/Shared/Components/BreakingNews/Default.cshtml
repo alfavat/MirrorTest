@@ -1,5 +1,16 @@
-﻿@model List<BreakingNewsDto>
+﻿@model BreakingNewsModel
 
+    
+@if (Model.FlashNews.HasValue())
+{
+    <div class="container">
+        <div class="col-md-12 flash-news">
+            <a href="@Model.FlashNews[0].Url" target="_blank">@Model.FlashNews[0].Title</a>
+        </div>
+    </div>
+} 
+else if (Model.BreakingNews.HasValue())
+{
     <div class="container">
         <div class="row breaking-news-bg">
             <div class="col-md-2 breaking-news-title">
@@ -7,16 +18,16 @@
             </div>
             <div class="col-md-10">
                 <div class="mt-3">
-                    <ul class="breaking-news-ticker">
-                        @if (Model.HasValue())
+                    <ul class="breaking-news-ticker" style="display:none;">
+
+                        @foreach (var item in Model.BreakingNews)
                         {
-                            @foreach (var item in Model)
-                            {
-                                <li><a href="@item.Url">@item.Title</a></li>
-                            }
+                            <li><a href="@item.Url">@item.Title</a></li>
                         }
+
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+}

@@ -1,22 +1,26 @@
 ﻿@model List<SubHeadingDto>
 
-<div class="swiper-container swiper-container-sub" style="background-color: #fff; border-left: 1px solid #b5b5b5; border-right: 1px solid #b5b5b5; border-bottom: 1px solid #b5b5b5; ">
+<div class="swiper-container swiper-container-sub2" style="background-color: #fff; border-left: 1px solid #b5b5b5; border-right: 1px solid #b5b5b5; border-bottom: 1px solid #b5b5b5; ">
     <div class="swiper-wrapper">
         @if (Model.HasValue())
         {
+            var i = 1;
+
             @foreach (var item in Model)
             {
-        <a href="@item.Url" class="swiper-slide sub-heading-link" style="position: relative;" target="_blank">
-            <div class="badge badge-primary" style="position: absolute;top:10px;left:10px;font-size:16px;">@Translator.GetByKey("Life")</div>
-            <img src="@item.ImageUrl" class="img-fluid" style="width: 100% !important; height: auto !important;" alt="@item.Title" />
-            <div class="title">@item.Title</div>
-        </a>
+                <a href="@item.Url" id="subSlider2_@i" class="swiper-slide sub-heading-link" style="position: relative;" target="_blank">
+                    <div class="badge badge-primary" style="position: absolute;top:10px;left:10px;font-size:16px;">@Translator.GetByKey("Life")</div>
+                    <img src="@item.ImageUrl" class="img-fluid" style="width: 100% !important; height: 185px !important;" alt="@item.Title" />
+                    <div class="title">@item.Title</div>
+                </a>
+
+                i++;
             }
         }
 
     </div>
-    <div class="swiper-button-prev swiper-button-prev-sub"></div>
-    <div class="swiper-button-next swiper-button-next-sub"></div>
+    <div class="swiper-button-prev swiper-button-prev-sub2"></div>
+    <div class="swiper-button-next swiper-button-next-sub2"></div>
 
-    <div class="swiper-pagination swiper-pagination-sub" style="margin-top:5px;margin-bottom: 5px;"></div>
+    <div class="swiper-pagination swiper-pagination-sub2" style="margin-top:5px;margin-bottom: 5px;"></div>
 </div>

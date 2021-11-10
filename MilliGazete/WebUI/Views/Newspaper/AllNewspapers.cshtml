@@ -1,0 +1,69 @@
+﻿@model NewspapersModel
+@{
+    if (Model.Page != null)
+    {
+        ViewData["Title"] = Model.Page.Title + " - " + @Translator.GetByKey("ProjectName");
+        ViewData["Description"] = Model.Page.SeoDescription;
+        ViewData["Keywords"] = Model.Page.SeoKeywords;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@section SectionTop{
+    <link href="~/css/lightbox.css" rel="stylesheet" />
+    <style>
+        .card .title, .card:hover .title {
+            color: #595959 !important;
+            text-decoration: none !important;
+            text-align: center;
+        }
+
+        .card img {
+            padding-top: 10px;
+            border-radius: 10px;
+            max-height: 269px;
+        }
+    </style>
+}
+
+@if (Model.Page != null)
+{
+    <!-- content start-->
+    <section class="block-wrapper">
+        <div class="container" style="background-color:#fff;padding:20px;">
+            <h1 style="font-size:18px;color:#595959;">@Model.Page.Title</h1>
+            @Html.Raw(Model.Page.HtmlContent)
+            <br />
+
+            @if (Model.Newspapers.HasValue())
+            {
+                <div class="col-md-12">
+                    <div class="row">
+                        @foreach (var newspaper in Model.Newspapers)
+                        {
+                            <a href="@newspaper.MainImage" class="col-md-3 card" data-toggle="lightbox" data-gallery="newspaper-gallery">
+                                <img class="card-img-top" src="@newspaper.Thumbnail" alt="@newspaper.Name">
+                                <div class="card-body">
+                                    <h5 class="title">@newspaper.Name</h5>
+                                </div>
+                            </a>
+
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+    </section>
+    <!-- content end-->
+}
+
+@section SectionBottom{
+    <script src="~/js/lightbox.min.js"></script>
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+    </script>
+}

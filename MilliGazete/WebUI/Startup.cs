@@ -92,7 +92,7 @@ namespace WebUI
 
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMainPageRepository mainPageRepository, IOptionRepository optionRepository) //, IUserService userService
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMainPageRepository mainPageRepository, IOptionRepository optionRepository, ICityRepository cityRepository) //, IUserService userService
         {
             if (env.IsDevelopment())
             {
@@ -141,7 +141,7 @@ namespace WebUI
             });
 
             //userService.FillPassiveUserList();
-            LayoutModel.LoadLayoutData(Configuration, mainPageRepository, optionRepository);
+            LayoutModel.LoadLayoutData(Configuration, mainPageRepository, optionRepository, cityRepository);
 
 
         }

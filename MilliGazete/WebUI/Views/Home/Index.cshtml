@@ -97,7 +97,11 @@
             },
             pagination: {
                 el: '.swiper-pagination-sub',
-                clickable: true
+                clickable: true,
+                renderBullet: function (index, className) {
+                    var urlSub = document.getElementById("subSlider_" + (index + 1)).getAttribute("href");
+                    return '<div class="' + className + '"><div class="swiper-sub-full-width-div" onclick="gotoUrl(\'' + urlSub + '\');"></div></div>';
+                },
             },
             autoplay: {
                 delay: 7500,
@@ -113,7 +117,11 @@
             },
             pagination: {
                 el: '.swiper-pagination-sub2',
-                clickable: true
+                clickable: true,
+                renderBullet: function (index, className) {
+                    var urlSub2 = document.getElementById("subSlider2_" + (index + 1)).getAttribute("href");
+                    return '<div class="' + className + '"><div class="swiper-sub-full-width-div" onclick="gotoUrl(\'' + urlSub2 + '\');"></div></div>';
+                },
             },
             autoplay: {
                 delay: 8000,
