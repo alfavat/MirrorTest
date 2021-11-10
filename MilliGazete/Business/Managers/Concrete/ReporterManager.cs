@@ -65,6 +65,10 @@ namespace Business.Managers.Concrete
         [SecuredOperation("ReporterUpdate")]
         [ValidationAspect(typeof(ReporterUpdateDtoValidator))]
         [LogAspect()]
+        [CacheRemoveAspect("INewsPositionService.Get")]
+        [CacheRemoveAspect("INewsService.Get")]
+        [CacheRemoveAspect("IMainPageService.Get")]
+        [CacheRemoveAspect("INewsDetailPageService.Get")]
         [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> Update(ReporterUpdateDto dto)
         {
@@ -81,6 +85,10 @@ namespace Business.Managers.Concrete
         [SecuredOperation("ReporterAdd")]
         [ValidationAspect(typeof(ReporterAddDtoValidator))]
         [LogAspect()]
+        [CacheRemoveAspect("INewsPositionService.Get")]
+        [CacheRemoveAspect("INewsService.Get")]
+        [CacheRemoveAspect("IMainPageService.Get")]
+        [CacheRemoveAspect("INewsDetailPageService.Get")]
         [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IDataResult<int>> Add(ReporterAddDto dto)
         {
@@ -91,6 +99,10 @@ namespace Business.Managers.Concrete
 
         [SecuredOperation("ReporterDelete")]
         [LogAspect()]
+        [CacheRemoveAspect("INewsPositionService.Get")]
+        [CacheRemoveAspect("INewsService.Get")]
+        [CacheRemoveAspect("IMainPageService.Get")]
+        [CacheRemoveAspect("INewsDetailPageService.Get")]
         [CacheRemoveAspect("IReporterService.Get")]
         public async Task<IResult> Delete(int id)
         {
