@@ -16,6 +16,7 @@ namespace Entity.Dtos
         public DateTime? ToCreatedAt { get; set; }
         public int? AuthorId { get; set; }
         public int? UserId { get; set; }
+        public int? LanguageId { get; set; }
         public List<int> CategoryIds { get; set; }
     }
 }

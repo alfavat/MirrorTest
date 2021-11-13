@@ -1,5 +1,4 @@
-﻿using Entity.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Business.Managers.Abstract
 {
@@ -7,8 +6,6 @@ namespace Business.Managers.Abstract
     {
         int[] DefaultUserOperationClaims { get; }
         bool IsEmployee
-        { get; }
-        Languages UserLanguage
         { get; }
         int RequestUserId
         { get; }

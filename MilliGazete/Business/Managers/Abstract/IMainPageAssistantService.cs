@@ -1,5 +1,4 @@
 ﻿using Entity.Dtos;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,8 +6,6 @@ namespace Business.Managers.Abstract
 {
     public interface IMainPageAssistantService
     {
-        Task<Tuple<List<NewsDetailPageDto>, int>> GetNewsWithDetailsByPaging(MainPageNewsPagingDto pagingDto);
-        Task<NewsDetailPageDto> GetNewsWithDetails(string url);
         Task<List<BreakingNewsDto>> GetTopBreakingNews(int limit);
         Task<List<SubHeadingDto>> GetTopSubHeadingNews(int limit);
         Task<List<SubHeadingDto>> GetTopSubHeadingNews2(int limit);

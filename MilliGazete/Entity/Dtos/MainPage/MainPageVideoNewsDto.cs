@@ -8,7 +8,6 @@
         public string ExternalLink { get; set; }
         public string VideoUrl { get; set; }
         public string VideoCoverImageUrl { get; set; }
-        public string AuthorNameSurename { get; set; }
         public bool UseTitle { get; set; }
     }
 }

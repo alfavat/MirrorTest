@@ -319,8 +319,9 @@ namespace DataAccess.Concrete.EntityFramework
         public async Task<List<MostSharedNewsDto>> GetMostShareNewsList(int limit)
         {
             DateTime start = DateTime.Now.AddDays(-1 * AppSettingsExtension.GetValue<int>("MostShareNewsDays"));
-
-            var query = await GetActiveList().Where(f => f.PublishDate >= start).Select(f => new
+            var languageId = CommonHelper.CurrentLanguageId;
+            var query = await GetActiveList().Where(f => f.PublishDate >= start && 
+            f.NewsCategories.Any(t => languageId == 0 || t.Category.LanguageId == languageId)).Select(f => new
             {
                 Id = f.Id,
                 ShortDescription = f.ShortDescription,
@@ -361,8 +362,9 @@ namespace DataAccess.Concrete.EntityFramework
         public async Task<List<MostViewedNewsDto>> GetLastWeekMostViewedNews(int limit)
         {
             DateTime start = DateTime.Now.AddDays(-1 * AppSettingsExtension.GetValue<int>("LastWeekMostViewedNewsDays"));
-
-            var query = await GetActiveList().Where(f => f.PublishDate >= start).Select(f => new
+            var languageId = CommonHelper.CurrentLanguageId;
+            var query = await GetActiveList().Where(f => f.PublishDate >= start &&
+            f.NewsCategories.Any(t => languageId == 0 || t.Category.LanguageId == languageId)).Select(f => new
             {
                 Id = f.Id,
                 ShortDescription = f.ShortDescription,

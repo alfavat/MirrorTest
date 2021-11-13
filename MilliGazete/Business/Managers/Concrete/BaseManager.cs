@@ -1,7 +1,6 @@
 ﻿using Business.Managers.Abstract;
 using Core.Extensions;
 using Core.Utilities.IoC;
-using Entity.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,24 +29,6 @@ namespace Business.Managers.Concrete
             {
                 _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
                 return _httpContextAccessor.HttpContext.User.GetClaimValue("isemployee").ToBool();
-            }
-        }
-
-        public Languages UserLanguage
-        {
-            get
-            {
-                _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
-                string language = _httpContextAccessor.HttpContext.Request.Headers["accept-language"].ToString();
-                switch (language)
-                {
-                    case "tr-TR":
-                        return Languages.Turkish;
-                    case "en-US":
-                        return Languages.English;
-                    default:
-                        return Languages.All;
-                }
             }
         }
 

@@ -16,14 +16,12 @@ namespace Business.Managers.Concrete
         private readonly IReporterDal _reporterDal;
         private readonly IMapper _mapper;
         private readonly INewsDal _newsDal;
-        private readonly IBaseService _baseService;
 
-        public ReporterAssistantManager(IReporterDal ReporterDal, IMapper mapper, INewsDal newsDal, IBaseService baseService)
+        public ReporterAssistantManager(IReporterDal ReporterDal, IMapper mapper, INewsDal newsDal)
         {
             _reporterDal = ReporterDal;
             _mapper = mapper;
             _newsDal = newsDal;
-            _baseService = baseService;
         }
 
         public async Task<Reporter> GetById(int reporterId)
@@ -67,8 +65,8 @@ namespace Business.Managers.Concrete
 
         public async Task<List<NewsViewDto>> GetListByReporterId(int reporterId)
         {
-            var languageId = (int)_baseService.UserLanguage;
-            var list = _newsDal.GetActiveList().Where(p => p.ReporterId == reporterId && p.NewsCategories.Any(f => (languageId == 0 || f.Category.LanguageId == languageId)))
+            var languageId = CommonHelper.CurrentLanguageId;
+            var list = _newsDal.GetActiveList().Where(p => p.ReporterId == reporterId && p.NewsCategories.Any(f => languageId == 0 || f.Category.LanguageId == languageId))
                 .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsAgencyEntity)

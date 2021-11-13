@@ -10,10 +10,12 @@ namespace Business.Managers.Concrete
     public class NewsDetailPageAssistantManager : INewsDetailPageAssistantService
     {
         private readonly INewsDal _newsDal;
+        private readonly IBaseService _baseService;
 
-        public NewsDetailPageAssistantManager(INewsDal NewsDal)
+        public NewsDetailPageAssistantManager(INewsDal NewsDal, IBaseService baseService)
         {
             _newsDal = NewsDal;
+            _baseService = baseService;
         }
 
         public async Task<List<MostViewedNewsDto>> GetLastWeekMostViewedNews(int limit)

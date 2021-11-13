@@ -18,29 +18,28 @@ namespace Business.Managers.Concrete
         private readonly INewsDal _newsDal;
         private readonly IFileAssistantService _fileAssistantService;
         private readonly IMapper _mapper;
-        private readonly IBaseService _baseService;
-        public NewsAssistantManager(INewsDal newsDal, IFileAssistantService fileAssistantService, IMapper mapper, IBaseService baseService)
+        public NewsAssistantManager(INewsDal newsDal, IFileAssistantService fileAssistantService, IMapper mapper)
         {
             _newsDal = newsDal;
             _mapper = mapper;
             _fileAssistantService = fileAssistantService;
-            _baseService = baseService;
         }
 
         public async Task<Tuple<List<NewsPagingViewDto>, int>> GetListByPaging(NewsPagingDto pagingDto)
         {
-            int languageId = (int)_baseService.UserLanguage;
             var query = _newsDal.GetList(f => !f.Deleted && f.IsLastNews)
                 .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsHitDetails)
                 .AsQueryable();
-            query = query.Where(prop => prop.NewsCategories.Any(prop => (languageId == 0 || prop.Category.LanguageId == languageId)));
 
             if (pagingDto.CategoryIds.HasValue())
             {
                 query = query.Where(f => f.NewsCategories.Any(g => pagingDto.CategoryIds.Contains(g.CategoryId) && !g.Category.Deleted));
             }
+
+            if (pagingDto.LanguageId.HasValue)
+                query = query.Where(f => f.NewsCategories.Any(r => pagingDto.LanguageId == 0 || r.Category.LanguageId == pagingDto.LanguageId));
 
             if (pagingDto.Query.StringNotNullOrEmpty())
                 query = query.Where(f => /*f.Url.ToLower().Contains(pagingDto.Query.ToLower()) ||*/
@@ -84,14 +83,14 @@ namespace Business.Managers.Concrete
 
         public async Task<NewsViewDto> GetViewById(int newsId)
         {
-            var languageId = (int)_baseService.UserLanguage;
+            var languageId = CommonHelper.CurrentLanguageId;
             var data = await _newsDal.GetView(p => p.Id == newsId && !p.Deleted && p.NewsCategories.Any(f => (languageId == 0 || f.Category.LanguageId == languageId)));
             return _mapper.Map<NewsViewDto>(data);
         }
 
         public async Task<NewsViewDto> GetViewByUrl(string url)
         {
-            var languageId = (int)_baseService.UserLanguage;
+            var languageId = CommonHelper.CurrentLanguageId;
             var historyNo = url.GetHistoryNoFromUrl();
             var data = await _newsDal.GetView(p => (p.HistoryNo == historyNo || p.Url == url) &&
             p.NewsCategories.Any(f => languageId == 0 || f.Category.LanguageId == languageId) &&
@@ -144,7 +143,7 @@ namespace Business.Managers.Concrete
 
         public async Task<List<NewsHistoryDto>> GetListByHistoryNo(int historyNo)
         {
-            var languageId = (int)_baseService.UserLanguage;
+            var languageId = CommonHelper.CurrentLanguageId;
             var list = _newsDal.GetList(p => !p.Deleted && p.HistoryNo == historyNo && p.NewsCategories.Any(f => (languageId == 0 || f.Category.LanguageId == languageId)))
                 .Include(p => p.NewsCategories).ThenInclude(p => p.Category)
                 .OrderByDescending(f => f.CreatedAt);
@@ -185,12 +184,14 @@ namespace Business.Managers.Concrete
 
         public async Task<List<ArticleDto>> GetLastWeekMostViewedArticles(int limit)
         {
+            var languageId = CommonHelper.CurrentLanguageId;
             var query = _newsDal.GetActiveList()
+                .Where(p => p.NewsTypeEntityId == (int)NewsTypeEntities.Article && p.AuthorId != null
+                && p.NewsCategories.Any(f => (languageId == 0 || f.Category.LanguageId == languageId)))
                 .Include(f => f.Author).ThenInclude(f => f.PhotoFile)
                 .Include(f => f.NewsFiles).ThenInclude(f => f.File)
                 .Include(f => f.NewsCounters)
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
-                .Where(p => p.NewsTypeEntityId == (int)NewsTypeEntities.Article && p.AuthorId != null)
                 .AsQueryable();
 
             return await _mapper.ProjectTo<ArticleDto>(query).OrderByDescending(f => f.ReadCount).Take(limit.CheckLimit()).ToListAsync();
@@ -198,8 +199,9 @@ namespace Business.Managers.Concrete
 
         public async Task<List<NewsViewDto>> GetListByAuthorId(int authorId)
         {
-            var languageId = (int)_baseService.UserLanguage;
-            var list = _newsDal.GetActiveList().Where(p => p.AuthorId == authorId && p.NewsCategories.Any(f => (languageId == 0 || f.Category.LanguageId == languageId)))
+            var languageId = CommonHelper.CurrentLanguageId;
+            var list = _newsDal.GetActiveList()
+                .Where(p => p.AuthorId == authorId && p.NewsCategories.Any(f => (languageId == 0 || f.Category.LanguageId == languageId)))
                 .Include(f => f.NewsTags).ThenInclude(f => f.Tag)
                 .Include(f => f.NewsCategories).ThenInclude(f => f.Category)
                 .Include(f => f.NewsAgencyEntity)
@@ -216,15 +218,16 @@ namespace Business.Managers.Concrete
 
         public async Task<ArticleDto> GetArticleByUrl(string url)
         {
-            var languageId = (int)_baseService.UserLanguage;
+            var languageId = CommonHelper.CurrentLanguageId;
             var historyNo = url.GetHistoryNoFromUrl();
             var item = await _newsDal.GetActiveList()
+                .Where(p => p.NewsTypeEntityId == (int)NewsTypeEntities.Article && p.AuthorId != null &&
+                (p.HistoryNo == historyNo || p.Url == url) &&
+                p.NewsCategories.Any(f => languageId == 0 || f.Category.LanguageId == languageId))
                 .Include(f => f.Author).ThenInclude(f => f.PhotoFile)
                 .Include(f => f.NewsFiles).ThenInclude(f => f.File)
                 .Include(f => f.NewsCounters)
-                .FirstOrDefaultAsync(p => p.NewsTypeEntityId == (int)NewsTypeEntities.Article && p.AuthorId != null &&
-                (p.HistoryNo == historyNo || p.Url == url) &&
-                p.NewsCategories.Any(f => languageId == 0 || f.Category.LanguageId == languageId));
+                .FirstOrDefaultAsync();
 
             return item != null ? _mapper.Map<ArticleDto>(item) : null;
         }

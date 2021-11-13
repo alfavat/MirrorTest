@@ -6,7 +6,7 @@ public static class AppSettingsExtension
 {
     public static T GetValue<T>(string key)
     {
-        var _config = EntityServiceTool.ServiceProvider.GetService<IConfiguration>();
-        return _config.GetSection(key).Get<T>();
+        var config = EntityServiceTool.ServiceProvider.GetService<IConfiguration>();
+        return config.GetSection(key).Get<T>();
     }
 }

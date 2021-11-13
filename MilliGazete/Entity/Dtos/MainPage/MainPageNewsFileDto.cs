@@ -9,6 +9,6 @@
         public string FileName { get; set; }
         public string CoverFileName { get; set; }
         public int NewsFileTypeEntityId { get; set; }
-        public virtual Entity.Models.Entity NewsFileTypeEntity { get; set; }
+        public virtual Models.Entity NewsFileTypeEntity { get; set; }
     }
 }
