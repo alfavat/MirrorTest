@@ -8,8 +8,6 @@ namespace Business.Managers.Abstract
     {
         Task UpdateNewsPositionOrders(List<NewsPositionUpdateDto> newsPositions);
         Task<List<NewsPositionDto>> GetOrdersByNewsPositionEntityId(int newsPositionEntityId, int limit);
-        Task IncreaseNewsPositionOrdersByEntityId(int newsPositionEntityId);
         Task ReOrderNewsPositionOrdersByNewsId(int id);
-        Task MoveSixteenthNewsToMainPageNewsPosition();
     }
 }

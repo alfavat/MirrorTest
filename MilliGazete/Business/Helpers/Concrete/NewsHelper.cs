@@ -113,7 +113,7 @@ namespace Business.Helpers.Concrete
                 msg = Messages.FlashNewsPublishDateError;
                 return false;
             }
-            var flashNewsMinutes =AppSettingsExtension.GetValue<int>("FlashNewsMinutes");
+            var flashNewsMinutes = AppSettingsExtension.GetValue<int>("FlashNewsMinutes");
             if (publishDateTime < DateTime.Now.AddMinutes(-1 * flashNewsMinutes)) // publish date must be bigger than 15(FlashNewsMinutes) minutes ago
             {
                 msg = Messages.FlashNewsPublishDateError;

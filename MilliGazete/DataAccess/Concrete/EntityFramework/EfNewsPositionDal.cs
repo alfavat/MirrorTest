@@ -45,18 +45,6 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public async Task IncreaseNewsPositionOrdersByEntityId(int newsPositionEntityId)
-        {
-            var newsIds = await Db.News.AsNoTracking().Where(u => u.Active && !u.Deleted && u.Approved.Value && !u.IsDraft && u.IsLastNews).Select(u => u.Id).ToListAsync();
-            var list = await Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == newsPositionEntityId && f.Order > 0).OrderBy(f => f.Order).ToListAsync();
-            if (list.HasValue())
-            {
-                list.ForEach(g => g.Order++);
-                if (list.Count > 35) list.Last().Order = 0;
-                var res = await Db.SaveChangesAsync();
-            }
-        }
-
         public async Task ReOrderNewsPositionOrdersByNewsId(int newsId)
         {
             var news = await Db.News.AsNoTracking().Where(u => u.Id == newsId).Include(f => f.NewsPositions).FirstOrDefaultAsync();
@@ -79,24 +67,6 @@ namespace DataAccess.Concrete.EntityFramework
             //        Db.SaveChanges();
             //    }
             //}
-        }
-
-        public async Task MoveSixteenthNewsToMainPageNewsPosition()
-        {
-            var newsIds = await Db.News.AsNoTracking().Where(u => u.Active && !u.Deleted && u.Approved.Value && !u.IsDraft && u.IsLastNews).Select(u => u.Id).ToListAsync();
-            var mainHeadingNewsPositions = await Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainHeadingNews && f.Order > 0)
-                .OrderBy(f => f.Order).Take(16).ToListAsync();
-            if (mainHeadingNewsPositions.HasValue() && mainHeadingNewsPositions.Count >= 16)
-            {
-                var mainPagePositions = await Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainPageNews && f.Order > 0).OrderBy(f => f.Order).ToListAsync();
-                mainPagePositions.ForEach(g => g.Order++);
-
-                var sixteenthNews = mainHeadingNewsPositions.Last();
-                sixteenthNews.Order = 1;
-                sixteenthNews.PositionEntityId = (int)Entity.Enums.NewsPositionEntities.MainPageNews;
-
-                var r = await Db.SaveChangesAsync();
-            }
         }
     }
 }

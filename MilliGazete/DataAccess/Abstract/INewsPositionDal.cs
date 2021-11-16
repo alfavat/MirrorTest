@@ -9,8 +9,6 @@ namespace DataAccess.Abstract
     public interface INewsPositionDal : IEntityRepository<NewsPosition>
     {
         Task UpdateNewsPositions(List<NewsPositionUpdateDto> newsPositions);
-        Task IncreaseNewsPositionOrdersByEntityId(int newsPositionEntityId);
         Task ReOrderNewsPositionOrdersByNewsId(int newsId);
-        Task MoveSixteenthNewsToMainPageNewsPosition();
     }
 }

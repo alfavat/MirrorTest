@@ -569,7 +569,11 @@ namespace DataAccess.Concrete.EntityFramework
 
         public IQueryable<News> GetActiveList()
         {
-            return Db.News.AsNoTracking().Where(f => !f.Deleted && f.Active && f.Approved.Value && !f.IsDraft && f.IsLastNews).AsQueryable();
+            var now = DateTime.Now.AddMinutes(5);
+            return Db.News.AsNoTracking().Where(f => !f.Deleted && f.Active && f.Approved.Value && !f.IsDraft && f.IsLastNews &&
+            (f.PublishDate.Value.Date < now.Date ||
+            (f.PublishDate.Value.Date == now.Date && f.PublishTime.Value <= now.TimeOfDay))
+            ).AsQueryable();
         }
 
         public IQueryable<News> GetNewsListByCategoryUrl(string url, out int headingPositionEntityId)
