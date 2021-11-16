@@ -1077,4 +1077,7 @@
   <data name="messageFlashNewsPublishDateError" xml:space="preserve">
     <value>Haberin flash olabilmesi için, haber'in yayın tarihinin şu anki saatten önce ve son 15 dakikadan sonra olması gerekir.</value>
   </data>
+  <data name="entityNotShowInMostViewdNews" xml:space="preserve">
+    <value>En Çok Okunan Haberlerde Gösterme</value>
+  </data>
 </root>

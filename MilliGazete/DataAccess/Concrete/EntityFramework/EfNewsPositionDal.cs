@@ -4,10 +4,8 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Entity.Dtos;
 using Entity.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
@@ -16,11 +14,6 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public EfNewsPositionDal(MilliGazeteDbContext milligazeteDb) : base(milligazeteDb)
         {
-        }
-
-        public IQueryable<NewsPosition> GetListWithDetails(Expression<Func<NewsPosition, bool>> filter)
-        {
-            return Db.NewsPositions.Where(filter).OrderBy(f => f.Order).Include(f => f.News).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File).Take(30).AsNoTracking().AsQueryable();
         }
 
         public async Task UpdateNewsPositions(List<NewsPositionUpdateDto> newsPositions)
@@ -95,7 +88,7 @@ namespace DataAccess.Concrete.EntityFramework
                 .OrderBy(f => f.Order).Take(16).ToListAsync();
             if (mainHeadingNewsPositions.HasValue() && mainHeadingNewsPositions.Count >= 16)
             {
-                var mainPagePositions = await Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainPageNews && f.Order > 0) .OrderBy(f => f.Order).ToListAsync();
+                var mainPagePositions = await Db.NewsPositions.Where(f => newsIds.Contains(f.NewsId) && f.PositionEntityId == (int)Entity.Enums.NewsPositionEntities.MainPageNews && f.Order > 0).OrderBy(f => f.Order).ToListAsync();
                 mainPagePositions.ForEach(g => g.Order++);
 
                 var sixteenthNews = mainHeadingNewsPositions.Last();

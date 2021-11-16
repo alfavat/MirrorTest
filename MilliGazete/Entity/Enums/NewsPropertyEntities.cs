@@ -4,5 +4,6 @@
     {
         CommentsActive = 13,
         AdsActive = 14,
+        NotShowInMostViewdNews = 80
     }
 }

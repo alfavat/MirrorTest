@@ -9,6 +9,7 @@ namespace Entity.Dtos
         public int? NewsTypeEntityId { get; set; }
         public int? NewsAgencyEntityId { get; set; }
         public string Title { get; set; } // 250
+        public string SubTitle { get; set; }
         public string ShortDescription { get; set; }
         public string HtmlContent { get; set; }
         public string InnerTitle { get; set; }

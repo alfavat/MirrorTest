@@ -52,7 +52,20 @@ namespace Business.Managers.Concrete
                 .Include(f => f.MainImageFile)
                 .Include(f => f.ThumbnailFile).AsQueryable();
             var data = await _mapper.ProjectTo<NewspaperDto>(list).ToListAsync();
-            return data.OrderBy(f => f.Name).ToList();
+            data = data.OrderBy(f => f.Name).ToList();
+            var milliGazete = data.FirstOrDefault(f => f.Name.ToLower() == AppSettingsExtension.GetValue<string>("MilliGazeteNewpaperName").ToLower());
+            if (milliGazete != null)
+            {
+                data.Remove(milliGazete);
+                data.Insert(0, milliGazete);
+            }
+            var milliGazeteNewpaperFilteredNames = AppSettingsExtension.GetValue<string[]>("MilliGazeteNewpaperFilteredNames");
+            if (milliGazeteNewpaperFilteredNames != null && milliGazeteNewpaperFilteredNames.Length > 0)
+            {
+                var filteredNames = milliGazeteNewpaperFilteredNames.Select(f => f.ToLower()).ToList();
+                data = data.Where(f => !filteredNames.Contains(f.Name.ToLower())).ToList();
+            }
+            return data;
         }
 
         public async Task<NewspaperDto> GetViewById(int id)

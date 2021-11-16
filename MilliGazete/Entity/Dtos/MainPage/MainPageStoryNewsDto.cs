@@ -14,6 +14,7 @@ namespace Entity.Dtos
     {
         public int NewsId { get; set; }
         public string Title { get; set; }
+        public string SubTitle { get; set; }
         public string Url { get; set; }
         public string ExternalLink { get; set; }
         public DateTime StoryDate { get; set; }

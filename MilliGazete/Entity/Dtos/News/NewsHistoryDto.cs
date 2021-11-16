@@ -8,6 +8,7 @@ namespace Entity.Dtos
         public int HistoryNo { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Title { get; set; }
+        public string SubTitle { get; set; }
         public string UserName { get; set; }
         public bool UseTitle { get; set; }
     }

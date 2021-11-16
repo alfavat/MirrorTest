@@ -7,6 +7,7 @@ namespace Entity.Dtos
         public int Id { get; set; }
         public int? AuthorId { get; set; }
         public string Title { get; set; }
+        public string SubTitle { get; set; }
         public string HtmlContent { get; set; }
         public string Url { get; set; }
         public int ReadCount { get; set; }

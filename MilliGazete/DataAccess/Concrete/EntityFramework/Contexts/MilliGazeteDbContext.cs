@@ -777,6 +777,11 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .HasMaxLength(250)
                     .HasColumnName("title");
 
+                entity.Property(e => e.SubTitle)
+                    .HasColumnType("character varying")
+                    .HasMaxLength(100)
+                    .HasColumnName("sub_title");
+
                 entity.Property(e => e.UpdateUserId).HasColumnName("update_user_id");
 
                 entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");

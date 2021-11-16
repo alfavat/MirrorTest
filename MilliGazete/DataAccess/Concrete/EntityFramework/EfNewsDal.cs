@@ -320,7 +320,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             DateTime start = DateTime.Now.AddDays(-1 * AppSettingsExtension.GetValue<int>("MostShareNewsDays"));
             var languageId = CommonHelper.CurrentLanguageId;
-            var query = await GetActiveList().Where(f => f.PublishDate >= start && 
+            var query = await GetActiveList().Where(f => f.PublishDate >= start &&
             f.NewsCategories.Any(t => languageId == 0 || t.Category.LanguageId == languageId)).Select(f => new
             {
                 Id = f.Id,
@@ -364,7 +364,9 @@ namespace DataAccess.Concrete.EntityFramework
             DateTime start = DateTime.Now.AddDays(-1 * AppSettingsExtension.GetValue<int>("LastWeekMostViewedNewsDays"));
             var languageId = CommonHelper.CurrentLanguageId;
             var query = await GetActiveList().Where(f => f.PublishDate >= start &&
-            f.NewsCategories.Any(t => languageId == 0 || t.Category.LanguageId == languageId)).Select(f => new
+            f.NewsCategories.Any(t => languageId == 0 || t.Category.LanguageId == languageId) &&
+            !f.NewsProperties.Any(g => g.PropertyEntityId == (int)NewsPropertyEntities.NotShowInMostViewdNews && g.Value == true)
+            ).Select(f => new
             {
                 Id = f.Id,
                 ShortDescription = f.ShortDescription,

@@ -26,10 +26,14 @@ namespace Business.Managers.Concrete
 
         public async Task<List<NewsPositionDto>> GetOrdersByNewsPositionEntityId(int newsPositionEntityId, int limit)
         {
-            var list = _newsPositionDal.GetListWithDetails(f =>
+            var list = _newsPositionDal.GetList(f =>
             f.PositionEntityId == newsPositionEntityId && !f.News.Deleted && f.News.Active &&
-            f.News.Approved.Value && !f.News.IsDraft && f.News.IsLastNews && f.Order > 0).OrderBy(u => u.Order);
-            return await _mapper.ProjectTo<NewsPositionDto>(list).Take(limit.CheckLimit()).ToListAsync();
+            f.News.Approved.Value && !f.News.IsDraft && f.News.IsLastNews && f.Order > 0)
+                .OrderBy(f => f.Order)
+                .Take(limit.CheckLimit())
+                .Include(f => f.News).ThenInclude(f => f.NewsFiles).ThenInclude(f => f.File)
+                .AsQueryable();
+            return await _mapper.ProjectTo<NewsPositionDto>(list).ToListAsync();
         }
 
         public async Task IncreaseNewsPositionOrdersByEntityId(int newsPositionEntityId)

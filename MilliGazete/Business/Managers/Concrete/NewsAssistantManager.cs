@@ -42,11 +42,9 @@ namespace Business.Managers.Concrete
                 query = query.Where(f => f.NewsCategories.Any(r => pagingDto.LanguageId == 0 || r.Category.LanguageId == pagingDto.LanguageId));
 
             if (pagingDto.Query.StringNotNullOrEmpty())
-                query = query.Where(f => /*f.Url.ToLower().Contains(pagingDto.Query.ToLower()) ||*/
-                /*f.SeoDescription.ToLower().Contains(pagingDto.Query.ToLower()) || f.SeoKeywords.ToLower().Contains(pagingDto.Query.ToLower()) ||*/
-                /*f.HtmlContent.ToLower().Contains(pagingDto.Query.ToLower()) || f.SeoTitle.ToLower().Contains(pagingDto.Query.ToLower()) ||*/
-                f.ShortDescription.ToLower().Contains(pagingDto.Query.ToLower()) || //f.SocialDescription.ToLower().Contains(pagingDto.Query.ToLower()) ||
-                 /*f.SocialTitle.ToLower().Contains(pagingDto.Query.ToLower()) ||*/ f.Title.ToLower().Contains(pagingDto.Query.ToLower()));
+                query = query.Where(f =>
+                f.ShortDescription.ToLower().Contains(pagingDto.Query.ToLower()) ||
+                 (f.HistoryNo != null && f.HistoryNo.ToString().ToLower().Contains(pagingDto.Query.ToLower())) || f.Title.ToLower().Contains(pagingDto.Query.ToLower()));
 
             if (pagingDto.Active.HasValue)
                 query = query.Where(f => f.Active == pagingDto.Active.Value);
