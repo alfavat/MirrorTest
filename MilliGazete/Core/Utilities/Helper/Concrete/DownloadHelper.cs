@@ -34,7 +34,7 @@ namespace Core.Utilities.Helper.Concrete
                     return Path.Combine(destinationPath, imageName + extension);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return string.Empty;
             }

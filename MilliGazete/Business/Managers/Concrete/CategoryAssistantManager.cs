@@ -2,6 +2,7 @@
 using Business.Managers.Abstract;
 using DataAccess.Abstract;
 using Entity.Dtos;
+using Entity.Enums;
 using Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Business.Managers.Concrete
         }
         public List<CategoryDto> GetListByPaging(CategoryPagingDto pagingDto, out int total)
         {
-            var list = _categoryDal.GetList(f => !f.Deleted).Include(f => f.FeaturedImageFile).Include(prop=>prop.Language);
+            var list = _categoryDal.GetList(f => !f.Deleted).Include(f => f.FeaturedImageFile).Include(prop => prop.Language);
             var query = _mapper.ProjectTo<CategoryDto>(list);
 
             if (pagingDto.Query.StringNotNullOrEmpty())
@@ -82,7 +83,8 @@ namespace Business.Managers.Concrete
         }
         public async Task<List<CategoryDto>> GetActiveList()
         {
-            var list = _categoryDal.GetList(p => !p.Deleted && p.Active).Include(f => f.FeaturedImageFile);
+            var languageId = CommonHelper.CurrentLanguageId;
+            var list = _categoryDal.GetList(p => !p.Deleted && p.Active && (languageId == (int)Languages.All || p.LanguageId == languageId)).Include(f => f.FeaturedImageFile);
             return await _mapper.ProjectTo<CategoryDto>(list).ToListAsync();
         }
 
