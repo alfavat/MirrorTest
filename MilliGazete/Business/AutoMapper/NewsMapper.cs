@@ -69,6 +69,13 @@ namespace Business.AutoMapper
               .ForMember(f => f.NewsTagList, g => g.MapFrom(u => u.NewsTags.Where(f => !f.Tag.Deleted)))
               .ForMember(f => f.NewsCategoryList, g => g.MapFrom(u => u.NewsCategories.Select(x => x.Category)));
 
+            CreateMap<News, NewsDetailPagePagingDto>()
+             .ForMember(f => f.Url, u => u.MapFrom(g => g.Url.GetUrl(g.HistoryNo, g.NewsTypeEntityId, g.NewsCategories.Select(e => e.Category.Url).FirstOrDefault())))
+             .ForMember(f => f.ImageUrl,
+                u => u.MapFrom(g =>
+                g.NewsFiles.Where(t => t.NewsFileTypeEntityId == (int)NewsFileTypeEntities.NormalImage)
+                .Select(w => w.File.FileName).FirstOrDefault().GetFullFilePath()));
+
             CreateMap<News, FlashNewsDto>()
                 .ForMember(f => f.NewsId, u => u.MapFrom(g => g.Id))
                 .ForMember(f => f.Url, u => u.MapFrom(g => g.Url.GetUrl(g.HistoryNo, g.NewsTypeEntityId, g.NewsCategories.Select(e => e.Category.Url).FirstOrDefault())));

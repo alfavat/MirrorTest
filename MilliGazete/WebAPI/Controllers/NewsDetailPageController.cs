@@ -55,5 +55,22 @@ namespace WebAPI.Controllers
                 return Ok(new { data = new { data = result.Data.Item1, count = result.Data.Item2 }, result.Message, result.Success });
             return BadRequest(result);
         }
+
+        [HttpGet("getnewswithdetailsbypaging2")]
+        public async Task<IActionResult> GetNewsWithDetailsByPaging2(string url, int? newsId, string query, int limit = 10, string orderBy = "Id", int page = 1, int ascending = 2)
+        {
+            var result = await _newsDetailPageService.GetNewsWithDetailsByPaging2(new MainPageNewsPagingDto()
+            {
+                Query = query,
+                Limit = limit,
+                OrderBy = orderBy + (ascending == 1 ? " ascending" : " descending"),
+                PageNumber = page,
+                Url = url,
+                NewsId = newsId
+            });
+            if (result.Success)
+                return Ok(new { data = new { data = result.Data.Item1, count = result.Data.Item2 }, result.Message, result.Success });
+            return BadRequest(result);
+        }
     }
 }

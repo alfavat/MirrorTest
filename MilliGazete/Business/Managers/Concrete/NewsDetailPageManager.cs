@@ -12,12 +12,10 @@ namespace Business.Managers.Concrete
     public class NewsDetailPageManager : INewsDetailPageService
     {
         private readonly INewsDetailPageAssistantService _newsDetailPageAssistantService;
-        private readonly IBaseService _baseService;
 
-        public NewsDetailPageManager(INewsDetailPageAssistantService newsDetailPageAssistantService , IBaseService baseService)
+        public NewsDetailPageManager(INewsDetailPageAssistantService newsDetailPageAssistantService)
         {
             _newsDetailPageAssistantService = newsDetailPageAssistantService;
-            _baseService = baseService;
         }
 
         [CacheAspect()]
@@ -38,14 +36,14 @@ namespace Business.Managers.Concrete
         [PerformanceAspect()]
         public async Task<IDataResult<NewsDetailPageDto>> GetNewsWithDetails(string url)
         {
-            return new SuccessDataResult<NewsDetailPageDto>(await _newsDetailPageAssistantService.GetNewsWithDetails(url, preview: url.GetPreviewFromUrl(),requestedUserId: _baseService.RequestUserId));
+            return new SuccessDataResult<NewsDetailPageDto>(await _newsDetailPageAssistantService.GetNewsWithDetails(url, preview: url.GetPreviewFromUrl()));
         }
 
         [CacheAspect()]
         [PerformanceAspect()]
         public async Task<IDataResult<NewsDetailPageDto>> GetNewsWithDetailsById(int id, bool preview = false)
         {
-            return new SuccessDataResult<NewsDetailPageDto>(await _newsDetailPageAssistantService.GetNewsWithDetails("", id, preview ,requestedUserId: _baseService.RequestUserId));
+            return new SuccessDataResult<NewsDetailPageDto>(await _newsDetailPageAssistantService.GetNewsWithDetails("", id, preview));
         }
 
         [PerformanceAspect()]
@@ -53,6 +51,13 @@ namespace Business.Managers.Concrete
         {
             return new SuccessDataResult<Tuple<List<NewsDetailPageDto>, int>>(await _newsDetailPageAssistantService.GetNewsWithDetailsByPaging(pagingDto));
         }
+
+        [PerformanceAspect()]
+        public async Task<IDataResult<Tuple<List<NewsDetailPagePagingDto>, int>>> GetNewsWithDetailsByPaging2(MainPageNewsPagingDto pagingDto)
+        {
+            return new SuccessDataResult<Tuple<List<NewsDetailPagePagingDto>, int>>(await _newsDetailPageAssistantService.GetNewsWithDetailsByPaging2(pagingDto));
+        }
+
 
 
     }
